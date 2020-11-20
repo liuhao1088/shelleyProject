@@ -1,12 +1,6 @@
+@import "/template/myTemplate.wxss";
 .container{
   background-color: #101721;
-}
-
-image {
-  height: 100%;
-  width: 100%;
-  vertical-align: middle;
-  text-align: center; 
 }
 
 .header{
@@ -23,9 +17,6 @@ image {
   margin-top: 60rpx;
 }
 
-.footer{
-  width: 100%;
-  padding-top: 40rpx;
-}
+
 
 

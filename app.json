@@ -1,6 +1,13 @@
 {
   "pages":[
-    "pages/index/index"
+    "pages/index/index",
+    "pages/rTwo/rTwo",
+    "pages/bTwo/bTwo",
+    "pages/bThree/bThree",
+    "pages/tThree/tThree",
+    "pages/sThree/sThree",
+    
+    "pages/rOne/rOne"
   ],
   "window":{
     "backgroundTextStyle":"light",

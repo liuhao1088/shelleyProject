@@ -1,0 +1,12 @@
+<template name="detail">
+  <view class="container">
+    <image mode="widthFix" src="{{url}}">
+    </image>
+  </view>
+</template>
+
+<template name="img">
+  <image mode="widthFix"
+      src="{{imgUrl}}">
+  </image>
+</template>
