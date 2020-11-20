@@ -1,12 +1,13 @@
 {
   "pages":[
+    "pages/video/video",
     "pages/index/index",
     "pages/rTwo/rTwo",
     "pages/bTwo/bTwo",
     "pages/bThree/bThree",
     "pages/tThree/tThree",
     "pages/sThree/sThree",
-    "pages/video/video",
+  
     "pages/rOne/rOne"
   ],
   "window":{
