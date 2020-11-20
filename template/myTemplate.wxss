@@ -4,3 +4,7 @@ image {
   vertical-align: middle;
   text-align: center; 
 }
+
+.footer{
+  background-color: #272727;
+}

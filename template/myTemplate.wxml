@@ -6,7 +6,9 @@
 </template>
 
 <template name="img">
-  <image mode="widthFix"
-      src="{{imgUrl}}">
-  </image>
+  <view class="footer">
+    <image mode="widthFix" src="{{imgUrl}}">
+    </image>
+  </view>
+
 </template>
