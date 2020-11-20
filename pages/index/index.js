@@ -12,10 +12,12 @@ Page({
       'https://img11.360buyimg.com/ddimg/jfs/t1/122546/28/19388/99801/5fb77f8aE5bcec9c5/dd12a83a33c44745.png',
       'https://img14.360buyimg.com/ddimg/jfs/t1/145889/37/14730/88666/5fb77fa0Eddfcea31/7132ccdce4f86f6d.png',
       'https://img12.360buyimg.com/ddimg/jfs/t1/121576/23/19358/91213/5fb77fafEddf3b1e2/56368d754af746aa.png'
-    ],
-    item:{
-      imgUrl:'https://img13.360buyimg.com/ddimg/jfs/t1/137890/36/15087/195882/5fb7784cEea2d2e2b/b89f57235b0f4d83.jpg'
-    }
+    ]
+  },
+  toVideo(){
+    wx.navigateTo({
+      url: '/pages/video/video',
+    })
   },
   toSubnav(event){
     let id = event.currentTarget.id;

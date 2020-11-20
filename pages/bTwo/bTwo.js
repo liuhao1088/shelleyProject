@@ -6,11 +6,10 @@ Page({
    */
   data: {
     item: {
-      url:'https://img13.360buyimg.com/ddimg/jfs/t1/147596/28/15305/513045/5fb7a774E4232cd0b/d2e64c56d632360a.jpg'
-    },
-    imgData:{
+      url:'https://img13.360buyimg.com/ddimg/jfs/t1/147596/28/15305/513045/5fb7a774E4232cd0b/d2e64c56d632360a.jpg',
       imgUrl:'https://img13.360buyimg.com/ddimg/jfs/t1/137890/36/15087/195882/5fb7784cEea2d2e2b/b89f57235b0f4d83.jpg'
     }
+    
   },
 
   /**

@@ -16,9 +16,12 @@
     </view>
   </view>
 
-  <image style="width: 90%;padding-bottom: 40rpx;" mode="widthFix"
+  <image bindtap="toVideo" style="width: 90%;padding-bottom: 40rpx;" mode="widthFix"
     src="https://img10.360buyimg.com/ddimg/jfs/t1/126165/29/19314/16926/5fb78030E8d012bf0/959f408d5cc14b9b.png">
   </image>
 
-  <template is="img" data="{{...item}}"></template>
+  <image mode="widthFix"
+    src="https://img13.360buyimg.com/ddimg/jfs/t1/137890/36/15087/195882/5fb7784cEea2d2e2b/b89f57235b0f4d83.jpg">
+  </image>
+
 </view>
