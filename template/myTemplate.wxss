@@ -5,6 +5,13 @@ image {
   text-align: center; 
 }
 
+.header{
+  width: 100%;
+  float: left;
+}
+
 .footer{
+  width: 100%;
+  float: left;
   background-color: #272727;
 }

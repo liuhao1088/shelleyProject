@@ -1,2 +1,22 @@
-<!--pages/video/video.wxml-->
-<text>pages/video/video.wxml</text>
+<view class="container">
+  <view class="header">
+    <image mode="widthFix"
+      src="https://img13.360buyimg.com/ddimg/jfs/t1/139571/35/14958/122358/5fb7b979E2eac7051/0a7f29c0ca173344.jpg">
+    </image>
+  </view>
+
+  <view class="video_div">
+    <view class="video_nr" wx:for="{{videoList}}">
+      <video style=" width: 100%;height: 100%;" src="{{item}}" object-fit="cover"></video>
+    </view>
+
+  </view>
+
+
+
+  <view class="footer">
+    <image mode="widthFix"
+      src="https://img13.360buyimg.com/ddimg/jfs/t1/137890/36/15087/195882/5fb7784cEea2d2e2b/b89f57235b0f4d83.jpg">
+    </image>
+  </view>
+</view>
