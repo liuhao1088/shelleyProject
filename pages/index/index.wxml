@@ -1,15 +1,27 @@
 <view class="container">
-  <view class="tag_maxdiv" style="width:100%;">
-   
+  <view class="header">
+    <image mode="widthFix"
+      src="https://img10.360buyimg.com/ddimg/jfs/t1/132770/34/16653/157003/5fb7740cE97a601e0/9fafaa1a8d4edc4d.jpg">
+    </image>
+    <image style="width: 90%;" mode="widthFix"
+      src="https://img10.360buyimg.com/ddimg/jfs/t1/141864/20/15138/50740/5fb7777bEe18cf63d/5ff3fe7cbc5f0b87.png">
+    </image>
   </view>
 
-  <view class="tag_maxdiv" style="width: 100%;">
-    <view class="yxzc_div">
-      <image mode="widthFix"
-        src="https://img11.360buyimg.com/ddimg/jfs/t1/122822/19/16818/26516/5f9cff42Edc27ae6e/8effc0c64e2f09c2.png">
+  <view class="header" style="width: 90%;margin-top: 50rpx;padding-bottom: 80rpx;">
+    <view class="navItem" wx:for="{{url}}" wx:key="id">
+      <image mode="widthFix" src="{{item}}">
       </image>
     </view>
   </view>
 
-  
+  <image style="width: 90%;" mode="widthFix"
+    src="https://img10.360buyimg.com/ddimg/jfs/t1/126165/29/19314/16926/5fb78030E8d012bf0/959f408d5cc14b9b.png">
+  </image>
+
+  <view class="footer">
+    <image mode="widthFix"
+      src="https://img13.360buyimg.com/ddimg/jfs/t1/137890/36/15087/195882/5fb7784cEea2d2e2b/b89f57235b0f4d83.jpg">
+    </image>
+  </view>
 </view>
