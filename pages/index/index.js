@@ -14,6 +14,45 @@ Page({
       'https://img12.360buyimg.com/ddimg/jfs/t1/121576/23/19358/91213/5fb77fafEddf3b1e2/56368d754af746aa.png'
     ]
   },
+  toSubnav(event){
+    let id = event.currentTarget.id;
+    if(id === '0'){
+      console.log(id);
+      wx.navigateTo({
+        url: '/pages/rOne/rOne',
+      })
+    }else if(id === '1'){
+      console.log(id);
+      wx.navigateTo({
+        url: '/pages/rOne/rOne',
+      })
+    }
+    else if(id === '2'){
+      console.log(id);
+      wx.navigateTo({
+        url: '/pages/rOne/rOne',
+      })
+    }
+    else if(id === '3'){
+      console.log(id);
+      wx.navigateTo({
+        url: '/pages/rOne/rOne',
+      })
+    }
+    else if(id === '4'){
+      console.log(id);
+      wx.navigateTo({
+        url: '/pages/rOne/rOne',
+      })
+    }
+    else{
+      console.log(id);
+      wx.navigateTo({
+        url: '/pages/rOne/rOne',
+      })
+    }
+
+  },
 
   /**
    * 生命周期函数--监听页面加载

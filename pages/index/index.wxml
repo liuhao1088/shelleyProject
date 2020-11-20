@@ -9,7 +9,7 @@
   </view>
 
   <view class="header" style="width: 90%;margin-top: 50rpx;padding-bottom: 80rpx;">
-    <view class="navItem" wx:for="{{url}}" wx:key="id">
+    <view class="navItem" wx:for="{{url}}" wx:key="id" id="{{index}}" bindtap="toSubnav">
       <image mode="widthFix" src="{{item}}">
       </image>
     </view>
