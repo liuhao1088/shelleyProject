@@ -12,6 +12,14 @@ Page({
     ]
   },
 
+  handlePlay(event){
+    let vid = event.currentTarget.id;
+    //关闭上一个播放的视频
+    this.vid !== vid && this.videoContext && this.videoContext.stop();
+    this.vid = vid;
+    //创建控制视频标签的实例对象
+    this.videoContext = wx.createVideoContext(vid);
+  },
   /**
    * 生命周期函数--监听页面加载
    */

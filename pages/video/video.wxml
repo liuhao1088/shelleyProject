@@ -6,7 +6,7 @@
   </view>
 
   <view class="video_div">
-    <video class="video_nr" wx:for="{{videoList}}" src="{{item}}" object-fit="cover"></video>
+    <video class="video_nr" wx:for="{{videoList}}" wx:key="id" id="{{index}}" src="{{item}}" object-fit="cover" bindplay="handlePlay"></video>
   </view>
 
   <view class="footer">
