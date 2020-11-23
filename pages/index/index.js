@@ -6,12 +6,12 @@ Page({
    */
   data: {
     url:[
-      'https://img12.360buyimg.com/ddimg/jfs/t1/125749/18/18992/88955/5fb77bf7Ef28aef02/9969721a65f206f0.png',
+      'https://img12.360buyimg.com/ddimg/jfs/t1/148705/14/15342/31361/5fbb2538E10f5782c/01b82dfee5771477.png',
       'https://img11.360buyimg.com/ddimg/jfs/t1/149801/9/15214/84373/5fb77f5fE6703b3e3/cfc63e812c95bd6a.png',
       'https://img11.360buyimg.com/ddimg/jfs/t1/131154/14/16544/101703/5fb77f7bEf9dae1d6/a2e338acd1913cb2.png',
       'https://img11.360buyimg.com/ddimg/jfs/t1/122546/28/19388/99801/5fb77f8aE5bcec9c5/dd12a83a33c44745.png',
-      'https://img14.360buyimg.com/ddimg/jfs/t1/145889/37/14730/88666/5fb77fa0Eddfcea31/7132ccdce4f86f6d.png',
-      'https://img12.360buyimg.com/ddimg/jfs/t1/121576/23/19358/91213/5fb77fafEddf3b1e2/56368d754af746aa.png'
+      'https://img10.360buyimg.com/ddimg/jfs/t1/153564/6/6918/31485/5fbb2566Ef69e10fb/37895c04bd3f96b7.png',
+      'https://img12.360buyimg.com/ddimg/jfs/t1/121051/8/19558/32587/5fbb2550Ea70b561f/ed4f4616ae1b543b.png'
     ]
   },
   toVideo(){

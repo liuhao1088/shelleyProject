@@ -5,10 +5,10 @@
       </image>
     </view>
 
-    <view class="header" wx:if="{{urlTwo}}">
+    <!-- <view class="header" wx:if="{{urlTwo}}">
       <image mode="widthFix" src="{{urlTwo}}">
       </image>
-    </view>
+    </view> -->
 
     <view class="footer">
       <image mode="widthFix" src="{{imgUrl}}">
