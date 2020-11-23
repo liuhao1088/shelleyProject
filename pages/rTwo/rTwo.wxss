@@ -1,4 +1,4 @@
 @import "/template/myTemplate.wxss";
 .container{
-  background-color: #1b2034;
+  background-color: #092054;
 }

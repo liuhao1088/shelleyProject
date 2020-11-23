@@ -7,7 +7,7 @@ Page({
   data: {
     item: {
       url:'https://img12.360buyimg.com/ddimg/jfs/t1/122042/1/19409/1169229/5fbb2762E300f461c/87c91a4f712dea74.jpg',
-      imgUrl:'https://img13.360buyimg.com/ddimg/jfs/t1/137890/36/15087/195882/5fb7784cEea2d2e2b/b89f57235b0f4d83.jpg'
+      imgUrl:'https://img14.360buyimg.com/ddimg/jfs/t1/129869/16/16886/195207/5fbb2a0fE36f97702/5e59e714a36e1980.jpg'
     },
   },
 

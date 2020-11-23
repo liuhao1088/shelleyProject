@@ -6,9 +6,11 @@ Page({
    */
   data: {
     videoList:[
-      'https://fnck-20200914-1303154931.cos.ap-guangzhou.myqcloud.com/%E8%A7%86%E9%A2%91/%E9%9B%AA%E8%8E%B1%E7%89%B9/%E9%9B%AA%E8%8E%B1%E7%89%B9%20R2.mp4?q-sign-algorithm=sha1&q-ak=AKIDHL7fPrFwXrtdX9SYLq75j5BxTeFbR3KK&q-sign-time=1605876497;10245790097&q-key-time=1605876497;10245790097&q-header-list=&q-url-param-list=&q-signature=d4d114103b4519e9b83920355c532a0aa5e483c8',
       'https://fnck-20200914-1303154931.cos.ap-guangzhou.myqcloud.com/%E8%A7%86%E9%A2%91/%E9%9B%AA%E8%8E%B1%E7%89%B9/%E9%9B%AA%E8%8E%B1%E7%89%B9R1%204%20%281%29.mp4?q-sign-algorithm=sha1&q-ak=AKIDHL7fPrFwXrtdX9SYLq75j5BxTeFbR3KK&q-sign-time=1605876508;10245790108&q-key-time=1605876508;10245790108&q-header-list=&q-url-param-list=&q-signature=7277a423500f9c017a4b856e75b17a109f20f764',
-      'https://fnck-20200914-1303154931.cos.ap-guangzhou.myqcloud.com/%E8%A7%86%E9%A2%91/%E9%9B%AA%E8%8E%B1%E7%89%B9/%E9%9B%AA%E8%8E%B1%E7%89%B9R2.mp4?q-sign-algorithm=sha1&q-ak=AKIDHL7fPrFwXrtdX9SYLq75j5BxTeFbR3KK&q-sign-time=1605876516;10245790116&q-key-time=1605876516;10245790116&q-header-list=&q-url-param-list=&q-signature=f57b8f025d0ec72a97b31f25cca74b19f61d7d3c'
+      'https://fnck-20200914-1303154931.cos.ap-guangzhou.myqcloud.com/%E8%A7%86%E9%A2%91/%E9%9B%AA%E8%8E%B1%E7%89%B9/%E9%9B%AA%E8%8E%B1%E7%89%B9R2.mp4?q-sign-algorithm=sha1&q-ak=AKIDHL7fPrFwXrtdX9SYLq75j5BxTeFbR3KK&q-sign-time=1605876516;10245790116&q-key-time=1605876516;10245790116&q-header-list=&q-url-param-list=&q-signature=f57b8f025d0ec72a97b31f25cca74b19f61d7d3c',
+      'https://fnck-20200914-1303154931.cos.ap-guangzhou.myqcloud.com/%E8%A7%86%E9%A2%91/%E9%9B%AA%E8%8E%B1%E7%89%B9/%E9%9B%AA%E8%8E%B1%E7%89%B9%20R2.mp4?q-sign-algorithm=sha1&q-ak=AKIDHL7fPrFwXrtdX9SYLq75j5BxTeFbR3KK&q-sign-time=1605876497;10245790097&q-key-time=1605876497;10245790097&q-header-list=&q-url-param-list=&q-signature=d4d114103b4519e9b83920355c532a0aa5e483c8'
+     
+     
     ]
   },
 
