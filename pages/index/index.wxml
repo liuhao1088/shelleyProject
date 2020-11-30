@@ -16,6 +16,8 @@
     </view>
   </view>
 
+
+
   <image bindtap="toVideo" style="width: 90%;padding-bottom: 40rpx;" mode="widthFix"
     src="https://img10.360buyimg.com/ddimg/jfs/t1/126165/29/19314/16926/5fb78030E8d012bf0/959f408d5cc14b9b.png">
   </image>
