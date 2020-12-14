@@ -3,12 +3,59 @@
   <view class="header">
     <view class="header-img">
       <image mode="widthFix"
-      src="https://img10.360buyimg.com/ddimg/jfs/t1/132770/34/16653/157003/5fb7740cE97a601e0/9fafaa1a8d4edc4d.jpg">
-    </image>
+        src="https://img10.360buyimg.com/ddimg/jfs/t1/132770/34/16653/157003/5fb7740cE97a601e0/9fafaa1a8d4edc4d.jpg">
+      </image>
     </view>
     <view class="wrap">
       <view class="wrap-topbar">
-        <view class="topbar"></view>
+        <view class="topbar">
+
+          <view class="topbar-item">
+            <view class="topbar-icon">
+              <text class="iconfont iconqian icon"></text>
+            </view>
+            <view class="topbar-guild">
+              <view class="topbar-title">拼团特惠</view>
+              <view class="topbar-msg">超值拼团价，仅限今日</view>
+            </view>
+          </view>
+
+          <view class="topbar-item">
+            <view class="topbar-icon">
+              <text class="iconfont iconstore icon" style=" font-size: 56rpx;"></text>
+            </view>
+            <view class="topbar-guild">
+              <view class="topbar-title">预约门店</view>
+              <view class="topbar-msg">立即预约零等待体验</view>
+            </view>
+          </view>
+
+          <!-- <view class="topbar-item">
+            <view class="topbar-icon">
+              <text class="iconfont iconstore icon" style=" font-size: 56rpx;"></text>
+            </view>
+            <view class="topbar-guild">
+              <view class="topbar-title">我的门店</view>
+              <view class="topbar-msg">活动配置/门店管理</view>
+            </view>
+          </view> -->
+
+        </view>
+
+        <view class="wrap-coupons">
+          <view class="wrap-couponsItem">
+            <text class="iconfont iconquan" style="margin-right: 15rpx;font-size:28rpx"></text>
+            我的卡券</view>
+          <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: right;">当前暂无可用券</view>
+        </view>
+
+        <!-- <view class="wrap-coupons">
+          <view class="wrap-couponsItem">
+            <text class="iconfont iconyuyue" style="margin-right: 15rpx;font-size:28rpx"></text>
+            车主预约</view>
+          <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: right;">当前无预约待处理</view>
+        </view> -->
+
       </view>
       <view class="wrap-img"></view>
     </view>
