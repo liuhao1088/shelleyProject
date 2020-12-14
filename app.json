@@ -9,13 +9,14 @@
     "pages/sThree/sThree",
     "pages/rOne/rOne"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
-    "navigationBarTextStyle":"black",
-    
-    "navigationStyle": "custom"
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#03080e",
+    "navigationBarTitleText": "雪莱特",
+    "navigationBarTextStyle": "white"
+  },
+  "usingComponents": {
+    "authorize": "components/authorize/authorize"
   },
   "sitemapLocation": "sitemap.json"
 }

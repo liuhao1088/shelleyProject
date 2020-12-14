@@ -1,12 +1,20 @@
 <import src="/template/myTemplate.wxml"></import>
 <view class="container">
   <view class="header">
-    <image mode="widthFix"
+    <view class="header-img">
+      <image mode="widthFix"
       src="https://img10.360buyimg.com/ddimg/jfs/t1/132770/34/16653/157003/5fb7740cE97a601e0/9fafaa1a8d4edc4d.jpg">
     </image>
-    <image style="width: 90%;" mode="widthFix"
+    </view>
+    <view class="wrap">
+      <view class="wrap-topbar">
+        <view class="topbar"></view>
+      </view>
+      <view class="wrap-img"></view>
+    </view>
+    <!-- <image style="width: 90%;" mode="widthFix"
       src="https://img10.360buyimg.com/ddimg/jfs/t1/141864/20/15138/50740/5fb7777bEe18cf63d/5ff3fe7cbc5f0b87.png">
-    </image>
+    </image> -->
   </view>
 
   <view class="header" style="width: 90%;margin-top: 50rpx;padding-bottom: 80rpx;">
