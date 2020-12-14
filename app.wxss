@@ -1,6 +1,7 @@
 @import "/static/iconfont/iconfont.wxss";
 @import './style/weui.wxss';
 @import './style/main.wxss';
+@import './style/icon.wxss';
 page{
   height: 100%;
 }
