@@ -33,11 +33,11 @@
 
   <view class="form-item">
     <view class="form-title">选择商品</view>
-    <view class="form-input">
-      请选择想要体验的商品，可多选
+    <view class="form-input" bindtap="showModal" data-target="ChooseModal">
+      {{nameList}}
     </view>
   </view>
-  <view class="form-item">
+  <view class="form-item" style="margin-top: 4rpx;">
     <view class="form-title">到店时间</view>
     <view class="form-input">
       <picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange"
@@ -51,8 +51,31 @@
       
     </view>
   </view>
+
+  <view class="experience-item" style="background-color: #202937;margin-top: 4rpx;">
+    预约好礼
+  </view>
+  <view class="text-item">
+    现在预约在活动期内到店即可领取奖品1~
+  </view>
+
 </view>
 
 <view class="btn-item">
   <button>预   约</button>
+</view>
+
+<!-- 选择商品 -->
+<view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap="hideModal">
+  <view class="cu-dialog" catchtap>
+    <view class="cu-bar bg-white" style="justify-content: flex-end;">
+      <view class="action text-green" bindtap="hideModal" style="margin-right: 30rpx;">确定</view>
+    </view>
+    <view class="grid col-3 padding-sm">
+      <view wx:for="{{checkbox}}" class="padding-xs" wx:key="id">
+        <button class="cu-btn orange lg block {{item.checked?'bg-orange':'line-orange'}}" bindtap="ChooseCheckbox" data-value="{{item.value}}" data-name="{{item.name}}"> {{item.name}}
+        </button>
+      </view>
+    </view>
+  </view>
 </view>

@@ -30,6 +30,69 @@ Page({
       ]
     ],
     multiIndex: [0, 0],
+    checkbox: [{
+      value: 0,
+      name: '10元',
+      checked: false,
+    }, {
+      value: 1,
+      name: '20元',
+      checked: false,
+    }, {
+      value: 2,
+      name: '30元',
+      checked: false,
+    }, {
+      value: 3,
+      name: '60元',
+      checked: false,
+    }, {
+      value: 4,
+      name: '80元',
+      checked: false,
+    }, {
+      value: 5,
+      name: '100元',
+      checked: false,
+    }],
+    nameList:'请选择想要体验的商品，可多选'
+  },
+  showModal(e) {
+    this.setData({
+      modalName: e.currentTarget.dataset.target
+    })
+  },
+  hideModal(e) {
+    let nameList = [];
+    let items = this.data.checkbox;
+    for (let i = 0;i < items.length;i++) {
+      if(items[i].checked == true){
+        nameList.push(items[i].name);
+      }
+    }
+    if(nameList == ''){
+      nameList = ['请选择想要体验的商品，可多选'] 
+    }
+    this.setData({
+      modalName: null,
+      nameList
+    })
+    console.log(nameList)
+  },
+  ChooseCheckbox(e) {
+   
+    let items = this.data.checkbox;
+    let values = e.currentTarget.dataset.value;
+    for (let i = 0, lenI = items.length; i < lenI; ++i) {
+      if (items[i].value == values) {
+        items[i].checked = !items[i].checked;
+        break
+      }
+    }
+    this.setData({
+      checkbox: items,
+    })
+    
   },
 
   /**

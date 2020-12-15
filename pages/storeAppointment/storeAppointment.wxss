@@ -1,6 +1,9 @@
+
 .storeAppointmentContainer {
   height: 100%;
   background-color: #1B222E;
+  color: #fff;
+  padding-bottom: 80rpx;
 }
 
 .banner {
@@ -25,7 +28,6 @@
   height: 100%;
   border: 0rpx solid #bfa;
   margin: auto;
-  color: #fff;
   display: flex;
   padding: 40rpx 0;
 }
@@ -54,7 +56,6 @@
   width: 110rpx;
   border: 0rpx solid #fff;
   text-align: center;
-  color: #fff;
 }
 
 .tag-itme {
@@ -96,7 +97,7 @@
   font-size: 36rpx;
 }
 
-.form-item{
+.form-item {
   height: 124rpx;
   width: 100%;
   padding: 0 40rpx;
@@ -105,19 +106,26 @@
   line-height: 124rpx;
 }
 
-.form-title{
+.text-item {
+  width: 100%;
+  line-height: 40rpx;
+  padding: 20rpx 40rpx 120rpx 40rpx;
+  background-color: #202937;
+  font-size: 28rpx;
+}
+
+.form-title {
   width: 200rpx;
   font-size: 36rpx;
-  color: #fff;
   border: 0rpx solid #fff;
 }
 
-.form-input{
+.form-input {
   flex: 1;
   border: 0rpx solid red;
   color: rgba(255, 255, 255, 100);
   font-size: 28rpx;
-  text-align: center;
+  text-align: right;
 }
 
 /* 预约 */
@@ -128,11 +136,11 @@
   bottom: 0;
 }
 
-.btn-item button{
+.btn-item button {
   height: 100%;
   width: 100%;
+  line-height: 80rpx;
   border-radius: 0;
-  background-color: rgba(91, 98, 217, 100); 
+  background-color: rgba(91, 98, 217, 100);
   color: #fff;
 }
-
