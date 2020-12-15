@@ -1,0 +1,150 @@
+.storeInformationContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header{
+  height: 300rpx;
+  width: 100%;
+  background-color: #1B222E;
+}
+
+.titleItem {
+  line-height: 40rpx;
+  width: 100%;
+  opacity: 0.9;
+  color: rgba(38, 38, 38, 100);
+  font-size: 24rpx;
+  text-align: center;
+  margin-top: 32rpx;
+
+}
+
+.wrapper {
+  width: 90%;
+  border-radius: 20rpx;
+  color: rgba(16, 16, 16, 100);
+  font-size: 28rpx;
+  background-color: #fff;
+  border: 1px solid rgba(255, 255, 255, 100);
+  position: relative;
+  top: -64rpx;
+}
+
+.box-wrapper {
+  width: 100%;
+  height: 68rpx;
+  margin-top: 40rpx;
+  border: 0rpx solid white;
+}
+
+.tag-wrapper {
+  width: 40%;
+  line-height: 68rpx;
+  font-size: 36rpx;
+  text-align: center;
+  float: left;
+  position: relative;
+}
+
+.input-wrapper {
+  width: 45%;
+  height: 100%;
+  border-radius: 34rpx;
+  box-shadow: 2rpx 2rpx 10rpx 0px rgba(0, 0, 0, 0.4);
+  border: 2rpx solid rgba(255, 255, 255, 100);
+  background-color: #fff;
+  margin-left: 40rpx;
+  float: left;
+}
+
+.input-wrapper input {
+  height: 100%;
+  width: 100%;
+  color: rgba(151, 151, 151, 100);
+  margin-left: 30rpx;
+}
+
+.submit-wrapper {
+  width: 100%;
+  height: 60rpx;
+  border: 0rpx solid red;
+  margin: 64rpx 0 60rpx 0;
+}
+
+button {
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius: 30px;
+  width: 50%;
+  margin: auto;
+  background-color: rgba(91, 98, 217, 100);
+  color: rgba(255, 255, 255, 100);
+  font-size: 28rpx;
+  box-shadow: 4rpx 4rpx 12rpx 0px rgba(0, 0, 0, 0.4);
+}
+
+.process{
+  width: 100%;
+  text-align: center;
+  padding-bottom: 40rpx;
+  opacity: 0.5;
+  font-size: 24rpx;
+}
+
+.textItem {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 40rpx;
+}
+
+.codeItem {
+  width: 100%;
+  border: 0rpx solid red;
+  padding-bottom: 30rpx;
+}
+
+.codeItem .codeImg {
+  height: 100%;
+  width: 100rpx;
+  margin: auto;
+  border: 0rpx solid red
+}
+
+.wrapper-imgItem{
+  height: 100%;
+  float: left;
+  margin-left: 40rpx;
+  flex: 1;
+}
+
+.solids{
+  height: 100%;
+  width: 120rpx;
+}
+
+/* 流程 */
+.wrapper-process{
+  width: 75%;
+  margin: auto;
+  text-align: left;
+}
+
+.wrap-process{
+  width: 100%;
+  line-height: 40rpx;
+  font-size: 28rpx;
+}
+
+.wrap-item{
+  width: 100%;
+}
+.process-item{
+  width: 100%;
+  height: 50rpx;
+  margin-top: 24rpx;
+  border: 0rpx solid red;
+  padding-left: 50rpx;
+}

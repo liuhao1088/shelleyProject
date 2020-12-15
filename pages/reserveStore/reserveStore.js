@@ -8,6 +8,12 @@ Page({
 
   },
 
+  toAddStoreInformation(event){
+    wx.navigateTo({
+      url: '/pages/addStoreInformation/addStoreInformation',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

@@ -1,0 +1,107 @@
+<view class="storeInformationContainer">
+  <view class="header"></view>
+  <view class="wrapper">
+    <view class="titleItem">请输入以下信息，之后会有我们的工作人员联系您。</view>
+    <!-- 门店名称 -->
+    <view class="box-wrapper">
+      <view class="tag-wrapper">门店名称：</view>
+      <view class="input-wrapper">
+        <input type="text" style="width:80%;" value="{{shop_name}}" bindinput="inputShopname" placeholder="请输入门店名称"
+          placeholder-class="placeholder" />
+      </view>
+    </view>
+    <!-- 门店地址 -->
+    <view class="box-wrapper">
+      <view class="tag-wrapper">门店地址：</view>
+      <view class="input-wrapper">
+        <input type="text" style="width:80%;" value="{{address}}" bindfocus="chooseLocation" placeholder="请输入门店地址"
+          placeholder-class="placeholder" />
+      </view>
+    </view>
+    <!-- 联系人姓名： -->
+    <view class="box-wrapper">
+      <view class="tag-wrapper">联系人姓名：</view>
+      <view class="input-wrapper">
+        <input type="text" style="width:80%;" value="{{person}}" bindinput="inputPerson" placeholder="请输入联系人姓名"
+          placeholder-class="placeholder" />
+      </view>
+    </view>
+    <!-- 联系电话： -->
+    <view class="box-wrapper">
+      <view class="tag-wrapper">联系电话：</view>
+      <view class="input-wrapper">
+        <input type="number" style="width:80%;" value="{{phone}}" bindinput="inputPhone" placeholder="请输入联系电话"
+          placeholder-class="placeholder" />
+      </view>
+    </view>
+    <!-- 营业时间： -->
+    <view class="box-wrapper">
+      <view class="tag-wrapper">营业时间：</view>
+      <view class="input-wrapper">
+        <picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange"
+          value="{{multiIndex}}" range="{{multiArray}}"
+          style="height: 100%;line-height: 68rpx;padding-left: 28rpx;color: rgba(151, 151, 151, 100);">
+          <view class="picker">
+            请选择时间段
+            <!-- {{multiArray[0][multiIndex[0]]}}-{{multiArray[1][multiIndex[1]]}} -->
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="box-wrapper" style="display: flex;height:auto;">
+      <view class="tag-wrapper">门店正面照：</view>
+      <view class="wrapper-imgItem">
+        <view class="grid grid-square flex-sub" style="height:120rpx;">
+
+          <view class="solids" bindtap="ChooseImage">
+            <text class="cuIcon-cameraadd"></text>
+          </view>
+        </view>
+
+      </view>
+    </view>
+
+
+    <view class="submit-wrapper">
+      <button hover-class="but-hover" bindtap="submit">提交</button>
+    </view>
+    <view class="process" bindtap="showModal" data-target="Modal">点击查看认证流程</view>
+    <view class="codeItem">
+      <view class="codeImg" bindtap='previewImg'>
+        <image mode="widthFix" src="{{codeUrl}}"></image>
+      </view>
+    </view>
+
+    <view class="textItem align-center justify-center" bindtap="callmobile" style="padding-bottom: 14rpx;">
+      全国招商热线：186 6587 7758 <text class="iconfont icondianhua"></text>
+
+    </view>
+    <view class="textItem align-center justify-center" bindtap="callphone">客户服务：400-9988-078 <text
+        class="iconfont icondianhua"></text>
+    </view>
+  </view>
+</view>
+<!-- 流程 -->
+<view class="cu-modal {{modalName=='Modal'?'show':''}}">
+  <view class="cu-dialog" style="background-color: #fff;">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">品牌认证门店流程</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-grey"></text>
+      </view>
+    </view>
+    <view class="wrapper-process">
+      <view class="wrap-process">一、上传门店认证资料，包括：</view>
+      <view class="wrap-item">
+        <view class="process-item">1.门店名称（全称）</view>
+        <view class="process-item">2.门店地址（精确到门牌号）</view>
+        <view class="process-item">3.联系人姓名</view>
+        <view class="process-item">4.联系电话</view>
+        <view class="process-item">5.营业时间</view>
+        <view class="process-item">6.店铺正面照（清晰图片）</view>
+      </view>
+      <view class="wrap-process" style=" margin-top: 24rpx;padding-bottom: 50rpx;">二、等待认证审核通过，期间勿重复提交同一门店申请，审核时间预计3-5个工作日内。</view>
+    </view>
+  </view>
+</view>

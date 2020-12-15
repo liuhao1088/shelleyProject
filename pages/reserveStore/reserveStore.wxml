@@ -25,12 +25,9 @@
 
 </view>
 
-<view class="tag-store">
+<view class="tag-store" bindtap="toAddStoreInformation">
   <view class="store">
      <text class="iconfont iconstore-fill "></text>
   </view>
   <view class="tag-title">门店认证</view>
- 
-  
-  
 </view>
