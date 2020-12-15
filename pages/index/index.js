@@ -56,6 +56,18 @@ Page({
 
   },
 
+  toMyCoupon(event){
+    wx.navigateTo({
+      url: '/pages/myCoupon/myCoupon',
+    })
+  },
+
+  toReserveStore(event){
+    wx.navigateTo({
+      url: '/pages/reserveStore/reserveStore',
+    })
+  },
+
   hideModal(e) {
     this.setData({
       modalName: 1

@@ -20,7 +20,7 @@
             </view>
           </view>
 
-          <view class="topbar-item">
+          <view class="topbar-item" bindtap="toReserveStore">
             <view class="topbar-icon">
               <text class="iconfont iconstore icon" style=" font-size: 56rpx;"></text>
             </view>
@@ -43,7 +43,7 @@
         </view>
 
         <view class="wrap-coupons">
-          <view class="wrap-couponsItem">
+          <view class="wrap-couponsItem" bindtap="toMyCoupon">
             <text class="iconfont iconquan" style="margin-right: 15rpx;font-size:28rpx"></text>
             我的卡券</view>
           <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: right;">当前暂无可用券</view>

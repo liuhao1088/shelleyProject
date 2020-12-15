@@ -1,6 +1,13 @@
 {
   "pages":[
+    "pages/reserveStore/reserveStore",
     "pages/index/index",
+    "pages/myCoupon/myCoupon",
+    
+    
+   
+    
+    
     "pages/video/video",
     "pages/rTwo/rTwo",
     "pages/bTwo/bTwo",
