@@ -1,0 +1,58 @@
+<view class="storeAppointmentContainer">
+  <view class="banner">
+    <swiper indicator-dots autoplay circular style="height:100%;">
+      <swiper-item>
+        <view class="banner-item"></view>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <view class="wrap">
+    <view class="wrap-item">
+      <view class="wrap-title">
+        <view class="title-itme">AAAA宝安店</view>
+        <view class="wrap-date">营业时间：09:00-22:00</view>
+        <view class="wrap-starlight">星级门店</view>
+      </view>
+      <view class="wrap-tag">
+        <view class="title-itme" style="text-align: center;">
+          <text class="iconfont icondaohang"></text>
+        </view>
+        <view class="wrap-date" style="text-align: center;opacity: 1;">立即前往</view>
+        <view class="wrap-starlight"
+          style="background-color: rgba(91, 98, 217, 100);border: none;width: 100%;text-align: center;">认证商家</view>
+      </view>
+    </view>
+    
+  
+  </view>
+
+  <view class="experience-item">
+    预约体验
+  </view>
+
+  <view class="form-item">
+    <view class="form-title">选择商品</view>
+    <view class="form-input">
+      请选择想要体验的商品，可多选
+    </view>
+  </view>
+  <view class="form-item">
+    <view class="form-title">到店时间</view>
+    <view class="form-input">
+      <picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange"
+          value="{{multiIndex}}" range="{{multiArray}}"
+          style="height: 100%;">
+          <view class="picker">
+            请选择到店体验的时间段
+            <!-- {{multiArray[0][multiIndex[0]]}}-{{multiArray[1][multiIndex[1]]}} -->
+          </view>
+        </picker>
+      
+    </view>
+  </view>
+</view>
+
+<view class="btn-item">
+  <button>预   约</button>
+</view>

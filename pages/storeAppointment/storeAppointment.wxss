@@ -1,0 +1,138 @@
+.storeAppointmentContainer {
+  height: 100%;
+  background-color: #1B222E;
+}
+
+.banner {
+  width: 100%;
+  height: 400rpx;
+}
+
+.banner-item {
+  height: 100%;
+  background-color: #baf;
+}
+
+.wrap {
+  width: 100%;
+  height: 230rpx;
+  background-color: #202937;
+  display: flex;
+}
+
+.wrap-item {
+  width: 90%;
+  height: 100%;
+  border: 0rpx solid #bfa;
+  margin: auto;
+  color: #fff;
+  display: flex;
+  padding: 40rpx 0;
+}
+
+.wrap-title {
+  flex: 1;
+  border: 0rpx solid bisque;
+}
+
+.wrap-tag {
+  height: 100%;
+  width: 110rpx;
+  border: 0rpx solid red;
+  float: right;
+}
+
+.title-itme {
+  width: 100%;
+  line-height: 50rpx;
+  font-size: 36rpx;
+
+}
+
+.navigation-item {
+  height: 160rpx;
+  width: 110rpx;
+  border: 0rpx solid #fff;
+  text-align: center;
+  color: #fff;
+}
+
+.tag-itme {
+  width: 100%;
+  line-height: 40rpx;
+  background-color: #5B62D9;
+  font-size: 20rpx;
+  border-radius: 4rpx;
+  margin-top: 6rpx;
+}
+
+.wrap-date {
+  width: 100%;
+  line-height: 34rpx;
+  border: 0rpx solid bisque;
+  opacity: 0.5;
+  font-size: 24rpx;
+  margin-top: 6rpx;
+  float: left;
+}
+
+.wrap-starlight {
+  line-height: 36rpx;
+  border: 1px solid rgba(255, 255, 255, 100);
+  border-radius: 2px;
+  font-size: 20rpx;
+  margin-top: 6rpx;
+  float: left;
+  padding: 0 10rpx;
+}
+
+.experience-item {
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  border: 0rpx solid red;
+  padding-left: 40rpx;
+  color: rgba(255, 255, 255, 100);
+  font-size: 36rpx;
+}
+
+.form-item{
+  height: 124rpx;
+  width: 100%;
+  padding: 0 40rpx;
+  background-color: #202937;
+  display: flex;
+  line-height: 124rpx;
+}
+
+.form-title{
+  width: 200rpx;
+  font-size: 36rpx;
+  color: #fff;
+  border: 0rpx solid #fff;
+}
+
+.form-input{
+  flex: 1;
+  border: 0rpx solid red;
+  color: rgba(255, 255, 255, 100);
+  font-size: 28rpx;
+  text-align: center;
+}
+
+/* 预约 */
+.btn-item {
+  width: 100%;
+  height: 80rpx;
+  position: fixed;
+  bottom: 0;
+}
+
+.btn-item button{
+  height: 100%;
+  width: 100%;
+  border-radius: 0;
+  background-color: rgba(91, 98, 217, 100); 
+  color: #fff;
+}
+

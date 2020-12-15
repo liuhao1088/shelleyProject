@@ -1,22 +1,35 @@
-// pages/reserveStore/reserveStore.js
+// pages/storeAppointment/storeAppointment.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
-  },
-
-  toAddStoreInformation(event){
-    wx.navigateTo({
-      url: '/pages/addStoreInformation/addStoreInformation',
-    })
-  },
-  toStoreAppointment(event){
-    wx.navigateTo({
-      url: '/pages/storeAppointment/storeAppointment',
-    })
+    multiArray: [
+      ['00：00', '01：00'],
+      ['00：00', '01：00']
+    ],
+    objectMultiArray: [
+      [{
+          id: 0,
+          name: '00：00'
+        },
+        {
+          id: 1,
+          name: '01：00'
+        }
+      ],
+      [{
+          id: 0,
+          name: '00：00'
+        },
+        {
+          id: 1,
+          name: '01：00'
+        }
+      ]
+    ],
+    multiIndex: [0, 0],
   },
 
   /**

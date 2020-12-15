@@ -5,7 +5,7 @@
       <input type="text" placeholder="请选择地址" />
     </view>
     <view class="wrap">
-      <view class="wrap-item">
+      <view class="wrap-item" bindtap="toStoreAppointment">
         <view class="wrap-img">
           <image src=""></image>
           <view class="wrap-tag">预约好礼</view>

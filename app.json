@@ -1,15 +1,10 @@
 {
   "pages":[
+    "pages/storeAppointment/storeAppointment",
+    "pages/index/index",
     "pages/addStoreInformation/addStoreInformation",
     "pages/reserveStore/reserveStore",
-    "pages/index/index",
     "pages/myCoupon/myCoupon",
-    
-    
-    
-   
-    
-    
     "pages/video/video",
     "pages/rTwo/rTwo",
     "pages/bTwo/bTwo",
