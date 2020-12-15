@@ -73,9 +73,12 @@
 
 
 
-  <image bindtap="toVideo" style="width: 90%;padding-bottom: 40rpx;" mode="widthFix"
+  <view class="img-item">
+    <image bindtap="toVideo" mode="widthFix"
     src="https://img10.360buyimg.com/ddimg/jfs/t1/126165/29/19314/16926/5fb78030E8d012bf0/959f408d5cc14b9b.png">
   </image>
+  </view>
+ 
 
   <image mode="widthFix"
     src="https://img14.360buyimg.com/ddimg/jfs/t1/129869/16/16886/195207/5fbb2a0fE36f97702/5e59e714a36e1980.jpg">

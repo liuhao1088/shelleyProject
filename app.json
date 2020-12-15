@@ -1,7 +1,8 @@
 {
   "pages":[
-    "pages/storeAppointment/storeAppointment",
     "pages/index/index",
+    "pages/storeAppointment/storeAppointment",
+    
     "pages/addStoreInformation/addStoreInformation",
     "pages/reserveStore/reserveStore",
     "pages/myCoupon/myCoupon",
