@@ -2,7 +2,7 @@
   <view class="banner"></view>
   <view class="wrapper">
     <view class="wrapper-menu">
-      <view class="topbar-item">
+      <view class="topbar-item" bindtap="toStoreInformation">
         <view class="topbar-icon">
           <text class="iconfont iconstore icon"></text>
         </view>

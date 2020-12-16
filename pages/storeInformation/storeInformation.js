@@ -1,4 +1,4 @@
-// pages/myStore/myStore.js
+// pages/storeInformation/storeInformation.js
 Page({
 
   /**
@@ -6,11 +6,6 @@ Page({
    */
   data: {
 
-  },
-  toStoreInformation(event){
-    wx.navigateTo({
-      url: '/pages/storeInformation/storeInformation',
-    })
   },
 
   /**
