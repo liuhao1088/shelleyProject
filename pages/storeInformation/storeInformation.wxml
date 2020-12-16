@@ -1,38 +1,40 @@
 <view class="storeInformationContainer">
-    <view class="wrap">
-      <view class="wrap-update">修改<text class="iconfont iconxiugai update"></text></view>
-      <view class="wrap-main">
-        <view class="wrap-title">门店全称：</view>
-        <view class="wrap-msg">AAAA宝安店</view>
-      </view>
-
-      <view class="wrap-main">
-        <view class="wrap-title">门店地址：</view>
-        <view class="wrap-msg">广东省深圳市宝安区西乡街道XX大道XX工业园X栋6F405</view>
-      </view>
-
-      <view class="wrap-main">
-        <view class="wrap-title">联系人姓名：</view>
-        <view class="wrap-msg">XXX</view>
-      </view>
-
-      <view class="wrap-main">
-        <view class="wrap-title">联系电话：</view>
-        <view class="wrap-msg">123-1234-1234</view>
-      </view>
-
-      <view class="wrap-main">
-        <view class="wrap-title">营业时间：</view>
-        <view class="wrap-msg">09:00 - 22:00</view>
-      </view>
-
-      <view class="wrap-main">
-        <view class="wrap-title">门店正面照：</view>
-        <view class="wrap-msg">
-          <view class="wrap-img"></view>
-        </view>
-      </view>
-
-
+  <view class="wrap">
+    <view class="wrap-update">
+      <text bindtap="toAddStoreInformation">修改<text class="iconfont iconxiugai update"></text></text>
     </view>
+    <view class="wrap-main">
+      <view class="wrap-title">门店全称：</view>
+      <view class="wrap-msg">AAAA宝安店</view>
+    </view>
+
+    <view class="wrap-main">
+      <view class="wrap-title">门店地址：</view>
+      <view class="wrap-msg">广东省深圳市宝安区西乡街道XX大道XX工业园X栋6F405</view>
+    </view>
+
+    <view class="wrap-main">
+      <view class="wrap-title">联系人姓名：</view>
+      <view class="wrap-msg">XXX</view>
+    </view>
+
+    <view class="wrap-main">
+      <view class="wrap-title">联系电话：</view>
+      <view class="wrap-msg">123-1234-1234</view>
+    </view>
+
+    <view class="wrap-main">
+      <view class="wrap-title">营业时间：</view>
+      <view class="wrap-msg">09:00 - 22:00</view>
+    </view>
+
+    <view class="wrap-main">
+      <view class="wrap-title">门店正面照：</view>
+      <view class="wrap-msg">
+        <view class="wrap-img"></view>
+      </view>
+    </view>
+
+
+  </view>
 </view>
