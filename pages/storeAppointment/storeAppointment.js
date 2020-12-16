@@ -40,11 +40,11 @@ Page({
       checked: false,
     }, {
       value: 2,
-      name: '斑马系列-B1',
+      name: '斑马系列-B2',
       checked: false,
     }, {
       value: 3,
-      name: '斑马系列-B2',
+      name: '斑马系列-B3',
       checked: false,
     }, {
       value: 4,
