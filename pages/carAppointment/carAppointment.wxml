@@ -1,0 +1,37 @@
+<view class="carAppointmentContainer">
+  <view class="search">
+    <input type="text" value="{{searchContent}}" placeholder="请输入预约单号/预留手机号查询" placeholder-class="placeholder"
+      bindinput="handleInputChange" />
+    <text class="iconfont iconziyuan searchIcon" bindtap="toSearch"></text>
+  </view>
+
+  <view class="wrapper">
+    <view class="wrap">
+      <view class="wrap-title">预约体验：产品名称-型号</view>
+      <view class="wrap-tag">待接受</view>
+      <!-- <view class="wrap-tag" style="opacity: 0.5;">已接受</view> -->
+      
+    </view>
+    <view class="wrap">
+      <view class="wrap-title">预留手机号：123-1234-1234</view>
+    </view>
+    <view class="wrap">
+      <view class="wrap-title">预约时间：3020年20月50日 15:00</view>
+    </view>
+    <view class="wrap">
+      <view class="wrap-title">备注留言：</view>
+    </view>
+    <view class="wrap">
+      <view class="wrap-title" style="opacity: 0.5;">单号：y001182050010101</view>
+      <view class="wrap-but">
+        <view class="but">
+          <button class="cu-btn round sm bg-white cancel">取消预约</button>
+        </view>
+        <view class="but">
+          <button class="cu-btn round sm bg-blue accept">接受预约</button>
+        </view>
+      </view>
+    </view>
+    
+  </view>
+</view>

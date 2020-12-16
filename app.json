@@ -1,6 +1,9 @@
 {
   "pages":[
+    "pages/carAppointment/carAppointment",
     "pages/index/index",
+    
+    
     "pages/storeInformation/storeInformation",
     "pages/myStore/myStore",
     "pages/storeAppointment/storeAppointment",

@@ -1,0 +1,99 @@
+.carAppointmentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search {
+  width: 90%;
+  height: 60rpx;
+  background-color: #fff;
+  border-radius: 30rpx;
+  margin-top: 20rpx;
+  display: flex;
+}
+
+.search input {
+  margin-left: 50rpx;
+  height: 100%;
+  line-height: 60rpx;
+  color: rgba(151, 151, 151, 100);
+  flex: 1;
+}
+
+.placeholder {
+  font-size: 28rpx;
+  color: rgba(151, 151, 151, 100);
+}
+
+.searchIcon {
+  width: 100rpx;
+  text-align: center;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  float: right;
+  color: rgba(151, 151, 151, 0.5);
+}
+
+.wrapper {
+  width: 95%;
+  border-radius: 10rpx;
+  background-color: #fff;
+  margin-top: 40rpx;
+  padding: 30rpx 20rpx;
+}
+
+.wrap {
+  width: 100%;
+  line-height: 60rpx;
+  border: 0rpx solid red;
+  display: flex;
+}
+
+.wrap-title {
+  flex: 1;
+  border: 0rpx solid blue;
+  font-size: 24rpx;
+}
+
+.wrap-tag {
+  padding: 0rpx 20rpx;
+  height: 100%;
+  color: rgba(105, 113, 254, 100);
+  font-size: 28rpx;
+  border: 0rpx solid black;
+}
+
+.wrap-but{
+  height: 100%;
+  width: 340rpx;
+  border: 0rpx solid red;
+  display: flex;
+  justify-content: space-around;
+}
+
+.but{
+  width: calc(80%/2);
+  height: 100%;
+  border: 0rpx solid red;
+}
+
+.but button{
+  border-radius: 30rpx;
+  height: 100%;
+  width: 100%;
+  font-size: 16rpx;
+  line-height: 60rpx;
+}
+
+
+.cancel{
+  border: 2rpx solid rgba(105, 113, 254, 100);
+  color: rgba(105, 113, 254, 100);
+}
+
+.accept{
+  background-color: rgba(105, 113, 254, 100);
+  color: rgba(255, 255, 255, 100);
+}

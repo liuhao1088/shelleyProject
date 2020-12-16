@@ -74,6 +74,13 @@ Page({
     })
   },
 
+  toCarAppointment(event){
+    wx.navigateTo({
+      url: '/pages/carAppointment/carAppointment',
+    })
+    
+  },
+
   hideModal(e) {
     this.setData({
       modalName: 1
