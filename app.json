@@ -1,6 +1,10 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/myStore/myStore",
+   
+   
+    
     "pages/storeAppointment/storeAppointment",
     "pages/addStoreInformation/addStoreInformation",
     "pages/reserveStore/reserveStore",

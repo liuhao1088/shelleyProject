@@ -67,6 +67,12 @@ Page({
       url: '/pages/reserveStore/reserveStore',
     })
   },
+  
+  toMyStore(event){
+    wx.navigateTo({
+      url: '/pages/myStore/myStore',
+    })
+  },
 
   hideModal(e) {
     this.setData({

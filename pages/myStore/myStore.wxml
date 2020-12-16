@@ -1,0 +1,77 @@
+<view class="myStoreContainer">
+  <view class="banner"></view>
+  <view class="wrapper">
+    <view class="wrapper-menu">
+      <view class="topbar-item">
+        <view class="topbar-icon">
+          <text class="iconfont iconstore icon"></text>
+        </view>
+        <view class="topbar-guild">
+          <view class="topbar-title">门店管理</view>
+          <view class="topbar-msg">点击修改门店信息</view>
+        </view>
+      </view>
+
+      <view class="topbar-item">
+        <view class="topbar-icon">
+          <text class="iconfont iconflag icon"></text>
+        </view>
+        <view class="topbar-guild">
+          <view class="topbar-title">活动配置</view>
+          <view class="topbar-msg">点击修改门店信息</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="wrapper-main">
+      <view class="title-item">直播</view>
+      <view class="live-content">
+        <view class="live-date">
+          <view class="live-wrap">
+            <view class="date-item">12月30日</view>
+            <view class="date-item">周三</view>
+            <view class="date-item">15:00</view>
+          </view>
+          <view class="date-tag"></view>
+
+        </view>
+
+        <view class="live-main">
+          <view class="live-img"></view>
+          <view class="live-title">
+            <view class="live-titleItem">课程主题一</view>
+            <view class="live-but">
+              <button>点击预约</button>
+            </view>
+          </view>
+          <view class="live-msg">课程内容介绍以及课程带来的收益</view>
+        </view>
+      </view>
+
+
+
+      <view class="live-content">
+        <view class="live-date">
+          <view class="live-wrap">
+            <view class="date-item">12月30日</view>
+            <view class="date-item">周三</view>
+            <view class="date-item">15:00</view>
+          </view>
+          <view class="date-tag"></view>
+
+        </view>
+
+        <view class="live-main">
+          <view class="live-img"></view>
+          <view class="live-title">
+            <view class="live-titleItem">课程主题一</view>
+            <view class="live-but">
+              <button>点击预约</button>
+            </view>
+          </view>
+          <view class="live-msg">课程内容介绍以及课程带来的收益</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
