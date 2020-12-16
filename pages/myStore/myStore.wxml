@@ -12,7 +12,7 @@
         </view>
       </view>
 
-      <view class="topbar-item">
+      <view class="topbar-item" bindtap="toActivityDetails">
         <view class="topbar-icon">
           <text class="iconfont iconflag icon"></text>
         </view>

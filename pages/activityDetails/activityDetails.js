@@ -1,4 +1,4 @@
-// pages/myStore/myStore.js
+// pages/activityDetails/activityDetails.js
 Page({
 
   /**
@@ -7,17 +7,11 @@ Page({
   data: {
 
   },
-  toStoreInformation(event){
+  toActivitySelect(event){
     wx.navigateTo({
-      url: '/pages/storeInformation/storeInformation',
+      url: '/pages/activitySelect/activitySelect',
     })
   },
-  toActivityDetails(event){
-    wx.navigateTo({
-      url: '/pages/activityDetails/activityDetails',
-    })
-  },
-
   /**
    * 生命周期函数--监听页面加载
    */

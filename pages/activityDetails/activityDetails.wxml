@@ -1,0 +1,47 @@
+<view class="activityDetailsContainer">
+  <view class="header">
+    <view class="search">
+      <input type="text" value="{{searchContent}}" placeholder="请输入活动码/标题/类型查询" placeholder-class="placeholder"
+      bindinput="handleInputChange" />
+    <text class="iconfont iconziyuan searchIcon" bindtap="toSearch"></text>
+    </view>
+    <view class="header-item" bindtap="toActivitySelect">
+      <text class="iconfont iconplus icon"></text>新建活动
+    </view>
+  </view>
+
+  <view class="wrapper">
+    <view class="wrap">
+      <view class="wrap-title">活动标题：2月好礼享不停</view>
+      <view class="wrap-tag"><text class="iconfont iconflag"></text> 活动中</view>
+      <!-- <view class="wrap-tag" style="opacity: 0.5;">未开始</view> -->
+      
+    </view>
+    <view class="wrap">
+      <view class="wrap-title">活动类型：拼团优惠</view>
+    </view>
+    <view class="wrap">
+      <view class="wrap-title">活动时间：3020-20-50 15:00 至 3020-20-51 00:00</view>
+    </view>
+    <view class="wrap">
+      <view class="wrap-title">活动码：h0011820500201</view>
+    </view>
+    
+    <view class="wrap">
+      <view class="wrap-title" style="opacity: 0.5;">创建时间：3020-20-50 0:00</view>
+      
+    </view>
+    <view class="wrap" style="display: inline;">
+      <view class="wrap-but">
+        <view class="but">
+          <button class="cu-btn round sm bg-blue accept">编辑活动</button>
+        </view>
+        <view class="but" style="margin-right: 30rpx;">
+          <button class="cu-btn round sm bg-white cancel">删除活动</button>
+        </view>
+      
+      </view>
+    </view>
+    
+  </view>
+</view>

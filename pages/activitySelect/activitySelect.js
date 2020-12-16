@@ -1,4 +1,4 @@
-// pages/myStore/myStore.js
+// pages/activitySelect/activitySelect.js
 Page({
 
   /**
@@ -6,16 +6,6 @@ Page({
    */
   data: {
 
-  },
-  toStoreInformation(event){
-    wx.navigateTo({
-      url: '/pages/storeInformation/storeInformation',
-    })
-  },
-  toActivityDetails(event){
-    wx.navigateTo({
-      url: '/pages/activityDetails/activityDetails',
-    })
   },
 
   /**

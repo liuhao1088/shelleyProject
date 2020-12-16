@@ -1,21 +1,44 @@
-.carAppointmentContainer {
+.activityDetailsContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 }
 
-.search {
+.header {
   width: 90%;
   height: 60rpx;
-  background-color: #fff;
-  border-radius: 30rpx;
   margin-top: 20rpx;
   display: flex;
+  border: 0rpx solid orange;
+}
+
+.search {
+  flex: 1;
+  height: 100%;
+  border-radius: 30rpx;
+  background-color: #fff;
+  display: flex;
+
+}
+
+.header-item {
+  height: 100%;
+  line-height: 60rpx;
+  border: 0rpx solid red;
+  padding-left: 20rpx;
+  opacity: 0.77;
+  color: rgba(255, 255, 255, 100);
+  font-size: 28rpx;
+}
+
+.icon {
+  margin-right: 10rpx;
+  font-size: 26rpx;
 }
 
 .search input {
-  margin-left: 50rpx;
+  margin-left: 30rpx;
   height: 100%;
   line-height: 60rpx;
   color: rgba(151, 151, 151, 100);
@@ -23,18 +46,19 @@
 }
 
 .placeholder {
-  font-size: 28rpx;
+  font-size: 24rpx;
   color: rgba(151, 151, 151, 100);
 }
 
 .searchIcon {
   width: 100rpx;
   text-align: center;
-  font-size: 30rpx;
+  font-size: 26rpx;
   line-height: 60rpx;
   float: right;
   color: rgba(151, 151, 151, 0.5);
 }
+
 
 .wrapper {
   width: 95%;
@@ -46,6 +70,7 @@
 
 .wrap {
   width: 100%;
+  height: 60rpx;
   line-height: 60rpx;
   border: 0rpx solid red;
   display: flex;
@@ -67,10 +92,8 @@
 
 .wrap-but{
   height: 100%;
-  width: 340rpx;
+  width: 50%;
   border: 0rpx solid red;
-  /* display: flex;
-  justify-content: space-around; */
   float: right;
 }
 
@@ -79,10 +102,9 @@
   height: 100%;
   border: 0rpx solid red;
   float: right;
-  
 }
 
-.but button{
+.cu-btn{
   border-radius: 30rpx;
   height: 100%;
   width: 100%;

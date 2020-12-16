@@ -1,0 +1,10 @@
+<view class="activitySelectContainer">
+  <view class="wrapper">
+    <view class="but">
+      <button class="cu-btn round line-white button-hover but">新建拼团活动</button>
+    </view>
+    <view class="but" style="margin-top: 100rpx;">
+      <button class="cu-btn round line-white button-hover but">新建预约活动</button>
+    </view>
+  </view>
+</view>

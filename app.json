@@ -1,5 +1,8 @@
 {
   "pages":[
+    "pages/activityDetails/activityDetails",
+    "pages/activitySelect/activitySelect",
+   
     "pages/carAppointment/carAppointment",
     "pages/index/index",
     
