@@ -55,7 +55,8 @@
         <view class="grid grid-square flex-sub" style="height:120rpx;">
 
           <view class="solids" bindtap="ChooseImage">
-            <text class="cuIcon-cameraadd"></text>
+            <text class="cuIcon-cameraadd" wx:if="{{shop_img}}"></text>
+            <image wx:for="{{shop_img}}" src="{{item}}" style="display:{{shop_img==[]?'none':'block'}};z-index:{{shop_img==[]?'-1':'10'}};width:100%;height:100%;background:white;" />
           </view>
         </view>
 

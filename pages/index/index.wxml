@@ -1,4 +1,5 @@
 <import src="/template/myTemplate.wxml"></import>
+<authorize id="authorize" />
 <view class="container">
   <view class="header">
     <view class="header-img">

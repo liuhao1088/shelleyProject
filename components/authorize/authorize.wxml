@@ -6,12 +6,13 @@
         <view class="action text-black" style="font-size:20px;" bindtap="hideModal">✖</view>
       </view>
       <view class="bg-white">
-        <view class="modal-title">欢迎登录漆面装甲~</view>
+        <view class="modal-title">欢迎登录雪莱特智能LED车灯</view>
         <view class="modal-describe">登录后可以体验全部功能，享受更好的服务</view>
-        <view class="modal-detail">点击登录漆面装甲，即表示已阅读并同意
-          <text class="txt-clr" bindtap="gotoPrivacy">《漆面装甲隐私政策》</text>
+        <view class="modal-detail">点击登录雪莱特智能LED车灯，即表示已阅读并同意
+          <text class="txt-clr" bindtap="gotoPrivacy">《雪莱特智能LED车灯隐私政策》</text>
         </view>
         <view class="btn-box" style="">
+        <!--open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" -->
         <button class='btn1 justify-center' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo" style="width:80%;">
           <image class='btnImg' src='../../images/weixin.png'></image>
           <view>微信一键登录</view>

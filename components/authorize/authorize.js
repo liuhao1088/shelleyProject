@@ -38,6 +38,9 @@ Component({
       //显示
       //this.getTabBar().displayShow();
     },
+    getPhoneNumber:function(e){
+      console.log(e)
+    },
     //用户点击微信授权登录
     bindGetUserInfo: function (e) {
       if (e.detail.userInfo) {
@@ -48,6 +51,7 @@ Component({
         var app=getApp()
         wx.getSetting({
           success: res => {
+            console.log(res)
             if (res.authSetting['scope.userInfo']) {
               // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
               wx.getUserInfo({
@@ -61,6 +65,7 @@ Component({
                     app.globalData.openid=res.result.openid;
                     console.log(app.globalData.openid)
                     userInfo._openid=openid;
+                    app.globalData.userInfo=userInfo;
                     const db = wx.cloud.database()
                     db.collection('user').where({
                       _openid: openid
@@ -99,7 +104,7 @@ Component({
                         console.log(userInfo,openid)
                         if(userInfo.nickName!==res.data[0].nickName){
                           wx.cloud.callFunction({
-                            name:'collectionUpdate',
+                            name:'recordUpdate',
                             data:{
                               collection:'user',
                               where:{_openid:openid},
@@ -112,31 +117,14 @@ Component({
                         }
                         wx.setStorageSync('userInfo',userInfo)
                         if(res.data[0].authority=='admin'){
-                          wx.navigateTo({
-                            url: '/pages/manage/manage',
-                          })
+                        
                         }
                       }
                     }).catch()
                   })
-                  /*
+                  
 
-                  /*wx.cloud.callFunction({
-                    name: "collectionAdd", //
-                    data: {
-                      collection: 'user', //集合名称
-                      addData: {
-                        name: userInfo.nickName,
-                        avatarUrl: userInfo.avatarUrl,
-                        sex: sex,
-                        province: userInfo.province,
-                        city: userInfo.city,
-                        authority: "primary"
-                      },
-                    }
-                  }).then(res => {
-                    console.log('更新数据库成功', res)
-                  }).catch(console.error)*/
+            
                   return true
                 }
               })

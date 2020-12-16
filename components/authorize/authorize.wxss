@@ -25,7 +25,7 @@
   display: flex;justify-content: flex-start;
 }
 .modal-detail .txt-clr{
-  color:#ebae5e;
+  color:#5B62D9;
 }
 
 
@@ -34,7 +34,7 @@
 .btn1 {
   width: 80%;
   margin-top: 20rpx;
-  background-color: #ebae5e;
+  background-color: #5B62D9;
   color: white;
   border-radius: 98rpx;
   display: flex;
