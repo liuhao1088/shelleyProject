@@ -67,15 +67,22 @@
 
 <!-- 选择商品 -->
 <view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap="hideModal">
-  <view class="cu-dialog" catchtap>
-    <view class="cu-bar bg-white" style="justify-content: flex-end;">
+  <view class="cu-dialog" catchtap style="height: 580rpx;">
+    <view class="cu-bar bg-white" style="justify-content: flex-end;height: 80rpx;">
       <view class="action text-green" bindtap="hideModal" style="margin-right: 30rpx;">确定</view>
+    </view>
+    <view class="grid padding-sm" style="height: 200rpx;padding: 0 30rpx;align-items:flex-end;">
+      <view class="cu-img">
+        <image src=""></image>
+      </view>
+      <view class="cu-description">产品介绍：撒旦飞洒地方士大夫士大夫撒打发士大夫</view>
     </view>
     <view class="grid col-3 padding-sm">
       <view wx:for="{{checkbox}}" class="padding-xs" wx:key="id">
-        <button class="cu-btn orange lg block {{item.checked?'bg-orange':'line-orange'}}" bindtap="ChooseCheckbox" data-value="{{item.value}}" data-name="{{item.name}}"> {{item.name}}
+        <button class="cu-btn orange lg block {{item.checked?'bg-black':'line-black'}}" bindtap="ChooseCheckbox" data-value="{{item.value}}" data-name="{{item.name}}"> {{item.name}}
         </button>
       </view>
     </view>
+   
   </view>
 </view>

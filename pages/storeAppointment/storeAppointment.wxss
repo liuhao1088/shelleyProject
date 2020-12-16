@@ -1,4 +1,3 @@
-
 .storeAppointmentContainer {
   height: 100%;
   background-color: #1B222E;
@@ -122,10 +121,14 @@
 
 .form-input {
   flex: 1;
-  border: 0rpx solid red;
+  border: 0rpx solid black;
   color: rgba(255, 255, 255, 100);
   font-size: 28rpx;
   text-align: right;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 预约 */
@@ -143,4 +146,33 @@
   border-radius: 0;
   background-color: rgba(91, 98, 217, 100);
   color: #fff;
+}
+
+.cu-btn.lg {
+  font-size: 24rpx;
+}
+
+
+.cu-img{
+  height: 100%;
+  width: 200rpx;
+  background-color:red;
+  float: left;
+  border-radius: 10rpx;
+}
+
+.cu-img image {
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
+  text-align: center; 
+  border-radius: 10rpx;
+}
+
+.cu-description{
+  flex: 1;
+  text-align: left;
+  padding-left: 20rpx;
+  padding-bottom: 10rpx;
+  font-size: 24rpx;
 }
