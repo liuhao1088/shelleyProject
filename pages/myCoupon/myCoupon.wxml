@@ -23,7 +23,7 @@
      <view class="wrapper-item">
       <view class="wrap-title" style="background-color:#CACDFF;">
         <view class="wrap-titleItem">拼团优惠券</view>
-        <view class="wrap-summary">使用规则：拼团还差 1 人，快去邀请好友一起拼团吧！</view>
+        <view class="wrap-summary">使用规则：拼团还差 <text style="color: red;">1</text>  人，快去邀请好友一起拼团吧！</view>
       </view>
       <view class="wrap-mag">
         <view class="wrap-tag">
@@ -69,6 +69,13 @@
     </view>
     <view class="input-item">
       <input type="number" />
+    </view>
+    <view class="checkbox-item">
+      <view class="checkbox">
+        <checkbox class="round blue" style="transform: scale(0.6,0.6);"></checkbox>
+      </view>
+      <view class="checkbox-msg">合并使用100元现金抵用红包</view>
+      
     </view>
     <view class="but-item">
       <button bindtap="hideModal">确认提交</button>

@@ -108,3 +108,7 @@ textarea{
   line-height: 60rpx;
   background-color: rgba(105, 113, 254, 100);
 }
+
+textarea{
+ padding: 20rpx;
+}

@@ -137,3 +137,22 @@
   line-height: 60rpx;
   color: #fff;
 }
+
+.checkbox-item{
+  width: 50%;
+  height: 50rpx;
+  margin: auto;
+  margin-top: 20rpx;
+  font-size: 22rpx;
+  display: flex;
+}
+
+.checkbox{
+  height: 100%;
+  width: 50rpx;
+}
+
+.checkbox-msg{
+  flex: 1;
+  line-height: 48rpx;
+}

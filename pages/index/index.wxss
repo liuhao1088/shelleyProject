@@ -95,6 +95,7 @@
   height: 40rpx;
   margin-top: 40rpx;
   border: 0rpx solid red;
+  
   display: flex;
   justify-content: space-evenly;
 }

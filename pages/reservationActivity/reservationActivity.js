@@ -7,10 +7,16 @@ Page({
    */
   data: {
     startTime: '2020-12-17 11:32',
+    textareaAValue:''
   },
   changeStartTime(e){
     console.log(e.detail.startTime)
     this.setData({ startTime: e.detail.startTime})
+  },
+  textareaAInput(e) {
+    this.setData({
+      textareaAValue: e.detail.value
+    })
   },
   /**
    * 生命周期函数--监听页面加载
