@@ -41,9 +41,11 @@
         <picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange"
           value="{{multiIndex}}" range="{{multiArray}}"
           style="height: 100%;line-height: 68rpx;padding-left: 28rpx;color: rgba(151, 151, 151, 100);">
-          <view class="picker">
+          <view class="picker" wx:if="{{firstLoading==true}}">
             请选择时间段
-            <!-- {{multiArray[0][multiIndex[0]]}}-{{multiArray[1][multiIndex[1]]}} -->
+          </view>
+          <view class="picker" wx:if="{{firstLoading==false}}">
+            {{multiArray[0][multiIndex[0]]}} - {{multiArray[1][multiIndex[1]]}} 
           </view>
         </picker>
       </view>
@@ -103,6 +105,37 @@
         <view class="process-item">6.店铺正面照（清晰图片）</view>
       </view>
       <view class="wrap-process" style=" margin-top: 24rpx;padding-bottom: 50rpx;">二、等待认证审核通过，期间勿重复提交同一门店申请，审核时间预计3-5个工作日内。</view>
+    </view>
+  </view>
+</view>
+
+<view class="cu-modal {{modalName=='addressConfirm'?'show':''}}" style="z-index:{{z}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">地址信息</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="row align-center" style="margin-bottom:7px;">
+        <view style="font-weight:700;">地点</view><input style="width:80%;margin:0px 10px;" value="{{address_name}}"
+          bindinput="inputAddressname" placeholder="请输入地点" />
+      </view>
+      <view class="row align-center" style="margin-bottom:7px;">
+        <view style="font-weight:700;">地址</view><input style="width:80%;margin:0px 10px;" value="{{address}}"
+          bindinput="inputAddress" placeholder="请输入地址" />
+      </view>
+      <view class="row align-center" style="margin-bottom:7px;">
+        <view style="font-weight:700;">补充</view><input style="width:80%;margin:0px 10px;" value="{{detail}}"
+          bindinput="inputDetail" placeholder="请输入补充，如楼层、门牌" />
+      </view>
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn bg-green margin-left" style="width:180rpx;" bindtap="hideModal">确定</button>
+
+      </view>
     </view>
   </view>
 </view>

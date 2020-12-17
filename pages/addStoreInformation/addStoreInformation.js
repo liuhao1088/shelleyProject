@@ -1,4 +1,6 @@
 // pages/addStoreInformation/addStoreInformation.js
+var hourArr;
+var util=require('../../utils/util.js');
 Page({
 
   /**
@@ -6,39 +8,15 @@ Page({
    */
   data: {
     codeUrl: 'https://ae04.alicdn.com/kf/H320184699f6b4b16a88969d4fa0a9a73G.jpg', //二维码
-    multiArray: [
-      ['00：00', '01：00'],
-      ['00：00', '01：00']
-    ],
-    objectMultiArray: [
-      [{
-          id: 0,
-          name: '00：00'
-        },
-        {
-          id: 1,
-          name: '01：00'
-        }
-      ],
-      [{
-          id: 0,
-          name: '00：00'
-        },
-        {
-          id: 1,
-          name: '01：00'
-        }
-      ]
-    ],
-    multiIndex: [0, 0],
-    imgList:'',
+    multiArray: [],
+    multiIndex: [0, 23],
     shop_name: '',
     address: '',
     person: '',
     phone: '',
     address_name: '',
     detail: '',
-    shop_img:[],z:-1,
+    shop_img:[],z:-1,firstLoading:true
   },
   //保存图片，扫码
   previewImg: function (e) {
@@ -63,15 +41,9 @@ Page({
       sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album'], //从相册选择
       success: (res) => {
-        if (this.data.imgList.length != 0) {
-          this.setData({
-            imgList: this.data.imgList.concat(res.tempFilePaths)
-          })
-        } else {
-          this.setData({
-            shop_img: res.tempFilePaths
-          })
-        }
+        this.setData({
+          shop_img: res.tempFilePaths
+        })
       }
     });
   },
@@ -91,7 +63,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    hourArr=['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'];
+    let array=[];
+    for(let i=0;i<2;i++){array.push(hourArr)}
+    this.setData({multiArray:array})
   },
 
   /**
@@ -106,6 +81,10 @@ Page({
    */
   onShow: function () {
 
+  },
+  MultiChange:function(e){
+    console.log(e)
+    this.setData({multiIndex:e.detail.value,firstLoading:false})
   },
   inputShopname: function (e) {
     this.setData({
@@ -132,10 +111,10 @@ Page({
         console.log(res)
         let addressJson = res;
         wx.setStorageSync('addressJson', addressJson)
-        that.showModal();
         that.setData({
           address: res.address,
           address_name: res.name,
+          modalName:'addressConfirm'
         })
       },
     })
@@ -163,7 +142,9 @@ Page({
       wx.showLoading({
         title: '提交中，请稍等',
       })
-      that.add();
+      let arr=[];
+      if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop',arr )
+      that.add(arr);
 
     } else {
       wx.showModal({
@@ -174,12 +155,12 @@ Page({
 
   },
 
-  add: function () {
+  add: function (imgArr) {
     var that = this;
     const creation_date = util.formatTime(new Date())
-    let addressJson = wx.getStorageSync('addressJson')
+    let addressJson = wx.getStorageSync('addressJson');
     wx.cloud.callFunction({
-      name: "collectionAdd", //
+      name: "recordAdd", //
       data: {
         collection: 'shop',
         addData: {
@@ -192,6 +173,9 @@ Page({
           detail: that.data.detail,
           person: that.data.person,
           phone: that.data.phone,
+          start_hour:hourArr[that.data.multiIndex[0]],
+          end_hour:hourArr[that.data.multiIndex[1]],
+          shop_img:imgArr,
           creation_timestamp: Date.parse(creation_date.replace(/-/g, '/')) / 1000,
         },
 
@@ -208,14 +192,13 @@ Page({
       })
       setTimeout(function () {
         that.setData({
-          navId: 0,
-          currentId: 0,
           address: "",
           phone: '',
           person: '',
           shop_name: '',
           address_name: '',
-          detail: ''
+          detail: '',
+          shop_img:[]
         })
       }, 2000)
     }).catch(error => {
@@ -224,7 +207,7 @@ Page({
       })
       wx.showModal({
         showCancel: false,
-        title: '添加失败，请重试'
+        title: '提交失败，请稍后重试'
       })
     })
   },
@@ -234,7 +217,48 @@ Page({
   onHide: function () {
 
   },
+  //上传图片到云存储
+  uploadimg: function (i, parse, content, arr) {
+    if(parse.length == 0) return;
+    return new Promise((resolve, reject) => {
+      var that = this;
+      let code = that.getRandomCode();
+      let numberCode = "";
+      for (let e = 0; e < 6; e++) {
+        numberCode += Math.floor(Math.random() * 10)
+      }
+      let path=parse[i] 
+      let indx=path.lastIndexOf('.') 
+      let postfix=path.substring(indx)
+      wx.cloud.uploadFile({
+        cloudPath: content + '/' + content + '-' + code + "-" + numberCode + postfix,
+        filePath: parse[i],
+        success(res) {
+          //上传成功后会返回永久地址
+          console.log(res.fileID)
+          arr.push(res.fileID)
+          resolve(arr);
+          //that.uploadimg(i+1,parse,content,arr)
+        }
+      })
 
+    })
+  },
+   //生成随机6位数
+   getRandomCode: function () {
+    let code = "";
+    const array = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
+      'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
+      'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
+      'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+    ];
+
+    for (let i = 0; i < 6; i++) {
+      let id = Math.round(Math.random() * 61);
+      code += array[id];
+    }
+    return code;
+  },
   /**
    * 生命周期函数--监听页面卸载
    */

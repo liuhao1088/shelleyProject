@@ -4,6 +4,7 @@ const db = cloud.database()
 exports.main = async (event, context) => {
   console.log(event)
   const _ = db.command
+  
   const wxContext = cloud.getWXContext()
   try {
     return await db.collection(event.collection).add({
