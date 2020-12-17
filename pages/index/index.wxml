@@ -21,7 +21,8 @@
             </view>
           </view>
 
-          <!-- <view class="topbar-item" bindtap="toReserveStore">
+          <!-- 用户 -->
+          <view class="topbar-item" bindtap="toReserveStore">
             <view class="topbar-icon">
               <text class="iconfont iconstore icon" style=" font-size: 56rpx;"></text>
             </view>
@@ -29,9 +30,10 @@
               <view class="topbar-title">预约门店</view>
               <view class="topbar-msg">立即预约零等待体验</view>
             </view>
-          </view> -->
+          </view>
 
-          <view class="topbar-item"  bindtap="toMyStore">
+          <!-- 门店 -->
+          <!-- <view class="topbar-item"  bindtap="toMyStore">
             <view class="topbar-icon">
               <text class="iconfont iconstore icon" style=" font-size: 56rpx;"></text>
             </view>
@@ -39,23 +41,44 @@
               <view class="topbar-title">我的门店</view>
               <view class="topbar-msg">活动配置/门店管理</view>
             </view>
-          </view>
+          </view> -->
+
+          <!-- 品牌 -->
+          <!-- <view class="topbar-item" bindtap="toActivityDetails">
+            <view class="topbar-icon">
+              <text class="iconfont iconstore icon" style=" font-size: 56rpx;"></text>
+            </view>
+            <view class="topbar-guild">
+              <view class="topbar-title">品牌活动</view>
+              <view class="topbar-msg">品牌促销活动配置</view>
+            </view>
+          </view> -->
 
         </view>
 
-        <!-- <view class="wrap-coupons">
+        <!-- 用户 -->
+        <view class="wrap-coupons">
           <view class="wrap-couponsItem" bindtap="toMyCoupon">
             <text class="iconfont iconquan" style="margin-right: 15rpx;font-size:28rpx"></text>
             我的卡券</view>
-          <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: right;">当前暂无可用券</view>
-        </view> -->
+          <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;">当前暂无可用券</view>
+        </view>
 
-        <view class="wrap-coupons">
+        <!-- 门店 -->
+        <!-- <view class="wrap-coupons">
           <view class="wrap-couponsItem" bindtap="toCarAppointment">
             <text class="iconfont iconyuyue" style="margin-right: 15rpx;font-size:28rpx"></text>
             车主预约</view>
-          <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: right;">当前无预约待处理</view>
-        </view>
+          <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;">当前无预约待处理</view>
+        </view> -->
+
+        <!-- 品牌 -->
+        <!-- <view class="wrap-coupons">
+          <view class="wrap-couponsItem" bindtap="toStoreInformation">
+            <text class="iconfont iconstore-fill" style="margin-right: 15rpx;font-size:28rpx"></text>
+            门店管理</view>
+          <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;" bindtap="toStoreInformation">点击查看门店</view>
+        </view> -->
 
       </view>
       <view class="wrap-img"></view>
@@ -76,10 +99,10 @@
 
   <view class="img-item">
     <image bindtap="toVideo" mode="widthFix"
-    src="https://img10.360buyimg.com/ddimg/jfs/t1/126165/29/19314/16926/5fb78030E8d012bf0/959f408d5cc14b9b.png">
-  </image>
+      src="https://img10.360buyimg.com/ddimg/jfs/t1/126165/29/19314/16926/5fb78030E8d012bf0/959f408d5cc14b9b.png">
+    </image>
   </view>
- 
+
 
   <image mode="widthFix"
     src="https://img14.360buyimg.com/ddimg/jfs/t1/129869/16/16886/195207/5fbb2a0fE36f97702/5e59e714a36e1980.jpg">

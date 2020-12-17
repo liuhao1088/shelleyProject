@@ -81,6 +81,18 @@ Page({
     
   },
 
+  toStoreInformation(event){
+    wx.navigateTo({
+      url: '/pages/storeInformation/storeInformation',
+    })
+  },
+
+  toActivityDetails(event){
+    wx.navigateTo({
+      url: '/pages/activityDetails/activityDetails',
+    })
+  },
+
   hideModal(e) {
     this.setData({
       modalName: 1

@@ -1,23 +1,26 @@
-// pages/activitySelect/activitySelect.js
+// pages/reservationActivity/reservationActivity.js
+const uilt = require('../../utils/util');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    startTime: '2020-12-17 11:32',
   },
-  toReservationActivity(event){
-    wx.navigateTo({
-      url: '/pages/reservationActivity/reservationActivity',
-    })
+  changeStartTime(e){
+    console.log(e.detail.startTime)
+    this.setData({ startTime: e.detail.startTime})
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+   let startTime =  uilt.formatTime(new Date());
+   this.setData({
+    startTime
+   })
+   console.log(startTime);
   },
 
   /**
