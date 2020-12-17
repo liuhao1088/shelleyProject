@@ -92,7 +92,8 @@ Component({
                               sex: sex,
                               province: userInfo.province,
                               city: userInfo.city,
-                              authority: "primary"
+                              authority: "primary",
+                              type:'driver'
                             }
                           })
                           .then(res => {

@@ -1,4 +1,5 @@
 // pages/wode/wode.js
+var app=getApp();
 Page({
 
   /**
@@ -126,7 +127,21 @@ Page({
       }
     })
   },
-
+  toManage:function(){
+    if(!wx.getStorageSync('userInfo')){
+      this.selectComponent("#authorize").showModal();
+    }else{
+      let openid=wx.getStorageSync('userInfo')._openid;
+      wx.cloud.database().collection('user').where({_openid:openid}).get().then(res=>{
+        console.log(res)
+        if(res.data[0].authority=='admin'){
+            wx.navigateTo({
+              url: '/pages/manage/manage',
+            })
+        }
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

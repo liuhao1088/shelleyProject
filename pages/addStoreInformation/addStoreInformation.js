@@ -138,27 +138,31 @@ Page({
   //提交
   async submit() {
     var that = this;
-    if (that.data.shop_name !== "" && that.data.address !== "" && that.data.phone !== "") {
-      wx.showLoading({
-        title: '提交中，请稍等',
-      })
-      let arr=[];
-      if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop',arr )
-      that.add(arr);
-
-    } else {
-      wx.showModal({
-        showCancel: false,
-        title: '请填写完整内容'
-      })
+    if(!wx.getStorageSync('userInfo')){
+      this.selectComponent("#authorize").showModal();
+    }else{
+      if (that.data.shop_name !== "" && that.data.address !== "" && that.data.phone !== "") {
+        wx.showLoading({
+          title: '提交中，请稍等',
+        })
+        let arr=[];
+        if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop',arr )
+        that.add(arr);
+  
+      } else {
+        wx.showModal({
+          showCancel: false,
+          title: '请填写完整内容'
+        })
+      }
     }
-
   },
 
   add: function (imgArr) {
     var that = this;
     const creation_date = util.formatTime(new Date())
     let addressJson = wx.getStorageSync('addressJson');
+    let _openid= wx.getStorageSync('userInfo')._openid;
     wx.cloud.callFunction({
       name: "recordAdd", //
       data: {
@@ -176,6 +180,8 @@ Page({
           start_hour:hourArr[that.data.multiIndex[0]],
           end_hour:hourArr[that.data.multiIndex[1]],
           shop_img:imgArr,
+          _openid:_openid,
+          prove:'waiting',
           creation_timestamp: Date.parse(creation_date.replace(/-/g, '/')) / 1000,
         },
 
