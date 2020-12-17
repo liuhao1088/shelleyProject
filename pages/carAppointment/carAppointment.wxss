@@ -65,38 +65,34 @@
   border: 0rpx solid black;
 }
 
-.wrap-but{
+.wrap-but {
   height: 100%;
   width: 340rpx;
   border: 0rpx solid red;
-  /* display: flex;
-  justify-content: space-around; */
   float: right;
 }
 
-.but{
+.but {
   width: calc(80%/2);
   height: 100%;
   border: 0rpx solid red;
   float: right;
-  
+
 }
 
-.but button{
-  border-radius: 30rpx;
+.cu-btn {
   height: 100%;
   width: 100%;
   font-size: 16rpx;
-  line-height: 60rpx;
 }
 
 
-.cancel{
+.cancel {
   border: 2rpx solid rgba(105, 113, 254, 100);
   color: rgba(105, 113, 254, 100);
 }
 
-.accept{
+.accept {
   background-color: rgba(105, 113, 254, 100);
   color: rgba(255, 255, 255, 100);
 }

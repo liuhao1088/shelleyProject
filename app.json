@@ -1,12 +1,9 @@
 {
   "pages":[
+    "pages/index/index",
+    "pages/carAppointment/carAppointment",
     "pages/activityDetails/activityDetails",
     "pages/activitySelect/activitySelect",
-   
-    "pages/carAppointment/carAppointment",
-    "pages/index/index",
-    
-    
     "pages/storeInformation/storeInformation",
     "pages/myStore/myStore",
     "pages/storeAppointment/storeAppointment",

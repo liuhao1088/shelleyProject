@@ -105,11 +105,9 @@
 }
 
 .cu-btn{
-  border-radius: 30rpx;
   height: 100%;
   width: 100%;
-  font-size: 16rpx;
-  line-height: 60rpx;
+  font-size: 16rpx
 }
 
 
