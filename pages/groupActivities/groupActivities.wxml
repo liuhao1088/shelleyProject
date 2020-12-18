@@ -1,0 +1,93 @@
+<view class="groupActivitiesContainer">
+  <view class="title">活动创建</view>
+  <!--活动标题  -->
+  <view class="wrap">
+    <view class="wrap-titleItem">
+      <view class="wrap-title">活动标题</view>
+      <view class="wrap-input">
+        <input type="text" placeholder-class="placeholder" placeholder="请输入活动标题" /></view>
+    </view>
+
+    <view class="wrap-date">
+      <view class="wrap-dateItem">
+        <view class="wrap-title">
+          活动开始时间
+        </view>
+        <view class="wrap-input">
+          <rui-picker slot="flexchild" start="{{startTime}}" end="2999-12-31 00:00" value="{{startTime}}"
+            fields="minute" bindchangedatepicker="changeStartTime"></rui-picker>
+        </view>
+      </view>
+
+      <view class="wrap-dateItem">
+        <view class="wrap-title">
+          活动截止时间
+        </view>
+        <view class="wrap-input">
+          <rui-picker slot="flexchild" start="{{endTime}}" end="2999-12-31 00:00" value="{{endTime}}" fields="minute"
+            bindchangedatepicker="changeEndTime"></rui-picker>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="wrap">
+    <view class="wrap-titleItem">
+      <view class="wrap-title">活动商品</view>
+      <view class="wrap-input">
+        <input type="text" placeholder-class="placeholder" placeholder="请选择参与活动的商品" /></view>
+    </view>
+    <view class="wrap-titleItem">
+      <view class="wrap-title">拼团价</view>
+      <view class="wrap-input">
+        <view class="input-item">
+          <view class="text-item">￥</view>
+          <view class="input">
+            <input style="padding-left: 20rpx;" type="number" placeholder-class="placeholder" placeholder="价格" />
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="wrap-titleItem">
+      <view class="wrap-title">拼团人数</view>
+      <view class="wrap-input">
+        <view class="input-item">
+          <view class="text-item">满</view>
+          <view class="input">
+            <input style="padding-left: 20rpx;" type="number" placeholder-class="placeholder" placeholder="多少" />
+          </view>
+          <view class="text-item">人成团</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="wrap-titleItem">
+      <view class="wrap-title">时间限制</view>
+      <view class="wrap-input">
+        <view class="input-item" style="width:100%;">
+          <view class="input">
+            <picker mode="time" value="{{time}}" start="01:00" end="59:60" bindchange="timeChange">
+              <view class="tui-picker-detail">
+                {{time}}
+              </view>
+            </picker>
+          </view>
+          <view class="text-item">分钟后未成团则该拼团失效</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="wrap-iconItem">
+        <text class="iconfont iconplus1" style="font-size: 24rpx;"></text> 添加活动商品
+    </view>
+  </view>
+
+  <view class="title">活动预览</view>
+  <view class="wrap">
+  </view>
+</view>
+
+<view class="but-item">
+  <button>发布专属活动</button>
+</view>

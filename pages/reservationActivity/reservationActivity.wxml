@@ -1,4 +1,4 @@
-<view class="reservationActivity">
+<view class="reservationActivityContainer">
   <view class="title">活动创建</view>
   <view class="wrap">
     <view class="wrap-titleItem">
@@ -20,11 +20,11 @@
 
       <view class="wrap-dateItem">
         <view class="wrap-title">
-          活动截至时间
+          活动截止时间
         </view>
         <view class="wrap-input">
-          <rui-picker slot="flexchild" start="{{startTime}}" end="2999-12-31 00:00" value="{{startTime}}"
-            fields="minute" bindchangedatepicker="changeStartTime"></rui-picker>
+          <rui-picker slot="flexchild" start="{{endTime}}" end="2999-12-31 00:00" value="{{endTime}}"
+            fields="minute" bindchangedatepicker="changeEndTime"></rui-picker>
         </view>
       </view>
     </view>

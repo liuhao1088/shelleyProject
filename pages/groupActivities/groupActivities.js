@@ -1,5 +1,4 @@
-// pages/reservationActivity/reservationActivity.js
-const uilt = require('../../utils/util');
+// pages/groupActivities/groupActivities.js
 Page({
 
   /**
@@ -8,11 +7,13 @@ Page({
   data: {
     startTime: '2020-12-17 11:32',
     endTime: '2020-12-17 11:32',
-    textareaAValue:''
+    time: '时间',
   },
-  changeStartTime(e){
+  changeStartTime(e) {
     console.log(e.detail.startTime)
-    this.setData({ startTime: e.detail.startTime})
+    this.setData({
+      startTime: e.detail.startTime
+    })
   },
   changeEndTime(e) {
     console.log(e.detail.endTime)
@@ -20,20 +21,21 @@ Page({
       endTime: e.detail.endTime
     })
   },
-  textareaAInput(e) {
+  timeChange(e) {
     this.setData({
-      textareaAValue: e.detail.value
+      time: e.detail.value
     })
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  //  let startTime =  uilt.formatTime(new Date());
-  //  this.setData({
-  //   startTime
-  //  })
-   console.log(startTime);
+    // let date =  uilt.formatTime(new Date());
+    // this.setData({
+    //  startTime:date,
+    //  endTime:date
+    // })
   },
 
   /**

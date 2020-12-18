@@ -12,6 +12,11 @@ Page({
       url: '/pages/reservationActivity/reservationActivity',
     })
   },
+  toGroupActivities(event){
+    wx.navigateTo({
+      url: '/pages/groupActivities/groupActivities',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
