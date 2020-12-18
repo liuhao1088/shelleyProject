@@ -39,7 +39,42 @@
     <view class='field align-center'>提交时间</view>
     <view class='input align-center'>{{data.creation_date}}</view>
   </view>
-
+  <view class='box row align-center' wx:if="{{data.prove=='waiting'}}">
+    <view class='field align-center'>认证状态</view>
+    <view class='input align-center' style="color:#5B62D9;">待认证</view>
+  </view>
+  <view class='box row align-center' wx:if="{{data.prove=='success'}}">
+    <view class='field align-center'>认证状态</view>
+    <view class='input align-center' style="color:green;">已认证</view>
+  </view>
+  <view class='box row align-center' wx:if="{{data.prove=='success'}}">
+    <view class='field align-center'>认证编号</view>
+    <view class='input align-center' style="color:green;">{{data.shop_code}}</view>
+  </view>
+  <view class='box row align-center' wx:if="{{data.prove=='success'}}">
+    <view class='field align-center'>认证人员</view>
+    <view class='input align-center' style="color:green;">{{data.checker}}</view>
+  </view>
+  <view class='box row align-center' wx:if="{{data.prove=='success'}}">
+    <view class='field align-center'>认证时间</view>
+    <view class='input align-center' style="color:green;">{{data.check_date}}</view>
+  </view>
+  <view class='box row align-center' wx:if="{{data.prove=='fail'}}">
+    <view class='field align-center'>认证状态</view>
+    <view class='input align-center' style="color:red;">已驳回</view>
+  </view>
+  <view class='box row align-center' wx:if="{{data.prove=='fail'}}">
+    <view class='field align-center'>驳回人员</view>
+    <view class='input align-center' style="color:red;">{{data.checker}}</view>
+  </view>
+  <view class='box row align-center' wx:if="{{data.prove=='fail'}}">
+    <view class='field align-center'>驳回理由</view>
+    <view class='input align-center' style="color:red;">{{data.reason}}</view>
+  </view>
+  <view class='box row align-center' wx:if="{{data.prove=='fail'}}">
+    <view class='field align-center'>驳回时间</view>
+    <view class='input align-center' style="color:red;">{{data.check_date}}</view>
+  </view>
   <view style='border-bottom:1px #d9d9d9 solid;width:100%;'>
     <view class='box row align-center' style="border-bottom:0px">
       <view class='field align-center'>门店图</view>
@@ -54,5 +89,25 @@
 </view>
 <view class='form-btn' style="background:#5B62D9;margin-top:15px;" wx:if="{{data.prove=='waiting'}}" bindtap='confirm'>认证</view>
 <view class='form-btn bg-grey' style="margin-top:15px;" wx:if="{{data.prove=='waiting'}}" bindtap='cancel'>驳回</view>
-<view class='form-btn bg-grey' style="margin-top:15px;" wx:if="{{data.prove=='success'}}" bindtap=''>已认证</view>
+<view class='form-btn' style="background:#5B62D9;margin-top:15px;" wx:if="{{data.prove=='success'}}" bindtap=''>已认证门店</view>
 <view class='form-btn bg-grey' style="margin-top:15px;" wx:if="{{data.prove=='fail'}}" bindtap=''>已驳回</view>
+
+<view class="cu-modal {{modalName=='fail'?'show':''}}" style="z-index:{{z}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">驳回理由</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="justify-center">
+      <textarea bindinput="inputReason" style="width:80%;height:70px;margin-top:10px;" placeholder="请填写驳回理由" ></textarea>
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn bg-green margin-left" style="width:180rpx;" bindtap="submit">确定</button>
+
+      </view>
+    </view>
+  </view>
+</view>

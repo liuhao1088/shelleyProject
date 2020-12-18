@@ -50,12 +50,12 @@ Page({
 
   showModal(e) {
     this.setData({
-      modalName: e.currentTarget.dataset.target
+      modalName: e.currentTarget.dataset.target,z:200
     })
   },
   hideModal(e) {
     this.setData({
-      modalName: null
+      modalName: null,z:-1
     })
   },
  
@@ -67,6 +67,9 @@ Page({
     let array=[];
     for(let i=0;i<2;i++){array.push(hourArr)}
     this.setData({multiArray:array})
+    wx.cloud.callFunction({
+      name:'login'
+    }).then(res=>console.log(res))
   },
 
   /**
@@ -114,7 +117,8 @@ Page({
         that.setData({
           address: res.address,
           address_name: res.name,
-          modalName:'addressConfirm'
+          modalName:'addressConfirm',
+          z:200
         })
       },
     })
@@ -222,6 +226,66 @@ Page({
    */
   onHide: function () {
 
+  },
+  phoneModal:function(){
+    this.setData({modalName:'phoneModal',z:200})
+  },
+  getPhoneNumber:function(e){
+    var that=this;
+    console.log(e)
+    if(e.detail.errMsg=="getPhoneNumber:ok"){
+      wx.showLoading({
+        title: '授权中',
+      })
+      wx.cloud.callFunction({
+        name:'decode',
+        data: {
+          weRunData: wx.cloud.CloudID(e.detail.cloudID),
+        }
+      }).then(res=>{
+        that.setData({
+          phone: res.result,
+        })
+        let phone=res.result;
+        if(!wx.getStorageSync('phone')){
+          wx.setStorageSync('phone', res.result)
+          wx.cloud.database().collection('user').where({
+            _openid:wx.getStorageSync('userInfo')._openid
+          }).get().then(res=>{
+            console.log(res)
+            if(!res.data[0].phone){
+              wx.cloud.callFunction({
+                name:'recordUpdate',
+                data:{
+                  collection:'user',
+                  where:{_openid:wx.getStorageSync('userInfo')._openid},
+                  updateData:{phone:phone}
+                }
+              }).then(res=>{
+                console.log(res)
+              })
+            }
+          })
+        }
+        let userInfo=wx.getStorageSync('userInfo')
+        userInfo.phone=phone;
+        wx.setStorageSync('userInfo', userInfo)
+        wx.hideLoading()
+        that.hideModal();
+        wx.showToast({
+          title: '授权成功',
+          icon:'success'
+        })
+      }).catch(error=>{
+        console.log(error);
+        wx.hideLoading()
+        wx.showToast({
+          title: '授权失败',
+          icon:'none'
+        })
+      })
+      
+    }
   },
   //上传图片到云存储
   uploadimg: function (i, parse, content, arr) {

@@ -5,5 +5,4 @@
   <view class='form-btn bg-grey' bindtap='toExamine'>门店认证</view>
   <view class='form-btn bg-grey' bindtap='toActivity'>活动管理</view>
   <button class='form-btn bg-grey' open-type="contact" bindcontact="handleContact">客服</button>
-
 </view>

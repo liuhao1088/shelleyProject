@@ -30,7 +30,7 @@
     <view class="box-wrapper">
       <view class="tag-wrapper">联系电话：</view>
       <view class="input-wrapper">
-        <input type="number" style="width:80%;" value="{{phone}}" bindinput="inputPhone" placeholder="请输入联系电话"
+        <input type="number" style="width:80%;" value="{{phone}}" bindinput="inputPhone" bindtap="phoneModal" placeholder="请输入联系电话"
           placeholder-class="placeholder" />
       </view>
     </view>
@@ -137,6 +137,24 @@
 
       </view>
     </view>
+  </view>
+</view>
+
+<view class="cu-modal {{modalName=='phoneModal'?'show':''}}" style="z-index:{{z}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">获取手机号</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <button class='btn1 justify-center' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" lang="zh_CN" style="width:80%;">
+          <image class='btnImg' src='../../images/weixin.png'></image>
+          <view>微信授权手机号</view>
+        </button>
+    </view>
+    
   </view>
 </view>
 <authorize id="authorize" />

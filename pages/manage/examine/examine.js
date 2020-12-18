@@ -1,21 +1,30 @@
 // pages/manage/examine/examine.js
 var ind;
 var skip;
-var a_skip;
-var list;
-var alreadylist;
+var skip2;
+var skip3;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list: [],scrollHev:'',startDate:'不限',endDate:'不限',search:'',alreadylist:[],
+    list: [],
+    scrollHev: '',
+    startDate: '不限',
+    endDate: '不限',
+    search: '',
+    alreadylist: [],
+    faillist:[],
+    searchlist:'',
     tabs: [{
       title: "待认证",
       color: "orangered"
     }, {
       title: "已认证",
+      color: ""
+    }, {
+      title: "已驳回",
       color: ""
     }],
     activeIndex: 0,
@@ -27,39 +36,50 @@ Page({
       default: 1
     })
   },
-    //tab菜单
-    tabClick: function (e) {
-      this.setData({
-        sliderOffset: e.currentTarget.offsetLeft,
-        activeIndex: e.currentTarget.id,
-      });
-  
-      var tabs = this.data.tabs;
-      for (let i = 0; i < 2; i++) {
-        tabs[i].color = "black";
-      }
-      tabs[e.currentTarget.id].color = "orangered";
-      this.setData({
-        tabs: tabs
-      })
-      //console.log(e.currentTarget.id,this.data.tabs)
-    },
+  //tab菜单
+  tabClick: function (e) {
+    this.setData({
+      sliderOffset: e.currentTarget.offsetLeft,
+      activeIndex: e.currentTarget.id,
+    });
+
+    var tabs = this.data.tabs;
+    for (let i = 0; i < 3; i++) {
+      tabs[i].color = "black";
+    }
+    tabs[e.currentTarget.id].color = "orangered";
+    this.setData({
+      tabs: tabs
+    })
+    //console.log(e.currentTarget.id,this.data.tabs)
+  },
   inputSearch(e) {
     var that = this;
-    that.setData({search:e.detail.value})
-  },
-  search:function(){
-    skip = 0;
-    this.setData({
-        list: []
+    that.setData({
+      search: e.detail.value
     })
-    this.loadData()
+  },
+  async search() {
+    if(this.data.search==''){
+      this.setData({searchlist:''})
+    }else{
+      let data=[];
+      await this.loadData([], '',data,0).then(res=>data=res)
+      this.setData({
+        searchlist:data
+      })
+    }
+    
   },
   changeDate: function (e) {
-    this.setData({ startDate: e.detail.value })
+    this.setData({
+      startDate: e.detail.value
+    })
   },
   changeDate2: function (e) {
-    this.setData({ endDate: e.detail.value })
+    this.setData({
+      endDate: e.detail.value
+    })
   },
   toLookup: function (e) {
     var that = this;
@@ -77,29 +97,52 @@ Page({
       url: './lookup',
     })
   },
+  toFailLookup: function (e) {
+    var that = this;
+    ind = parseInt(e.currentTarget.dataset.index)
+    wx.setStorageSync("editData", that.data.faillist[ind])
+    wx.navigateTo({
+      url: './lookup',
+    })
+  },
+  toSearchLookup: function (e) {
+    var that = this;
+    ind = parseInt(e.currentTarget.dataset.index)
+    wx.setStorageSync("editData", that.data.searchlist[ind])
+    wx.navigateTo({
+      url: './lookup',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  async onLoad(options) {
     var that = this;
     // 获取系统信息
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
           widheight: res.windowHeight,
-          scrollHev:res.windowHeight-80
+          scrollHev: res.windowHeight - 80
         });
       }
     });
-    this.setData({list:[],alreadylist:[]})
-    skip=0;
-    list=this.data.list;
-    alreadylist=this.data.alreadylist;
-    this.loadData(list,'waiting')
-    a_skip=0;
-    this.loadData(alreadylist,'success')
-    console.log(list,alreadylist)
-    this.setData({list:list,alreadylist:alreadylist})
+    this.setData({
+      list: [],
+      alreadylist: [],
+      faillist:[]
+    })
+    let list = []; skip=0;
+    let alreadylist = []; skip2=0;
+    let faillist=[]; skip3=0;
+    await this.loadData(this.data.list, 'waiting',list,0).then(res=>list=res)
+    await this.loadData(this.data.alreadylist, 'success',alreadylist,0).then(res=>alreadylist=res)
+    await this.loadData(this.data.faillist, 'fail',faillist,0).then(res=>faillist=res)
+    this.setData({
+      list: list,
+      alreadylist:alreadylist,faillist:faillist
+    })
+    console.log(list, alreadylist,faillist)
   },
 
   /**
@@ -113,74 +156,103 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let boolean=wx.getStorageSync('refresh');
-    if(boolean==true){
-      skip=0;
-      this.setData({list:[]})
-      this.loadData()
-      wx.setStorageSync('refresh', false)
+    var that=this;
+    if (wx.getStorageSync('refreshData')) {
+      let data = wx.getStorageSync('refreshData');
+      let list=that.data.list;
+      list[ind].prove=data.prove;
+      list[ind].checker=data.checker;
+      list[ind].check_date=data.check_date;
+      if(data.reason) list[ind].reason=data.reason;
+      if(data.shop_code) list[ind].shop_code=data.shop_code;
+      that.setData({list:list})
+      wx.removeStorageSync('refreshData')
     }
   },
-  loadData:function(arr,proveValue){
+  loadData: function (parse, proveValue,arr,skip) {
     var that = this;
     wx.showLoading({
       title: '加载中',
     })
-    let startstamp=Date.parse(that.data.startDate.replace(/-/g, '/')) / 1000
-    let endstamp=Date.parse(that.data.endDate.replace(/-/g, '/')) / 1000
-    if(that.data.startDate=='不限') startstamp=0
-    if(that.data.endDate=='不限') endstamp=100000000000;
+    let startstamp = Date.parse(that.data.startDate.replace(/-/g, '/')) / 1000
+    let endstamp = Date.parse(that.data.endDate.replace(/-/g, '/')) / 1000
+    if (that.data.startDate == '不限') startstamp = 0
+    if (that.data.endDate == '不限') endstamp = 100000000000;
     const db = wx.cloud.database();
-    const _=db.command;
-    db.collection('shop').where(_.or([{
-      phone: {
-        $regex: '.*' + that.data.search,
-        $options: 'i'
-      }
-    },{
-      shop_name: {
-        $regex: '.*' + that.data.search,
-        $options: 'i'
-      }
-    },{
-      person: {
-        $regex: '.*' + that.data.search,
-        $options: 'i'
-      }
-    },{
-      address: {
-        $regex: '.*' + that.data.search,
-        $options: 'i'
-      }
-    }])).where({creation_timestamp:_.gte(startstamp).and(_.lte(endstamp+86400))}).where({prove:proveValue}).skip(skip).limit(20).orderBy("creation_date","desc").get().then(res => {
-      let data = res.data;
-      arr=arr.concat(data)
-      console.log(arr)
-      wx.hideLoading()
-      wx.hideNavigationBarLoading()
-    }).catch(error=>{
-      wx.hideLoading()
-      wx.hideNavigationBarLoading()
-      wx.showModal({
-        title: '服务器繁忙，请稍后重试',
+    const _ = db.command;
+    return new Promise((resolve, reject) => {
+      db.collection('shop').where(_.or([{
+        phone: {
+          $regex: '.*' + that.data.search,
+          $options: 'i'
+        }
+      }, {
+        shop_name: {
+          $regex: '.*' + that.data.search,
+          $options: 'i'
+        }
+      }, {
+        person: {
+          $regex: '.*' + that.data.search,
+          $options: 'i'
+        }
+      }, {
+        address: {
+          $regex: '.*' + that.data.search,
+          $options: 'i'
+        }
+      }]).and([{
+        prove: {
+          $regex: '.*' + proveValue,
+          $options: 'i'
+        }
+      }])).where({
+        creation_timestamp: _.gte(startstamp).and(_.lte(endstamp + 86400))
+      }).skip(skip).limit(20).orderBy("creation_date", "desc").get().then(res => {
+        let data = res.data;
+        arr = parse.concat(data)
+        console.log(arr)
+        resolve(arr)
+        wx.hideLoading()
+        wx.hideNavigationBarLoading()
+      }).catch(error => {
+        wx.hideLoading()
+        wx.hideNavigationBarLoading()
+        wx.showModal({
+          title: '服务器繁忙，请稍后重试',
+        })
       })
     })
   },
-  bindDownLoad: function () {
+  async bindDownLoad() {
     console.log('--下拉刷新--')
     wx.showNavigationBarLoading() //在标题栏中显示加载
     skip = skip + 20;
-    list=this.data.list;
-    this.loadData(list,'waiting')
-    this.setData({list:list})
+    let list = [];
+    await this.loadData(this.data.list, 'waiting',list,skip).then(res=>list=res)
+    this.setData({
+      list: list
+    })
   },
-  bindDownLoad: function () {
+  async bindDownLoad2() {
     console.log('--下拉刷新--')
     wx.showNavigationBarLoading() //在标题栏中显示加载
-    a_skip = a_skip + 20;
-    alreadylist=this.data.alreadylist;
-    this.loadData(alreadylist,'success')
-    this.setData({alreadylist:alreadylist})
+    skip2 = skip2 + 20;
+    let alreadylist = [];
+    await this.loadData(this.data.alreadylist, 'success',alreadylist,skip2).then(res=>alreadylist=res)
+    this.setData({
+      alreadylist: alreadylist
+    })
+  },
+  async bindDownLoad2() {
+    console.log('--下拉刷新--')
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    skip3 = skip3 + 20;
+    let data = [];
+    await this.loadData(this.data.faillist, 'success',data,skip3).then(res=>data=res)
+    this.setData({
+      faillist: data
+    })
   },
   /**
    * 生命周期函数--监听页面隐藏
