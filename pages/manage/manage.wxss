@@ -1,0 +1,4 @@
+/* pages/manage/manage.wxss */
+.form-btn{
+  margin:10px 4%;width:92%;height:40px;border-radius:5px;font-size: 17px;color:white;display: flex;justify-content: center;align-items: center;
+}

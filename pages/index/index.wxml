@@ -1,6 +1,6 @@
 <import src="/template/myTemplate.wxml"></import>
 <authorize id="authorize" />
-<view class="container">
+<view class="container" bindlongpress="toManage">
   <view class="header">
     <view class="header-img">
       <image mode="widthFix"

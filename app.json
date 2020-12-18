@@ -3,11 +3,12 @@
     "pages/groupActivities/groupActivities",
     "pages/activitySelect/activitySelect",
     "pages/index/index",
-    
+
     "pages/myCoupon/myCoupon",
     "pages/reservationActivity/reservationActivity",
     "pages/carAppointment/carAppointment",
     "pages/activityDetails/activityDetails",
+    "pages/activitySelect/activitySelect",
     "pages/storeInformation/storeInformation",
     "pages/myStore/myStore",
     "pages/storeAppointment/storeAppointment",
@@ -19,7 +20,13 @@
     "pages/bThree/bThree",
     "pages/tThree/tThree",
     "pages/sThree/sThree",
-    "pages/rOne/rOne"
+    "pages/rOne/rOne",
+    "pages/manage/manage",
+    "pages/manage/user/user",
+    "pages/manage/examine/examine",
+    "pages/manage/activity/activity",
+    "pages/manage/user/lookup",
+    "pages/manage/examine/lookup"
   ],
   "window": {
     "backgroundTextStyle": "light",

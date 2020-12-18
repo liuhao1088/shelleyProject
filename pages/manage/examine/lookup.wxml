@@ -1,0 +1,58 @@
+<!--pages/manage/examine/lookup.wxml-->
+<view class='background'>
+
+
+  <view class='box row align-center'>
+    <view class='field align-center'>门店名称</view>
+    <view class='input align-center'>{{data.shop_name}}</view>
+  </view>
+  <view class='box row align-center'>
+    <view class='field align-center'>门店地址</view>
+    <view class='input align-center'>{{data.address}}</view>
+    <image style="height:25px;width:25px;position:absolute;right:5%;" bindtap="openLocation"
+      src="../../../images/position.png" />
+  </view>
+  <view class='box row align-center'>
+    <view class='field align-center'>门店地点</view>
+    <view class='input align-center'>{{data.address_name}}</view>
+  </view>
+  <view class='box row align-center'>
+    <view class='field align-center'>地址补充</view>
+    <view class='input align-center'>{{data.detail}}</view>
+  </view>
+  <view class='box row align-center'>
+    <view class='field align-center'>营业时间</view>
+    <view class='input align-center'>{{data.start_hour}} - {{data.end_hour}}</view>
+  </view>
+  <view class='box row align-center'>
+    <view class='field align-center'>联系人</view>
+    <view class='input align-center'>{{data.person}}</view>
+  </view>
+
+  <view class='box row align-center' style="">
+    <view class='field align-center'>联系电话</view>
+    <view class='input align-center'>{{data.phone}}</view>
+    <image style="height:25px;width:25px;position:absolute;right:5%;" bindtap="callPhone"
+      src="../../../images/phone.png" />
+  </view>
+  <view class='box row align-center'>
+    <view class='field align-center'>提交时间</view>
+    <view class='input align-center'>{{data.creation_date}}</view>
+  </view>
+
+  <view style='border-bottom:1px #d9d9d9 solid;width:100%;'>
+    <view class='box row align-center' style="border-bottom:0px">
+      <view class='field align-center'>门店图</view>
+      <view class="iconlist row" style="margin-top:5px;margin-bottom:5px;">
+        <view bindtap="previewImg" style="" id="{{item}}" data-index="{{index}}" wx:for="{{data.shop_img}}"
+          wx:key="*this">
+          <image class="addIcon" src="{{item}}" />
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='form-btn' style="background:#5B62D9;margin-top:15px;" wx:if="{{data.prove=='waiting'}}" bindtap='confirm'>认证</view>
+<view class='form-btn bg-grey' style="margin-top:15px;" wx:if="{{data.prove=='waiting'}}" bindtap='cancel'>驳回</view>
+<view class='form-btn bg-grey' style="margin-top:15px;" wx:if="{{data.prove=='success'}}" bindtap=''>已认证</view>
+<view class='form-btn bg-grey' style="margin-top:15px;" wx:if="{{data.prove=='fail'}}" bindtap=''>已驳回</view>

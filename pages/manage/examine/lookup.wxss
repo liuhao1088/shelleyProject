@@ -1,0 +1,3 @@
+/* pages/manage/examine/lookup.wxss */
+@import "../user/lookup.wxss";
+@import "../manage.wxss";
