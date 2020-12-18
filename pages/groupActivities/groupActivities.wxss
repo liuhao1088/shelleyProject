@@ -129,10 +129,6 @@
   opacity: 0.6;
 }
 
-.show{
-  display: block;
-}
-
-.hide{
-  display: none;
+.border{
+  border-bottom: 2rpx solid #b5b5b5;
 }

@@ -18,7 +18,10 @@ Page({
       "name": '',
       "user": ''
     };
-    
+    if (lists.length >= 3) {
+      console.log('最多3个')
+       return;
+     }
     lists.push(newData);
     this.setData({
       lists: lists,

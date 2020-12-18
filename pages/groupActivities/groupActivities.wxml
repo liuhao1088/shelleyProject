@@ -33,13 +33,13 @@
 
   <!-- 活动商品 -->
   <view class="wrap" wx:for="{{productList}}" wx:key="id">
-    <view class="wrap-titleItem">
+    <view class="wrap-titleItem border">
       <view class="wrap-title">活动商品</view>
       <view class="wrap-input">
         <input type="text" placeholder-class="placeholder" placeholder="请选择参与活动的商品" data-idx='{{index}}'
           value='{{item[index].name}}' id="name" bindinput='bindChanguser'/></view>
     </view>
-    <view class="wrap-titleItem">
+    <view class="wrap-titleItem border">
       <view class="wrap-title">拼团价</view>
       <view class="wrap-input">
         <view class="input-item">
@@ -52,7 +52,7 @@
       </view>
     </view>
 
-    <view class="wrap-titleItem">
+    <view class="wrap-titleItem border">
       <view class="wrap-title">拼团人数</view>
       <view class="wrap-input">
         <view class="input-item">
@@ -82,7 +82,7 @@
       </view>
     </view>
 
-    <view class="wrap-iconItem" style="display:{{productList[index].showView?'hide':'show'}}" data-idx='{{index}}' bindtap="onAdd">
+    <view class="wrap-iconItem" style="display:{{productList[index].showView?'none':'block'}}" data-idx='{{index}}' bindtap="onAdd">
       <text class="iconfont iconplus1" style="font-size: 24rpx;"></text> 添加活动商品
     </view>
   </view>

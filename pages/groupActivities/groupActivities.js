@@ -5,9 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    startTime: '2020-12-17 11:32',
-    endTime: '2020-12-17 11:32',
-    // time: '时间',
+    startTime: '2020-12-17 11:32',//活动开始时间
+    endTime: '2020-12-17 11:32',//活动截止时间
     productList:[
       {
         "name": '',
@@ -16,28 +15,34 @@ Page({
         "time":'时间',
         "showView":false
       }
-    ],
+    ],//活动商品
     
    
   },
+  //获取活动开始时间
   changeStartTime(e) {
     console.log(e.detail.startTime)
     this.setData({
       startTime: e.detail.startTime
     })
   },
+
+  // 获取活动截止时间
   changeEndTime(e) {
     console.log(e.detail.endTime)
     this.setData({
       endTime: e.detail.endTime
     })
   },
+
+  //获取分钟
   timeChange(e) {
     var index = e.currentTarget.dataset.idx; //获取当前索引
     console.log(index)
     this.data.productList[index].time = e.detail.value
   },
 
+  //添加活动商品
   onAdd(e){
     console.log(e)
     let productList = this.data.productList;
@@ -50,10 +55,15 @@ Page({
       "time":'时间',
       "showView":false
     };
+    if (productList.length >= 6) {
+      wx.showToast({
+        title: '最多添加6个商品',
+        icon: 'none',
+        duration: 2000
+      })
+       return;
+     }
     productList.push(newData);
-    this.setData({
-      productList,
-    })
     console.log(this.data.productList[index].showView)
     this.data.productList[index].showView  =  !this.data.productList[index].showView;
     console.log(this.data.productList[index].showView)
@@ -61,6 +71,8 @@ Page({
       productList,
     })
   },
+
+  //获取input的值
   bindChanguser(e){
     var index = e.currentTarget.dataset.idx; //获取当前索引
     var type = e.currentTarget.id;//状态
