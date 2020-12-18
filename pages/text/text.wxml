@@ -1,0 +1,9 @@
+<view class='add' bindtap='onAddPhone'>增加</view>
+<view class='box' wx:for="{{lists}}" wx:key="id">
+  <view class='del' bindtap='delList' data-idx='{{index}}'>删除</view>
+  <input type='text' class='b-ipt' placeholder='请输入' data-idx='{{index}}' value='{{lists[index].name}}'
+    bindinput='bindPhoneDataChangname' />
+  <input type='text' class='b-ipt' placeholder='请输入' data-idx='{{index}}' value='{{lists[index].user}}'
+    bindinput='bindPhoneDataChanguser' />
+</view>
+

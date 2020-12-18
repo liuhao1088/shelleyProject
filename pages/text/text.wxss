@@ -1,0 +1,7 @@
+.box{
+  background-color: #fff;
+}
+
+.add{
+  background-color: seagreen;
+}

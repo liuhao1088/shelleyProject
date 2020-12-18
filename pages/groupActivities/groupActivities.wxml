@@ -31,11 +31,13 @@
     </view>
   </view>
 
-  <view class="wrap">
+  <!-- 活动商品 -->
+  <view class="wrap" wx:for="{{productList}}" wx:key="id">
     <view class="wrap-titleItem">
       <view class="wrap-title">活动商品</view>
       <view class="wrap-input">
-        <input type="text" placeholder-class="placeholder" placeholder="请选择参与活动的商品" /></view>
+        <input type="text" placeholder-class="placeholder" placeholder="请选择参与活动的商品" data-idx='{{index}}'
+          value='{{item[index].name}}' id="name" bindinput='bindChanguser'/></view>
     </view>
     <view class="wrap-titleItem">
       <view class="wrap-title">拼团价</view>
@@ -43,7 +45,8 @@
         <view class="input-item">
           <view class="text-item">￥</view>
           <view class="input">
-            <input style="padding-left: 20rpx;" type="number" placeholder-class="placeholder" placeholder="价格" />
+            <input style="padding-left: 20rpx;" type="number" placeholder-class="placeholder" placeholder="价格"
+              data-idx='{{index}}' value='{{item[index].price}}' id="price"  bindinput='bindChanguser'/>
           </view>
         </view>
       </view>
@@ -55,7 +58,8 @@
         <view class="input-item">
           <view class="text-item">满</view>
           <view class="input">
-            <input style="padding-left: 20rpx;" type="number" placeholder-class="placeholder" placeholder="多少" />
+            <input style="padding-left: 20rpx;" type="number" placeholder-class="placeholder" placeholder="多少"
+            data-idx='{{index}}' value='{{item[index].price}}' id="people"  bindinput='bindChanguser' />
           </view>
           <view class="text-item">人成团</view>
         </view>
@@ -67,9 +71,9 @@
       <view class="wrap-input">
         <view class="input-item" style="width:100%;">
           <view class="input">
-            <picker mode="time" value="{{time}}" start="01:00" end="59:60" bindchange="timeChange">
+            <picker mode="time" value="{{productList[index].time}}" data-idx='{{index}}' start="01:00" end="59:60" bindchange="timeChange">
               <view class="tui-picker-detail">
-                {{time}}
+                {{productList[index].time}}
               </view>
             </picker>
           </view>
@@ -78,8 +82,8 @@
       </view>
     </view>
 
-    <view class="wrap-iconItem">
-        <text class="iconfont iconplus1" style="font-size: 24rpx;"></text> 添加活动商品
+    <view class="wrap-iconItem" style="display:{{productList[index].showView?'hide':'show'}}" data-idx='{{index}}' bindtap="onAdd">
+      <text class="iconfont iconplus1" style="font-size: 24rpx;"></text> 添加活动商品
     </view>
   </view>
 

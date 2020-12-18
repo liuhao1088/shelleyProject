@@ -7,7 +7,18 @@ Page({
   data: {
     startTime: '2020-12-17 11:32',
     endTime: '2020-12-17 11:32',
-    time: '时间',
+    // time: '时间',
+    productList:[
+      {
+        "name": '',
+        "price": '',
+        "people":'',
+        "time":'时间',
+        "showView":false
+      }
+    ],
+    
+   
   },
   changeStartTime(e) {
     console.log(e.detail.startTime)
@@ -22,9 +33,40 @@ Page({
     })
   },
   timeChange(e) {
+    var index = e.currentTarget.dataset.idx; //获取当前索引
+    console.log(index)
+    this.data.productList[index].time = e.detail.value
+  },
+
+  onAdd(e){
+    console.log(e)
+    let productList = this.data.productList;
+    let index = e.currentTarget.dataset.idx;
+    console.log(index)
+    let newData = {
+      "name": '',
+      "price": '',
+      "people":'',
+      "time":'时间',
+      "showView":false
+    };
+    productList.push(newData);
     this.setData({
-      time: e.detail.value
+      productList,
     })
+    console.log(this.data.productList[index].showView)
+    this.data.productList[index].showView  =  !this.data.productList[index].showView;
+    console.log(this.data.productList[index].showView)
+    this.setData({
+      productList,
+    })
+  },
+  bindChanguser(e){
+    var index = e.currentTarget.dataset.idx; //获取当前索引
+    var type = e.currentTarget.id;//状态
+    console.log(index)
+    this.data.productList[index][type] = e.detail.value
+    console.log(this.data.productList[index][type])
   },
 
   /**
