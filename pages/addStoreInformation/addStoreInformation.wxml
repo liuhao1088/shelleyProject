@@ -29,9 +29,8 @@
     <!-- 联系电话： -->
     <view class="box-wrapper">
       <view class="tag-wrapper">联系电话：</view>
-      <view class="input-wrapper">
-        <input type="number" style="width:80%;" value="{{phone}}" bindinput="inputPhone" bindtap="phoneModal" placeholder="请输入联系电话"
-          placeholder-class="placeholder" />
+      <view class="input-wrapper" hidden="{{modalName=='phoneModal'}}">
+        <input type="number" style="width:80%;" value="{{phone}}" bindinput="inputPhone" bindtap="phoneModal" disabled="{{whetherEmpower=='yes'}}" focus="{{whetherEmpower=='no'}}" bindblur="changeEmpower" placeholder="请输入联系电话" placeholder-class="placeholder" />
       </view>
     </view>
     <!-- 营业时间： -->
@@ -149,10 +148,11 @@
       </view>
     </view>
     <view class="padding-xl">
-      <button class='btn1 justify-center' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" lang="zh_CN" style="width:80%;">
+      <button class='btn1 justify-center' wx:if="{{whetherEmpower=='yes'}}" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" lang="zh_CN" style="width:80%;">
           <image class='btnImg' src='../../images/weixin.png'></image>
           <view>微信授权手机号</view>
-        </button>
+      </button>
+      <view style="color:gray;margin-top:20px;" wx:if="{{whetherEmpower=='yes'}}" bindtap="changeInput">或者手动填写</view>
     </view>
     
   </view>

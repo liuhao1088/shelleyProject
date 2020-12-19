@@ -5,36 +5,38 @@
     </view>
     <view class="wrap-main">
       <view class="wrap-title">门店全称：</view>
-      <view class="wrap-msg">AAAA宝安店</view>
+      <view class="wrap-msg">{{shop.shop_name}}</view>
     </view>
 
     <view class="wrap-main">
       <view class="wrap-title">门店地址：</view>
-      <view class="wrap-msg">广东省深圳市宝安区西乡街道XX大道XX工业园X栋6F405</view>
+      <view class="wrap-msg">{{shop.address_name}} - {{shop.address}}{{shop.detail}}</view>
     </view>
 
     <view class="wrap-main">
       <view class="wrap-title">联系人姓名：</view>
-      <view class="wrap-msg">XXX</view>
+      <view class="wrap-msg">{{shop.person}}</view>
     </view>
 
     <view class="wrap-main">
       <view class="wrap-title">联系电话：</view>
-      <view class="wrap-msg">123-1234-1234</view>
+      <view class="wrap-msg">{{shop.phone}}</view>
     </view>
 
     <view class="wrap-main">
       <view class="wrap-title">营业时间：</view>
-      <view class="wrap-msg">09:00 - 22:00</view>
+      <view class="wrap-msg">{{shop.start_hour}} - {{shop.end_hour}}</view>
     </view>
 
     <view class="wrap-main">
       <view class="wrap-title">门店正面照：</view>
       <view class="wrap-msg">
-        <view class="wrap-img"></view>
+        <image wx:for="{{shop.shop_img}}" src="{{item}}"  class="wrap-img" bindtap="previewImg" data-index="{{index}}" />
       </view>
     </view>
 
-    <view class="wrap-tag">信息审核中，预计在提交日后的3-5个工作日产生结果，请耐心等待~</view>
+    <view class="wrap-tag" wx:if="{{shop.prove=='waiting'}}">信息审核中，预计在提交日后的3-5个工作日产生结果，请耐心等待~</view>
+    <view class="wrap-tag" wx:if="{{shop.prove=='fail'}}">信息被驳回，请检查后重新提交，驳回理由：{{shop.reason}}</view>
+    <view class="wrap-tag" wx:if="{{shop.prove=='success'}}">门店已认证成功</view>
   </view>
 </view>

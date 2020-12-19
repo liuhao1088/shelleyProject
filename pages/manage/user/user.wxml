@@ -19,7 +19,7 @@
         <view class='column' style="width:50%;">
           <view class='viewbox-number'>昵称：{{item.nickName}}</view>
           <view class='viewbox-remark'></view>
-          <view class="viewbox-address"><text decode="{{true}}">类型：{{item.type}} &nbsp;&nbsp;&nbsp;&nbsp;</text></view>
+          <view class="viewbox-address"><text decode="{{true}}">类型：{{item.type=='shopkeeper'?'店主':'车主'}} &nbsp;&nbsp;&nbsp;&nbsp;</text></view>
         </view>
         <view class='row'>
         </view>

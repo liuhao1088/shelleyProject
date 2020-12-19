@@ -2,7 +2,7 @@
   <view class="wrapper">
     <view class="search">
       <text class="iconfont icondingwei"></text>
-      <input type="text" value="{{address}}" bindtap="chooseLocation" placeholder="请选择地址" />
+      <input type="text" value="{{address}}" bindtap="chooseLocation" placeholder="请选择地址" style="position:relative;right:30rpx;" />
     </view>
     <view class="wrap">
       <view class="wrap-item" bindtap="toStoreAppointment">

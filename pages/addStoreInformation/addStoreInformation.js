@@ -16,7 +16,7 @@ Page({
     phone: '',
     address_name: '',
     detail: '',
-    shop_img:[],z:-1,firstLoading:true
+    shop_img:[],z:-1,firstLoading:true,whetherEmpower:'yes',fo:false
   },
   //保存图片，扫码
   previewImg: function (e) {
@@ -166,7 +166,7 @@ Page({
     var that = this;
     const creation_date = util.formatTime(new Date())
     let addressJson = wx.getStorageSync('addressJson');
-    let _openid= wx.getStorageSync('userInfo')._openid;
+    let userInfo= wx.getStorageSync('userInfo');
     wx.cloud.callFunction({
       name: "recordAdd", //
       data: {
@@ -184,7 +184,8 @@ Page({
           start_hour:hourArr[that.data.multiIndex[0]],
           end_hour:hourArr[that.data.multiIndex[1]],
           shop_img:imgArr,
-          _openid:_openid,
+          _openid:userInfo._openid,
+          user:userInfo.nickName,
           prove:'waiting',
           creation_timestamp: Date.parse(creation_date.replace(/-/g, '/')) / 1000,
         },
@@ -199,6 +200,12 @@ Page({
         title: '提交成功',
         icon: 'success',
         duration: 2000
+      })
+      wx.showModal({
+        title:'信息已经提交，之后会有工作人员联系您，请耐心等待',
+        showCancel:false,
+        confirmText:'确认',
+        confirmColor:'#5B62D9',
       })
       setTimeout(function () {
         that.setData({
@@ -286,6 +293,19 @@ Page({
       })
       
     }
+  },
+  changeInput:function(){
+    var _this=this;
+    this.hideModal()
+    setTimeout(res=>{
+      _this.setData({whetherEmpower:'no'})
+    })
+  },
+  changeEmpower:function(){
+    this.setData({whetherEmpower:'yes'})
+  },
+  phoneConfirm:function(e){
+    this.setData({phone:e.detail.value})
   },
   //上传图片到云存储
   uploadimg: function (i, parse, content, arr) {

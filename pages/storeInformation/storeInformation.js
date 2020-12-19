@@ -5,19 +5,30 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    shop:''
   },
   toAddStoreInformation(event){
     wx.navigateTo({
       url: '/pages/addStoreInformation/addStoreInformation',
     })
   },
-
+  previewImg:function(e){
+    var ind=e.currentTarget.dataset.index;
+    wx.previewImage({
+      current: this.data.shop.shop_img[ind], // 当前显示图片的http链接
+      urls:this.data.shop.shop_img
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    if(options.data){
+      let data=JSON.parse(options.data)
+      let shop=data.shop[data.shop.length-1]
+      console.log(shop)
+      this.setData({shop:shop})
+    }
   },
 
   /**

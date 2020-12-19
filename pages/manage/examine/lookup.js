@@ -65,11 +65,21 @@ Page({
                     checker:userInfo.nickName,
                     checker_openid:userInfo._openid,
                     check_date:nowDate,
-                    check_stamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000
+                    check_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000
                   }
                 }
               }).then(res=>{
                 console.log(res)
+                wx.cloud.callFunction({
+                  name:'recordUpdate',
+                  data:{
+                    collection:'user',
+                    where:{_openid:editData._openid},
+                    updateData:{
+                      type:'shopkeeper',
+                    }
+                  }
+                }).then(res=>{console.log(res)})
                 editData.prove='success';
                 editData.shop_code=num;
                 editData.checker=userInfo.nickName;
@@ -140,6 +150,92 @@ Page({
       wx.showToast({
         title: '不能为空',
         icon:'none'
+      })
+    }
+  },
+  tosubLookup:function(){
+    if(editData.user){
+      wx.showLoading({
+        title: '跳转中',
+      })
+      wx.cloud.callFunction({
+        name: 'multQuery',
+        data: {
+          collection: 'user',
+          match: {_openid:editData._openid},
+          or: [{}],
+          and: [{}],
+          lookup: {
+            from: 'shop',
+            localField: '_openid',
+            foreignField: '_openid',
+            as: 'shop',
+          },
+          lookup2: {
+            from: 'coupon',
+            localField: '_openid',
+            foreignField: '_openid',
+            as: 'coupon',
+          },
+          sort: {
+            creation_date: -1
+          },
+          skip: 0,
+          limit: 1
+        }
+      }).then(res => {
+        console.log(res)
+        let data=res.result.list[0];
+        wx.setStorageSync('editData', data)
+        wx.navigateTo({
+          url: '../user/lookup',
+        })
+        wx.hideLoading({
+          success: (res) => {},
+        })
+      })
+    }
+  },
+  tocheckLookup:function(){
+    if(editData.checker){
+      wx.showLoading({
+        title: '跳转中',
+      })
+      wx.cloud.callFunction({
+        name: 'multQuery',
+        data: {
+          collection: 'user',
+          match: {_openid:editData._openid},
+          or: [{}],
+          and: [{}],
+          lookup: {
+            from: 'shop',
+            localField: '_openid',
+            foreignField: '_openid',
+            as: 'shop',
+          },
+          lookup2: {
+            from: 'coupon',
+            localField: '_openid',
+            foreignField: '_openid',
+            as: 'coupon',
+          },
+          sort: {
+            creation_date: -1
+          },
+          skip: 0,
+          limit: 1
+        }
+      }).then(res => {
+        console.log(res)
+        let data=res.result.list[0];
+        wx.setStorageSync('editData', data)
+        wx.navigateTo({
+          url: '../user/lookup',
+        })
+        wx.hideLoading({
+          success: (res) => {},
+        })
       })
     }
   },

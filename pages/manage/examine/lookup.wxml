@@ -18,7 +18,7 @@
   </view>
   <view class='box row align-center'>
     <view class='field align-center'>地址补充</view>
-    <view class='input align-center'>{{data.detail}}</view>
+    <view class='input align-center'>{{data.detail||'无'}}</view>
   </view>
   <view class='box row align-center'>
     <view class='field align-center'>营业时间</view>
@@ -35,9 +35,13 @@
     <image style="height:25px;width:25px;position:absolute;right:5%;" bindtap="callPhone"
       src="../../../images/phone.png" />
   </view>
+  <view class='box row align-center' bindtap="tosubLookup">
+    <view class='field align-center'>提交人员</view>
+    <view class='input align-center'>{{data.user||'无'}}</view>
+  </view>
   <view class='box row align-center'>
     <view class='field align-center'>提交时间</view>
-    <view class='input align-center'>{{data.creation_date}}</view>
+    <view class='input align-center'>{{data.creation_date||'无'}}</view>
   </view>
   <view class='box row align-center' wx:if="{{data.prove=='waiting'}}">
     <view class='field align-center'>认证状态</view>
@@ -51,7 +55,7 @@
     <view class='field align-center'>认证编号</view>
     <view class='input align-center' style="color:green;">{{data.shop_code}}</view>
   </view>
-  <view class='box row align-center' wx:if="{{data.prove=='success'}}">
+  <view class='box row align-center' wx:if="{{data.prove=='success'}}" bindtap="tocheckLookup">
     <view class='field align-center'>认证人员</view>
     <view class='input align-center' style="color:green;">{{data.checker}}</view>
   </view>
@@ -63,7 +67,7 @@
     <view class='field align-center'>认证状态</view>
     <view class='input align-center' style="color:red;">已驳回</view>
   </view>
-  <view class='box row align-center' wx:if="{{data.prove=='fail'}}">
+  <view class='box row align-center' wx:if="{{data.prove=='fail'}}" bindtap="tocheckLookup">
     <view class='field align-center'>驳回人员</view>
     <view class='input align-center' style="color:red;">{{data.checker}}</view>
   </view>

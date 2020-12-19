@@ -1,4 +1,5 @@
 // pages/manage/user/lookup.js
+var editData;
 Page({
 
   /**
@@ -12,17 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let editData = wx.getStorageSync('editData')
-    if(editData.authority=="admin"){
-      editData.power='管理员'
-    }else{
-      editData.power='普通用户'
-    }
-    if(editData.type=="driver"||editData.type==undefined){
-      editData.type='车主'
-    }else if(editData.type=='shopkeeper'){
-      editData.type='店主'
-    }
+    editData = wx.getStorageSync('editData')
     this.setData({
       data:editData,
     })
@@ -31,6 +22,11 @@ Page({
     wx.previewImage({
       current: this.data.data.avatarUrl, // 当前显示图片的http链接
       urls:[this.data.data.avatarUrl]
+    })
+  },
+  callPhone:function(){
+    wx.makePhoneCall({
+      phoneNumber: editData.phone,
     })
   },
   /**

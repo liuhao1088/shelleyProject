@@ -7,7 +7,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list: [],scrollHev:'',search:''
+    list: [],
+    scrollHev: '',
+    search: ''
   },
 
   /**
@@ -20,26 +22,32 @@ Page({
       success: function (res) {
         that.setData({
           widheight: res.windowHeight,
-          scrollHev:res.windowHeight-50
+          scrollHev: res.windowHeight - 50
         });
       }
     });
-    skip=0;
-    this.setData({list:[]})
-    this.loadData()
-  },
-  search(e) {
-    var that = this;
-    that.setData({search:e.detail.value})
     skip = 0;
     this.setData({
       list: []
     })
     this.loadData()
   },
-  delete:function(e){
+  search(e) {
     var that = this;
-    that.setData({search:''})
+    that.setData({
+      search: e.detail.value
+    })
+    skip = 0;
+    this.setData({
+      list: []
+    })
+    this.loadData()
+  },
+  delete: function (e) {
+    var that = this;
+    that.setData({
+      search: ''
+    })
     skip = 0;
     this.setData({
       list: []
@@ -88,7 +96,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
   loadData: function () {
     var that = this;
@@ -96,40 +104,76 @@ Page({
       title: '加载中',
     })
     const db = wx.cloud.database();
-    const _=db.command;
-    db.collection('user').where(_.or([{
-      nickName: {
-        $regex: '.*' + that.data.search,
-        $options: 'i'
+    const _ = db.command;
+    wx.cloud.callFunction({
+      name: 'multQuery',
+      data: {
+        collection: 'user',
+        match: {},
+        or: [{
+          nickName: {
+            $regex: '.*' + that.data.search,
+            $options: 'i'
+          }
+        }, {
+          creation_date: {
+            $regex: '.*' + that.data.search,
+            $options: 'i'
+          }
+        }, {
+          province: {
+            $regex: '.*' + that.data.search,
+            $options: 'i'
+          }
+        }, {
+          city: {
+            $regex: '.*' + that.data.search,
+            $options: 'i'
+          }
+        }, {
+          sex: {
+            $regex: '.*' + that.data.search,
+            $options: 'i'
+          }
+        }, {
+          type: {
+            $regex: '.*' + that.data.search,
+            $options: 'i'
+          }
+        },{
+          phone: {
+            $regex: '.*' + that.data.search,
+            $options: 'i'
+          }
+        },{
+          authority: {
+            $regex: '.*' + that.data.search,
+            $options: 'i'
+          }
+        }],
+        and: [{}],
+        lookup: {
+          from: 'shop',
+          localField: '_openid',
+          foreignField: '_openid',
+          as: 'shop',
+        },
+        lookup2: {
+          from: 'coupon',
+          localField: '_openid',
+          foreignField: '_openid',
+          as: 'coupon',
+        },
+        sort: {
+          creation_date: -1
+        },
+        skip: skip,
+        limit: 20
       }
-    },{
-      creation_date: {
-        $regex: '.*' + that.data.search,
-        $options: 'i'
-      }
-    },{
-      province: {
-        $regex: '.*' + that.data.search,
-        $options: 'i'
-      }
-    },{
-      city: {
-        $regex: '.*' + that.data.search,
-        $options: 'i'
-      }
-    },{
-      sex: {
-        $regex: '.*' + that.data.search,
-        $options: 'i'
-      }
-    },{
-      authority: {
-        $regex: '.*' + that.data.search,
-        $options: 'i'
-      }
-    }])).skip(skip).limit(20).orderBy("creation_date", "desc").get().then(res => {
-      let data = res.data;
-      if(data.length==0){
+    }).then(res => {
+      console.log(res)
+      let data=res.result.list;
+      if (data.length == 0) {
         wx.hideLoading()
         wx.hideNavigationBarLoading()
       }
@@ -138,11 +182,6 @@ Page({
           data[i].isChecked = true
         } else {
           data[i].isChecked = false
-        }
-        if(data[i].type=="driver"||data[i].type==undefined){
-          data[i].type='车主'
-        }else if(data[i].type=='shopkeeper'){
-          data[i].type='店主'
         }
         if (i + 1 == data.length) {
           console.log(data)
@@ -154,14 +193,14 @@ Page({
           wx.hideNavigationBarLoading()
         }
       }
-
-    }).catch(error=>{
+    }).catch(error => {
       wx.hideLoading()
       wx.hideNavigationBarLoading()
       wx.showModal({
         title: '服务器繁忙，请稍后重试',
       })
     })
+
   },
   bindDownLoad: function () {
     console.log('--下拉刷新--')
