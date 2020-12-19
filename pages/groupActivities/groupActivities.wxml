@@ -71,11 +71,13 @@
       <view class="wrap-input">
         <view class="input-item" style="width:100%;">
           <view class="input">
-            <picker mode="time" value="{{productList[index].time}}" data-idx='{{index}}' start="01:00" end="59:60" bindchange="timeChange">
+            <input type="number" placeholder-class="placeholder" placeholder="时间"
+            maxlength="5" data-idx='{{index}}' value='{{productList[index].time}}' id="time"  bindinput='bindChanguser' />
+            <!-- <picker mode="time" value="{{productList[index].time}}" data-idx='{{index}}' start="01:00" end="59:60" bindchange="timeChange">
               <view class="tui-picker-detail">
                 {{productList[index].time}}
               </view>
-            </picker>
+            </picker> -->
           </view>
           <view class="text-item">分钟后未成团则该拼团失效</view>
         </view>

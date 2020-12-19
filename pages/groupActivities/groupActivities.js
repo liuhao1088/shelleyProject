@@ -12,7 +12,7 @@ Page({
       "name": '请选择想要体验的商品',
       "price": '',
       "people": '',
-      "time": '时间',
+      "time": '',
       "showView": false
     }], //活动商品
     checkbox: [{
@@ -59,15 +59,15 @@ Page({
   },
 
   //获取分钟
-  timeChange(e) {
-    let productList =  this.data.productList
-    var index = e.currentTarget.dataset.idx; //获取当前索引
-    // console.log(index)
-    productList[index].time = e.detail.value;
-    this.setData({
-      productList,
-    })
-  },
+  // timeChange(e) {
+  //   let productList =  this.data.productList
+  //   var index = e.currentTarget.dataset.idx; //获取当前索引
+  //   // console.log(index)
+  //   productList[index].time = e.detail.value;
+  //   this.setData({
+  //     productList,
+  //   })
+  // },
 
   //添加活动商品
   onAdd(e) {
@@ -78,7 +78,7 @@ Page({
       "name": '请选择想要体验的商品',
       "price": '',
       "people": '',
-      "time": '时间',
+      "time": '',
       "showView": false
     };
     if (productList.length >= 6) {
@@ -108,17 +108,17 @@ Page({
     // console.log(productList[index][type])
   },
 
-  //失去焦点赋值给input
-  blurChanguser(e){
-    let productList = this.data.productList;
-    var index = e.currentTarget.dataset.idx; //获取当前索引
-    var type = e.currentTarget.id; //状态
-    console.log(index);
-    productList[index][type] = e.detail.value;
-    this.setData({
-      [productList[index][type]]:e.detail.value,
-    })
-  },
+  // //失去焦点赋值给input
+  // blurChanguser(e){
+  //   let productList = this.data.productList;
+  //   var index = e.currentTarget.dataset.idx; //获取当前索引
+  //   var type = e.currentTarget.id; //状态
+  //   console.log(index);
+  //   productList[index][type] = e.detail.value;
+  //   this.setData({
+  //     [productList[index][type]]:e.detail.value,
+  //   })
+  // },
   showModal(e) {
     // console.log(e.currentTarget.dataset.idx)
     this.setData({
