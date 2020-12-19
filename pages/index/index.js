@@ -94,6 +94,12 @@ Page({
     })
   },
 
+  toGroupSpecial(event){
+    wx.navigateTo({
+      url: '/pages/groupSpecial/groupSpecial',
+    })
+  },
+
   hideModal(e) {
     this.setData({
       modalName: 1

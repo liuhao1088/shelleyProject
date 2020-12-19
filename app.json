@@ -1,8 +1,12 @@
 {
   "pages":[
+    "pages/groupSpecial/groupSpecial",
     "pages/index/index",
-    "pages/groupActivities/groupActivities",
+    
+   
+    "pages/activityRule/activityRule",
     "pages/text/text",
+    "pages/groupActivities/groupActivities",
     "pages/myCoupon/myCoupon",
     "pages/reservationActivity/reservationActivity",
     "pages/carAppointment/carAppointment",

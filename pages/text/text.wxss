@@ -5,3 +5,9 @@
 .add{
   background-color: seagreen;
 }
+
+.tiem{
+  height: 300rpx;
+  width: 100%;
+  background-color: #fff;
+}

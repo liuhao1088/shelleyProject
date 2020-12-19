@@ -7,3 +7,7 @@
     bindinput='bindPhoneDataChanguser' />
 </view>
 
+<view class="tiem">
+  <!-- <view>显示计时器2的剩余时间：{{wxTimerList['wxTimer2'].wxTimer}}</view> -->
+  <text>{{countdown}}</text>
+</view>

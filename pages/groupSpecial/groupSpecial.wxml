@@ -1,0 +1,29 @@
+<view class="groupSpecialContainer">
+  <view class="title"><text bindtap="toActivityRule">活动规则</text> </view>
+  <view class="wrap">
+    <view class="wrap-title">拼团特惠</view>
+    <view class="wrap-title" style="font-size: 24rpx;">活动结束倒计时：这是一个倒计时</view>
+    <view class="coupon-item">
+      <view class="img-item"></view>
+      <view class="wrap-item">
+        <view class="coupon-titleItem">
+          <text class="coupon-title">产品名称1</text>
+          <text class="coupon-address">AAAA宝安店专用</text>
+        </view>
+        <view class="coupon-group">
+          <view class="coupon-main"></view>
+          <view class="coupon-but">
+            <button class="but">去拼团</button>
+          </view>
+        </view>
+
+        <view class="coupon-group">
+          <view class="coupon-main"></view>
+          <view class="coupon-but">
+            <button class="but" style="background-color: rgba(255, 255, 255, 100);color: rgba(105, 113, 254, 100);border: 2rpx solid rgba(105, 113, 254, 100);padding: 0;">发起拼团</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

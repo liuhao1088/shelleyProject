@@ -11,7 +11,7 @@
       <view class="wrap-topbar">
         <view class="topbar">
 
-          <view class="topbar-item">
+          <view class="topbar-item" bindtap="toGroupSpecial">
             <view class="topbar-icon">
               <text class="iconfont iconqian icon"></text>
             </view>

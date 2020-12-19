@@ -5,12 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    lists: [
-      {
-        "name": '',
-        "user": ''
-      }
-    ]
+    lists: [{
+      "name": '',
+      "user": ''
+    }],
+    nowDate:'',
+    countdown:'',    
   },
   onAddPhone: function () {
     var lists = this.data.lists;
@@ -20,8 +20,8 @@ Page({
     };
     if (lists.length >= 3) {
       console.log('最多3个')
-       return;
-     }
+      return;
+    }
     lists.push(newData);
     this.setData({
       lists: lists,
@@ -48,13 +48,45 @@ Page({
     console.log(this.data.lists[nowIdx].user)
   },
 
+  countTime() {
+    var that = this;
+    var now = new Date().getTime();
+    var end = this.data.nowDate; //设置截止时间
+    console.log("开始时间："+now,"截止时间:"+end);
+    var leftTime =  end -now;//时间差 
+    // console.log(leftTime)                           
+    var h, m, s;
+    if (leftTime >= 0) {
+      h = Math.floor(leftTime / 1000 / 60 / 60 % 24);
+      m = Math.floor(leftTime / 1000 / 60 % 60);
+      s = Math.floor(leftTime / 1000 % 60);
+      s = s < 10 ? "0" + s : s
+      m = m < 10 ? "0" + m : m
+      h = h < 10 ? "0" + h : h
+      that.setData({
+        countdown: h + "：" + m + "：" + s,
+        leftTime
+      })
+      //递归每秒调用countTime方法，显示动态时间效果
+      setTimeout(that.countTime, 1000);
+    } else {
+      console.log('已截止')
+      that.setData({
+        countdown: '00:00:00'
+      })
+    }
+  },
 
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var nowDate = new Date().getTime()+360000;
+    this.setData({
+      nowDate
+    })
+    this.countTime();
   },
 
   /**
@@ -67,9 +99,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
-  },
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏
