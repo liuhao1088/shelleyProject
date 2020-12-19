@@ -1,7 +1,8 @@
 {
   "pages":[
-    "pages/groupSpecial/groupSpecial",
     "pages/index/index",
+    "pages/groupSpecial/groupSpecial",
+    
     
    
     "pages/activityRule/activityRule",
