@@ -10,17 +10,37 @@
           <text class="coupon-title">产品名称1</text>
           <text class="coupon-address">AAAA宝安店专用</text>
         </view>
+        <!--  -->
         <view class="coupon-group">
-          <view class="coupon-main"></view>
-          <view class="coupon-but">
-            <button class="but">去拼团</button>
-          </view>
+          <swiper class="top_swiper" circular vertical interval="2000" autoplay>
+            <swiper-item wx:for="{{userList}}" wx:key="id" style="display: flex;">
+              <view class="coupon-main">
+                <view class="coupon-wrap">
+                  <view class="coupon-user">
+                    <view class="swiper-img">
+                      <image src="{{item.img}}"></image>
+                    </view>
+                    <view class="swiper-name">{{item.name}}</view>
+                  </view>
+                  <view class="coupon-msg">还差 <text style="color: red;">1</text> 人拼成</view>
+                </view>
+                <view class="coupon-wrap" style="padding-top: 6rpx;">剩余时间：{{item.time}}</view>
+              </view>
+              <view class="coupon-but">
+                <button class="but">去拼团</button>
+              </view>
+            </swiper-item>
+          </swiper>
         </view>
 
         <view class="coupon-group">
-          <view class="coupon-main"></view>
+          <view class="coupon-main">
+            <view class="group-price">¥ 299</view>
+            <view class="price-item">原价：¥599</view>
+          </view>
           <view class="coupon-but">
-            <button class="but" style="background-color: rgba(255, 255, 255, 100);color: rgba(105, 113, 254, 100);border: 2rpx solid rgba(105, 113, 254, 100);padding: 0;">发起拼团</button>
+            <button class="but"
+              style="background-color: rgba(255, 255, 255, 100);color: rgba(105, 113, 254, 100);border: 2rpx solid rgba(105, 113, 254, 100);padding: 0;">发起拼团</button>
           </view>
         </view>
       </view>

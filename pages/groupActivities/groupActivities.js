@@ -103,9 +103,18 @@ Page({
     let productList = this.data.productList;
     var index = e.currentTarget.dataset.idx; //获取当前索引
     var type = e.currentTarget.id; //状态
-    // console.log(index)
-    productList[index][type] = e.detail.value
-    // console.log(productList[index][type])
+    let value = e.detail.value;
+    console.log(type);
+    productList[index][type] = value
+    if(type == 'time' && value >= 1440){
+      console.log(type)
+      wx.showToast({
+        title: '时间限制范围为1~1440',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
   },
 
   // //失去焦点赋值给input

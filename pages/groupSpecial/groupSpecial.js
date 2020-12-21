@@ -5,7 +5,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    userList:[
+      {
+        img:'',
+        name:'微信头像1',
+        time:'00:09:25'
+      },
+      {
+        img:'',
+        name:'微信头像2',
+        time:'00:40:25'
+      },
+      {
+        img:'',
+        name:'微信头像3',
+        time:'00:32:25'
+      }
+    ]
   },
   toActivityRule(event){
     wx.navigateTo({
