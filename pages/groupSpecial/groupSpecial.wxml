@@ -3,6 +3,7 @@
   <view class="wrap">
     <view class="wrap-title">拼团特惠</view>
     <view class="wrap-title" style="font-size: 24rpx;">活动结束倒计时：这是一个倒计时</view>
+
     <view class="coupon-item">
       <view class="img-item"></view>
       <view class="wrap-item">
@@ -10,10 +11,11 @@
           <text class="coupon-title">产品名称1</text>
           <text class="coupon-address">AAAA宝安店专用</text>
         </view>
-        <!--  -->
+
         <view class="coupon-group">
           <swiper class="top_swiper" circular vertical interval="2000" autoplay>
-            <swiper-item wx:for="{{userList}}" wx:key="id" style="display: flex;">
+            <swiper-item wx:for="{{userList}}" wx:key="id" style="display: flex;" bindtap="showModal"
+              data-target="goGroup">
               <view class="coupon-main">
                 <view class="coupon-wrap">
                   <view class="coupon-user">
@@ -40,9 +42,119 @@
           </view>
           <view class="coupon-but">
             <button class="but"
-              style="background-color: rgba(255, 255, 255, 100);color: rgba(105, 113, 254, 100);border: 2rpx solid rgba(105, 113, 254, 100);padding: 0;">发起拼团</button>
+              style="background-color: rgba(255, 255, 255, 100);color: rgba(105, 113, 254, 100);border: 2rpx solid rgba(105, 113, 254, 100);padding: 0;"
+              bindtap="showModal" data-target="initiateGroup">发起拼团</button>
           </view>
         </view>
+      </view>
+    </view>
+
+  </view>
+</view>
+
+<!-- 发起拼团弹窗 -->
+<view class="cu-modal {{modalName=='initiateGroup'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content"></view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-gray"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="icon-item">
+        <text class="iconfont iconqueren" style="font-size: 120rpx;"></text>
+      </view>
+      <view class="modal-item">仅剩<text style="color:red;">1</text>个席位，8分钟6秒后结束，赶快邀请好友来拼团吧！~</view>
+      <view class="modal-but">
+        <view class="but-item">
+          <button class="turn-but" bindtap="toMyCoupon">查看拼团券</button>
+        </view>
+        <view class="but-item">
+          <button class="share-but" open-type='share'>分享给好友</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!--去拼团弹窗  -->
+<view class="cu-modal {{modalName=='goGroup'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content"></view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-gray"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="modal-title">参与产品名称1的拼团</view>
+      <view class="modal-item" style="margin-top: 20rpx;">仅剩<text style="color:red;">1</text>个席位，8分钟6秒后结束</view>
+      <view class="modal-userItem">
+        <view class="fight-master">
+          <image style=""></image>
+          <view class="user-item">拼主</view>
+        </view>
+        <view class="modal-box">
+          <text class="iconfont iconwenhao" style="font-size: 50rpx;"></text>
+        </view>
+      </view>
+      <view class="join-but">
+        <button bindtap="showModal" data-target="goGroupSuccess">加入拼团</button>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<!-- 去拼团成功弹窗 -->
+<view class="cu-modal {{modalName=='goGroupSuccess'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content"></view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-gray"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="icon-item">
+        <text class="iconfont iconqueren" style="font-size: 120rpx;"></text>
+      </view>
+      <view class="modal-title">拼团成功</view>
+      <view class="modal-msg">拼团券领取成功,邀请好友，享受更多福利</view>
+      <view class="modal-but">
+        <view class="but-item">
+          <button class="turn-but" bindtap="toMyCoupon">去使用</button>
+        </view>
+        <view class="but-item">
+          <button class="share-but" open-type='share'>分享给好友</button>
+          <!-- <button class="share-but" bindtap="showModal" data-target="question">再减100元</button> -->
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 问答 -->
+<view class="cu-modal {{modalName=='question'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content"></view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-gray"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="modal-img">
+        <image src=""></image>
+      </view>
+      <view class="modal-wrap">
+        <view class="modal-selectBut" wx:for="{{checkbox}}" wx:key="id">
+          <button class="{{item.checked?'line':''}}" bindtap="ChooseCheckbox" id="{{item.id}}">{{item.name}}</button>
+        </view>
+      </view>
+      <view class="modal-questionBut">
+        <button>立即领取并使用</button>
       </view>
     </view>
   </view>
