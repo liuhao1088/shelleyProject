@@ -119,38 +119,39 @@
   margin-top: 10rpx;
 }
 
-.tag-store{
-  height: 100rpx;
-  width: 100rpx;
-  border: 0rpx solid red;
-  position: absolute;
+.tag-store {
+  height: 120rpx;
+  width: 90rpx;
+  border: 2rpx solid rgba(0, 0, 0, 0.2);
+  position: fixed;
   bottom: 35%;
   right: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #fff;
-  background-color: #5B62D9;
-  border-radius: 50%;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 15rpx;
 }
 
-.store{
-  width: 50rpx;
+.store {
+  width: 100%;
   height: 50rpx;
   text-align: center;
   line-height: 50rpx;
-  padding-top: 10rpx;
+  margin-top: 15rpx;
   
 }
 
-.store text{
+.store text {
+  color: #5b62d9;
   font-size: 40rpx;
 }
 
-.tag-title{
+.tag-title {
   width: 100%;
   height: 50rpx;
-  line-height: 50rpx;
+  line-height: 36rpx;
   text-align: center;
-  font-size: 14rpx;
+  font-size: 18rpx;
 }

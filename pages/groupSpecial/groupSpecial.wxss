@@ -219,6 +219,7 @@
   width: 100%;
   line-height: 50rpx;
   font-size: 28rpx;
+  padding: 0 20rpx;
 }
 
 .modal-but {
@@ -330,6 +331,7 @@
   opacity: 0.5;
   color: rgba(16, 16, 16, 100);
   font-size: 26rpx;
+  padding: 20rpx 60rpx;
   /* padding: 20rpx 100rpx; */
 }
 
