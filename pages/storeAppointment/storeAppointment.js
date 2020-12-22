@@ -1,35 +1,12 @@
 // pages/storeAppointment/storeAppointment.js
+const util = require('../../utils/util');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    multiArray: [
-      ['00：00', '01：00'],
-      ['00：00', '01：00']
-    ],
-    objectMultiArray: [
-      [{
-          id: 0,
-          name: '00：00'
-        },
-        {
-          id: 1,
-          name: '01：00'
-        }
-      ],
-      [{
-          id: 0,
-          name: '00：00'
-        },
-        {
-          id: 1,
-          name: '01：00'
-        }
-      ]
-    ],
-    multiIndex: [0, 0],
+    startTime: '2020-12-17 11:32',
     checkbox: [{
       value: 0,
       name: '如影系列-R1',
@@ -56,6 +33,9 @@ Page({
       checked: false,
     }],
     nameList:'请选择想要体验的商品，可多选'
+  },
+  changeStartTime(e){
+    this.setData({ startTime: e.detail.value})
   },
   showModal(e) {
     this.setData({

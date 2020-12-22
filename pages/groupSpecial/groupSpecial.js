@@ -37,7 +37,13 @@ Page({
       id: 3,
       name: '隐形车衣',
       checked: false,
-    }]
+    }],
+    nowDate:'2020-12-22 18:00:00',//结束时间
+    countdown:'', //倒计时
+    day:'',//天
+    hou:'',//时
+    min:'',//分
+    sec:'',//秒
   },
   toActivityRule(event) {
     wx.navigateTo({
@@ -49,6 +55,14 @@ Page({
       url: '/pages/myCoupon/myCoupon',
     })
     this.hideModal();
+  },
+  toReserveStore(e){
+    wx.navigateTo({
+      url: '/pages/reserveStore/reserveStore',
+    })
+    this.setData({
+      modalName: null
+    })
   },
 
   //弹窗
@@ -100,11 +114,46 @@ Page({
       checkbox: items
     })
   },
+
+  //倒计时
+  countTime() {
+    let nowDate = this.data.nowDate;
+    console.log(nowDate)
+    let that = this;
+    let now = new Date().getTime();
+    let end = new Date(nowDate).getTime(); //设置截止时间
+    console.log("开始时间："+now,"截止时间:"+end);
+    let leftTime =  end -now;//时间差                         
+    let day,hou, min, sec;
+    if (leftTime >= 0) {
+      day = Math.floor(leftTime / 1000 / 60 / 60 / 24);
+      hou = Math.floor(leftTime / 1000 / 60 / 60 % 24);
+      min = Math.floor(leftTime / 1000 / 60 % 60);
+      sec = Math.floor(leftTime / 1000 % 60);
+      day = day < 10? "0" + day:day
+      sec = sec < 10 ? "0" + sec : sec
+      min = min < 10 ? "0" + min : min
+      hou = hou < 10 ? "0" + hou : hou
+      that.setData({
+        countdown: hou+":"+min+":"+sec,
+        day,
+        hou,
+        min,
+        sec
+      })
+      //递归每秒调用countTime方法，显示动态时间效果
+      setTimeout(that.countTime, 1000);
+    } else {
+      that.setData({
+        countdown: '已截止'
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.countTime();
   },
 
   /**
@@ -153,6 +202,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (options) {
+
     return {
       title: "【仅剩1个名额】我领了100元拼团券，快来助我成团激活~", //分享标题
       imageUrl: 'https://img13.360buyimg.com/ddimg/jfs/t1/121210/17/18389/166336/5faca14cE7949307a/1da2d6b96122e01d.jpg', //图片路径

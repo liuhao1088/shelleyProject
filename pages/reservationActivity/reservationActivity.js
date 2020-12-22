@@ -1,6 +1,4 @@
 const util = require('../../utils/util');
-// pages/reservationActivity/reservationActivity.js
-const uilt = require('../../utils/util');
 Page({
 
   /**
@@ -32,11 +30,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  //  let startTime =  uilt.formatTime(new Date());
-  //  this.setData({
-  //   startTime
-  //  })
-   console.log(startTime);
+    
   },
 
   /**

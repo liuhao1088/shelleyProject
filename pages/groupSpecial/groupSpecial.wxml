@@ -2,7 +2,12 @@
   <view class="title"><text bindtap="toActivityRule">活动规则</text> </view>
   <view class="wrap">
     <view class="wrap-title">拼团特惠</view>
-    <view class="wrap-title" style="font-size: 24rpx;">活动结束倒计时：这是一个倒计时</view>
+    <view class="wrap-title" style="font-size: 24rpx;margin-top: 20rpx;">活动结束倒计时：
+      <text class='tui-conutdown-box'>{{day}}</text>天
+      <text class='tui-conutdown-box'>{{hou}}</text>时
+      <text class='tui-conutdown-box'>{{min}}</text>分
+      <text class='tui-conutdown-box tui-countdown-bg'>{{sec}}</text>秒
+    </view>
 
     <view class="coupon-item">
       <view class="img-item"></view>
@@ -26,7 +31,7 @@
                   </view>
                   <view class="coupon-msg">还差 <text style="color: red;">1</text> 人拼成</view>
                 </view>
-                <view class="coupon-wrap" style="padding-top: 6rpx;">剩余时间：{{item.time}}</view>
+                <view class="coupon-wrap" style="padding-top: 6rpx;">剩余时间：{{countdown}}</view>
               </view>
               <view class="coupon-but">
                 <button class="but">去拼团</button>
@@ -65,7 +70,7 @@
       <view class="icon-item">
         <text class="iconfont iconqueren" style="font-size: 120rpx;"></text>
       </view>
-      <view class="modal-item">仅剩<text style="color:red;">1</text>个席位，8分钟6秒后结束，赶快邀请好友来拼团吧！~</view>
+      <view class="modal-item">仅剩<text style="color:red;">1</text>个席位，{{countdown}}后结束，赶快邀请好友来拼团吧！~</view>
       <view class="modal-but">
         <view class="but-item">
           <button class="turn-but" bindtap="toMyCoupon">查看拼团券</button>
@@ -89,7 +94,7 @@
     </view>
     <view class="padding-xl">
       <view class="modal-title">参与产品名称1的拼团</view>
-      <view class="modal-item" style="margin-top: 20rpx;">仅剩<text style="color:red;">1</text>个席位，8分钟6秒后结束</view>
+      <view class="modal-item" style="margin-top: 20rpx;">仅剩<text style="color:red;">1</text>个席位，{{countdown}}后结束</view>
       <view class="modal-userItem">
         <view class="fight-master">
           <image style=""></image>
@@ -127,7 +132,7 @@
           <button class="turn-but" bindtap="toMyCoupon">去使用</button>
         </view>
         <view class="but-item">
-          <button class="share-but" open-type='share'>分享给好友</button>
+          <button class="share-but" style="font-size: 24rpx;" bindtap="toReserveStore">查看可用门店</button>
           <!-- <button class="share-but" bindtap="showModal" data-target="question">再减100元</button> -->
         </view>
       </view>

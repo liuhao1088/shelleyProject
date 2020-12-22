@@ -36,6 +36,21 @@
   text-align: center;
 }
 
+.tui-conutdown-box {
+  display: inline-block;
+  height: 50rpx;
+  width: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  background-color: #000;
+  color: #fff;
+  margin: 0 10rpx;
+}
+
+.tui-countdown-bg {
+  background-color: #DF0101;
+}
+
 .coupon-item {
   width: 95%;
   height: 250rpx;

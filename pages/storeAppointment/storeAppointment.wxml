@@ -23,8 +23,8 @@
           style="background-color: rgba(91, 98, 217, 100);border: none;width: 100%;text-align: center;">认证商家</view>
       </view>
     </view>
-    
-  
+
+
   </view>
 
   <view class="experience-item">
@@ -40,15 +40,16 @@
   <view class="form-item" style="margin-top: 4rpx;">
     <view class="form-title">到店时间</view>
     <view class="form-input">
-      <picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange"
+      <rui-picker slot="flexchild" start="{{startTime}}" end="2999-12-31 00:00" value="{{startTime}}" fields="minute"
+        bindchangedatepicker="changeStartTime"></rui-picker>
+      <!-- <picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange"
           value="{{multiIndex}}" range="{{multiArray}}"
           style="height: 100%;">
           <view class="picker">
             请选择到店体验的时间段
-            <!-- {{multiArray[0][multiIndex[0]]}}-{{multiArray[1][multiIndex[1]]}} -->
           </view>
-        </picker>
-      
+        </picker> -->
+
     </view>
   </view>
 
@@ -62,7 +63,7 @@
 </view>
 
 <view class="btn-item">
-  <button>预   约</button>
+  <button>预 约</button>
 </view>
 
 <!-- 选择商品 -->
@@ -79,10 +80,11 @@
     </view>
     <view class="grid col-3 padding-sm">
       <view wx:for="{{checkbox}}" class="padding-xs" wx:key="id">
-        <button class="cu-btn orange lg block {{item.checked?'bg-black':'line-black'}}" bindtap="ChooseCheckbox" data-value="{{item.value}}" data-name="{{item.name}}"> {{item.name}}
+        <button class="cu-btn orange lg block {{item.checked?'bg-black':'line-black'}}" bindtap="ChooseCheckbox"
+          data-value="{{item.value}}" data-name="{{item.name}}"> {{item.name}}
         </button>
       </view>
     </view>
-   
+
   </view>
 </view>

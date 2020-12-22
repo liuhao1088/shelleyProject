@@ -9,7 +9,7 @@ Page({
       "name": '',
       "user": ''
     }],
-    nowDate:'',
+    nowDate:'2020-12-22 18:00:00',
     countdown:'',    
   },
   onAddPhone: function () {
@@ -49,13 +49,14 @@ Page({
   },
 
   countTime() {
-    var that = this;
-    var now = new Date().getTime();
-    var end = this.data.nowDate; //设置截止时间
+    let nowDate = this.data.nowDate;
+    console.log(nowDate)
+    let that = this;
+    let now = new Date().getTime();
+    let end = new Date(nowDate).getTime(); //设置截止时间
     console.log("开始时间："+now,"截止时间:"+end);
-    var leftTime =  end -now;//时间差 
-    // console.log(leftTime)                           
-    var h, m, s;
+    let leftTime =  end -now;//时间差                         
+    let h, m, s;
     if (leftTime >= 0) {
       h = Math.floor(leftTime / 1000 / 60 / 60 % 24);
       m = Math.floor(leftTime / 1000 / 60 % 60);
@@ -65,14 +66,12 @@ Page({
       h = h < 10 ? "0" + h : h
       that.setData({
         countdown: h + "：" + m + "：" + s,
-        leftTime
       })
       //递归每秒调用countTime方法，显示动态时间效果
       setTimeout(that.countTime, 1000);
     } else {
-      console.log('已截止')
       that.setData({
-        countdown: '00:00:00'
+        countdown: '已截止'
       })
     }
   },
@@ -82,10 +81,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var nowDate = new Date().getTime()+360000;
-    this.setData({
-      nowDate
-    })
     this.countTime();
   },
 

@@ -1,10 +1,12 @@
 {
   "pages":[
+    "pages/storeAppointment/storeAppointment",
     "pages/index/index",
     "pages/groupSpecial/groupSpecial",
+    
+    "pages/text/text",
     "pages/groupActivities/groupActivities",
     "pages/activityRule/activityRule",
-    "pages/text/text",
     "pages/myCoupon/myCoupon",
     "pages/reservationActivity/reservationActivity",
     "pages/carAppointment/carAppointment",
@@ -12,7 +14,7 @@
     "pages/activitySelect/activitySelect",
     "pages/storeInformation/storeInformation",
     "pages/myStore/myStore",
-    "pages/storeAppointment/storeAppointment",
+  
     "pages/addStoreInformation/addStoreInformation",
     "pages/reserveStore/reserveStore",
     "pages/video/video",
