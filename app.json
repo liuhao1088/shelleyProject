@@ -1,8 +1,10 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/reserveStore/reserveStore",
     "pages/text/text",
+    
+    "pages/reserveStore/reserveStore",
+   
     "pages/storeAppointment/storeAppointment",
     "pages/groupSpecial/groupSpecial",
     "pages/groupActivities/groupActivities",
