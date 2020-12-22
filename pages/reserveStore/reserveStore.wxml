@@ -1,26 +1,30 @@
+<authorize id="authorize" />
 <view class="reserveStoreContainer">
   <view class="wrapper">
     <view class="search">
       <text class="iconfont icondingwei"></text>
       <input type="text" value="{{address}}" bindtap="chooseLocation" placeholder="请选择地址" style="position:relative;right:30rpx;" />
     </view>
-    <view class="wrap">
-      <view class="wrap-item" bindtap="toStoreAppointment">
+    <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHev}}px;" class="list"
+    bindscrolltolower="bindDownLoad">
+    <view class="wrap" wx:for="{{list}}" data-index="{{index}}" bindtap="toStoreAppointment">
+      <view class="wrap-item">
         <view class="wrap-img">
-          <image src=""></image>
+          <image src="{{item.shop[0].shop_img}}"></image>
           <view class="wrap-tag">预约好礼</view>
         </view>
         <view class="wrap-titleItem">
           <view class="wrap-title">
-            <view class="title">AAAA宝安店</view>
+            <view class="title">{{item.shop[0].shop_name}}</view>
             <view class="cu-tag" style="height: 100%;float: right;background-color: #5B62D9;color: #fff;border-radius: 10rpx;font-size: 18rpx;">认证门店</view>
           </view>
-          <view class="wrap-address">广东省深圳市宝安区
+          <view class="wrap-address">{{item.shop[0].address_name}}
           </view>
-          <view class="wrap-address">XX街道XX大道XX工业园X栋XXX</view>
+          <view class="wrap-address">{{item.shop[0].address}}</view>
         </view>
       </view>
     </view>
+    </scroll-view>
   </view>
 
 </view>

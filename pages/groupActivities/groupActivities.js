@@ -1,5 +1,7 @@
 // pages/groupActivities/groupActivities.js
 var clickindex = new Array();
+var util=require('../../utils/util.js')
+let timer;
 Page({
 
   /**
@@ -40,13 +42,14 @@ Page({
       name: '猎豹系列-T3',
       checked: false,
     }], //商品选择
-    index:0
+    index:0,
+    title:''
   },
   //获取活动开始时间
   changeStartTime(e) {
     console.log(e.detail.startTime)
     this.setData({
-      startTime: e.detail.startTime
+      startTime: e.detail.value
     })
   },
 
@@ -54,7 +57,7 @@ Page({
   changeEndTime(e) {
     console.log(e.detail.endTime)
     this.setData({
-      endTime: e.detail.endTime
+      endTime: e.detail.value
     })
   },
 
@@ -195,16 +198,95 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+  
   },
-
+  inputTitle:function(e){
+    this.setData({title:e.detail.value})
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
 
   },
-
+  async submit_form(){
+    var _this=this;
+    if(_this.data.title==""){
+      wx.showToast({
+        title: '内容不能为空',
+        icon:'none'
+      })
+    }else{
+      wx.showLoading({
+        title: '提交中',
+      })
+      if (timer) clearTimeout(timer);
+      timer= setTimeout(async res=>{
+        await _this.add();
+      },500)  
+    }
+  },
+  add:function(){
+    var that=this;
+    var userInfo=wx.getStorageSync('userInfo')
+    var creation_date=util.formatTime(new Date())
+    wx.showLoading({
+      title: '提交中',
+    })
+    let code = that.getRanNum();
+    let numberCode = "";
+    for (let e = 0; e < 10; e++) {
+      numberCode += Math.floor(Math.random() * 10)
+    }
+    wx.cloud.callFunction({
+      name:'recordAdd',
+      data:{
+        collection:'activity',
+        addData:{
+          creation_date:creation_date,
+          creation_timestamp:Date.parse(creation_date.replace(/-/g, '/')) / 1000,
+          title:that.data.title,
+          start_date:that.data.startTime,
+          start_timestamp:Date.parse(that.data.startTime.replace(/-/g, '/')) / 1000,
+          end_date:that.data.endTime,
+          end_timestamp:Date.parse(that.data.endTime.replace(/-/g, '/')) / 1000,
+          shopping:that.data.productList,
+          act_code:code+numberCode,
+          shop_code:userInfo.shop[userInfo.shop.length-1].shop_code,
+          _openid:userInfo._openid,
+          type:'team'
+        }
+      }
+    }).then(res=>{
+      console.log(res)
+      wx.hideLoading()
+      wx.showToast({
+        title: '发布活动成功',
+        icon:'success',
+        duration:2000
+      })
+      setTimeout(res=>{
+        wx.navigateBack({
+          delta: 0,
+        })
+      },2000)
+    }).catch(error => {
+      wx.hideLoading()
+      wx.hideNavigationBarLoading()
+      wx.showModal({
+        title: '服务器繁忙，请稍后重试',
+      })
+    }) 
+  },
+  getRanNum(){
+    var result = [];
+    for(var i=0;i<2;i++){
+      var ranNum = Math.ceil(Math.random() * 25);
+      //大写字母'A'的ASCII是65,A~Z的ASCII码就是65 + 0~25;然后调用String.fromCharCode()传入ASCII值返回相应的字符并push进数组里
+      result.push(String.fromCharCode(65+ranNum));
+    }
+    return  result.join('');
+  },
   /**
    * 生命周期函数--监听页面卸载
    */

@@ -91,6 +91,7 @@ Page({
   },
   toAlreadyLookup: function (e) {
     var that = this;
+    console.log(e)
     ind = parseInt(e.currentTarget.dataset.index)
     wx.setStorageSync("editData", that.data.alreadylist[ind])
     wx.navigateTo({
@@ -123,7 +124,7 @@ Page({
       success: function (res) {
         that.setData({
           widheight: res.windowHeight,
-          scrollHev: res.windowHeight - 80
+          scrollHev: res.windowHeight - 50
         });
       }
     });
@@ -214,6 +215,13 @@ Page({
         console.log(arr)
         resolve(arr)
         wx.hideLoading()
+        if(data.length==0){
+          wx.showToast({
+            title: '暂无更多数据',
+            icon:'none',
+            duration:1500
+          })
+        }
         wx.hideNavigationBarLoading()
       }).catch(error => {
         wx.hideLoading()
@@ -222,6 +230,66 @@ Page({
           title: '服务器繁忙，请稍后重试',
         })
       })
+    })
+  },
+  deleteFail: function (e) {
+    var _this = this;
+    ind = parseInt(e.currentTarget.dataset.index)
+    let _id=_this.data.faillist[ind]._id
+    console.log(ind)
+    wx.showModal({
+      title: '删除 '+_this.data.faillist[ind].shop_name,
+      content: '',
+      confirmText: "删除",
+      confirmColor: "red",
+      success: function (res) {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '删除中',
+          })
+          wx.cloud.callFunction({
+            name: 'recordDelete',
+            data: {
+              collection: 'shop',
+              where: {
+                _id: _id
+              },
+            }
+          }).then(res => {
+            wx.cloud.deleteFile({
+              fileList: _this.data.faillist[ind].shop_img,
+              success: res => {
+                // handle success
+                console.log(res.fileList)
+              },
+              fail: err => {
+                // handle error
+              },
+              complete: res => {
+                // ...
+              }
+            })
+            _this.data.faillist.splice(ind, 1);
+            wx.hideLoading({
+              success: (res) => {},
+            })
+            wx.showToast({
+              title: '删除成功',
+              icon:'success',
+              duration:2000
+            })
+            _this.setData({
+              faillist: _this.data.faillist
+            })
+            skip2=0;
+            let faillist=[]
+            _this.setData({faillist:[]})
+            _this.loadData(_this.data.faillist, 'fail',faillist,0).then(res=>faillist=res)
+            _this.setData({faillist:faillist})
+          })
+
+        }
+      }
     })
   },
   async bindDownLoad() {

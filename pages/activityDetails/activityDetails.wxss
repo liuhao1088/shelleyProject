@@ -9,6 +9,7 @@
   width: 90%;
   height: 60rpx;
   margin-top: 20rpx;
+  margin-bottom:20rpx;
   display: flex;
   border: 0rpx solid orange;
 }
@@ -64,8 +65,10 @@
   width: 95%;
   border-radius: 10rpx;
   background-color: #fff;
-  margin-top: 40rpx;
+  margin-bottom: 20rpx;
+  margin-left: 2.5%;
   padding: 30rpx 20rpx;
+  position: relative;
 }
 
 .wrap {
@@ -94,7 +97,7 @@
   height: 100%;
   width: 50%;
   border: 0rpx solid red;
-  float: right;
+  margin-left: 50%;
 }
 
 .but{

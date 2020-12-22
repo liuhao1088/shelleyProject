@@ -131,10 +131,14 @@ Page({
           }
         },
       }).then(res=>{
-        wx.showToast({
-          title: '已驳回',
-        })
         that.hideModal()
+        setTimeout(() => {
+          wx.showToast({
+            title: '已驳回',
+            icon:'none',
+            duration:1500
+          })
+        }, 1000);
         editData.prove='fail'
         editData.reason=that.data.reason;
         editData.checker=userInfo.nickName;

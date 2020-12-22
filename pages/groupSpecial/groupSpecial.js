@@ -44,6 +44,7 @@ Page({
     hou:'',//时
     min:'',//分
     sec:'',//秒
+    data:'',list:[]
   },
   toActivityRule(event) {
     wx.navigateTo({
@@ -154,6 +155,37 @@ Page({
    */
   onLoad: function (options) {
     this.countTime();
+    var that=this;
+    wx.cloud.callFunction({
+      name:'multQuery',
+      data: {
+        collection: 'activity',
+        match: {type:'team'},
+        or: [{}],
+        and: [{}],
+        lookup: {
+          from: 'shop',
+          localField: 'shop_code',
+          foreignField: 'shop_code',
+          as: 'shop',
+        },
+        lookup2: {
+          from: 'user',
+          localField: '_openid',
+          foreignField: '_openid',
+          as: 'user',
+        },
+        sort: {
+          creation_date: -1
+        },
+        skip: 0,
+        limit: 10
+      }
+    }).then(res => {
+      let data=res.result.list[0];
+      console.log(res)
+      that.setData({data:data})
+    })
   },
 
   /**

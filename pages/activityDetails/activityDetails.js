@@ -1,11 +1,13 @@
 // pages/activityDetails/activityDetails.js
+var util=require('../../utils/util.js')
+var skip=0;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    list:[],stamp:Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
   },
   toActivitySelect(event){
     wx.navigateTo({
@@ -16,7 +18,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that=this;
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          widheight: res.windowHeight,
+          scrollHev: res.windowHeight - - (res.windowWidth/750)*100,
+          stamp:Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000
+        });
+      }
+    });
+    that.loadData();
   },
 
   /**
@@ -32,7 +44,32 @@ Page({
   onShow: function () {
 
   },
-
+  loadData:function(){
+    var that=this;
+    wx.showLoading({
+      title: '加载中',
+    })
+    let userInfo=wx.getStorageSync('userInfo')
+    var _=wx.cloud.database().command;
+    wx.cloud.database().collection('activity').where({shop_code:userInfo.shop[userInfo.shop.length-1].shop_code}).where({end_timestamp:_.gte(Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000)}).orderBy('creation_date','desc').skip(skip).limit(10).get().then(res=>{
+      let data=that.data.list.concat(res.data)
+      if(res.data.length==0){
+        wx.showToast({
+          title: '暂无更多数据',
+          icon:'none',
+          duration:3000
+        })
+      }
+      that.setData({list:data})
+      wx.hideLoading()
+      wx.hideNavigationBarLoading()
+    })
+  },
+  async bindDownLoad() {
+    wx.showNavigationBarLoading() 
+    skip = skip + 10;
+    await this.loadData()
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

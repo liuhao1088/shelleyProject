@@ -114,8 +114,7 @@
       <view class="container">
         <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHev}}px;" class="list"
           bindscrolltolower="bindDownLoad3" bindscrolltoupper="topLoad" bindscroll="scroll">
-          <view class='viewbox' bindlongtap='' wx:for="{{faillist}}" wx:key="*" data-index="{{index}}"
-            bindtap="toFailLookup">
+          <view class='viewbox' wx:for="{{faillist}}" wx:key="*" data-index="{{index}}" bindtap="toFailLookup" bindlongpress="deleteFail">
             <view class=''
               style="padding:10rpx 20rpx;border-radius:10rpx;background:gray;color:white;font-size:20rpx;position:absolute;right:15px;top:15px;"
               data-index="{{index}}">已驳回</view>

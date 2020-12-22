@@ -67,10 +67,34 @@ Component({
                     userInfo._openid=openid;
                     app.globalData.userInfo=userInfo;
                     const db = wx.cloud.database()
-                    db.collection('user').where({
-                      _openid: openid
-                    }).get().then(res => {
-                      if (res.data.length == 0) {
+                    wx.cloud.callFunction({
+                      name:'multQuery',
+                      data: {
+                        collection: 'user',
+                        match: {_openid: openid},
+                        or: [{}],
+                        and: [{}],
+                        lookup: {
+                          from: 'shop',
+                          localField: 'shop_code',
+                          foreignField: 'shop_code',
+                          as: 'shop',
+                        },
+                        lookup2: {
+                          from: 'coupon',
+                          localField: '_openid',
+                          foreignField: '_openid',
+                          as: 'coupon',
+                        },
+                        sort: {
+                          creation_date: -1
+                        },
+                        skip: 0,
+                        limit: 1
+                      }
+                    }).then(res => {
+                      let user=res.result.list[0];
+                      if (res.result.list.length == 0) {
                         let sex;
                         console.log(res, userInfo.nickName, userInfo.avatarUrl, userInfo.province, userInfo.city)
                         if (userInfo.gender == 1) {
@@ -101,9 +125,9 @@ Component({
                           })
                           .catch(console.error)
                           wx.setStorageSync('userInfo',userInfo)
-                      } else if (res.data.length == 1) {
+                      } else if (res.result.list.length == 1) {
                         console.log(userInfo,openid)
-                        if(userInfo.nickName!==res.data[0].nickName){
+                        if(userInfo.nickName!==res.result.list[0].nickName){
                           wx.cloud.callFunction({
                             name:'recordUpdate',
                             data:{
@@ -116,8 +140,8 @@ Component({
                             }
                           })
                         }
-                        wx.setStorageSync('userInfo',userInfo)
-                        if(res.data[0].authority=='admin'){
+                        wx.setStorageSync('userInfo',user)
+                        if(res.result.list[0].authority=='admin'){
                         
                         }
                       }

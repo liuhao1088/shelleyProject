@@ -5,7 +5,7 @@
     <view class="wrap-titleItem">
       <view class="wrap-title">活动标题</view>
       <view class="wrap-input">
-        <input type="text" placeholder-class="placeholder" placeholder="请输入活动标题" /></view>
+        <input type="text" placeholder-class="placeholder" bindinput="inputTitle" value="{{title}}" placeholder="请输入活动标题" /></view>
     </view>
 
     <view class="wrap-date">
@@ -88,7 +88,7 @@
   <view class="wrap">
   </view>
 </view>
-<view class="but-item">
+<view class="but-item" bindtap="submit_form">
   <button>发布专属活动</button>
 </view>
 

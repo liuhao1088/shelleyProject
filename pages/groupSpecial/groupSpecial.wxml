@@ -9,12 +9,12 @@
       <text class='tui-conutdown-box tui-countdown-bg'>{{sec}}</text>秒
     </view>
 
-    <view class="coupon-item">
+    <view class="coupon-item" wx:for="{{data.shopping}}" data-index="{{index}}">
       <view class="img-item"></view>
       <view class="wrap-item">
         <view class="coupon-titleItem">
-          <text class="coupon-title">产品名称1</text>
-          <text class="coupon-address">AAAA宝安店专用</text>
+          <text class="coupon-title">{{item.name}}</text>
+          <text class="coupon-address">{{data.shop[0].shop_name}}专用</text>
         </view>
 
         <view class="coupon-group">
@@ -42,8 +42,8 @@
 
         <view class="coupon-group">
           <view class="coupon-main">
-            <view class="group-price">¥ 299</view>
-            <view class="price-item">原价：¥599</view>
+            <view class="group-price">¥ {{item.price}}</view>
+            <view class="price-item">原价：¥ {{item.original_price}}</view>
           </view>
           <view class="coupon-but">
             <button class="but"

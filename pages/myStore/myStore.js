@@ -10,15 +10,29 @@ Page({
   },
   toStoreInformation(event) {
     let data=JSON.stringify(wx.getStorageSync('userInfo'))
-    console.log(data)
     wx.navigateTo({
       url: '/pages/storeInformation/storeInformation?data='+data,
     })
   },
   toActivityDetails(event) {
-    wx.navigateTo({
-      url: '/pages/activityDetails/activityDetails',
-    })
+    let userInfo=wx.getStorageSync('userInfo')
+    if(userInfo.shop[userInfo.shop.length-1].prove=='success'){
+      wx.navigateTo({
+        url: '/pages/activityDetails/activityDetails',
+      })
+    }else if(userInfo.shop[userInfo.shop.length-1].prove=='waiting'){
+      wx.showToast({
+        title: '您的门店信息正在认证中，请耐心等待',
+        icon:'none',
+        duration:3000
+      })
+    }else{
+      wx.showToast({
+        title: '您的门店信息认证被驳回，请查看原因后重新提交',
+        icon:'none',
+        duration:3000
+      })
+    }
   },
 
   /**

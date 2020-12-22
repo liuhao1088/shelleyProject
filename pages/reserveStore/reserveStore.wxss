@@ -19,6 +19,7 @@
   margin: auto;
   border-radius: 20rpx;
   margin-top: 20rpx;
+  margin-bottom:20rpx;
   border: 2rpx solid rgba(255, 255, 255, 100);
   display: flex;
 }
@@ -46,7 +47,7 @@
   background-color: #fff;
   margin: auto;
   border-radius: 20rpx;
-  margin-top: 20rpx;
+  margin-bottom: 20rpx;
   border: 2rpx solid rgba(255, 255, 255, 100);
   display: flex;
   justify-content: center;
@@ -63,7 +64,7 @@
 .wrap-img {
   height: 100%;
   width: 140rpx;
-  background-color: red;
+  background-color: white;
   float: left;
   position: relative;
   border-radius: 10rpx;
@@ -118,6 +119,7 @@
   opacity: 0.6;
   margin-top: 10rpx;
 }
+
 
 .tag-store {
   height: 120rpx;

@@ -115,7 +115,7 @@ Page({
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          // 已经授权
           wx.getUserInfo({
             success: res => {
               console.log(res)
@@ -125,11 +125,17 @@ Page({
               })
             }
           })
-         
         } else {
           //打开授权登录页
           this.selectComponent("#authorize").showModal();
         }
+      }
+    })
+    wx.getLocation({
+      success (res) {
+        console.log(res)
+        const lat = res.latitude
+        const lon = res.longitude
       }
     })
   },
@@ -159,12 +165,46 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.showShareMenu({
-
-      withShareTicket: true,
-
-      menus: ['shareAppMessage', 'shareTimeline']
-
+    var that=this;
+    // 获取用户信息
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          let userInfo=wx.getStorageSync('userInfo')
+          wx.cloud.callFunction({
+            name:'multQuery',
+            data: {
+              collection: 'user',
+              match: {_openid: userInfo._openid},
+              or: [{}],
+              and: [{}],
+              lookup: {
+                from: 'shop',
+                localField: 'shop_code',
+                foreignField: 'shop_code',
+                as: 'shop',
+              },
+              lookup2: {
+                from: 'coupon',
+                localField: '_openid',
+                foreignField: '_openid',
+                as: 'coupon',
+              },
+              sort: {
+                creation_date: -1
+              },
+              skip: 0,
+              limit: 1
+            }
+          }).then(res => {
+            let user=res.result.list[0];
+            console.log(res)
+            wx.setStorageSync('userInfo', user)
+          })
+        } else {
+          
+        }
+      }
     })
   },
 

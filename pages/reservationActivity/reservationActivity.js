@@ -1,4 +1,6 @@
-const util = require('../../utils/util');
+// pages/reservationActivity/reservationActivity.js
+const uilt = require('../../utils/util');
+let timer;
 Page({
 
   /**
@@ -48,7 +50,14 @@ Page({
   },
   async submit(){
     if(this.data.title!==''&&this.data.content!==''){
-      this.add()
+      var that=this;
+      wx.showLoading({
+        title: '提交中',
+      })
+      if (timer) clearTimeout(timer);
+      timer= setTimeout(async res=>{
+        await that.add();
+      },500)
     }else{
       wx.showToast({
         title: '内容不能为空',
@@ -64,6 +73,11 @@ Page({
     wx.showLoading({
       title: '提交中',
     })
+    let code = that.getRanNum();
+    let numberCode = "";
+    for (let e = 0; e < 10; e++) {
+      numberCode += Math.floor(Math.random() * 10)
+    }
     wx.cloud.callFunction({
       name:'recordAdd',
       data:{
@@ -77,6 +91,7 @@ Page({
           start_timestamp:Date.parse(that.data.startTime.replace(/-/g, '/')) / 1000,
           end_date:that.data.endTime,
           end_timestamp:Date.parse(that.data.endTime.replace(/-/g, '/')) / 1000,
+          act_code:code+numberCode,
           shop_code:userInfo.shop[userInfo.shop.length-1].shop_code,
           _openid:userInfo._openid,
           type:'reservation'
@@ -102,6 +117,15 @@ Page({
         title: '服务器繁忙，请稍后重试',
       })
     })
+  },
+  getRanNum(){
+    var result = [];
+    for(var i=0;i<2;i++){
+      var ranNum = Math.ceil(Math.random() * 25);
+      //大写字母'A'的ASCII是65,A~Z的ASCII码就是65 + 0~25;然后调用String.fromCharCode()传入ASCII值返回相应的字符并push进数组里
+      result.push(String.fromCharCode(65+ranNum));
+    }
+    return  result.join('');
   },
   /**
    * 生命周期函数--监听页面隐藏

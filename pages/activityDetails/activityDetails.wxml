@@ -9,34 +9,35 @@
       <text class="iconfont iconplus icon"></text>新建活动
     </view>
   </view>
-
-  <view class="wrapper">
+  <scroll-view scroll-top="{{scrollTop}}" scroll-y style="height:{{scrollHev}}px;" class=""
+   bindscrolltolower="bindDownLoad">
+  <view class="wrapper" wx:for="{{list}}" data-index="{{index}}">
     <view class="wrap">
-      <view class="wrap-title">活动标题：2月好礼享不停</view>
-      <view class="wrap-tag"><text class="iconfont iconflag"></text> 活动中</view>
-      <!-- <view class="wrap-tag" style="opacity: 0.5;">未开始</view> -->
+      <view class="wrap-title">活动标题：{{item.title}}</view>
+      <view class="wrap-tag" wx:if="{{stamp<item.start_timestamp}}"><text class="iconfont iconflag"></text> 活动中</view>
+      <view class="wrap-tag" wx:if="{{stamp>item.start_timestamp}}" style="opacity: 0.5;">未开始</view> 
       
     </view>
     <view class="wrap">
-      <view class="wrap-title">活动类型：拼团优惠</view>
+      <view class="wrap-title">活动类型：{{item.type=='reservation'?'预约好礼':'拼团优惠'}}</view>
     </view>
     <view class="wrap">
-      <view class="wrap-title">活动时间：3020-20-50 15:00 至 3020-20-51 00:00</view>
+      <view class="wrap-title">活动时间：{{item.start_date}} 至 {{item.end_date}}</view>
     </view>
     <view class="wrap">
-      <view class="wrap-title">活动码：h0011820500201</view>
+      <view class="wrap-title">活动码：{{item.act_code}}</view>
     </view>
     
     <view class="wrap">
-      <view class="wrap-title" style="opacity: 0.5;">创建时间：3020-20-50 0:00</view>
+      <view class="wrap-title" style="opacity: 0.5;">创建时间：{{item.creation_date}}</view>
       
     </view>
-    <view class="wrap" style="display: inline;">
+    <view class="wrap" style="">
       <view class="wrap-but">
-        <view class="but">
+        <view class="but" data-index="{{index}}" bindtap="toEdit">
           <button class="cu-btn round sm bg-blue accept">编辑活动</button>
         </view>
-        <view class="but" style="margin-right: 30rpx;">
+        <view class="but" style="margin-right: 30rpx;" data-index="{{index}}" bindtap="delete">
           <button class="cu-btn round sm bg-white cancel">删除活动</button>
         </view>
       
@@ -44,4 +45,6 @@
     </view>
     
   </view>
+  
+  </scroll-view>
 </view>
