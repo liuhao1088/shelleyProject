@@ -6,29 +6,21 @@ image {
   vertical-align: middle;
 }
 
-/* .swiperItem {
-  width: 100%;
-  height: 100%;
-} */
-
 .swiper-wrapper {
   height: 100%;
   width: 100%;
   background-color: #101721;
 }
 
-/* 第二页 */
 .header {
   width: 100%;
-  height: 870rpx;
+  height: 1086rpx;
   border: 0rpx solid red;
  
 }
 
 .header-img {
   width: 100%;
-  height: 700rpx;
-  padding-top: 40rpx;
   background-color: black;
   border: 0rpx solid red;
 }
@@ -56,7 +48,7 @@ image {
   height: 100rpx;
   border-bottom-left-radius: 60rpx;
   border-bottom-right-radius: 60rpx;
-  margin-top: 14rpx;
+  margin-top: 20rpx;
   border: 0rpx solid red;
 }
 
