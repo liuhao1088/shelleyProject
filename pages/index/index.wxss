@@ -1,54 +1,77 @@
 @import "/template/myTemplate.wxss";
 
-.container {
+image {
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
+}
+
+/* .swiperItem {
+  width: 100%;
+  height: 100%;
+} */
+
+.swiper-wrapper {
+  height: 100%;
+  width: 100%;
   background-color: #101721;
 }
 
+/* 第二页 */
 .header {
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  height: 870rpx;
+  border: 0rpx solid red;
+ 
 }
 
 .header-img {
   width: 100%;
-  height: 880rpx;
+  height: 700rpx;
+  padding-top: 40rpx;
+  background-color: black;
   border: 0rpx solid red;
 }
 
 .wrap {
   width: 90%;
-  height: 336rpx;
   margin: auto;
   border: 0rpx solid red;
   border-radius: 60rpx;
   background-color: #fff;
+  display: table;
+  clear: both;
+  position: relative;
+  top: -120rpx;
 }
 
 .wrap-topbar {
   width: 100%;
-  height: 216rpx;
+  padding: 0 40rpx;
   border: 0rpx solid orange;
 }
 
 .wrap-img {
   width: 100%;
-  height: 120rpx;
-  border: 0rpx solid #000;
+  height: 100rpx;
+  border-bottom-left-radius: 60rpx;
+  border-bottom-right-radius: 60rpx;
+  margin-top: 14rpx;
+  border: 0rpx solid red;
 }
 
 .topbar {
-  height: 80rpx;
   width: 100%;
   border: 0rpx solid blue;
-  margin-top: 30rpx;
+  margin-top: 16rpx;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  border-bottom: 2rpx solid rgba(240, 240, 240, 1);
+  padding-bottom: 16rpx;
 }
 
 .topbar-item {
-  width: calc(83%/2);
+  width: calc(93%/2);
   height: 100%;
   border: 0rpx solid red;
   display: flex;
@@ -92,12 +115,10 @@
 
 .wrap-coupons {
   width: 100%;
-  height: 40rpx;
-  margin-top: 40rpx;
+  margin-top: 14rpx;
   border: 0rpx solid red;
-  
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .wrap-couponsItem {
@@ -106,23 +127,43 @@
   opacity: 0.91;
   font-size: 26rpx;
   line-height: 40rpx;
+  display: flex;
 }
 
+.wrap-couponsItem text {
+  width: 60rpx;
+  margin-right: 15rpx;
+  font-size: 38rpx;
+  text-align: center;
+}
 
-.navItem {
-  width: 47%;
-  display: inline-block;
+.wrap-groupItem {
+  flex: 1;
+}
+
+.wrap-productItem {
+  width: 100%;
+  border: 0rpx solid red;
+  float: left;
+  padding-bottom: 50rpx;
+}
+
+.product-imgItem{
+  width: 90%;
+  margin: auto;
+  border: 0rpx solid orange;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.product-img{
+  width: calc(90%/2);
   margin-top: 60rpx;
 }
 
 .img-item {
   width: 90%;
   padding-bottom: 40rpx;
-}
-
-.img-item image{
-  height: 100%;
-  width: 100%;
-  vertical-align: middle;
-    text-align: center;
+  margin: auto;
 }

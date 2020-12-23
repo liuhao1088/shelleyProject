@@ -1,4 +1,4 @@
-<view class='add' bindtap='onAddPhone'>增加</view>
+<!-- <view class='add' bindtap='onAddPhone'>增加</view>
 <view class='box' wx:for="{{lists}}" wx:key="id">
   <view class='del' bindtap='delList' data-idx='{{index}}'>删除</view>
   <input type='text' class='b-ipt' placeholder='请输入' data-idx='{{index}}' value='{{lists[index].name}}'
@@ -9,4 +9,42 @@
 
 <view class="tiem">
   <text>{{countdown}}</text>
+</view> -->
+
+<!-- <swiper class="top_swiper" vertical easing-function="easeInOutCubic" current="{{currentId}}" bindchange="topSwiper">
+  <swiper-item>
+    <view class="box">测试1</view>
+  </swiper-item>
+  <swiper-item>
+    <view class="box" style="background-color: orange;">测试2</view>
+  </swiper-item>
+  <swiper-item>
+    <view class="box" style="background-color: #bfc;">测试3</view>
+  </swiper-item>
+</swiper>
+
+<view class="cu-modal {{modalName==0?'show':''}}">
+  <view class="cu-dialog">
+    <view class="bg-img">
+      <view class="padding-xl">
+        <view class="modal-wrap">
+          <view class="modal-selectBut" wx:for="{{checkbox}}" wx:key="id">
+            <button class="{{item.checked?'line':''}}" bindtap="ChooseCheckbox" id="{{item.id}}">{{item.name}}</button>
+          </view>
+        </view>
+        <view class="modal-but">
+          <view class="but-item">
+            <button>立即领取</button>
+          </view>
+        </view>
+        <view class="modal-but" style="opacity: 0.5;color: rgba(16, 16, 16, 100);font-size: 24rpx;">
+          <text bindtap="hideModal">暂不领取</text> 
+        </view>
+      </view>
+
+    </view>
+  </view>
+</view> -->
+<!-- 判断是否滑动 -->
+<view class="div2" bind:touchend="touchEnd">
 </view>

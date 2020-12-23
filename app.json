@@ -2,9 +2,7 @@
   "pages":[
     "pages/index/index",
     "pages/text/text",
-    
     "pages/reserveStore/reserveStore",
-   
     "pages/storeAppointment/storeAppointment",
     "pages/groupSpecial/groupSpecial",
     "pages/groupActivities/groupActivities",

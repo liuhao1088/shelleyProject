@@ -1,4 +1,10 @@
 // pages/text/text.js
+var minOffset = 30;//最小偏移量，低于这个值不响应滑动处理
+var minTime = 60;// 最小时间，单位：毫秒，低于这个值不响应滑动处理
+var startX = 0;//开始时的X坐标
+var startY = 0;//开始时的Y坐标
+var startTime = 0;//开始时的毫秒数
+
 Page({
 
   /**
@@ -7,10 +13,30 @@ Page({
   data: {
     lists: [{
       "name": '',
-      "user": ''
+      "user": '',
+    }],
+    checkbox: [{
+      id: 0,
+      name: '行车记录仪',
+      checked: false,
+    }, {
+      id: 1,
+      name: '专车专用记录仪',
+      checked: false,
+    }, {
+      id: 2,
+      name: '智能车机',
+      checked: false,
+    }, {
+      id: 3,
+      name: '隐形车衣',
+      checked: false,
     }],
     nowDate:'2020-12-22 18:00:00',
-    countdown:'',    
+    countdown:'',   
+    modalName:0,
+
+    
   },
   onAddPhone: function () {
     var lists = this.data.lists;
@@ -73,6 +99,87 @@ Page({
       that.setData({
         countdown: '已截止'
       })
+    }
+  },
+
+  topSwiper(event) {
+    let navId = event.detail.current; //获取swiper下标
+    console.log(event.detail.current);
+    if (navId === 1) {
+      this.setData({
+        modalName: 0
+      })
+    } else {
+      this.setData({
+        windowHeight: 1
+      })
+    }
+  },
+
+  hideModal(e) {
+    this.setData({
+      modalName: 1
+    })
+  },
+
+  // 多选
+  ChooseCheckbox(e) {
+    console.log(e)
+    let items = this.data.checkbox;
+    let id = e.currentTarget.id;
+    console.log(id)
+    for (let i = 0; i < items.length; ++i) {
+      if (items[i].id == id) {
+        console.log(items[i].id)
+        items[i].checked = !items[i].checked;
+        break
+      }
+    }
+    this.setData({
+      checkbox: items
+    })
+  },
+
+  /**
+   * 触摸结束事件，主要的判断在这里
+   */
+  touchEnd: function (e) {
+    console.log('touchEnd', e)
+    var endX = e.changedTouches[0].pageX;
+    var endY = e.changedTouches[0].pageY;
+    var touchTime = new Date().getTime() - startTime;//计算滑动时间
+    //开始判断
+    //1.判断时间是否符合
+    if (touchTime >= minTime) {
+      //2.判断偏移量：分X、Y
+      var xOffset = endX - startX;
+      var yOffset = endY - startY;
+      console.log('xOffset', xOffset)
+      console.log('yOffset', yOffset)
+      //①条件1（偏移量x或者y要大于最小偏移量）
+      //②条件2（可以判断出是左右滑动还是上下滑动）
+      if (Math.abs(xOffset) >= Math.abs(yOffset) && Math.abs(xOffset) >= minOffset) {
+        //左右滑动
+        //③条件3（判断偏移量的正负）
+        if (xOffset < 0) {
+          console.log('向左滑动')
+        } else {
+          console.log('向右滑动')
+        }
+      } else if (Math.abs(xOffset) < Math.abs(yOffset) && Math.abs(yOffset) >= minOffset) {
+        //上下滑动
+        //③条件3（判断偏移量的正负）
+        if (yOffset < 0) {
+          console.log('向上滑动')
+        } else {
+          console.log('向下滑动')
+          wx.navigateTo({
+            url: '/pages/index/index',
+          })
+        }
+      }
+    } else {
+      console.log('滑动时间过短', touchTime)
     }
   },
 
