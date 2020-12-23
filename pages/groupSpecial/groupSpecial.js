@@ -1,4 +1,5 @@
 // pages/groupSpecial/groupSpecial.js
+var util=require('../../utils/util.js')
 Page({
 
   /**
@@ -40,10 +41,10 @@ Page({
     }],
     nowDate:'2020-12-22 18:00:00',//结束时间
     countdown:'', //倒计时
-    day:'',//天
-    hou:'',//时
-    min:'',//分
-    sec:'',//秒
+    days:'00',//天
+    hours:'00',//时
+    minutes:'00',//分
+    seconds:'00',//秒
     data:'',list:[]
   },
   toActivityRule(event) {
@@ -154,7 +155,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.countTime();
     var that=this;
     wx.cloud.callFunction({
       name:'multQuery',
@@ -183,8 +183,25 @@ Page({
       }
     }).then(res => {
       let data=res.result.list[0];
-      console.log(res)
+      let nowstamp=Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
       that.setData({data:data})
+      if(data.end_timestamp>nowstamp){
+        let int=setInterval(() => {
+          nowstamp=nowstamp+1;
+          if(nowstamp>=data.end_timestamp){
+            that.setData({days:'00',hours:'00',minutes:'00',seconds:'00'})
+            clearInterval(int);
+          } 
+          let surplus=data.end_timestamp-nowstamp;
+          let days = Math.floor(surplus / ( 60 * 60 * 24));if(days<10) days='0'+days;
+          let hours = Math.floor(( surplus / ( 60 * 60)) % 24);if(hours<10) hours='0'+hours;
+          let minutes = Math.floor(( surplus / 60) % 60);if(minutes<10) minutes='0'+minutes;
+          let seconds = Math.floor(( surplus ) % 60);if(seconds<10) seconds='0'+seconds;
+          that.setData({days:days,hours:hours,minutes:minutes,seconds:seconds})
+        }, 1000);
+      }else{
+        that.setData({days:'00',hours:'00',minutes:'00',seconds:'00'})
+      }
     })
   },
 

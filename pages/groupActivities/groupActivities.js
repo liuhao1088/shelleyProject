@@ -17,33 +17,9 @@ Page({
       "time": '',
       "showView": false
     }], //活动商品
-    checkbox: [{
-      value: 0,
-      name: '如影系列-R1',
-      checked: false,
-    }, {
-      value: 1,
-      name: '如影系列-R2',
-      checked: false,
-    }, {
-      value: 2,
-      name: '斑马系列-B2',
-      checked: false,
-    }, {
-      value: 3,
-      name: '斑马系列-B3',
-      checked: false,
-    }, {
-      value: 4,
-      name: '双色系列-S3',
-      checked: false,
-    }, {
-      value: 5,
-      name: '猎豹系列-T3',
-      checked: false,
-    }], //商品选择
+    checkbox: [], //商品选择
     index:0,
-    title:''
+    title:'',ind:0
   },
   //获取活动开始时间
   changeStartTime(e) {
@@ -76,33 +52,41 @@ Page({
   onAdd(e) {
     let productList = this.data.productList;
     let index = e.currentTarget.dataset.idx;
-    // console.log(index)
-    let newData = {
-      "name": '请选择想要体验的商品',
-      "price": '',
-      "people": '',
-      "time": '',
-      "showView": false
-    };
-    if (productList.length >= 6) {
+    if(productList[index].price==''||productList[index].people==''||productList[index].time==''||productList[index].name=='请选择想要体验的商品'){
       wx.showToast({
-        title: '最多添加6个商品',
-        icon: 'none',
-        duration: 2000
+        title: '请填写完内容，再添加活动商品',icon:'none',duration:2000
       })
-      return;
+    }else{
+      // console.log(index)
+      let newData = {
+        "name": '请选择想要体验的商品',
+        "price": '',
+        "people": '',
+        "time": '',
+        "showView": false
+      };
+      if (productList.length >= 6) {
+        wx.showToast({
+          title: '最多添加6个商品',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      productList.push(newData);
+      // console.log(this.data.productList[index].showView)
+      this.data.productList[index].showView = !this.data.productList[index].showView;
+      // console.log(this.data.productList[index].showView)
+      this.setData({
+        productList,
+      })
     }
-    productList.push(newData);
-    // console.log(this.data.productList[index].showView)
-    this.data.productList[index].showView = !this.data.productList[index].showView;
-    // console.log(this.data.productList[index].showView)
-    this.setData({
-      productList,
-    })
+    
   },
 
   //获取input的值
   bindChanguser(e) {
+    console.log(e.detail.value)
     let productList = this.data.productList;
     var index = e.currentTarget.dataset.idx; //获取当前索引
     var type = e.currentTarget.id; //状态
@@ -141,50 +125,43 @@ Page({
   hideModal(e) {
     let index = this.data.index;
     let productList = this.data.productList;
-    let nameList = [];
-    let items = this.data.checkbox;
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].checked == true) {
-        nameList.push(items[i].name);
-      }
-    }
-    if (nameList == '') {
-      productList[index].name = ['请选择想要体验的商品']
-    }
-    productList[index].name = nameList
+    let items = this.data.checkbox;console.log(productList[index])
+    productList[index] =Object.assign(productList[index],items[this.data.ind]);
+    console.log(productList[index])
     this.setData({
       modalName: null,
       productList:productList
     })
-    // console.log(productList)
+    //console.log(productList)
   },
   chooseCheckbox(e) {
     let items = this.data.checkbox;
-    let values = e.currentTarget.dataset.value;
-    // console.log(values)
-    for (let i = 0; i < items.length; ++i) {
-      if (items[i].value == values) {
-        console.log(items[i].value);
-        items[i].checked = true;
-      }else{
-        items[i].checked = false;
-      }
-    }
+    let ind = e.currentTarget.dataset.index;
+    for(let i in items) items[i].checked=false
+    items[ind].checked=true;
     this.setData({
       checkbox: items,
+      ind:ind
     })
-
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // let date =  uilt.formatTime(new Date());
-    // this.setData({
-    //  startTime:date,
-    //  endTime:date
-    // })
+    let date =  util.formatTime(new Date());
+    this.setData({
+      startTime:date,
+      endTime:date
+    })
+    var that=this;
+    wx.cloud.callFunction({name:'showwares'}).then(res=>{
+      let data=res.result;
+      for(let i=0;i<data.length;i++){
+        data[i].checked=false;
+        if(i+1==data.length) that.setData({checkbox:data})
+      }
+    })
   },
 
   /**
@@ -211,7 +188,8 @@ Page({
   },
   async submit_form(){
     var _this=this;
-    if(_this.data.title==""){
+    var list=_this.data.productList;
+    if(_this.data.title==""||list[list.length-1].price==''||list[list.length-1].time==''||list[list.length-1].people==''||list[list.length-1].name=='请选择想要体验的商品'){
       wx.showToast({
         title: '内容不能为空',
         icon:'none'
@@ -238,6 +216,8 @@ Page({
     for (let e = 0; e < 10; e++) {
       numberCode += Math.floor(Math.random() * 10)
     }
+    var list=that.data.productList;
+    for(let i in list){delete list[i].showView,list[i].checked}
     wx.cloud.callFunction({
       name:'recordAdd',
       data:{
@@ -250,7 +230,7 @@ Page({
           start_timestamp:Date.parse(that.data.startTime.replace(/-/g, '/')) / 1000,
           end_date:that.data.endTime,
           end_timestamp:Date.parse(that.data.endTime.replace(/-/g, '/')) / 1000,
-          shopping:that.data.productList,
+          shopping:list,
           act_code:code+numberCode,
           shop_code:userInfo.shop[userInfo.shop.length-1].shop_code,
           _openid:userInfo._openid,

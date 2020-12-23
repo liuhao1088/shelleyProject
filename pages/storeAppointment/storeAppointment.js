@@ -8,34 +8,10 @@ Page({
    */
   data: {
     startTime: '2020-12-17 11:32',
-    checkbox: [{
-      value: 0,
-      name: '如影系列-R1',
-      checked: false,
-    }, {
-      value: 1,
-      name: '如影系列-R2',
-      checked: false,
-    }, {
-      value: 2,
-      name: '斑马系列-B2',
-      checked: false,
-    }, {
-      value: 3,
-      name: '斑马系列-B3',
-      checked: false,
-    }, {
-      value: 4,
-      name: '双色系列-S3',
-      checked: false,
-    }, {
-      value: 5,
-      name: '猎豹系列-T3',
-      checked: false,
-    }],
+    checkbox: [],
     nameList:['请选择想要体验的商品，可多选'],
     data:'',firstLoading:true,isShow:false,
-    reservation:''
+    reservation:'',ind:0
   },
   changeStartTime(e){
     this.setData({ startTime: e.detail.value})
@@ -68,19 +44,13 @@ Page({
     console.log(nameList)
   },
   ChooseCheckbox(e) {
-   
     let items = this.data.checkbox;
-    let values = e.currentTarget.dataset.value;
-    for (let i = 0, lenI = items.length; i < lenI; ++i) {
-      if (items[i].value == values) {
-        items[i].checked = !items[i].checked;
-        break
-      }
-    }
+    let ind = e.currentTarget.dataset.index;
+    items[ind].checked=!items[ind].checked;
     this.setData({
       checkbox: items,
+      ind:ind
     })
-    
   },
 
   /**
@@ -96,6 +66,14 @@ Page({
       this.setData({data:data})
     }
     this.setData({startTime:util.formatTime(new Date())})
+    var that=this;
+    wx.cloud.callFunction({name:'showwares'}).then(res=>{
+      let data=res.result;
+      for(let i=0;i<data.length;i++){
+        data[i].checked=false;
+        if(i+1==data.length) that.setData({checkbox:data})
+      }
+    })
     wx.cloud.callFunction({
       name:'login'
     }).then(res=>console.log(res))

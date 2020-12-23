@@ -2,15 +2,15 @@
   <view class="title"><text bindtap="toActivityRule">活动规则</text> </view>
   <view class="wrap">
     <view class="wrap-title">拼团特惠</view>
-    <view class="wrap-title" style="font-size: 24rpx;margin-top: 20rpx;">活动结束倒计时：
-      <text class='tui-conutdown-box'>{{day}}</text>天
-      <text class='tui-conutdown-box'>{{hou}}</text>时
-      <text class='tui-conutdown-box'>{{min}}</text>分
-      <text class='tui-conutdown-box tui-countdown-bg'>{{sec}}</text>秒
+    <view class="wrap-title" style="font-size: 24rpx;margin-top: 20rpx;">{{days+hours+minutes+seconds=='00000000'?'活动已结束':'活动结束倒计时'}}：
+      <text class='tui-conutdown-box'>{{days}}</text>天
+      <text class='tui-conutdown-box'>{{hours}}</text>时
+      <text class='tui-conutdown-box'>{{minutes}}</text>分
+      <text class='tui-conutdown-box tui-countdown-bg'>{{seconds}}</text>秒
     </view>
 
     <view class="coupon-item" wx:for="{{data.shopping}}" data-index="{{index}}">
-      <view class="img-item"></view>
+      <view class="img-item align-center"><image style="height:190rpx;width:180rpx;" src="{{item.link}}" /></view>
       <view class="wrap-item">
         <view class="coupon-titleItem">
           <text class="coupon-title">{{item.name}}</text>

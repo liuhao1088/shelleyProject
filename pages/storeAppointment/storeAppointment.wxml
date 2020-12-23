@@ -77,14 +77,17 @@
     </view>
     <view class="grid padding-sm" style="height: 200rpx;padding: 0 30rpx;align-items:flex-end;">
       <view class="cu-img">
-        <image src=""></image>
+        <image class="cu-img" src="{{checkbox[ind].link}}"></image>
       </view>
-      <view class="cu-description">产品介绍：撒旦飞洒地方士大夫士大夫撒打发士大夫</view>
+      <view class="cu-description column">
+        <view style="position:relative;bottom:20rpx;">原价：<text style="color:red;font-size:30rpx;">{{checkbox[ind].original_price==''?'暂无报价':'￥'}} {{checkbox[ind].original_price}}</text></view>
+        <view>产品介绍：{{checkbox[ind].introduce}}</view>
+      </view>
     </view>
     <view class="grid col-3 padding-sm">
       <view wx:for="{{checkbox}}" class="padding-xs" wx:key="id">
         <button class="cu-btn orange lg block {{item.checked?'bg-black':'line-black'}}" bindtap="ChooseCheckbox"
-          data-value="{{item.value}}" data-name="{{item.name}}"> {{item.name}}
+          data-value="{{item.value}}" data-index="{{index}}" data-name="{{item.name}}"> {{item.name}}
         </button>
       </view>
     </view>

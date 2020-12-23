@@ -141,7 +141,7 @@
 .cu-img{
   height: 100%;
   width: 200rpx;
-  background-color:red;
+  background-color:white;
   float: left;
   border-radius: 10rpx;
 }

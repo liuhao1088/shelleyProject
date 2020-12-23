@@ -14,8 +14,8 @@
   <view class="wrapper" wx:for="{{list}}" data-index="{{index}}">
     <view class="wrap">
       <view class="wrap-title">活动标题：{{item.title}}</view>
-      <view class="wrap-tag" wx:if="{{stamp<item.start_timestamp}}"><text class="iconfont iconflag"></text> 活动中</view>
-      <view class="wrap-tag" wx:if="{{stamp>item.start_timestamp}}" style="opacity: 0.5;">未开始</view> 
+      <view class="wrap-tag" wx:if="{{stamp>item.start_timestamp}}"><text class="iconfont iconflag"></text> 活动中</view>
+      <view class="wrap-tag" wx:if="{{stamp<=item.start_timestamp}}" style="opacity: 0.5;">未开始</view> 
       
     </view>
     <view class="wrap">

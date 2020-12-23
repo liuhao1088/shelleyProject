@@ -1,5 +1,5 @@
 // pages/reservationActivity/reservationActivity.js
-const uilt = require('../../utils/util');
+const util = require('../../utils/util');
 let timer;
 Page({
 
@@ -32,7 +32,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    let date=util.formatTime(new Date())
+    this.setData({startTime:date,endTime:date})
   },
 
   /**
