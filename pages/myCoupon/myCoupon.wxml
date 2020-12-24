@@ -1,68 +1,63 @@
 <view class="myCouponContainer">
-  <view class="wrapper">
-    <!-- 可使用 -->
-    <view class="wrapper-item">
-      <view class="wrap-title">
-        <view class="wrap-titleItem">拼团优惠券</view>
-        <view class="wrap-summary">使用规则：点击[立即使用]，再让门店工作人员在弹窗中输入门店码，即可用拼团价进行支付。</view>
-      </view>
-      <view class="wrap-mag">
-        <view class="wrap-tag">
-          <view class="wrap-dateItem">有效日期：2020.12.01-2021.12.01</view>
-          <view class="wrap-dateItem" style=" margin-top: 10rpx;">使用范围：产品名称1</view>
-        </view>
-        <view class="wrap-but">
-          <view class="but">
-            <button bindtap="showModal" data-target="Modal">立即使用</button>
-          </view>
-          
-        </view>
-      </view>
-    </view>
-     <!-- 待激活 -->
-     <view class="wrapper-item">
-      <view class="wrap-title" style="background-color:#CACDFF;">
-        <view class="wrap-titleItem">拼团优惠券</view>
-        <view class="wrap-summary">使用规则：拼团还差 <text style="color: red;">1</text>  人，快去邀请好友一起拼团吧！</view>
-      </view>
-      <view class="wrap-mag">
-        <view class="wrap-tag">
-          <view class="wrap-dateItem">有效日期：2020.12.01-2021.12.01</view>
-          <view class="wrap-dateItem" style=" margin-top: 10rpx;">使用范围：产品名称1</view>
-        </view>
-        <view class="wrap-but">
-          <view class="but">
-            <button style="background-color:#CACDFF;">待激活</button>
-          </view>
-        </view>
-      </view>
-    </view>
-     <!-- 不可使用 -->
-     <view class="wrapper-item">
-      <view class="wrap-title" style="background-color:#D7D8DB;">
-        <view class="wrap-titleItem">100元无门槛优惠券</view>
-        <view class="wrap-summary">使用规则：已过期，无法使用</view>
-      </view>
-      <view class="wrap-mag">
-        <view class="wrap-tag">
-          <view class="wrap-dateItem">有效日期：2020.12.01-2021.12.01</view>
-          <view class="wrap-dateItem" style=" margin-top: 10rpx;">使用范围：产品名称1</view>
-        </view>
-        <view class="wrap-but">
-          <view class="but">
-            <button style="background-color:#D5D5D5;">不可使用</button>
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
+  <view class="title"><text bindtap="">卡券使用规则</text></view>
+  <view class="wrap">
+    <view class="wrap-title">我的卡券</view>
 
+    <view class="wrap-mainItem">
+      <view class="main-topItem">
+        <view class="main-store">AAA宝安店</view>
+        <view class="main-tag">待激活</view>
+      </view>
+
+      <view class="main-counterItem">
+        <view class="main-price">￥100</view>
+        <view class="main-titleItem">
+          <view class="main-title">拼团优惠券</view>
+          <view class="main-date">全品类商品适用</view>
+          <view class="main-date" style="padding-top: 4rpx;">有效期至 2021.12.01 23:59</view>
+        </view>
+        <view class="main-butItem">
+          <view class="but">
+            <!-- <button bindtap="showModal" data-target="Modal">立即使用</button> -->
+            <button open-type='share'>分享好友</button>
+          </view>
+          <view class="text-item">还差<text style="color: red;">1</text>人成团</view>
+        </view>
+      </view>
+    </view>
+
+
+    <view class="wrap-mainItem" style="background-color: rgba(140, 140, 140, 0.5);">
+      <view class="main-topItem">
+        <view class="main-store" style="background-color: rgba(0, 0, 0, 0.1)">AAA宝安店</view>
+      </view>
+
+      <view class="main-counterItem">
+        <view class="main-price">￥100</view>
+        <view class="main-titleItem">
+          <view class="main-title">拼团优惠券</view>
+          <view class="main-date">全品类商品适用</view>
+          <view class="main-date" style="padding-top: 4rpx;">有效期至 2021.12.01 23:59</view>
+        </view>
+        <view class="main-butItem">
+          <view class="but" style="font-size: 24rpx;text-align: center;color: rgba(0, 0, 0, 0.5);">
+            已过期
+          </view>
+        </view>
+      </view>
+    </view>
+
+
+
+
+  </view>
 </view>
 
+<!-- 弹窗 -->
 <view class="cu-modal {{modalName=='Modal'?'show':''}}">
-  <view class="cu-dialog" style="height: 400rpx;background-color: #fff;">
+  <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
-      <view class="content">请工作人员输入门店码</view>
+      <view class="content" style="width: auto;">请工作人员输入门店码</view>
       <view class="action" bindtap="hideModal">
         <text class="cuIcon-close" style="color: #CECECE;"></text>
       </view>
@@ -72,7 +67,7 @@
     </view>
     <view class="checkbox-item">
       <view class="checkbox">
-        <checkbox class="round blue" style="transform: scale(0.6,0.6);"></checkbox>
+        <checkbox class="round blue" style="transform: scale(0.4,0.4);"></checkbox>
       </view>
       <view class="checkbox-msg">合并使用100元现金抵用红包</view>
       

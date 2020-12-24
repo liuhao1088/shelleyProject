@@ -70,6 +70,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: "【仅剩1个名额】我领了100元拼团券，快来助我成团激活~", //分享标题
+      imageUrl: 'https://img13.360buyimg.com/ddimg/jfs/t1/121210/17/18389/166336/5faca14cE7949307a/1da2d6b96122e01d.jpg', //图片路径
+      path: '/page/groupSpecial/groupSpecial'
+    }
   }
 })
