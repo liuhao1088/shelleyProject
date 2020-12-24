@@ -9,7 +9,7 @@
       <text class='tui-conutdown-box tui-countdown-bg'>{{seconds}}</text>秒
     </view>
 
-    <view class="coupon-item" wx:for="{{data.shopping}}" data-index="{{index}}">
+    <view class="coupon-item" wx:for="{{data.shopping}}" data-index="{{index}}" wx:key="id">
       <view class="img-item align-center"><image style="height:190rpx;width:180rpx;" src="{{item.link}}" /></view>
       <view class="wrap-item">
         <view class="coupon-titleItem">
