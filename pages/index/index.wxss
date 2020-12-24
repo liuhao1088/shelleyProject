@@ -159,3 +159,73 @@ image {
   padding-bottom: 40rpx;
   margin: auto;
 }
+
+/* 弹窗 */
+.cu-dialog {
+  width: 580rpx;
+}
+
+.padding-xl {
+  padding: 0rpx 60rpx;
+  padding-bottom: 40rpx;
+}
+
+.modal-wrap {
+  width: 100%;
+  border: 0rpx solid red;
+  padding-top: 20rpx;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.modal-selectBut {
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-top: 20rpx;
+}
+
+.modal-selectBut:not(:nth-child(2n+1)) {
+  margin-left: 20rpx;
+}
+
+
+.modal-selectBut button {
+  height: 100%;
+  padding: 0 20rpx;
+  text-align: center;
+  line-height: 60rpx;
+  background-color: #e5e5e5;
+  font-size: 24rpx;
+  color: rgba(32, 41, 55, 100);
+  border-radius: 30rpx;
+  font-weight: 600;
+}
+
+.line {
+  border: 2rpx solid black;
+}
+
+.modal-but {
+  width: 100%;
+  height: 40rpx;
+  border: 0rpx solid red;
+  margin-top: 30rpx;
+}
+
+.but-item {
+  height: 100%;
+  width: 120rpx;
+  float: right;
+}
+
+.but-item button {
+  height: 100%;
+  width: 100%;
+  line-height: 40rpx;
+  border-radius: 8rpx;
+  background-color: rgba(32, 41, 55, 100);
+  color: rgba(255, 255, 255, 100);
+  font-size: 20rpx;
+  padding: 0;
+}

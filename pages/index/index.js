@@ -1,5 +1,5 @@
 // pages/wode/wode.js
-var app=getApp();
+var app = getApp();
 Page({
 
   /**
@@ -14,7 +14,24 @@ Page({
       'https://img10.360buyimg.com/ddimg/jfs/t1/153564/6/6918/31485/5fbb2566Ef69e10fb/37895c04bd3f96b7.png',
       'https://img12.360buyimg.com/ddimg/jfs/t1/121051/8/19558/32587/5fbb2550Ea70b561f/ed4f4616ae1b543b.png'
     ],
-    modalName:0
+    checkbox: [{
+      id: 0,
+      name: '行车记录仪',
+      checked: false,
+    }, {
+      id: 1,
+      name: '专车专用记录仪',
+      checked: false,
+    }, {
+      id: 2,
+      name: '智能车机',
+      checked: false,
+    }, {
+      id: 3,
+      name: '隐形车衣',
+      checked: false,
+    }],
+    modalName: 0
   },
   toVideo() {
     wx.navigateTo({
@@ -57,44 +74,44 @@ Page({
 
   },
 
-  toMyCoupon(event){
+  toMyCoupon(event) {
     wx.navigateTo({
       url: '/pages/myCoupon/myCoupon',
     })
   },
 
-  toReserveStore(event){
+  toReserveStore(event) {
     wx.navigateTo({
       url: '/pages/reserveStore/reserveStore',
     })
   },
-  
-  toMyStore(event){
+
+  toMyStore(event) {
     wx.navigateTo({
       url: '/pages/myStore/myStore',
     })
   },
 
-  toCarAppointment(event){
+  toCarAppointment(event) {
     wx.navigateTo({
       url: '/pages/carAppointment/carAppointment',
     })
-    
+
   },
 
-  toStoreInformation(event){
+  toStoreInformation(event) {
     wx.navigateTo({
       url: '/pages/storeInformation/storeInformation',
     })
   },
 
-  toActivityDetails(event){
+  toActivityDetails(event) {
     wx.navigateTo({
       url: '/pages/activityDetails/activityDetails',
     })
   },
 
-  toGroupSpecial(event){
+  toGroupSpecial(event) {
     wx.navigateTo({
       url: '/pages/groupSpecial/groupSpecial',
     })
@@ -106,11 +123,29 @@ Page({
     })
   },
 
+  // 多选
+  ChooseCheckbox(e) {
+    console.log(e)
+    let items = this.data.checkbox;
+    let id = e.currentTarget.id;
+    console.log(id)
+    for (let i = 0; i < items.length; ++i) {
+      if (items[i].id == id) {
+        console.log(items[i].id)
+        items[i].checked = !items[i].checked;
+        break
+      }
+    }
+    this.setData({
+      checkbox: items
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that=this;
+    var that = this;
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -132,24 +167,26 @@ Page({
       }
     })
     wx.getLocation({
-      success (res) {
+      success(res) {
         console.log(res)
         const lat = res.latitude
         const lon = res.longitude
       }
     })
   },
-  toManage:function(){
-    if(!wx.getStorageSync('userInfo')){
+  toManage: function () {
+    if (!wx.getStorageSync('userInfo')) {
       this.selectComponent("#authorize").showModal();
-    }else{
-      let openid=wx.getStorageSync('userInfo')._openid;
-      wx.cloud.database().collection('user').where({_openid:openid}).get().then(res=>{
+    } else {
+      let openid = wx.getStorageSync('userInfo')._openid;
+      wx.cloud.database().collection('user').where({
+        _openid: openid
+      }).get().then(res => {
         console.log(res)
-        if(res.data[0].authority=='admin'){
-            wx.navigateTo({
-              url: '/pages/manage/manage',
-            })
+        if (res.data[0].authority == 'admin') {
+          wx.navigateTo({
+            url: '/pages/manage/manage',
+          })
         }
       })
     }
@@ -165,17 +202,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that=this;
+    var that = this;
     // 获取用户信息
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
-          let userInfo=wx.getStorageSync('userInfo')
+          let userInfo = wx.getStorageSync('userInfo')
           wx.cloud.callFunction({
-            name:'multQuery',
+            name: 'multQuery',
             data: {
               collection: 'user',
-              match: {_openid: userInfo._openid},
+              match: {
+                _openid: userInfo._openid
+              },
               or: [{}],
               and: [{}],
               lookup: {
@@ -197,12 +236,12 @@ Page({
               limit: 1
             }
           }).then(res => {
-            let user=res.result.list[0];
+            let user = res.result.list[0];
             console.log(res)
             wx.setStorageSync('userInfo', user)
           })
         } else {
-          
+
         }
       }
     })

@@ -116,3 +116,26 @@
   </view>
 
 </view>
+
+<view class="cu-modal {{modalName==0?'show':''}}">
+  <view class="cu-dialog">
+    <view class="bg-img">
+      <view class="padding-xl">
+        <view class="modal-wrap">
+          <view class="modal-selectBut" wx:for="{{checkbox}}" wx:key="id">
+            <button class="{{item.checked?'line':''}}" bindtap="ChooseCheckbox" id="{{item.id}}">{{item.name}}</button>
+          </view>
+        </view>
+        <view class="modal-but">
+          <view class="but-item">
+            <button>立即领取</button>
+          </view>
+        </view>
+        <view class="modal-but" style="opacity: 0.5;color: rgba(16, 16, 16, 100);font-size: 24rpx;">
+          <text bindtap="hideModal">暂不领取</text> 
+        </view>
+      </view>
+
+    </view>
+  </view>
+</view> 

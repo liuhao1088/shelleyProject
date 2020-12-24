@@ -1,0 +1,3 @@
+<view class="activityPosterContainer" bindtouchstart="touchstart" bindtouchend="touchend" bindtap="togroupSpecial">
+  <image src=""></image>
+</view>

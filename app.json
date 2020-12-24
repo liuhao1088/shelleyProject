@@ -1,9 +1,9 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/myCoupon/myCoupon",
-    
+    "pages/activityPoster/activityPoster",
     "pages/text/text",
+    "pages/myCoupon/myCoupon",
     "pages/reserveStore/reserveStore",
     "pages/storeAppointment/storeAppointment",
     "pages/groupSpecial/groupSpecial",

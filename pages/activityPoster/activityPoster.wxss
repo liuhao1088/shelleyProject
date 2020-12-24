@@ -1,0 +1,11 @@
+.activityPosterContainer{
+  height: 100vh;
+  width: 100%;
+  background-color: #bbffaa;
+}
+
+image{
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
+}

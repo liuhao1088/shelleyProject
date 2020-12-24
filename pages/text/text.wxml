@@ -10,19 +10,7 @@
 <view class="tiem">
   <text>{{countdown}}</text>
 </view> -->
-
-<!-- <swiper class="top_swiper" vertical easing-function="easeInOutCubic" current="{{currentId}}" bindchange="topSwiper">
-  <swiper-item>
-    <view class="box">测试1</view>
-  </swiper-item>
-  <swiper-item>
-    <view class="box" style="background-color: orange;">测试2</view>
-  </swiper-item>
-  <swiper-item>
-    <view class="box" style="background-color: #bfc;">测试3</view>
-  </swiper-item>
-</swiper>
-
+<!-- 
 <view class="cu-modal {{modalName==0?'show':''}}">
   <view class="cu-dialog">
     <view class="bg-img">
@@ -44,7 +32,6 @@
 
     </view>
   </view>
-</view> -->
-<!-- 判断是否滑动 -->
-<view class="div2" bind:touchend="touchEnd">
-</view>
+</view>  -->
+
+<view class="div2" bindtouchstart="touchstart" bindtouchend="touchend">向左向左向左，向右滑动啦啦啦</view>
