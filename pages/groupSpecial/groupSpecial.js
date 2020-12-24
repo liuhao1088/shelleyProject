@@ -1,5 +1,5 @@
 // pages/groupSpecial/groupSpecial.js
-var util=require('../../utils/util.js')
+var util = require('../../utils/util.js')
 Page({
 
   /**
@@ -39,13 +39,14 @@ Page({
       name: '隐形车衣',
       checked: false,
     }],
-    nowDate:'2020-12-22 18:00:00',//结束时间
-    countdown:'', //倒计时
-    days:'00',//天
-    hours:'00',//时
-    minutes:'00',//分
-    seconds:'00',//秒
-    data:'',list:[]
+    nowDate: '2020-12-22 18:00:00', //结束时间
+    countdown: '', //倒计时
+    days: '00', //天
+    hours: '00', //时
+    minutes: '00', //分
+    seconds: '00', //秒
+    data: '',
+    list: []
   },
   toActivityRule(event) {
     wx.navigateTo({
@@ -58,7 +59,7 @@ Page({
     })
     this.hideModal();
   },
-  toReserveStore(e){
+  toReserveStore(e) {
     wx.navigateTo({
       url: '/pages/reserveStore/reserveStore',
     })
@@ -124,20 +125,20 @@ Page({
     let that = this;
     let now = new Date().getTime();
     let end = new Date(nowDate).getTime(); //设置截止时间
-    console.log("开始时间："+now,"截止时间:"+end);
-    let leftTime =  end -now;//时间差                         
-    let day,hou, min, sec;
+    console.log("开始时间：" + now, "截止时间:" + end);
+    let leftTime = end - now; //时间差                         
+    let day, hou, min, sec;
     if (leftTime >= 0) {
       day = Math.floor(leftTime / 1000 / 60 / 60 / 24);
       hou = Math.floor(leftTime / 1000 / 60 / 60 % 24);
       min = Math.floor(leftTime / 1000 / 60 % 60);
       sec = Math.floor(leftTime / 1000 % 60);
-      day = day < 10? "0" + day:day
+      day = day < 10 ? "0" + day : day
       sec = sec < 10 ? "0" + sec : sec
       min = min < 10 ? "0" + min : min
       hou = hou < 10 ? "0" + hou : hou
       that.setData({
-        countdown: hou+":"+min+":"+sec,
+        countdown: hou + ":" + min + ":" + sec,
         day,
         hou,
         min,
@@ -155,12 +156,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that=this;
+    var that = this;
     wx.cloud.callFunction({
-      name:'multQuery',
+      name: 'multQuery',
       data: {
         collection: 'activity',
-        match: {type:'team'},
+        match: {
+          type: 'team'
+        },
         or: [{}],
         and: [{}],
         lookup: {
@@ -182,25 +185,46 @@ Page({
         limit: 10
       }
     }).then(res => {
-      let data=res.result.list[0];
-      let nowstamp=Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
-      that.setData({data:data})
-      if(data.end_timestamp>nowstamp){
-        let int=setInterval(() => {
-          nowstamp=nowstamp+1;
-          if(nowstamp>=data.end_timestamp){
-            that.setData({days:'00',hours:'00',minutes:'00',seconds:'00'})
+      let data = res.result.list[0];
+      let nowstamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
+      that.setData({
+        data: data
+      })
+      if (data.end_timestamp > nowstamp) {
+        let int = setInterval(() => {
+          nowstamp = nowstamp + 1;
+          if (nowstamp >= data.end_timestamp) {
+            that.setData({
+              days: '00',
+              hours: '00',
+              minutes: '00',
+              seconds: '00'
+            })
             clearInterval(int);
-          } 
-          let surplus=data.end_timestamp-nowstamp;
-          let days = Math.floor(surplus / ( 60 * 60 * 24));if(days<10) days='0'+days;
-          let hours = Math.floor(( surplus / ( 60 * 60)) % 24);if(hours<10) hours='0'+hours;
-          let minutes = Math.floor(( surplus / 60) % 60);if(minutes<10) minutes='0'+minutes;
-          let seconds = Math.floor(( surplus ) % 60);if(seconds<10) seconds='0'+seconds;
-          that.setData({days:days,hours:hours,minutes:minutes,seconds:seconds})
+          }
+          let surplus = data.end_timestamp - nowstamp;
+          let days = Math.floor(surplus / (60 * 60 * 24));
+          if (days < 10) days = '0' + days;
+          let hours = Math.floor((surplus / (60 * 60)) % 24);
+          if (hours < 10) hours = '0' + hours;
+          let minutes = Math.floor((surplus / 60) % 60);
+          if (minutes < 10) minutes = '0' + minutes;
+          let seconds = Math.floor((surplus) % 60);
+          if (seconds < 10) seconds = '0' + seconds;
+          that.setData({
+            days: days,
+            hours: hours,
+            minutes: minutes,
+            seconds: seconds
+          })
         }, 1000);
-      }else{
-        that.setData({days:'00',hours:'00',minutes:'00',seconds:'00'})
+      } else {
+        that.setData({
+          days: '00',
+          hours: '00',
+          minutes: '00',
+          seconds: '00'
+        })
       }
     })
   },
@@ -250,12 +274,17 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (options) {
+  onShareAppMessage: function (res) {
 
-    return {
-      title: "【仅剩1个名额】我领了100元拼团券，快来助我成团激活~", //分享标题
-      imageUrl: 'https://img13.360buyimg.com/ddimg/jfs/t1/121210/17/18389/166336/5faca14cE7949307a/1da2d6b96122e01d.jpg', //图片路径
-      path: '/page/groupSpecial/groupSpecial'
+    if (res.from === 'button') {
+      console.log(res.from)
+      return {
+        title: "【仅剩1个名额】我领了100元拼团券，快来助我成团激活~", //分享标题
+        imageUrl: 'https://img13.360buyimg.com/ddimg/jfs/t1/121210/17/18389/166336/5faca14cE7949307a/1da2d6b96122e01d.jpg', //图片路径
+        path: '/page/groupSpecial/groupSpecial'
+      }
+    } else {
+      console.log("1111")
     }
   }
 })
