@@ -168,7 +168,7 @@ Page({
       tmplIds: ['GN7JfS1q9N7eqdmvOxcFY6kjBBrUsnyRc6UGr58LAwg','pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI'],
       success (res) {
         console.log(res)
-        if(res.pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI=='accept'){
+        if(JSON.stringify(res).indexOf('accept')!==-1){
           console.log(that.data.nameList)
           if (that.data.nameList[0] == "请选择想要体验的商品，可多选") {
             wx.showToast({
@@ -247,15 +247,6 @@ Page({
       }
     }).then(res=>{
       console.log(res)
-    })
-    wx.requestSubscribeMessage({
-      tmplIds: ['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI'],
-      success (res) {
-        console.log(res)
-        if(res.pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI=='accept'){
-
-        }
-      }
     })
   },
   /**

@@ -293,7 +293,7 @@ Page({
       tmplIds: ['Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
       success (res) {
         console.log(res)
-        if(res.pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI=='accept'){
+        if(JSON.stringify(res).indexOf('accept')!==-1){
           that.increase('success','goGroupSuccess',that.data.waresInd);
         }
       }
@@ -305,7 +305,7 @@ Page({
     wx.requestSubscribeMessage({
       tmplIds: ['Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
       success (res) {
-        if(res.pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI=='accept'){
+        if(JSON.stringify(res).indexOf('accept')!==-1){
           that.setData({waresInd:ind})
           that.increase('waiting','initiateGroup',ind);
         }

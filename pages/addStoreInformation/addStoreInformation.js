@@ -165,7 +165,7 @@ Page({
             tmplIds: ['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI','SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM','Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
             success (res) {
               console.log(res)
-              if(res.pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI=='accept'){
+              if(JSON.stringify(res).indexOf('accept')!==-1){
                 wx.showLoading({
                   title: '提交中，请稍等',
                 })

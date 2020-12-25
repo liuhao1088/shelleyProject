@@ -28,7 +28,36 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this;
+    let userInfo=wx.getStorageSync('userInfo')
+    wx.cloud.callFunction({
+      name: 'multQuery',
+      data: {
+        collection: 'coupon',
+        match: {_openid:userInfo._openid},
+        or: [{}],
+        and: [{}],
+        lookup: {
+          from: 'activity',
+          localField: 'act_id',
+          foreignField: '_id',
+          as: 'act',
+        },
+        lookup2: {
+          from: 'shop',
+          localField: 'shop_id',
+          foreignField: '_id',
+          as: 'shop',
+        },
+        sort: {
+          creation_date: -1
+        },
+        skip: 0,
+        limit: 10
+      }
+    }).then(res => {
+      let data=res.result.list[0];
+    })
   },
 
   /**
@@ -42,7 +71,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**
