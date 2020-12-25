@@ -31,12 +31,19 @@
     <view class="wrap-main">
       <view class="wrap-title">门店正面照：</view>
       <view class="wrap-msg">
-        <image wx:for="{{shop.shop_img}}" src="{{item}}"  class="wrap-img" bindtap="previewImg" data-index="{{index}}" />
+        <image wx:for="{{shop.shop_img}}" wx:key="id" src="{{item}}" class="wrap-img" bindtap="previewImg"
+          data-index="{{index}}" />
       </view>
     </view>
 
     <view class="wrap-tag" wx:if="{{shop.prove=='waiting'}}">信息审核中，预计在提交日后的3-5个工作日产生结果，请耐心等待~</view>
     <view class="wrap-tag" wx:if="{{shop.prove=='fail'}}">信息被驳回，请检查后重新提交，驳回理由：{{shop.reason}}</view>
     <view class="wrap-tag" wx:if="{{shop.prove=='success'}}">门店已认证成功</view>
+  </view>
+
+  <view class="footer">
+    <image mode="widthFix"
+      src="https://img14.360buyimg.com/ddimg/jfs/t1/129869/16/16886/195207/5fbb2a0fE36f97702/5e59e714a36e1980.jpg">
+    </image>
   </view>
 </view>

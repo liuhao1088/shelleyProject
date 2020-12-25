@@ -1,4 +1,5 @@
 .storeInformationContainer {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,4 +68,16 @@
   font-size: 20rpx;
   background-color: rgba(105, 113, 254, 100);
   text-align: center;
+}
+
+.footer{
+  width: 100%;
+  /* position: fixed;
+  bottom: 0; */
+}
+
+image{
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
 }

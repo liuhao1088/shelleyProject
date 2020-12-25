@@ -1,0 +1,104 @@
+.allStoreContainer {
+  width: 100%;
+  padding: 0 30rpx;
+  clear: both;
+}
+
+.wrap {
+  width: 100%;
+  height: 80rpx;
+  padding-top: 20rpx;
+  border: 0rpx solid red;
+  display: flex;
+}
+
+.address {
+  width: 190rpx;
+  height: 100%;
+  border: 0rpx solid floralwhite;
+  display: flex;
+  color: rgba(255, 255, 255, 100);
+}
+
+.address text {
+  height: 100%;
+  line-height: 56rpx;
+  text-align: center;
+}
+
+.address-item {
+  padding-left: 10rpx;
+  line-height: 50rpx;
+  font-size: 24rpx;
+}
+
+.search {
+  flex: 1;
+  border: 0rpx solid #bfa;
+  border-radius: 30rpx;
+  background-color: rgba(255, 255, 255, 100);
+  display: flex;
+}
+
+
+.search input {
+  margin-left: 30rpx;
+  height: 100%;
+  line-height: 60rpx;
+  color: rgba(151, 151, 151, 100);
+  flex: 1;
+}
+
+.placeholder {
+  font-size: 24rpx;
+  color: rgba(151, 151, 151, 100);
+}
+
+.searchIcon {
+  width: 100rpx;
+  text-align: center;
+  font-size: 26rpx;
+  line-height: 60rpx;
+  float: right;
+  color: rgba(151, 151, 151, 0.5);
+}
+
+.main {
+  width: 100%;
+  border-radius: 10rpx;
+  background-color: #fff;
+  margin-top: 20rpx;
+  padding: 20rpx;
+  display: inline-grid;
+}
+
+.main-topItem {
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  border: 0rpx solid red;
+}
+
+.title-item {
+  float: left;
+  font-size: 40rpx;
+}
+
+.tag-item {
+  float: right;
+  opacity: 0.5;
+  color: rgba(16, 16, 16, 100);
+  font-size: 32rpx;
+}
+
+.main-item {
+  width: 100%;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 24rpx;
+  text-align: left;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -37,10 +37,10 @@ Page({
       "name": '',
       "user": ''
     };
-    if (lists.length >= 3) {
-      console.log('最多3个')
-      return;
-    }
+    // if (lists.length >= 3) {
+    //   console.log('最多3个')
+    //   return;
+    // }
     lists.push(newData);
     this.setData({
       lists: lists,
@@ -67,6 +67,7 @@ Page({
     console.log(this.data.lists[nowIdx].user)
   },
 
+  // 倒计时
   countTime() {
     let nowDate = this.data.nowDate;
     console.log(nowDate)
@@ -95,20 +96,6 @@ Page({
     }
   },
 
-  topSwiper(event) {
-    let navId = event.detail.current; //获取swiper下标
-    console.log(event.detail.current);
-    if (navId === 1) {
-      this.setData({
-        modalName: 0
-      })
-    } else {
-      this.setData({
-        windowHeight: 1
-      })
-    }
-  },
-
   hideModal(e) {
     this.setData({
       modalName: 1
@@ -133,6 +120,9 @@ Page({
     })
   },
 
+
+
+  // 获取手势
   touchstart(e) {
 		console.log(e)
 		this.setData({

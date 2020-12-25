@@ -7,4 +7,10 @@
       <button class="cu-btn round line-white button-hover but">新建预约活动</button>
     </view>
   </view>
+
+  <view class="footer">
+  <image mode="widthFix"
+    src="https://img14.360buyimg.com/ddimg/jfs/t1/129869/16/16886/195207/5fbb2a0fE36f97702/5e59e714a36e1980.jpg">
+  </image>
+</view>
 </view>

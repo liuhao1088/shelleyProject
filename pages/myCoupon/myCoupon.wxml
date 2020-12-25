@@ -1,5 +1,5 @@
 <view class="myCouponContainer">
-  <view class="title"><text bindtap="">卡券使用规则</text></view>
+  <view class="title"><text bindtap="toCouponRules">卡券使用规则</text></view>
   <view class="wrap">
     <view class="wrap-title">我的卡券</view>
 

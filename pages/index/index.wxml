@@ -25,7 +25,7 @@
             </view>
 
             <!-- 用户 -->
-            <view class="topbar-item" bindtap="toReserveStore">
+            <!-- <view class="topbar-item" bindtap="toReserveStore">
               <view class="topbar-icon">
                 <text class="iconfont iconstore2 icon" style=" font-size: 56rpx;"></text>
               </view>
@@ -33,10 +33,10 @@
                 <view class="topbar-title">预约门店</view>
                 <view class="topbar-msg">立即预约零等待体验</view>
               </view>
-            </view>
+            </view> -->
 
             <!-- 门店 -->
-            <!-- <view class="topbar-item" bindtap="toMyStore">
+            <view class="topbar-item" bindtap="toMyStore">
               <view class="topbar-icon">
                 <text class="iconfont iconstore2 icon" style=" font-size: 56rpx;"></text>
               </view>
@@ -44,7 +44,7 @@
                 <view class="topbar-title">我的门店</view>
                 <view class="topbar-msg">活动配置/门店管理</view>
               </view>
-            </view> -->
+            </view>
 
             <!-- 品牌 -->
             <!-- <view class="topbar-item" bindtap="toActivityDetails">
@@ -60,13 +60,13 @@
           </view>
 
           <!-- 用户 -->
-          <view class="wrap-coupons">
+          <!-- <view class="wrap-coupons">
             <view class="wrap-couponsItem" bindtap="toMyCoupon">
               <text class="iconfont iconquan"></text>
               <view class="wrap-groupItem">我的卡券</view>
             </view>
             <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;">当前暂无可用券</view>
-          </view>
+          </view> -->
 
           <!-- 门店 -->
           <!-- <view class="wrap-coupons">
@@ -78,14 +78,14 @@
           </view> -->
 
           <!-- 品牌 -->
-          <!-- <view class="wrap-coupons">
-            <view class="wrap-couponsItem" bindtap="toStoreInformation">
+          <view class="wrap-coupons">
+            <view class="wrap-couponsItem" bindtap="toAllStore">
               <text class="iconfont iconstore-fill"></text>
-              <view class="wrap-groupItem">门店管理</view>
+              <view class="wrap-groupItem">全部门店</view>
             </view>
             <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;"
               bindtap="toStoreInformation">点击查看门店</view>
-          </view> -->
+          </view>
 
         </view>
         <view class="wrap-img">

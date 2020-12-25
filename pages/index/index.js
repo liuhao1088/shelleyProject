@@ -99,9 +99,9 @@ Page({
 
   },
 
-  toStoreInformation(event) {
+  toAllStore(event) {
     wx.navigateTo({
-      url: '/pages/storeInformation/storeInformation',
+      url: '/pages/allStore/allStore',
     })
   },
 

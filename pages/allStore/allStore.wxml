@@ -1,0 +1,26 @@
+<view class="allStoreContainer">
+  <view class="wrap">
+    <view class="address">
+      <text class="iconfont icondingwei"></text>
+      <view class="address-item">广东，深圳</view>
+    </view>
+    <view class="search">
+      <input type="text" value="{{searchContent}}" placeholder="请输入门店码/门店名称关键字查询" placeholder-class="placeholder"
+      bindinput="handleInputChange" />
+    <text class="iconfont iconziyuan searchIcon" bindtap="toSearch"></text>
+    </view>
+  </view>
+
+  <view class="main">
+    <view class="main-topItem">
+      <view class="title-item">AAAA宝安店</view>
+      <view class="tag-item">门店码：001</view>
+    </view>
+    <view class="main-item">
+      地址：深圳市宝安区西乡大道XXXXXXXXXXXXXXXXXXXXsfsadfasfsadf
+    </view>
+    <view class="main-item">
+      电话：0755-1111 1111
+    </view>
+  </view>
+</view>
