@@ -3,13 +3,10 @@
     "pages/index/index",
     "pages/activitySelect/activitySelect",
     "pages/storeInformation/storeInformation",
-   
     "pages/myCoupon/myCoupon",
     "pages/groupSpecial/groupSpecial",
     "pages/couponRules/couponRules",
     "pages/allStore/allStore",
-   
-    
     "pages/text/text",
     "pages/activityPoster/activityPoster",
     "pages/reserveStore/reserveStore",
@@ -19,7 +16,6 @@
     "pages/reservationActivity/reservationActivity",
     "pages/carAppointment/carAppointment",
     "pages/activityDetails/activityDetails",
-   
     "pages/myStore/myStore",
     "pages/addStoreInformation/addStoreInformation",
     "pages/video/video",
