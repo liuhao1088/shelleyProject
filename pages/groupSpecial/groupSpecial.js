@@ -188,15 +188,17 @@ Page({
       }
     }).then(res => {
       let data=res.result.list[0];
-      let userInfo=wx.getStorageSync('userInfo')
-      that.setData({userInfo:userInfo})
-      let cou = userInfo.coupon.filter(item => item.act_id.indexOf(data._id)!==-1)
-      for(let i in data.shopping){
-        for(let u in cou){
-          if(i==cou[u].shopping_ind){
-            data.shopping[i].status=true
-            that.setData({data:data})
-          } 
+      if(wx.getStorageSync('userInfo')){
+        let userInfo=wx.getStorageSync('userInfo')
+        that.setData({userInfo:userInfo})
+        let cou = userInfo.coupon.filter(item => item.act_id.indexOf(data._id)!==-1)
+        for(let i in data.shopping){
+          for(let u in cou){
+            if(i==cou[u].shopping_ind){
+              data.shopping[i].status=true
+              that.setData({data:data})
+            } 
+          }
         }
       }
       let nowstamp=Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
@@ -236,66 +238,86 @@ Page({
   },
   increase:function(shape,mol,indx){
     var that=this;
-    if(wx.getStorageSync('userInfo')){
-      wx.showLoading({title:'拼团中'})
-      let userInfo=wx.getStorageSync('userInfo')
-      this.setData({avatarUrl:userInfo.avatarUrl})
-      let team=[];
-      let obj={};
-      obj._openid=userInfo._openid;
-      obj.nickName=userInfo.nickName;
-      obj.avatarUrl=userInfo.avatarUrl;
-      team.push(obj)
-      let code = "";
-      for (let e = 0; e < 10; e++) {
-        code += Math.floor(Math.random() * 10)
-      }
-      wx.cloud.callFunction({
-        name:'recordAdd',
-        data:{
-          collection:'coupon',
-          addData:{
-            creation_date:util.formatTimes(new Date()),
-            creation_timestamp:Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
-            cou_code:code,
-            _openid:userInfo._openid,
-            user:userInfo.nickName,
-            shop_code:that.data.data.shop_code,
-            shop_id:that.data.data.shop[0]._id,
-            act_code:that.data.data.act_code,
-            act_id:that.data.data._id,
-            shopping:that.data.data.shopping[indx],
-            shopping_ind:indx,
-            team:team,
-            status:shape
-          }
+    wx.showLoading({title:'拼团中'})
+    let userInfo=wx.getStorageSync('userInfo')
+    this.setData({avatarUrl:userInfo.avatarUrl})
+    let team=[];
+    let obj={};
+    obj._openid=userInfo._openid;
+    obj.nickName=userInfo.nickName;
+    obj.avatarUrl=userInfo.avatarUrl;
+    team.push(obj)
+    let code = "";
+    for (let e = 0; e < 10; e++) {
+      code += Math.floor(Math.random() * 10)
+    }
+    wx.cloud.callFunction({
+      name:'recordAdd',
+      data:{
+        collection:'coupon',
+        addData:{
+          creation_date:util.formatTimes(new Date()),
+          creation_timestamp:Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
+          cou_code:code,
+          _openid:userInfo._openid,
+          user:userInfo.nickName,
+          shop_code:that.data.data.shop_code,
+          shop_id:that.data.data.shop[0]._id,
+          act_code:that.data.data.act_code,
+          act_id:that.data.data._id,
+          shopping:that.data.data.shopping[indx],
+          shopping_ind:indx,
+          team:team,
+          status:shape
         }
-      }).then(res=>{
-        console.log(res)
-        let data=that.data.data;
-        data.shopping[indx].status=true
-        that.setData({modalName:mol,avatarUrl:'',data:data})
-        wx.hideLoading()
-      }).catch(error => {
-        wx.hideLoading({
-          success: (res) => {},
-        })
-        wx.showModal({
-          showCancel: false,
-          title: '系统繁忙，请稍后重试'
-        })
+      }
+    }).then(res=>{
+      console.log(res)
+      let data=that.data.data;
+      data.shopping[indx].status=true
+      that.setData({modalName:mol,avatarUrl:'',data:data})
+      wx.hideLoading()
+    }).catch(error => {
+      wx.hideLoading({
+        success: (res) => {},
       })
+      wx.showModal({
+        showCancel: false,
+        title: '系统繁忙，请稍后重试'
+      })
+    })      
+  },
+  joinGroup:function(e){
+    var that=this;
+    wx.requestSubscribeMessage({
+      tmplIds: ['Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
+      success (res) {
+        console.log(res)
+        if(res.pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI=='accept'){
+          that.increase('success','goGroupSuccess',that.data.waresInd);
+        }
+      }
+    })  
+  },
+  launchGroup:function(e){
+    var that=this;
+    let ind=e.currentTarget.dataset.index;
+    wx.requestSubscribeMessage({
+      tmplIds: ['Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
+      success (res) {
+        if(res.pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI=='accept'){
+          that.setData({waresInd:ind})
+          that.increase('waiting','initiateGroup',ind);
+        }
+      }
+    }) 
+  },
+  toJoin:function(){
+    if(wx.getStorageSync('userInfo')){
+
     }else{
       this.selectComponent("#authorize").showModal();
     }
-  },
-  joinGroup:function(e){
-    this.increase('success','goGroupSuccess',this.data.waresInd);
-  },
-  launchGroup:function(e){
-    let ind=e.currentTarget.dataset.index;
-    this.setData({waresInd:ind})
-    this.increase('waiting','initiateGroup',ind);
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

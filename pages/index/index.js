@@ -171,19 +171,56 @@ Page({
         console.log(res)
         const lat = res.latitude
         const lon = res.longitude
+        wx.cloud.callFunction({
+          name: 'screenQuery',
+          data: {
+            collection: 'activity',
+            match: {
+              type: 'team'
+            },
+            stamp: '',
+            minlat: lat - 1,
+            minlon: lon - 1,
+            maxlat: lat + 1,
+            maxlon: lon + 1,
+            or: [{}],
+            and: [{}],
+            lookup: {
+              from: 'shop',
+              localField: 'shop_code',
+              foreignField: 'shop_code',
+              as: 'shop',
+            },
+            lookup2: {
+              from: 'user',
+              localField: '_openid',
+              foreignField: '_openid',
+              as: 'user',
+            },
+            sort: {
+              creation_date: -1
+            },
+            skip: 0,
+            limit: 100
+          }
+        }).then(res => {
+          console.log(res)
+        })
       }
     })
   },
   toManage: function () {
     if (!wx.getStorageSync('userInfo')) {
       this.selectComponent("#authorize").showModal();
-    }else{
-      let openid=wx.getStorageSync('userInfo')._openid;
-      wx.cloud.database().collection('user').where({_openid:openid}).get().then(res=>{
-        if(res.data[0].authority=='admin'){
-            wx.navigateTo({
-              url: '/pages/manage/manage',
-            })
+    } else {
+      let openid = wx.getStorageSync('userInfo')._openid;
+      wx.cloud.database().collection('user').where({
+        _openid: openid
+      }).get().then(res => {
+        if (res.data[0].authority == 'admin') {
+          wx.navigateTo({
+            url: '/pages/manage/manage',
+          })
         }
       })
     }
@@ -200,47 +237,42 @@ Page({
    */
   onShow: function () {
     var that = this;
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          let userInfo = wx.getStorageSync('userInfo')
-          wx.cloud.callFunction({
-            name: 'multQuery',
-            data: {
-              collection: 'user',
-              match: {
-                _openid: userInfo._openid
-              },
-              or: [{}],
-              and: [{}],
-              lookup: {
-                from: 'shop',
-                localField: '_openid',
-                foreignField: '_openid',
-                as: 'shop',
-              },
-              lookup2: {
-                from: 'coupon',
-                localField: '_openid',
-                foreignField: '_openid',
-                as: 'coupon',
-              },
-              sort: {
-                creation_date: -1
-              },
-              skip: 0,
-              limit: 1
-            }
-          }).then(res => {
-            let user=res.result.list[0];
-            wx.setStorageSync('userInfo', user)
-          })
-        } else {
-
+    if (wx.getStorageSync('userInfo')) {
+      let userInfo = wx.getStorageSync('userInfo')
+      wx.cloud.callFunction({
+        name: 'multQuery',
+        data: {
+          collection: 'user',
+          match: {
+            _openid: userInfo._openid
+          },
+          or: [{}],
+          and: [{}],
+          lookup: {
+            from: 'shop',
+            localField: '_openid',
+            foreignField: '_openid',
+            as: 'shop',
+          },
+          lookup2: {
+            from: 'coupon',
+            localField: '_openid',
+            foreignField: '_openid',
+            as: 'coupon',
+          },
+          sort: {
+            creation_date: -1
+          },
+          skip: 0,
+          limit: 1
         }
-      }
-    })
+      }).then(res => {
+        let user = res.result.list[0];
+        console.log(res)
+        wx.setStorageSync('userInfo', user)
+      })
+    }
+
   },
 
   /**

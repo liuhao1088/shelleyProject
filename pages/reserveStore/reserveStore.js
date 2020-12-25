@@ -64,11 +64,11 @@ Page({
            },
         });
         skip=0;
-        that.loadData();
+        that.loadData(lat,lon);
       }
     })
   },
-  loadData:function(){
+  loadData:function(lat,lon){
     var that=this;
     wx.showLoading({
       title: '加载中',
@@ -82,10 +82,10 @@ Page({
         collection: 'activity',
         match: {type:'reservation'},
         stamp:stamp,
-        minlat:'',
-        minlon:'',
-        maxlat:'',
-        maxlon:'',
+        minlat:lat-1,
+        minlon:lon-1,
+        maxlat:lat+1,
+        maxlon:lon+1,
         or: [{}],
         and: [{}],
         lookup: {
@@ -110,6 +110,7 @@ Page({
       console.log(res)
       let data=that.data.list.concat(res.result.list);
       if(res.result.list.length==0) wx.showToast({title:'暂无更多数据',icon:'none'})
+      if(data.length==0) wx.showToast({title:'附近暂无门店',icon:'none',duration:100000})
       that.setData({list:data})
       wx.hideLoading()
       wx.hideNavigationBarLoading()
@@ -130,7 +131,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+  
   },
 
   /**

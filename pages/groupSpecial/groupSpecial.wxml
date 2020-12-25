@@ -71,6 +71,7 @@
           <view class="coupon-but" wx:if="{{shopping.status!==true}}">
             <button class="but" style="background-color: rgba(255, 255, 255, 100);color: rgba(105, 113, 254, 100);border: 2rpx solid rgba(105, 113, 254, 100);padding: 0;"
              data-index="{{index}}" bindtap="launchGroup" data-target="initiateGroup">发起拼团</button>
+            <button wx:if="{{userInfo==''}}" class="but" style="background-color: rgba(255, 255, 255, 100);color: rgba(105, 113, 254, 100);border: 2rpx solid rgba(105, 113, 254, 100);padding: 0;" data-index="{{index}}" bindtap="toJoin" data-target="initiateGroup">发起拼团</button>
           </view>
         </view>
       </view>
@@ -106,7 +107,7 @@
 </view>
 
 <!--去拼团弹窗  -->
-<view class="cu-modal {{modalName=='goGroup'?'show':''}}">
+<view class="cu-modal {{modalName=='goGroup'?'show':''}}" style="z-index:10;">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
       <view class="content"></view>
@@ -129,7 +130,8 @@
         <image else src="{{avatarUrl}}" class="" style="font-size:50rpx;height:120rpx;width:120rpx;line-height:120rpx;border-radius: 50%;display:{{avatarUrl==''?'none':'flex'}}" />
       </view>
       <view class="join-but">
-        <button bindtap="joinGroup" data-target="goGroupSuccess">加入拼团</button>
+        <button wx:if="{{userInfo!==''}}" bindtap="joinGroup" data-target="goGroupSuccess">加入拼团</button>
+        <button wx:if="{{userInfo==''}}" bindtap="toJoin" data-target="goGroupSuccess">加入拼团</button>
       </view>
     </view>
   </view>

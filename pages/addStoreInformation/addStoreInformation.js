@@ -161,15 +161,23 @@ Page({
         })
       }else{
         if (that.data.shop_name !== "" && that.data.address !== "" && that.data.phone !== "" && that.data.shop_img !== []) {
-          wx.showLoading({
-            title: '提交中，请稍等',
+          wx.requestSubscribeMessage({
+            tmplIds: ['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI','SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM','Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
+            success (res) {
+              console.log(res)
+              if(res.pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI=='accept'){
+                wx.showLoading({
+                  title: '提交中，请稍等',
+                })
+                if (timer) clearTimeout(timer);
+                timer= setTimeout(async res=>{
+                  let arr=[];
+                  if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop',arr )
+                  that.add(arr);
+                },500)
+              }
+            }
           })
-          if (timer) clearTimeout(timer);
-          timer= setTimeout(async res=>{
-            let arr=[];
-            if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop',arr )
-            that.add(arr);
-          },500)
         } else {
           wx.showToast({
             title: '请填写完整内容',

@@ -36,11 +36,7 @@ Page({
     }
     if (nameList == '') {
       nameList = ['请选择想要体验的商品，可多选']
-    } else {
-      this.setData({
-        isShow: true
-      })
-    }
+    } 
     this.setData({
       modalName: null,
       nameList
@@ -117,6 +113,7 @@ Page({
           weRunData: wx.cloud.CloudID(e.detail.cloudID),
         }
       }).then(res => {
+        wx.hideLoading()
         that.setData({
           phone: res.result,
         })
@@ -149,14 +146,11 @@ Page({
         userInfo.phone = phone;
         wx.setStorageSync('userInfo', userInfo)
         wx.hideLoading()
-        wx.showToast({
-          title: '授权成功',
-          icon: 'success'
-        })
         if (timer) clearTimeout(timer);
         timer = setTimeout(async res => {
           that.add(phone, userInfo);
-        }, 500)
+        }, 500)     
+
       }).catch(error => {
         console.log(error);
         wx.hideLoading()
@@ -170,20 +164,29 @@ Page({
   },
   async submit() {
     var that = this;
-    console.log(that.data.nameList)
-    if (that.data.nameList[0] == "请选择想要体验的商品，可多选") {
-      wx.showToast({
-        title: '请选择商品',
-        icon: 'none'
-      })
-    } else {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(async res => {
-        let phone = wx.getStorageSync('phone')
-        let userInfo = wx.getStorageSync('userInfo')
-        that.add(phone, userInfo);
-      }, 500)
-    }
+    wx.requestSubscribeMessage({
+      tmplIds: ['GN7JfS1q9N7eqdmvOxcFY6kjBBrUsnyRc6UGr58LAwg','pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI'],
+      success (res) {
+        console.log(res)
+        if(res.pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI=='accept'){
+          console.log(that.data.nameList)
+          if (that.data.nameList[0] == "请选择想要体验的商品，可多选") {
+            wx.showToast({
+              title: '请选择商品',
+              icon: 'none'
+            })
+          } else {
+            if (timer) clearTimeout(timer);
+            timer = setTimeout(async res => {
+              let phone = wx.getStorageSync('phone')
+              let userInfo = wx.getStorageSync('userInfo')
+              that.add(phone, userInfo);
+            }, 500)      
+          }
+        }
+      }
+    })
+    
   },
   add(phone, userInfo) {
     var that = this;
@@ -224,6 +227,37 @@ Page({
       }, 1500)
     })
   },
+  req:function(){
+    const thing1="您的门店认证已经通过";
+    wx.cloud.callFunction({
+      name:'sendMessage',
+      data:{
+        openid:'oQQ_f4s48shRNF-_wWLKnAgCEfew',
+        page:'index',
+        data:{
+          "thing1": {
+            "value": thing1
+          },
+          "thing3": {
+            "value": "您在雪莱特上提交的门店信息已经认证通过"
+          },
+        },
+        templateId:'pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI',
+        state:'developer'
+      }
+    }).then(res=>{
+      console.log(res)
+    })
+    wx.requestSubscribeMessage({
+      tmplIds: ['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI'],
+      success (res) {
+        console.log(res)
+        if(res.pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI=='accept'){
+
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -235,11 +269,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (wx.getStorageSync('phone')) {
+    /*if (!wx.getStorageSync('phone')) {
       this.setData({
-        isShow: false
+        isShow: true
       })
-    }
+    }*/ 
   },
 
   /**

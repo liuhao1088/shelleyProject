@@ -1,5 +1,5 @@
 <!--components/authorize/authorize.wxml-->
-<view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}" style="z-index:10;">
+<view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}" style="z-index:1000;">
     <view class="cu-dialog" style="border-top-left-radius:10px;border-top-right-radius: 10px;">
       <view class="cu-bar bg-white">
         <view class="action text-green"></view>
