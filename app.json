@@ -1,8 +1,9 @@
 {
   "pages":[
+    "pages/index/index",
     "pages/activitySelect/activitySelect",
     "pages/storeInformation/storeInformation",
-    "pages/index/index",
+   
     "pages/myCoupon/myCoupon",
     "pages/groupSpecial/groupSpecial",
     "pages/couponRules/couponRules",
