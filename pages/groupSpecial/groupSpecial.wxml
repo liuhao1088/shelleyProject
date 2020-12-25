@@ -1,3 +1,4 @@
+<authorize id="authorize" />
 <view class="groupSpecialContainer">
   <view class="title"><text bindtap="toActivityRule">活动规则</text> </view>
   <view class="wrap">
@@ -9,18 +10,39 @@
       <text class='tui-conutdown-box tui-countdown-bg'>{{seconds}}</text>秒
     </view>
 
-    <view class="coupon-item" wx:for="{{data.shopping}}" data-index="{{index}}" wx:key="id">
-      <view class="img-item align-center"><image style="height:190rpx;width:180rpx;" src="{{item.link}}" /></view>
+    <view class="coupon-item" wx:for="{{data.shopping}}" data-index="{{index}}" wx:for-item="shopping" wx:key="id">
+      <view class="img-item align-center"><image style="height:190rpx;width:180rpx;" src="{{shopping.link}}" /></view>
+
       <view class="wrap-item">
         <view class="coupon-titleItem">
-          <text class="coupon-title">{{item.name}}</text>
+          <text class="coupon-title">{{shopping.name}}</text>
           <text class="coupon-address">{{data.shop[0].shop_name}}专用</text>
         </view>
-
-        <view class="coupon-group">
+        
+        <view class="coupon-group" wx:if="{{shopping.status==true}}">
+          <swiper class="top_swiper">
+            <swiper-item style="display: flex;">
+              <view class="coupon-main">
+                <view class="coupon-wrap">
+                  <view class="coupon-user">
+                    <view class="swiper-img">
+                      <image src="{{userInfo.avatarUrl}}"></image>
+                    </view>
+                    <view class="swiper-name">{{userInfo.nickName}}</view>
+                  </view>
+                  <view class="coupon-msg"> <text style="color: red;"></text> </view>
+                </view>
+                <view class="coupon-wrap" style="padding-top: 6rpx;">您已经领取过该优惠券</view>
+              </view>
+              <view class="coupon-but">
+                <button class="but" bindtap="toMyCoupon">去查看</button>
+              </view>
+            </swiper-item>
+          </swiper>
+        </view>
+        <view class="coupon-group" wx:if="{{shopping.status!==true}}" data-index="{{index}}" bindtap="showModal" data-target="goGroup">
           <swiper class="top_swiper" circular vertical interval="2000" autoplay>
-            <swiper-item wx:for="{{userList}}" wx:key="id" style="display: flex;" bindtap="showModal"
-              data-target="goGroup">
+            <swiper-item wx:for="{{userList}}" wx:key="id" style="display: flex;">
               <view class="coupon-main">
                 <view class="coupon-wrap">
                   <view class="coupon-user">
@@ -39,16 +61,16 @@
             </swiper-item>
           </swiper>
         </view>
+        
 
         <view class="coupon-group">
           <view class="coupon-main">
-            <view class="group-price">¥ {{item.price}}</view>
-            <view class="price-item">原价：¥ {{item.original_price}}</view>
+            <view class="group-price">¥ {{shopping.price}}</view>
+            <view class="price-item">原价：¥ {{shopping.original_price}}</view>
           </view>
-          <view class="coupon-but">
-            <button class="but"
-              style="background-color: rgba(255, 255, 255, 100);color: rgba(105, 113, 254, 100);border: 2rpx solid rgba(105, 113, 254, 100);padding: 0;"
-              bindtap="showModal" data-target="initiateGroup">发起拼团</button>
+          <view class="coupon-but" wx:if="{{shopping.status!==true}}">
+            <button class="but" style="background-color: rgba(255, 255, 255, 100);color: rgba(105, 113, 254, 100);border: 2rpx solid rgba(105, 113, 254, 100);padding: 0;"
+             data-index="{{index}}" bindtap="launchGroup" data-target="initiateGroup">发起拼团</button>
           </view>
         </view>
       </view>
@@ -70,7 +92,7 @@
       <view class="icon-item">
         <text class="iconfont iconqueren" style="font-size: 120rpx;"></text>
       </view>
-      <view class="modal-item">仅剩<text style="color:red;">1</text>个席位，{{countdown}}后结束，赶快邀请好友来拼团吧！~</view>
+      <view class="modal-item">仅剩<text style="color:red;">{{data.shopping[waresInd].people-1}}</text>个席位，{{data.shopping[waresInd].time}}分钟后结束，赶快邀请好友来拼团吧！~</view>
       <view class="modal-but">
         <view class="but-item">
           <button class="turn-but" bindtap="toMyCoupon">查看拼团券</button>
@@ -100,12 +122,14 @@
           <image style=""></image>
           <view class="user-item">拼主</view>
         </view>
-        <view class="modal-box">
+        <view class="modal-box" wx:if="{{avatarUrl==''}}">
           <text class="iconfont iconwenhao" style="font-size: 50rpx;"></text>
+          <image else src="{{avatarUrl}}" class="iconfont iconwenhao" style="font-size: 50rpx;" />
         </view>
+        <image else src="{{avatarUrl}}" class="" style="font-size:50rpx;height:120rpx;width:120rpx;line-height:120rpx;border-radius: 50%;display:{{avatarUrl==''?'none':'flex'}}" />
       </view>
       <view class="join-but">
-        <button bindtap="showModal" data-target="goGroupSuccess">加入拼团</button>
+        <button bindtap="joinGroup" data-target="goGroupSuccess">加入拼团</button>
       </view>
     </view>
   </view>

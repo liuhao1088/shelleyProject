@@ -9,7 +9,9 @@ exports.main = async (event, context) => {
   try {
     console.log(event)
     return await db.collection(event.collection)
-    .aggregate().match(event.match).match(_.or(event.or).and(event.and)).match({start_timestamp:_.lte(event.stamp),end_timestamp:_.gte(event.stamp)}).lookup(event.lookup).lookup(event.lookup2).sort(event.sort).skip(event.skip).limit(event.limit)
+    .aggregate().match(event.match).match(_.or(event.or).and(event.and)).match({start_timestamp:_.lte(event.stamp),end_timestamp:_.gte(event.stamp)}).match({
+      shop_lon: _.gte(event.minlon).and(_.lte(event.maxlon))},{shop_lat: _.gte(event.minlat).and(_.lte(event.maxlat))
+    }).lookup(event.lookup).lookup(event.lookup2).sort(event.sort).skip(event.skip).limit(event.limit)
     .end().then(res=>{
       console.log(res)
       return res

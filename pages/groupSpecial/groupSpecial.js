@@ -39,14 +39,13 @@ Page({
       name: '隐形车衣',
       checked: false,
     }],
-    nowDate: '2020-12-22 18:00:00', //结束时间
-    countdown: '', //倒计时
-    days: '00', //天
-    hours: '00', //时
-    minutes: '00', //分
-    seconds: '00', //秒
-    data: '',
-    list: []
+    nowDate:'2020-12-22 18:00:00',//结束时间
+    countdown:'', //倒计时
+    days:'00',//天
+    hours:'00',//时
+    minutes:'00',//分
+    seconds:'00',//秒
+    data:'',avatarUrl:'',waresInd:'',userInfo:''
   },
   toActivityRule(event) {
     wx.navigateTo({
@@ -72,6 +71,9 @@ Page({
   showModal(e) {
     let that = this;
     let target = e.currentTarget.dataset.target;
+    let ind=e.currentTarget.dataset.index;
+    that.setData({waresInd:ind})
+    console.log(that.data.waresInd)
     if (target === 'goGroupSuccess') {
       wx.showLoading({
         title: '加载中...',
@@ -185,21 +187,25 @@ Page({
         limit: 10
       }
     }).then(res => {
-      let data = res.result.list[0];
-      let nowstamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
-      that.setData({
-        data: data
-      })
-      if (data.end_timestamp > nowstamp) {
-        let int = setInterval(() => {
-          nowstamp = nowstamp + 1;
-          if (nowstamp >= data.end_timestamp) {
-            that.setData({
-              days: '00',
-              hours: '00',
-              minutes: '00',
-              seconds: '00'
-            })
+      let data=res.result.list[0];
+      let userInfo=wx.getStorageSync('userInfo')
+      that.setData({userInfo:userInfo})
+      let cou = userInfo.coupon.filter(item => item.act_id.indexOf(data._id)!==-1)
+      for(let i in data.shopping){
+        for(let u in cou){
+          if(i==cou[u].shopping_ind){
+            data.shopping[i].status=true
+            that.setData({data:data})
+          } 
+        }
+      }
+      let nowstamp=Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
+      that.setData({data:data})
+      if(data.end_timestamp>nowstamp){
+        let int=setInterval(() => {
+          nowstamp=nowstamp+1;
+          if(nowstamp>=data.end_timestamp){
+            that.setData({days:'00',hours:'00',minutes:'00',seconds:'00'})
             clearInterval(int);
           }
           let surplus = data.end_timestamp - nowstamp;
@@ -228,7 +234,69 @@ Page({
       }
     })
   },
-
+  increase:function(shape,mol,indx){
+    var that=this;
+    if(wx.getStorageSync('userInfo')){
+      wx.showLoading({title:'拼团中'})
+      let userInfo=wx.getStorageSync('userInfo')
+      this.setData({avatarUrl:userInfo.avatarUrl})
+      let team=[];
+      let obj={};
+      obj._openid=userInfo._openid;
+      obj.nickName=userInfo.nickName;
+      obj.avatarUrl=userInfo.avatarUrl;
+      team.push(obj)
+      let code = "";
+      for (let e = 0; e < 10; e++) {
+        code += Math.floor(Math.random() * 10)
+      }
+      wx.cloud.callFunction({
+        name:'recordAdd',
+        data:{
+          collection:'coupon',
+          addData:{
+            creation_date:util.formatTimes(new Date()),
+            creation_timestamp:Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
+            cou_code:code,
+            _openid:userInfo._openid,
+            user:userInfo.nickName,
+            shop_code:that.data.data.shop_code,
+            shop_id:that.data.data.shop[0]._id,
+            act_code:that.data.data.act_code,
+            act_id:that.data.data._id,
+            shopping:that.data.data.shopping[indx],
+            shopping_ind:indx,
+            team:team,
+            status:shape
+          }
+        }
+      }).then(res=>{
+        console.log(res)
+        let data=that.data.data;
+        data.shopping[indx].status=true
+        that.setData({modalName:mol,avatarUrl:'',data:data})
+        wx.hideLoading()
+      }).catch(error => {
+        wx.hideLoading({
+          success: (res) => {},
+        })
+        wx.showModal({
+          showCancel: false,
+          title: '系统繁忙，请稍后重试'
+        })
+      })
+    }else{
+      this.selectComponent("#authorize").showModal();
+    }
+  },
+  joinGroup:function(e){
+    this.increase('success','goGroupSuccess',this.data.waresInd);
+  },
+  launchGroup:function(e){
+    let ind=e.currentTarget.dataset.index;
+    this.setData({waresInd:ind})
+    this.increase('waiting','initiateGroup',ind);
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -89,7 +89,7 @@
   </view>
 </view>
 <view class="but-item" bindtap="submit_form">
-  <button bindtap="submit_form">发布专属活动</button>
+  <button bindtap="">发布专属活动</button>
 </view>
 
 

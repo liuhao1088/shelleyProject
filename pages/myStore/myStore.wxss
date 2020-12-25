@@ -135,7 +135,7 @@
 .live-img {
   width: 100%;
   height: 172rpx;
-  background-color: blueviolet;
+  background-color: gray;
   border-radius: 10rpx;
 }
 

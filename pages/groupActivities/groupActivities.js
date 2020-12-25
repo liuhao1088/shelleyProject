@@ -217,7 +217,7 @@ Page({
       numberCode += Math.floor(Math.random() * 10)
     }
     var list=that.data.productList;
-    for(let i in list){delete list[i].showView,list[i].checked}
+    for(let i in list){delete list[i].showView;delete list[i].checked}
     wx.cloud.callFunction({
       name:'recordAdd',
       data:{
@@ -233,6 +233,8 @@ Page({
           shopping:list,
           act_code:code+numberCode,
           shop_code:userInfo.shop[userInfo.shop.length-1].shop_code,
+          shop_lat:userInfo.shop[userInfo.shop.length-1].lat,
+          shop_lon:userInfo.shop[userInfo.shop.length-1].lon,
           _openid:userInfo._openid,
           type:'team'
         }

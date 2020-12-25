@@ -23,7 +23,7 @@ Page({
       success: function (res) {
         that.setData({
           widheight: res.windowHeight,
-          scrollHev: res.windowHeight - - (res.windowWidth/750)*100,
+          scrollHev: res.windowHeight - (res.windowWidth/750)*100,
           stamp:Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000
         });
       }
@@ -51,13 +51,13 @@ Page({
     })
     let userInfo=wx.getStorageSync('userInfo')
     var _=wx.cloud.database().command;
-    wx.cloud.database().collection('activity').where({shop_code:userInfo.shop[userInfo.shop.length-1].shop_code}).where({end_timestamp:_.gte(Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000)}).orderBy('creation_date','desc').skip(skip).limit(10).get().then(res=>{
+    wx.cloud.database().collection('activity').where({shop_code:userInfo.shop[userInfo.shop.length-1].shop_code}).orderBy('creation_date','desc').skip(skip).limit(10).get().then(res=>{
       let data=that.data.list.concat(res.data)
       if(res.data.length==0){
         wx.showToast({
           title: '暂无更多数据',
           icon:'none',
-          duration:3000
+          duration:2000
         })
       }
       that.setData({list:data})

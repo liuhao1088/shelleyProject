@@ -9,14 +9,15 @@
       <text class="iconfont iconplus icon"></text>新建活动
     </view>
   </view>
-  <scroll-view scroll-top="{{scrollTop}}" scroll-y style="height:{{scrollHev}}px;" class=""
+</view>
+<scroll-view scroll-top="{{scrollTop}}" scroll-y style="height:{{scrollHev}}px;" class=""
    bindscrolltolower="bindDownLoad">
   <view class="wrapper" wx:for="{{list}}" data-index="{{index}}">
     <view class="wrap">
       <view class="wrap-title">活动标题：{{item.title}}</view>
-      <view class="wrap-tag" wx:if="{{stamp>item.start_timestamp}}"><text class="iconfont iconflag"></text> 活动中</view>
       <view class="wrap-tag" wx:if="{{stamp<=item.start_timestamp}}" style="opacity: 0.5;">未开始</view> 
-      
+      <view class="wrap-tag" wx:elif="{{stamp>=item.end_timestamp}}" style="opacity: 0.5;">已过期</view>
+      <view class="wrap-tag" wx:else><text class="iconfont iconflag"></text> 活动中</view>
     </view>
     <view class="wrap">
       <view class="wrap-title">活动类型：{{item.type=='reservation'?'预约好礼':'拼团优惠'}}</view>
@@ -45,6 +46,5 @@
     </view>
     
   </view>
-  
-  </scroll-view>
-</view>
+  <view style="height:20rpx;"></view>
+</scroll-view>

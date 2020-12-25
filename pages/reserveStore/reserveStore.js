@@ -32,7 +32,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.removeStorageSync('phone')
     var that=this;
     // 获取系统信息
     wx.getSystemInfo({
@@ -83,6 +82,10 @@ Page({
         collection: 'activity',
         match: {type:'reservation'},
         stamp:stamp,
+        minlat:'',
+        minlon:'',
+        maxlat:'',
+        maxlon:'',
         or: [{}],
         and: [{}],
         lookup: {

@@ -177,16 +177,13 @@ Page({
   toManage: function () {
     if (!wx.getStorageSync('userInfo')) {
       this.selectComponent("#authorize").showModal();
-    } else {
-      let openid = wx.getStorageSync('userInfo')._openid;
-      wx.cloud.database().collection('user').where({
-        _openid: openid
-      }).get().then(res => {
-        console.log(res)
-        if (res.data[0].authority == 'admin') {
-          wx.navigateTo({
-            url: '/pages/manage/manage',
-          })
+    }else{
+      let openid=wx.getStorageSync('userInfo')._openid;
+      wx.cloud.database().collection('user').where({_openid:openid}).get().then(res=>{
+        if(res.data[0].authority=='admin'){
+            wx.navigateTo({
+              url: '/pages/manage/manage',
+            })
         }
       })
     }
@@ -219,8 +216,8 @@ Page({
               and: [{}],
               lookup: {
                 from: 'shop',
-                localField: 'shop_code',
-                foreignField: 'shop_code',
+                localField: '_openid',
+                foreignField: '_openid',
                 as: 'shop',
               },
               lookup2: {
@@ -236,8 +233,7 @@ Page({
               limit: 1
             }
           }).then(res => {
-            let user = res.result.list[0];
-            console.log(res)
+            let user=res.result.list[0];
             wx.setStorageSync('userInfo', user)
           })
         } else {
