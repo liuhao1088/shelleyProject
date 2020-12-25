@@ -17,8 +17,8 @@
 
 .wrap {
   width: 100%;
-  height: 230rpx;
   background-color: #202937;
+  padding-bottom: 20rpx;
   display: flex;
 }
 
@@ -41,6 +41,7 @@
   width: 110rpx;
   border: 0rpx solid red;
   float: right;
+  position: relative;
 }
 
 .title-itme {
@@ -175,4 +176,20 @@
   padding-left: 20rpx;
   padding-bottom: 10rpx;
   font-size: 24rpx;
+}
+
+.wrap-tagItem{
+  width: 100%;
+  height: 36rpx;
+  float: left;
+  margin-top: 10rpx;
+}
+
+.tag-border{
+  height: 60%;
+  width: 2rpx;
+  position: absolute;
+  top: 22rpx;
+  left: 0;
+  background-color: #94969A;
 }

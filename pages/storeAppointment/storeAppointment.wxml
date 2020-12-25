@@ -12,15 +12,25 @@
       <view class="wrap-title">
         <view class="title-itme">{{data.shop[0].shop_name}}</view>
         <view class="wrap-date">营业时间：{{data.shop[0].start_hour}} - {{data.shop[0].end_hour}}</view>
-        <view class="wrap-starlight">星级门店</view>
+        <view class="wrap-tagItem">
+          <view class="wrap-starlight"
+          style="background-color: rgba(91, 98, 217, 100);border: 2rpx solid rgba(91, 98, 217, 100);text-align: center;">认证商家</view>
+        <view class="wrap-starlight" style="margin-left: 20rpx;">星级门店</view>
+        </view>
+       
       </view>
       <view class="wrap-tag" bindtap="openLocation">
         <view class="title-itme" style="text-align: center;">
           <text class="iconfont icondaohang"></text>
         </view>
-        <view class="wrap-date" style="text-align: center;opacity: 1;">立即前往</view>
-        <view class="wrap-starlight"
-          style="background-color: rgba(91, 98, 217, 100);border: none;width: 100%;text-align: center;">认证商家</view>
+        <view class="wrap-date" style="text-align: center;opacity: 1;">地址</view>
+      </view>
+      <view class="wrap-tag" bindtap="openLocation">
+        <view class="title-itme" style="text-align: center;">
+          <text class="iconfont icondianhua1"></text>
+        </view>
+        <view class="wrap-date" style="text-align: center;opacity: 1;">电话</view>
+        <view class="tag-border"></view>
       </view>
     </view>
 
@@ -42,14 +52,6 @@
     <view class="form-input">
       <rui-picker slot="flexchild" start="{{startTime}}" end="2999-12-31 00:00" value="{{startTime}}" fields="minute"
         bindchangedatepicker="changeStartTime"></rui-picker>
-      <!-- <picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange"
-          value="{{multiIndex}}" range="{{multiArray}}"
-          style="height: 100%;">
-          <view class="picker">
-            请选择到店体验的时间段
-            {{multiArray[0][multiIndex[0]]}} - {{multiArray[1][multiIndex[1]]}} 
-          </view>
-        </picker> -->
 
     </view>
   </view>
