@@ -172,17 +172,16 @@ Page({
         const lat = res.latitude
         const lon = res.longitude
         wx.cloud.callFunction({
-          name: 'screenQuery',
+          name: 'nearby',
           data: {
             collection: 'activity',
             match: {
               type: 'team'
             },
-            stamp: '',
-            minlat: lat - 1,
-            minlon: lon - 1,
-            maxlat: lat + 1,
-            maxlon: lon + 1,
+            minlat: lat - 3,
+            minlon: lon - 3,
+            maxlat: lat + 3,
+            maxlon: lon + 3,
             or: [{}],
             and: [{}],
             lookup: {
@@ -205,6 +204,15 @@ Page({
           }
         }).then(res => {
           console.log(res)
+          let data=res.result.list;
+          for(let i in data){
+            console.log(lat,lon,data[i].shop_lat,data[i].shop_lon)
+            data[i].distance=that.getDistance(lat,lon,data[i].shop_lat,data[i].shop_lon)
+            if(i==data.length-1){
+              data.sort(that.compare("distance"));
+              wx.setStorageSync('nearby', data[0])
+            }
+          }
         })
       }
     })
@@ -274,7 +282,29 @@ Page({
     }
 
   },
-
+  getDistance(lat1, lng1, lat2, lng2) {
+    var radLat1 = this.Rad(lat1);
+    var radLat2 = this.Rad(lat2);
+    var a = radLat1 - radLat2;
+    var b = this.Rad(lng1) - this.Rad(lng2);
+    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+    s = s * 6378.137;
+    s = Math.round(s * 10000) / 10000;
+    s = s.toFixed(1)  //千米保留两位小数
+    console.log('经纬度计算的距离:' + s)
+    return s
+  },
+  Rad(d) { 
+    //根据经纬度判断距离
+    return d * Math.PI / 180.0;
+  },
+  compare: function (property) {
+    return function (a, b) {
+      var value1 = a[property];
+      var value2 = b[property];
+      return  value1- value2;
+    }
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

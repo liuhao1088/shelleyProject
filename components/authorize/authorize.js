@@ -76,8 +76,8 @@ Component({
                         and: [{}],
                         lookup: {
                           from: 'shop',
-                          localField: 'shop_code',
-                          foreignField: 'shop_code',
+                          localField: '_openid',
+                          foreignField: '_openid',
                           as: 'shop',
                         },
                         lookup2: {
@@ -94,6 +94,7 @@ Component({
                       }
                     }).then(res => {
                       let user=res.result.list[0];
+                      wx.setStorageSync('userInfo',user)
                       if (res.result.list.length == 0) {
                         let sex;
                         console.log(res, userInfo.nickName, userInfo.avatarUrl, userInfo.province, userInfo.city)
@@ -140,7 +141,7 @@ Component({
                             }
                           })
                         }
-                        wx.setStorageSync('userInfo',user)
+                        
                         if(res.result.list[0].authority=='admin'){
                         
                         }

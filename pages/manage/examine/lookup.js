@@ -80,6 +80,7 @@ Page({
                     }
                   }
                 }).then(res=>{console.log(res)})
+                that.sendMessage("您的门店认证已经通过",editData.shop_name);
                 editData.prove='success';
                 editData.shop_code=num;
                 editData.checker=userInfo.nickName;
@@ -132,6 +133,7 @@ Page({
         },
       }).then(res=>{
         that.hideModal()
+        that.sendMessage("您的门店信息已被驳回",that.data.reason);
         setTimeout(() => {
           wx.showToast({
             title: '已驳回',
@@ -156,6 +158,26 @@ Page({
         icon:'none'
       })
     }
+  },
+  sendMessage:function(thing,content){
+    wx.cloud.callFunction({
+      name:'sendMessage',
+      data:{
+        openid:editData._openid,
+        page:'pages/index/index',
+        data:{
+          "thing1": {
+            "value": thing
+          },
+          "thing3": {
+            "value": content
+          },
+        },
+        templateId:'pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI'
+      }
+    }).then(res=>{
+      console.log(res)
+    })
   },
   tosubLookup:function(){
     if(editData.user){
