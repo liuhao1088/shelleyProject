@@ -1,8 +1,10 @@
 {
   "pages":[
+    "pages/activityPoster/activityPoster",
     "pages/index/index",
+    
+    
     "pages/storeAppointment/storeAppointment",
-   
     "pages/activitySelect/activitySelect",
     "pages/storeInformation/storeInformation",
     "pages/myCoupon/myCoupon",
@@ -10,9 +12,8 @@
     "pages/couponRules/couponRules",
     "pages/allStore/allStore",
     "pages/text/text",
-    "pages/activityPoster/activityPoster",
-    "pages/reserveStore/reserveStore",
     
+    "pages/reserveStore/reserveStore",
     "pages/groupActivities/groupActivities",
     "pages/activityRule/activityRule",
     "pages/reservationActivity/reservationActivity",
