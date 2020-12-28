@@ -5,7 +5,7 @@
   <view class="swiper-wrapper">
     <view class="header">
       <view class="header-img">
-        <image mode="widthFix"
+        <image
           src="https://img14.360buyimg.com/ddimg/jfs/t1/148677/8/19473/316293/5fe2e232Ebe88b5dd/94894283bedee809.png">
         </image>
       </view>
@@ -116,25 +116,35 @@
 
 </view>
 
-<view class="cu-modal {{modalName==0?'show':''}}">
+<view class="cu-modal {{modalName==0?'show':''}}" catchtouchmove="ture" style="background: rgba(0, 0, 0, 0.3);">
   <view class="cu-dialog">
-    <view class="bg-img">
-      <view class="padding-xl">
-        <view class="modal-wrap">
+    <image 
+      src="https://img12.360buyimg.com/ddimg/jfs/t1/138733/28/20361/156371/5fe710f7Edabbaeb7/a0be7809e52ee7f9.png">
+    </image>
+    <view class="modal-wrap">
+      <view class="icon-item">
+          <text class="iconfont iconquxiao" bindtap="hideModal"></text>
+      </view>
+      <view class="main-item">
+        <view class="main-titleItem">
+          <view class="main-title">您是否有安装以下配件?</view>
+          <view class="main-tag">Install the following auto parts</view>
+        </view>
+
+        <view class="main-selectItem">
           <view class="modal-selectBut" wx:for="{{checkbox}}" wx:key="id">
-            <button class="{{item.checked?'line':''}}" bindtap="ChooseCheckbox" id="{{item.id}}">{{item.name}}</button>
+            <button style="{{item.checked?'border: none;background-color: rgba(10, 75, 177, 1);':''}}" bindtap="ChooseCheckbox" id="{{item.id}}">{{item.name}}</button>
           </view>
         </view>
-        <view class="modal-but">
-          <view class="but-item">
+
+        <view class="main-butItem">
+          <view class="but">
             <button>立即领取</button>
           </view>
         </view>
-        <view class="modal-but" style="opacity: 0.5;color: rgba(16, 16, 16, 100);font-size: 24rpx;">
-          <text bindtap="hideModal">暂不领取</text>
-        </view>
-      </view>
 
+      </view>
+      
     </view>
   </view>
 </view>

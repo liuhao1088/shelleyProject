@@ -2,7 +2,7 @@
   <view class="banner">
     <swiper indicator-dots autoplay circular style="height:100%;">
       <swiper-item>
-        <image class="banner-item" wx:for="{{data.shop[0].shop_img}}" src="{{item}}" style="width:100%;" />
+        <image class="banner-item" wx:for="{{data.shop[0].shop_img}}" wx:key="id" src="{{item}}" style="width:100%;" />
       </swiper-item>
     </swiper>
   </view>

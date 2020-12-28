@@ -31,7 +31,8 @@ Page({
       name: '隐形车衣',
       checked: false,
     }],
-    modalName: 0
+    modalName: 0,
+    top: ''
   },
   toVideo() {
     wx.navigateTo({
@@ -146,6 +147,25 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    //获取屏幕高度
+    // var windowHeight = wx.getSystemInfoSync().windowHeight;
+    // console.log(windowHeight)
+    // if(windowHeight < 800){
+    //   that.setData({
+    //     top : '168'
+    //   })
+    //   console.log(this.data.top)
+    // }else if(windowHeight === 812){
+    //   that.setData({
+    //     top : '148'
+    //   })
+    // }else{
+    //   that.setData({
+    //     top : '142'
+    //   })
+    // }
+
+  
     // 获取用户信息
     wx.getSetting({
       success: res => {

@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    nowclientX: ""
+    
   },
 
   togroupSpecial(){
@@ -14,26 +14,7 @@ Page({
     })
   },
 
-  // 获取手指点击的坐标
-  touchstart(e) {
-		console.log(e)
-		this.setData({
-			nowclientX: e.changedTouches[0].clientX
-		})
-  },
-   // 获取手指的坐标
-	touchend(e) {
-		let nowclientX = this.data.nowclientX;
-		let clientX = e.changedTouches[0].clientX;
-		if (clientX > nowclientX) {
-			console.log("向右滑动")
-		} else {
-      console.log("向左滑动")
-      wx.navigateTo({
-        url: '/pages/index/index',
-      })
-		}
-	},
+ 
   /**
    * 生命周期函数--监听页面加载
    */
