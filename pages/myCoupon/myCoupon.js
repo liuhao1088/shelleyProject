@@ -111,7 +111,7 @@ Page({
     if (res.from === 'button') {
       return {
         title: "【仅剩1个名额】我领了100元拼团券，快来助我成团激活~", //分享标题
-        imageUrl: '', //图片路径
+        imageUrl: 'https://img13.360buyimg.com/ddimg/jfs/t1/160040/27/61/289416/5fe99874E75804776/891b1b08109afc6d.png', //图片路径
         path: '/page/groupSpecial/groupSpecial'
       }
     } else {
