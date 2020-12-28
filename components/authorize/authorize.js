@@ -25,7 +25,7 @@ Component({
       this.setData({
         modalName: "bottomModal"
       })
-     
+
       //隐藏tabbar
       //this.getTabBar().displayHide();
     },
@@ -34,11 +34,11 @@ Component({
       this.setData({
         modalName: null
       })
-      
+
       //显示
       //this.getTabBar().displayShow();
     },
-    getPhoneNumber:function(e){
+    getPhoneNumber: function (e) {
       console.log(e)
     },
     //用户点击微信授权登录
@@ -48,7 +48,7 @@ Component({
         var that = this;
         //插入登录的用户的相关信息到数据库            
         this.hideModal();
-        var app=getApp()
+        var app = getApp()
         wx.getSetting({
           success: res => {
             console.log(res)
@@ -58,20 +58,22 @@ Component({
                 success: res => {
                   let userInfo = res.userInfo;
                   wx.cloud.callFunction({
-                    name:'getOpenid',
-                  }).then((res)=>{
+                    name: 'getOpenid',
+                  }).then((res) => {
                     console.log(res)
-                    let openid=res.result.openid;
-                    app.globalData.openid=res.result.openid;
+                    let openid = res.result.openid;
+                    app.globalData.openid = res.result.openid;
                     console.log(app.globalData.openid)
-                    userInfo._openid=openid;
-                    app.globalData.userInfo=userInfo;
+                    userInfo._openid = openid;
+                    app.globalData.userInfo = userInfo;
                     const db = wx.cloud.database()
                     wx.cloud.callFunction({
-                      name:'multQuery',
+                      name: 'multQuery',
                       data: {
                         collection: 'user',
-                        match: {_openid: openid},
+                        match: {
+                          _openid: openid
+                        },
                         or: [{}],
                         and: [{}],
                         lookup: {
@@ -93,8 +95,8 @@ Component({
                         limit: 1
                       }
                     }).then(res => {
-                      let user=res.result.list[0];
-                      wx.setStorageSync('userInfo',user)
+                      let user = res.result.list[0];
+                      wx.setStorageSync('userInfo', user)
                       if (res.result.list.length == 0) {
                         let sex;
                         console.log(res, userInfo.nickName, userInfo.avatarUrl, userInfo.province, userInfo.city)
@@ -118,39 +120,41 @@ Component({
                               province: userInfo.province,
                               city: userInfo.city,
                               authority: "primary",
-                              type:'driver'
+                              type: 'driver'
                             }
                           })
                           .then(res => {
                             console.log(res)
                           })
                           .catch(console.error)
-                          wx.setStorageSync('userInfo',userInfo)
+                        wx.setStorageSync('userInfo', userInfo)
                       } else if (res.result.list.length == 1) {
-                        console.log(userInfo,openid)
-                        if(userInfo.nickName!==res.result.list[0].nickName){
+                        console.log(userInfo, openid)
+                        if (userInfo.nickName !== res.result.list[0].nickName) {
                           wx.cloud.callFunction({
-                            name:'recordUpdate',
-                            data:{
-                              collection:'user',
-                              where:{_openid:openid},
-                              updateData:{
-                                nickName:userInfo.nickName,
-                                avatarUrl:userInfo.avatarUrl
+                            name: 'recordUpdate',
+                            data: {
+                              collection: 'user',
+                              where: {
+                                _openid: openid
+                              },
+                              updateData: {
+                                nickName: userInfo.nickName,
+                                avatarUrl: userInfo.avatarUrl
                               }
                             }
                           })
                         }
-                        
-                        if(res.result.list[0].authority=='admin'){
-                        
+
+                        if (res.result.list[0].authority == 'admin') {
+
                         }
                       }
                     }).catch()
                   })
-                  
 
-            
+
+
                   return true
                 }
               })
