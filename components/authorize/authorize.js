@@ -46,6 +46,9 @@ Component({
       if (e.detail.userInfo) {
         //用户按了允许授权按钮            
         var that = this;
+        wx.showLoading({
+          title: '登录中，请稍等',
+        })
         //插入登录的用户的相关信息到数据库            
         this.hideModal();
         var app = getApp()
@@ -127,10 +130,16 @@ Component({
                             console.log(res)
                           })
                           .catch(console.error)
-                        wx.setStorageSync('userInfo', userInfo)
-                      } else if (res.result.list.length == 1) {
-                        console.log(userInfo, openid)
-                        if (userInfo.nickName !== res.result.list[0].nickName) {
+                          wx.setStorageSync('userInfo',userInfo)
+                          wx.hideLoading()
+                          wx.showToast({
+                            title: '登录成功',
+                            icon: "success",
+                            duration: 1500
+                          })
+                      } else{
+                        console.log(userInfo,openid)
+                        if(userInfo.nickName!==res.result.list[0].nickName){
                           wx.cloud.callFunction({
                             name: 'recordUpdate',
                             data: {
@@ -145,9 +154,14 @@ Component({
                             }
                           })
                         }
-
-                        if (res.result.list[0].authority == 'admin') {
-
+                        wx.hideLoading()
+                        wx.showToast({
+                          title: '登录成功',
+                          icon: "success",
+                          duration: 1500
+                        })
+                        if(res.result.list[0].authority=='admin'){
+                        
                         }
                       }
                     }).catch()
@@ -162,11 +176,6 @@ Component({
               that.authorize().showModal();
             }
           }
-        })
-        wx.showToast({
-          title: '登录成功',
-          icon: "success",
-          duration: 1500
         })
       } else { //用户按了拒绝按钮           
 

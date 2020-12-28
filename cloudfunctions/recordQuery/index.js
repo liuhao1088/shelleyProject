@@ -14,9 +14,9 @@ exports.main = async (event, context) => {
         let:event.let,
         pipeline: $.pipeline()
           .match(_.expr($.and([
-            $.eq(event.match)
+            $.eq(event.match),$.eq(event.match2)
           ])))
-          .project(event.project)
+          .project(event.project).sort({creation_date:-1})
           .done(),
           as: event.as,
 		  }).sort(event.sort).skip(event.skip).limit(event.limit).end()

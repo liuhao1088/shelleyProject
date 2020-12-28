@@ -180,6 +180,11 @@ Page({
               })
             }
           })
+          if(wx.getStorageSync('userInfo')){
+
+          }else{
+            this.selectComponent("#authorize").showModal();
+          }
         } else {
           //打开授权登录页
           this.selectComponent("#authorize").showModal();
@@ -226,8 +231,7 @@ Page({
           console.log(res)
           let data=res.result.list;
           for(let i in data){
-            console.log(lat,lon,data[i].shop_lat,data[i].shop_lon)
-            data[i].distance=that.getDistance(lat,lon,data[i].shop_lat,data[i].shop_lon)
+            data[i].distance=that.getDistance(lat,lon,data[i].lat,data[i].lon)
             if(i==data.length-1){
               data.sort(that.compare("distance"));
               wx.setStorageSync('nearby', data[0])
@@ -311,7 +315,6 @@ Page({
     s = s * 6378.137;
     s = Math.round(s * 10000) / 10000;
     s = s.toFixed(1)  //千米保留两位小数
-    console.log('经纬度计算的距离:' + s)
     return s
   },
   Rad(d) { 

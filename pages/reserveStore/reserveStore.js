@@ -3,6 +3,7 @@ var bmap = require('../../utils/bmap-wx.min.js')
 var util=require('../../utils/util.js')
 var skip=0;
 var ind;
+var shop_data;
 Page({
 
   /**
@@ -76,45 +77,89 @@ Page({
     var stamp=Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
     console.log(stamp)
     var _=wx.cloud.database().command;
+    /***/wx.cloud.callFunction({
+                name:'recordQuery',
+                data:{
+                  collection:'shop',
+                  where:{prove:'success'},
+                  from:'activity',
+                  let: {
+                    shop_code: '$shop_code',
+                  },
+                  match:['$shop_code', '$$shop_code'],
+                  match2:['$type','reservation'],
+                  project:{shop_code:0},
+                  as:'act',
+                  sort:{creation_timestamp:-1},
+                  skip:0,
+                  limit:100
+                }
+              }).then(res=>{
+                console.log(res) })
     wx.cloud.callFunction({
-      name: 'screenQuery',
+      name: 'multQuery',
       data: {
-        collection: 'activity',
-        match: {type:'reservation'},
-        stamp:stamp,
-        minlat:lat-1,
-        minlon:lon-1,
-        maxlat:lat+1,
-        maxlon:lon+1,
+        collection: 'shop',
+        match: {prove:'success'},
         or: [{}],
         and: [{}],
         lookup: {
-          from: 'shop',
+          from: 'activity',
           localField: 'shop_code',
           foreignField: 'shop_code',
-          as: 'shop',
+          as: 'act',
         },
         lookup2: {
           from: 'reservation',
-          localField: '_id',
-          foreignField: 'act_id',
+          localField: 'shop_code',
+          foreignField: 'shop_code',
           as: 'reservation',
         },
         sort: {
           creation_date: -1
         },
-        skip: skip,
-        limit: 10
+        skip: 0,
+        limit: 100
       }
     }).then(res => {
       console.log(res)
       let data=that.data.list.concat(res.result.list);
       if(res.result.list.length==0) wx.showToast({title:'暂无更多数据',icon:'none'})
-      if(data.length==0) wx.showToast({title:'附近暂无门店',icon:'none',duration:100000})
-      that.setData({list:data})
+      if(data.length==0) wx.showToast({title:'附近暂无门店',icon:'none',duration:10000000})
+      for(let i in data){
+        data[i].distance=that.getDistance(lat,lon,data[i].lat,data[i].lon)
+        if(i==data.length-1){
+          data.sort(that.compare("distance"));
+          shop_data=data;
+          let list=data.slice(0,9)
+          that.setData({list:list})
+        }
+      }
       wx.hideLoading()
       wx.hideNavigationBarLoading()
     })
+  },
+  getDistance(lat1, lng1, lat2, lng2) {
+    var radLat1 = this.Rad(lat1);
+    var radLat2 = this.Rad(lat2);
+    var a = radLat1 - radLat2;
+    var b = this.Rad(lng1) - this.Rad(lng2);
+    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+    s = s * 6378.137;
+    s = Math.round(s * 10000) / 10000;
+    s = s.toFixed(1)  //千米保留两位小数
+    return s
+  },
+  Rad(d) { 
+    //根据经纬度判断距离
+    return d * Math.PI / 180.0;
+  },
+  compare: function (property) {
+    return function (a, b) {
+      var value1 = a[property];
+      var value2 = b[property];
+      return  value1- value2;
+    }
   },
   chooseLocation: function (e) {
     var that = this;
@@ -149,8 +194,16 @@ Page({
   },
   bindDownLoad: function () {
     wx.showNavigationBarLoading() 
+    wx.showLoading({
+      title: '加载中',
+      duration:500
+    })
     skip = skip + 10;
-    this.loadData()
+    let list=shop_data.slice(0+skip,9+skip)
+    if(list.length==0) wx.showToast({title:'暂无更多数据',icon:'none',duration:2000})
+    let data=this.data.list.concat(list)
+    this.setData({list:data})
+    wx.hideNavigationBarLoading()
   },
   /**
    * 生命周期函数--监听页面隐藏

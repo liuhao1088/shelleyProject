@@ -39,7 +39,9 @@ Page({
     transfer: false,
     sponsor: '',
     surplustime: '',
-    surplusperson: ''
+    surplusperson: '',
+    action: 'going'
+
   },
   toActivityRule(event) {
     wx.navigateTo({
@@ -91,7 +93,8 @@ Page({
   },
   hideModal(e) {
     this.setData({
-      modalName: null
+      modalName: null,
+      transfer: false
     })
   },
 
@@ -154,154 +157,103 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
     var that = this;
-
-    wx.cloud.callFunction({
-      name: 'multQuery',
-      data: {
-        collection: 'activity',
-        match: {
-          type: 'team'
-        },
-        or: [{}],
-        and: [{}],
-        lookup: {
-          from: 'shop',
-          localField: 'shop_code',
-          foreignField: 'shop_code',
-          as: 'shop',
-        },
-        lookup2: {
-          from: 'user',
-          localField: '_openid',
-          foreignField: '_openid',
-          as: 'user',
-        },
-        sort: {
-          creation_date: -1
-        },
-        skip: 0,
-        limit: 10
-      }
-    }).then(res => {
-      let data = res.result.list[0];
-      if (wx.getStorageSync('userInfo')) {
-        let userInfo = wx.getStorageSync('userInfo')
-        that.setData({
-          userInfo: userInfo
-        })
-        let cou = userInfo.coupon.filter(item => item.act_id.indexOf(data._id) !== -1)
-        for (let i in data.shopping) {
-          for (let u in cou) {
-            if (i == cou[u].shopping_ind) {
-              data.shopping[i].status = true
-              that.setData({
-                data: data
-              })
-            }
-          }
-        }
-      }
-      for (let i in data.shopping) {
-        wx.cloud.callFunction({
-          name: 'phoney'
-        }).then(res => {
-          let newArr = res.result.sort(() => Math.random() - 0.5);
-          data.shopping[i].userList = newArr
-          that.setData({
-            data: data
-          })
-          console.log(data);
-        })
-      }
-      let nowstamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
-      that.setData({
-        data: data
-      })
-      if (data.end_timestamp > nowstamp) {
-        let int = setInterval(() => {
-          nowstamp = nowstamp + 1;
-          if (nowstamp >= data.end_timestamp) {
-            that.setData({
-              days: '00',
-              hours: '00',
-              minutes: '00',
-              seconds: '00'
-            })
-            clearInterval(int);
-          }
-          let surplus = data.end_timestamp - nowstamp;
-          let days = Math.floor(surplus / (60 * 60 * 24));
-          if (days < 10) days = '0' + days;
-          let hours = Math.floor((surplus / (60 * 60)) % 24);
-          if (hours < 10) hours = '0' + hours;
-          let minutes = Math.floor((surplus / 60) % 60);
-          if (minutes < 10) minutes = '0' + minutes;
-          let seconds = Math.floor((surplus) % 60);
-          if (seconds < 10) seconds = '0' + seconds;
-          that.setData({
-            days: days,
-            hours: hours,
-            minutes: minutes,
-            seconds: seconds
-          })
-        }, 1000);
-      } else {
-        that.setData({
-          days: '00',
-          hours: '00',
-          minutes: '00',
-          seconds: '00'
-        })
-      }
-    })
     if (options.act_id) {
-      that.setData({
-        modalName: 'goGroup',
-        transfer: true
-      })
-      console.log(options)
-      wx.cloud.database().collection('coupon').where({
-        act_id: options.act_id,
-        cou_code: options.cou_code
-      }).get()
+      let nowstamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
+      if (nowstamp >= options.end_timestamp) {
+        wx.showModal({
+          title: '该拼团活动已经结束',
+          showCancel: false,
+        })
+      } else {
+        console.log(options)
+        wx.cloud.callFunction({
+          name: "getRecord",
+          data: {
+            collection: 'coupon',
+            where: {
+              act_id: options.act_id,
+              cou_code: options.cou_code
+            },
+            ordername: 'creation_date',
+            order: 'asc',
+            skip: 0
+          }
+        }).then(res => {
+          console.log(res)
+          let data = res.result.data[0];
+          share_coupon = data;
+          let surplustime = 0;
+          if (nowstamp >= data.creation_timestamp + (parseInt(data.shopping.time) * 60)) {
+            wx.showModal({
+              title: '该拼团已过期',
+              showCancel: false,
+            })
+          } else {
+            surplustime = parseInt(parseInt(data.shopping.time) - (nowstamp - data.creation_timestamp) / 60)
+            let sponsor = {}
+            if (data.team[0].nickName.length > 2) {
+              let start = data.team[0].nickName.substring(0, 1)
+              let end = data.team[0].nickName.substring(data.team[0].nickName.length - 1)
+              data.team[0].nickName = start + '***' + end
+            }
+            sponsor.nickName = data.team[0].nickName;
+            sponsor.avatarUrl = data.team[0].avatarUrl;
+            sponsor._openid = data.team[0]._openid;
+            that.setData({
+              sponsor: sponsor,
+              surplustime: surplustime,
+              surplusperson: data.shopping.people - data.team.length,
+              modalName: 'goGroup',
+              transfer: true
+            })
+          }
+        })
+      }
       wx.cloud.callFunction({
-        name: "getRecord",
+        name: 'multQuery',
         data: {
-          collection: 'coupon',
-          where: {
-            act_id: options.act_id,
-            cou_code: options.cou_code
+          collection: 'activity',
+          match: {
+            _id: options.act_id
           },
-          ordername: 'creation_date',
-          order: 'asc',
-          skip: 0
+          or: [{}],
+          and: [{}],
+          lookup: {
+            from: 'shop',
+            localField: 'shop_code',
+            foreignField: 'shop_code',
+            as: 'shop',
+          },
+          lookup2: {
+            from: 'user',
+            localField: '_openid',
+            foreignField: '_openid',
+            as: 'user',
+          },
+          sort: {
+            creation_date: -1
+          },
+          skip: 0,
+          limit: 1
         }
       }).then(res => {
-        console.log(res)
-        let data = res.result.data[0];
-        share_coupon = data;
-        let nowstamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
-        let surplustime = 0;
-        if (nowstamp >= data.creation_timestamp + (parseInt(data.shopping.time) * 60)) {
-
-        } else {
-          surplustime = parseInt(parseInt(data.shopping.time) - (nowstamp - data.creation_timestamp) / 60)
-        }
-        let sponsor = {}
-        sponsor.nickName = data.team[0].nickName;
-        sponsor.avatarUrl = data.team[0].avatarUrl;
-        sponsor._openid = data.team[0]._openid;
-
-        that.setData({
-          sponsor: sponsor,
-          surplustime: surplustime,
-          surplusperson: data.shopping.people - data.team.length
-        })
+        let data = res.result.list[0];
+        that.arrange(data);
       })
+    } else {
+      let data = wx.getStorageSync('nearby');
+      if (data == undefined || data == '') {
+        wx.showToast({
+          title: '附近暂无拼团活动',
+          icon: 'none',
+          duration: 100000000
+        })
+      }
+      that.arrange(data);
     }
   },
+  //生成拼团券
   increase: function (shape, mol, indx, code, team) {
     var that = this;
     wx.showLoading({
@@ -362,6 +314,136 @@ Page({
       })
     })
   },
+  //整理数据
+  arrange: function (data) {
+    var that = this;
+    let nowstamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
+    if (wx.getStorageSync('userInfo')) {
+      let userInfo = wx.getStorageSync('userInfo')
+      that.setData({
+        userInfo: userInfo
+      })
+      let cou = userInfo.coupon.filter(item => item.act_id.indexOf(data._id) !== -1 && ((item.creation_timestamp + parseInt(item.shopping.time) * 60 > nowstamp && item.status == 'waiting') || item.status == 'success' || item.status == 'complete'))
+      console.log(cou)
+      for (let i in data.shopping) {
+        for (let u in cou) {
+          if (i == cou[u].shopping_ind) {
+            data.shopping[i].status = true
+            that.setData({
+              data: data
+            })
+          }
+        }
+      }
+    }
+    for (let i in data.shopping) {
+      wx.cloud.callFunction({
+        name: 'phoney'
+      }).then(res => {
+        let newArr = res.result.sort(() => Math.random() - 0.5);
+        data.shopping[i].userList = newArr
+        for (let x = 0; x < data.shopping[i].userList.length; x++) {
+          if (data.shopping[i].userList[x].name.length > 2) {
+            let start = data.shopping[i].userList[x].name.substring(0, 1)
+            let end = data.shopping[i].userList[x].name.substring(data.shopping[i].userList[x].name.length - 1)
+            data.shopping[i].userList[x].anonymous = start + '***' + end
+          } else {
+            data.shopping[i].userList[x].anonymous = data.shopping[i].userList[x].name
+          }
+          if (i + 1 == data.shopping.length && x + 1 == data.shopping[i].userList.length) {
+            console.log(data.shopping[i].userList)
+            that.setData({
+              data: data
+            })
+          }
+        }
+        that.setData({
+          data: data
+        })
+      })
+    }
+    that.setData({
+      data: data
+    })
+    if (data.end_timestamp > nowstamp && nowstamp > data.start_timestamp) {
+      that.setData({
+        action: 'going'
+      })
+      let int = setInterval(() => {
+        nowstamp = nowstamp + 1;
+        if (nowstamp >= data.end_timestamp) {
+          that.setData({
+            days: '00',
+            hours: '00',
+            minutes: '00',
+            seconds: '00',
+            action: 'finish'
+          })
+          clearInterval(int);
+        }
+        let surplus = data.end_timestamp - nowstamp;
+        that.setTime(surplus);
+      }, 1000);
+    } else if (data.start_timestamp >= nowstamp) {
+      that.setData({
+        action: 'not'
+      })
+      let int = setInterval(() => {
+        nowstamp = nowstamp + 1;
+        if (nowstamp == data.start_timestamp) {
+          clearInterval(int)
+          let int2 = setInterval(() => {
+            nowstamp = nowstamp + 1;
+            if (that.data.action == 'not') {
+              that.setData({
+                action: 'going'
+              })
+            }
+            if (nowstamp >= that.data.data.end_timestamp) {
+              that.setData({
+                days: '00',
+                hours: '00',
+                minutes: '00',
+                seconds: '00',
+                action: 'finish'
+              })
+              clearInterval(int2);
+            }
+            let surplus = that.data.data.end_timestamp - nowstamp;
+            that.setTime(surplus);
+          }, 1000);
+        }
+        let surplus = data.start_timestamp - nowstamp;
+        that.setTime(surplus);
+      }, 1000);
+    } else {
+      that.setData({
+        days: '00',
+        hours: '00',
+        minutes: '00',
+        seconds: '00',
+        action: 'finish'
+      })
+
+    }
+  },
+  setTime: function (surplus) {
+    var that = this;
+    let days = Math.floor(surplus / (60 * 60 * 24));
+    if (days < 10) days = '0' + days;
+    let hours = Math.floor((surplus / (60 * 60)) % 24);
+    if (hours < 10) hours = '0' + hours;
+    let minutes = Math.floor((surplus / 60) % 60);
+    if (minutes < 10) minutes = '0' + minutes;
+    let seconds = Math.floor((surplus) % 60);
+    if (seconds < 10) seconds = '0' + seconds;
+    that.setData({
+      days: days,
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds
+    })
+  },
   //加入拼团
   async joinGroup(e) {
     var that = this;
@@ -408,6 +490,7 @@ Page({
         }
 
       }
+
     } else {
       this.selectComponent("#authorize").showModal();
       this.retrieval();
@@ -552,8 +635,8 @@ Page({
       console.log(res.from)
       return {
         title: "【仅剩1个名额】我领了100元拼团券，快来助我成团激活~", //分享标题
-        imageUrl: 'https://img13.360buyimg.com/ddimg/jfs/t1/160040/27/61/289416/5fe99874E75804776/891b1b08109afc6d.png', //图片路径
-        path: 'pages/groupSpecial/groupSpecial?act_id=' + that.data.data._id + '&cou_code=' + that.data.cou_code
+        imageUrl: 'https://img13.360buyimg.com/ddimg/jfs/t1/121210/17/18389/166336/5faca14cE7949307a/1da2d6b96122e01d.jpg', //图片路径
+        path: 'pages/groupSpecial/groupSpecial?act_id=' + that.data.data._id + '&cou_code=' + that.data.cou_code + '&end_timestamp=' + that.data.data.end_timestamp
       }
     } else {
       return {
@@ -563,4 +646,5 @@ Page({
       }
     }
   }
+
 })

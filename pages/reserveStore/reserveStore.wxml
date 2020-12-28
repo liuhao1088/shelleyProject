@@ -10,17 +10,17 @@
     <view class="wrap" wx:for="{{list}}" data-index="{{index}}" wx:key="id" bindtap="toStoreAppointment">
       <view class="wrap-item">
         <view class="wrap-img">
-          <image src="{{item.shop[0].shop_img}}"></image>
+          <image src="{{item.shop_img}}"></image>
           <view class="wrap-tag">预约好礼</view>
         </view>
         <view class="wrap-titleItem">
           <view class="wrap-title">
-            <view class="title">{{item.shop[0].shop_name}}</view>
+            <view class="title">{{item.shop_name}}</view>
             <view class="cu-tag" style="height: 100%;float: right;background-color: #5B62D9;color: #fff;border-radius: 10rpx;font-size: 18rpx;">认证门店</view>
           </view>
-          <view class="wrap-address">{{item.shop[0].address_name}}
+          <view class="wrap-address">{{item.address_name}}
           </view>
-          <view class="wrap-address">{{item.shop[0].address}}</view>
+          <view class="wrap-address">{{item.address}}</view>
         </view>
       </view>
     </view>

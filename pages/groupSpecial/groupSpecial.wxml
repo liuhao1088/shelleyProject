@@ -7,8 +7,9 @@
   <view class="title"><text bindtap="toActivityRule">活动规则</text> </view>
   <view class="wrap">
     <view class="wrap-title">拼团特惠</view>
-    <view class="wrap-title" style="font-size: 24rpx;margin-top: 20rpx;">
-      {{days+hours+minutes+seconds=='00000000'?'活动已结束':'活动结束倒计时'}}：
+
+    <view class="wrap-title" style="font-size: 24rpx;margin-top: 20rpx;"><text wx:if="{{action=='finish'}}">活动已结束</text>
+      <text wx:else>{{action=='going'?'活动结束倒计时':'活动开始倒计时'}}</text>：
       <text class='tui-conutdown-box'>{{days}}</text>天
       <text class='tui-conutdown-box'>{{hours}}</text>时
       <text class='tui-conutdown-box'>{{minutes}}</text>分
@@ -47,7 +48,7 @@
             </swiper-item>
           </swiper>
         </view>
-        <view class="coupon-group" wx:if="{{days+hours+minutes+seconds=='00000000'}}">
+        <view class="coupon-group" wx:if="{{action!=='going'&&shopping.status!==true}}">
           <swiper class="top_swiper">
             <swiper-item style="display: flex;">
               <view class="coupon-main">
@@ -56,11 +57,12 @@
                     <view class="swiper-img">
                       <image src="{{userInfo.avatarUrl}}" style="background-color:gray;"></image>
                     </view>
-                    <view class="swiper-name">{{userInfo.nickName||'活动到期'}}</view>
+                    <view class="swiper-name" wx:if="{{userInfo.nickName}}">{{userInfo.nickName}}</view>
+                    <view class="swiper-name" wx:else>{{action=='finish'?'活动到期':'活动未开始'}}</view>
                   </view>
                   <view class="coupon-msg"> <text style="color: red;"></text> </view>
                 </view>
-                <view class="coupon-wrap" style="padding-top: 6rpx;">活动已经结束，下次再来！</view>
+                <view class="coupon-wrap" style="padding-top: 6rpx;">{{action=='finish'?'活动已经结束，下次再来！':'活动还未开始，敬请期待！'}}</view>
               </view>
               <view class="coupon-but">
                 <button class="but" bindtap="toMyCoupon">去查看</button>
@@ -68,8 +70,7 @@
             </swiper-item>
           </swiper>
         </view>
-        <view class="coupon-group" wx:if="{{shopping.status!==true&&days+hours+minutes+seconds!=='00000000'}}"
-          data-index="{{index}}" bindtap="showModal" data-target="goGroup">
+        <view class="coupon-group" wx:if="{{shopping.status!==true&&action=='going'}}" data-index="{{index}}" bindtap="showModal" data-target="goGroup">
           <swiper class="top_swiper" circular vertical interval="2000" autoplay>
             <swiper-item wx:for="{{shopping.userList}}" wx:key="id" style="display: flex;">
               <view class="coupon-main">
@@ -97,10 +98,9 @@
             <view class="group-price">¥ {{shopping.price}}</view>
             <view class="price-item">原价：¥ {{shopping.original_price}}</view>
           </view>
-          <view class="coupon-but" wx:if="{{shopping.status!==true&&days+hours+minutes+seconds!=='00000000'}}">
-            <button class="but"
-              style="background-color: rgba(255, 255, 255, 100);color: rgba(105, 113, 254, 100);border: 2rpx solid rgba(105, 113, 254, 100);padding: 0;"
-              data-index="{{index}}" bindtap="launchGroup" data-target="initiateGroup">发起拼团</button>
+          <view class="coupon-but" wx:if="{{shopping.status!==true&&action=='going'}}">
+            <button class="but" style="background-color: rgba(255, 255, 255, 100);color: rgba(105, 113, 254, 100);border: 2rpx solid rgba(105, 113, 254, 100);padding: 0;"
+             data-index="{{index}}" bindtap="launchGroup" data-target="initiateGroup">发起拼团</button>
           </view>
         </view>
       </view>
@@ -147,10 +147,8 @@
       </view>
     </view>
     <view class="padding-xl">
-      <view class="modal-title">参与<text class="name-item">{{transfer?sponsor.nickName:data.shopping[waresInd].userList[userInd].name}}</text>的拼团</view>
-      <view class="modal-item" style="margin-top: 20rpx;">仅剩<text
-          style="color:red;">{{transfer?surplusperson:1}}</text>个席位，{{transfer?surplustime:data.shopping[waresInd].userList[userInd].surplus}}分钟后结束
-      </view>
+      <view class="modal-title">参与{{transfer?sponsor.nickName:data.shopping[waresInd].userList[userInd].anonymous}}的拼团</view>
+      <view class="modal-item" style="margin-top: 20rpx;">仅剩<text style="color:red;">{{transfer?surplusperson:1}}</text>个席位，{{transfer?surplustime:data.shopping[waresInd].userList[userInd].surplus}}分钟后结束</view>
       <view class="modal-userItem">
         <view class="fight-master">
           <image src="{{transfer?sponsor.avatarUrl:data.shopping[waresInd].userList[userInd].image}}" style=""></image>

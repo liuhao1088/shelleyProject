@@ -94,8 +94,8 @@ Page({
           end_timestamp:Date.parse(that.data.endTime.replace(/-/g, '/')) / 1000,
           act_code:code+numberCode,
           shop_code:userInfo.shop[userInfo.shop.length-1].shop_code,
-          shop_lat:userInfo.shop[userInfo.shop.length-1].lat,
-          shop_lon:userInfo.shop[userInfo.shop.length-1].lon,
+          lat:userInfo.shop[userInfo.shop.length-1].lat,
+          lon:userInfo.shop[userInfo.shop.length-1].lon,
           _openid:userInfo._openid,
           type:'reservation'
         }

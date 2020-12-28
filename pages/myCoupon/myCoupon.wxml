@@ -3,31 +3,49 @@
   <view class="wrap">
     <view class="wrap-title">我的卡券</view>
 
-    <view class="wrap-mainItem">
+    <view class="wrap-mainItem" wx:for="{{list}}" data-index="{{index}}" style="background-color: {{item.usable?'':'rgba(140, 140, 140, 0.5)'}};">
       <view class="main-topItem">
-        <view class="main-store">AAA宝安店</view>
-        <view class="main-tag">待激活</view>
+        <view class="main-store" style="background-color: {{item.usable?'':'rgba(0, 0, 0, 0.1)'}}">{{item.shop[0].shop_name}}</view>
+        <view wx:if="{{item.usable}}" class="main-tag">{{item.status=='waiting'?'待激活':'拼团成功'}}</view>
       </view>
 
       <view class="main-counterItem">
-        <view class="main-price">￥100</view>
+        <view class="main-price">￥{{item.shopping.original_price-item.shopping.price}}</view>
         <view class="main-titleItem">
           <view class="main-title">拼团优惠券</view>
-          <view class="main-date">全品类商品适用</view>
-          <view class="main-date" style="padding-top: 4rpx;">有效期至 2021.12.01 23:59</view>
+          <view class="main-date">{{item.shopping.name}}适用</view>
+          <view class="main-date" style="padding-top: 4rpx;" wx:if="{{item.status=='waiting'&&stamp<=item.creation_timestamp+(item.shopping.time)*60}}">
+            剩余 <text style="color:red;">{{item.surplus}}</text> 分钟</view>
+          <view class="main-date" style="padding-top: 4rpx;" wx:else>有效期至 {{item.act[0].end_date}}</view>
         </view>
-        <view class="main-butItem">
+        <view class="main-butItem" wx:if="{{item.usable}}">
           <view class="but">
-            <!-- <button bindtap="showModal" data-target="Modal">立即使用</button> -->
-            <button open-type='share'>分享好友</button>
+            <button wx:if="{{item.status=='success'}}" bindtap="showModal" data-target="Modal">立即使用</button> 
+            <button wx:if="{{item.status=='waiting'}}" data-index="{{index}}" open-type='share'>分享好友</button>
           </view>
-          <view class="text-item">还差<text style="color: red;">1</text>人成团</view>
+          <view class="text-item" wx:if="{{item.status=='waiting'}}">还差<text style="color: red;">{{item.shopping.people-item.team.length}}</text>人成团</view>
+          <view class="text-item justify-center" wx:if="{{item.status=='success'}}"></view>
+        </view>
+        <view class="main-butItem" wx:if="{{item.usable!==true&&item.status=='success'}}">
+          <view class="but" style="font-size: 24rpx;text-align: center;color: rgba(0, 0, 0, 0.5);">
+            已过期
+          </view>
+        </view>
+        <view class="main-butItem" wx:if="{{item.usable!==true&&item.status=='waiting'}}">
+          <view class="but" style="font-size: 24rpx;text-align: center;color: rgba(0, 0, 0, 0.5);">
+            拼团失败
+          </view>
+        </view>
+        <view class="main-butItem" wx:if="{{item.usable!==true&&item.status=='complete'}}">
+          <view class="but" style="font-size: 24rpx;text-align: center;color: rgba(0, 0, 0, 0.5);">
+            已使用
+          </view>
         </view>
       </view>
     </view>
 
 
-    <view class="wrap-mainItem" style="background-color: rgba(140, 140, 140, 0.5);">
+    <!--<view class="wrap-mainItem" style="background-color: rgba(140, 140, 140, 0.5);">
       <view class="main-topItem">
         <view class="main-store" style="background-color: rgba(0, 0, 0, 0.1)">AAA宝安店</view>
       </view>
@@ -45,7 +63,7 @@
           </view>
         </view>
       </view>
-    </view>
+    </view>-->
 
 
 
