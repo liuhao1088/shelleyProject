@@ -4,10 +4,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 30rpx;
+  padding-bottom: 356rpx;
 }
 
 .title {
-  /* height: 50rpx; */
   width: 100%;
   text-align: right;
   opacity: 0.5;
@@ -66,6 +66,7 @@
 .img-item {
   height: 100%;
   width: 180rpx;
+  border-radius: 6rpx;
   background-color: black;
 }
 
@@ -399,4 +400,18 @@
   background-color: rgba(91, 98, 217, 100);
   color: rgba(255, 255, 255, 100);
   font-size: 28rpx;
+}
+
+/* 底部 */
+.footer{
+  width: 100%;
+  height: 356rpx;
+  position: fixed;
+  bottom: 0;
+}
+
+.footer image{
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
 }

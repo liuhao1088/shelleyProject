@@ -162,6 +162,16 @@ image {
 }
 
 /* 弹窗 */
+@font-face {
+  font-family: 'Inclusive body';
+  src: url('https://636e-cnlight-1gn7d20g2cef1b76-1304521683.tcb.qcloud.la/font/ALIBABA-PUHUITI-MEDIUM.TTF?sign=92081a392bae8b994dde81751e525b81&t=1609123627');
+}
+
+@font-face {
+  font-family: 'Ligth';
+  src: url('https://636e-cnlight-1gn7d20g2cef1b76-1304521683.tcb.qcloud.la/font/ALIBABA-PUHUITI-MEDIUM.TTF?sign=92081a392bae8b994dde81751e525b81&t=1609123627');
+}
+
 .cu-dialog {
   width: 100%;
   height: 800rpx;
@@ -172,44 +182,6 @@ image {
   position: absolute;
   top: 170rpx;
 }
-
-
-/* .modal-wrap {
-  width: 100%;
-  border: 0rpx solid red;
-  padding-top: 20rpx;
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-} */
-/* 
-
-
-
-
-.modal-but {
-  width: 100%;
-  height: 40rpx;
-  border: 0rpx solid red;
-  margin-top: 30rpx;
-}
-
-.but-item {
-  height: 100%;
-  width: 120rpx;
-  float: right;
-}
-
-.but-item button {
-  height: 100%;
-  width: 100%;
-  line-height: 40rpx;
-  border-radius: 8rpx;
-  background-color: rgba(32, 41, 55, 100);
-  color: rgba(255, 255, 255, 100);
-  font-size: 20rpx;
-  padding: 0;
-} */
 
 .modal-wrap {
   position: absolute;
@@ -261,6 +233,7 @@ image {
   line-height: 78rpx;
   font-size: 46rpx;
   text-align: center;
+  font-family: 'Inclusive body';
 }
 
 .main-tag {
@@ -269,7 +242,9 @@ image {
   line-height: 30rpx;
   text-align: center;
   opacity: 0.25;
-  font-size: 20rpx;
+  font-size: 16rpx;
+  font-family: 'Ligth';
+  text-transform:uppercase;
 }
 
 .main-selectItem {

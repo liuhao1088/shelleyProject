@@ -1,10 +1,12 @@
 <view class="myStoreContainer">
-  <view class="banner"></view>
+  <view class="banner">
+    
+  </view>
   <view class="wrapper">
     <view class="wrapper-menu">
       <view class="topbar-item" bindtap="toStoreInformation">
         <view class="topbar-icon">
-          <text class="iconfont iconstore icon"></text>
+          <text class="iconfont iconstore2 icon"></text>
         </view>
         <view class="topbar-guild">
           <view class="topbar-title">门店管理</view>

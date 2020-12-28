@@ -209,3 +209,7 @@
     </view>
   </view>
 </view>
+
+<view class="footer" bindtap="toReserveStore">
+  <image src="https://img12.360buyimg.com/ddimg/jfs/t1/151069/6/12980/179796/5fe94d52E0361eb76/aa9038f20fb62046.png"></image>
+</view>

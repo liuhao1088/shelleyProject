@@ -109,11 +109,15 @@ Page({
     if (res.from === 'button') {
       return {
         title: "【仅剩1个名额】我领了100元拼团券，快来助我成团激活~", //分享标题
-        imageUrl: 'https://img13.360buyimg.com/ddimg/jfs/t1/121210/17/18389/166336/5faca14cE7949307a/1da2d6b96122e01d.jpg', //图片路径
+        imageUrl: '', //图片路径
         path: '/page/groupSpecial/groupSpecial'
       }
     } else {
-      
+      return {
+        title: "雪莱特智能LED车灯", //标题
+        imageUrl: 'https://img10.360buyimg.com/ddimg/jfs/t1/148055/20/20623/109199/5fe94a22E2aeac6fb/f5ba90fc9d52fc06.png', //图片路径
+        path: '/page/groupSpecial/groupSpecial'
+      }
     }
 
 
