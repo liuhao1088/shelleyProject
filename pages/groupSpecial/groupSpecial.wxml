@@ -191,8 +191,8 @@
           <button class="turn-but" bindtap="toMyCoupon">去使用</button>
         </view>
         <view class="but-item">
-          <button class="share-but" style="font-size: 24rpx;" bindtap="toReserveStore">查看可用门店</button>
-          <!-- <button class="share-but" bindtap="showModal" data-target="question">再减100元</button> -->
+          <!-- <button class="share-but" style="font-size: 24rpx;" bindtap="toReserveStore">查看可用门店</button> -->
+          <button class="share-but" bindtap="showModal" data-target="question">再减100元</button>
         </view>
       </view>
     </view>
@@ -210,11 +210,12 @@
     </view>
     <view class="padding-xl">
       <view class="modal-img">
-        <image src=""></image>
+        <view class="title-item">选择回答立领100元现金抵扣红包</view>
+        <view class="tag-item">您是否有安装以下汽车配件？</view>
       </view>
       <view class="modal-wrap">
         <view class="modal-selectBut" wx:for="{{checkbox}}" wx:key="id">
-          <button class="{{item.checked?'line':''}}" bindtap="ChooseCheckbox" id="{{item.id}}">{{item.name}}</button>
+          <button style="{{item.checked?'background-color: rgba(104, 112, 253, 50);':''}}" bindtap="ChooseCheckbox" id="{{item.id}}">{{item.name}}</button>
         </view>
       </view>
       <view class="modal-questionBut">
