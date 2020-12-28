@@ -1,10 +1,9 @@
 {
   "pages":[
     "pages/activityPoster/activityPoster",
-    "pages/groupSpecial/groupSpecial",
     "pages/myStore/myStore",
+    "pages/groupSpecial/groupSpecial",
     "pages/index/index",
-   
     "pages/storeAppointment/storeAppointment",
     "pages/activitySelect/activitySelect",
     "pages/storeInformation/storeInformation",
@@ -40,7 +39,8 @@
     "navigationBarTextStyle": "white"
   },
   "usingComponents": {
-    "authorize": "components/authorize/authorize"
+    "authorize": "components/authorize/authorize",
+    "cu-custom": "components/custom/cu-custom"
   },
   "permission": {
     "scope.userLocation": {

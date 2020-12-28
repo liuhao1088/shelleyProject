@@ -1,6 +1,7 @@
 <view class="myStoreContainer">
   <view class="banner">
-    
+    <image src="https://img14.360buyimg.com/ddimg/jfs/t1/159605/30/60/257438/5fe999bdEb59734f6/6f9a1672a66b9aaf.png">
+    </image>
   </view>
   <view class="wrapper">
     <view class="wrapper-menu">

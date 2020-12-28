@@ -24,14 +24,22 @@ Page({
       name: '隐形车衣',
       checked: false,
     }],
-    nowDate:'2020-12-22 18:00:00',//结束时间
-    countdown:'', //倒计时
-    days:'00',//天
-    hours:'00',//时
-    minutes:'00',//分
-    seconds:'01',//秒
-    data:'',avatarUrl:'',waresInd:'',userInfo:'',userInd:'',cou_code:'',
-    transfer:false,sponsor:'',surplustime:'',surplusperson:''
+    nowDate: '2020-12-22 18:00:00', //结束时间
+    countdown: '', //倒计时
+    days: '00', //天
+    hours: '00', //时
+    minutes: '00', //分
+    seconds: '01', //秒
+    data: '',
+    avatarUrl: '',
+    waresInd: '',
+    userInfo: '',
+    userInd: '',
+    cou_code: '',
+    transfer: false,
+    sponsor: '',
+    surplustime: '',
+    surplusperson: ''
   },
   toActivityRule(event) {
     wx.navigateTo({
@@ -57,8 +65,10 @@ Page({
   showModal(e) {
     let that = this;
     let target = e.currentTarget.dataset.target;
-    let ind=e.currentTarget.dataset.index;
-    that.setData({waresInd:ind})
+    let ind = e.currentTarget.dataset.index;
+    that.setData({
+      waresInd: ind
+    })
     console.log(that.data.waresInd)
     if (target === 'goGroupSuccess') {
       wx.showLoading({
@@ -173,34 +183,49 @@ Page({
         limit: 10
       }
     }).then(res => {
-      let data=res.result.list[0];
-      if(wx.getStorageSync('userInfo')){
-        let userInfo=wx.getStorageSync('userInfo')
-        that.setData({userInfo:userInfo})
-        let cou = userInfo.coupon.filter(item => item.act_id.indexOf(data._id)!==-1)
-        for(let i in data.shopping){
-          for(let u in cou){
-            if(i==cou[u].shopping_ind){
-              data.shopping[i].status=true 
-              that.setData({data:data})
-            } 
+      let data = res.result.list[0];
+      if (wx.getStorageSync('userInfo')) {
+        let userInfo = wx.getStorageSync('userInfo')
+        that.setData({
+          userInfo: userInfo
+        })
+        let cou = userInfo.coupon.filter(item => item.act_id.indexOf(data._id) !== -1)
+        for (let i in data.shopping) {
+          for (let u in cou) {
+            if (i == cou[u].shopping_ind) {
+              data.shopping[i].status = true
+              that.setData({
+                data: data
+              })
+            }
           }
         }
       }
-      for(let i in data.shopping){
-        wx.cloud.callFunction({name:'phoney'}).then(res=>{
+      for (let i in data.shopping) {
+        wx.cloud.callFunction({
+          name: 'phoney'
+        }).then(res => {
           let newArr = res.result.sort(() => Math.random() - 0.5);
-          data.shopping[i].userList=newArr
-          that.setData({data:data})
+          data.shopping[i].userList = newArr
+          that.setData({
+            data: data
+          })
         })
       }
-      let nowstamp=Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
-      that.setData({data:data})
-      if(data.end_timestamp>nowstamp){
-        let int=setInterval(() => {
-          nowstamp=nowstamp+1;
-          if(nowstamp>=data.end_timestamp){
-            that.setData({days:'00',hours:'00',minutes:'00',seconds:'00'})
+      let nowstamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
+      that.setData({
+        data: data
+      })
+      if (data.end_timestamp > nowstamp) {
+        let int = setInterval(() => {
+          nowstamp = nowstamp + 1;
+          if (nowstamp >= data.end_timestamp) {
+            that.setData({
+              days: '00',
+              hours: '00',
+              minutes: '00',
+              seconds: '00'
+            })
             clearInterval(int);
           }
           let surplus = data.end_timestamp - nowstamp;
@@ -228,78 +253,100 @@ Page({
         })
       }
     })
-    if(options.act_id){
-      that.setData({modalName:'goGroup',transfer:true})
+    if (options.act_id) {
+      that.setData({
+        modalName: 'goGroup',
+        transfer: true
+      })
       console.log(options)
-      wx.cloud.database().collection('coupon').where({act_id:options.act_id,cou_code:options.cou_code}).get()
+      wx.cloud.database().collection('coupon').where({
+        act_id: options.act_id,
+        cou_code: options.cou_code
+      }).get()
       wx.cloud.callFunction({
-        name:"getRecord",
-        data:{
-          collection:'coupon',
-          where:{act_id:options.act_id,cou_code:options.cou_code},
-          ordername:'creation_date',
-          order:'asc',
-          skip:0
+        name: "getRecord",
+        data: {
+          collection: 'coupon',
+          where: {
+            act_id: options.act_id,
+            cou_code: options.cou_code
+          },
+          ordername: 'creation_date',
+          order: 'asc',
+          skip: 0
         }
-      }).then(res=>{
+      }).then(res => {
         console.log(res)
-        let data=res.result.data[0];
-        share_coupon=data;
-        let nowstamp=Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
-        let surplustime=0;
-        if(nowstamp>=data.creation_timestamp+(parseInt(data.shopping.time)*60)){
-          
-        }else{
-          surplustime=parseInt(parseInt(data.shopping.time)-(nowstamp-data.creation_timestamp)/60)
+        let data = res.result.data[0];
+        share_coupon = data;
+        let nowstamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
+        let surplustime = 0;
+        if (nowstamp >= data.creation_timestamp + (parseInt(data.shopping.time) * 60)) {
+
+        } else {
+          surplustime = parseInt(parseInt(data.shopping.time) - (nowstamp - data.creation_timestamp) / 60)
         }
-        let sponsor={}
-        sponsor.nickName=data.team[0].nickName;
-        sponsor.avatarUrl=data.team[0].avatarUrl;
-        sponsor._openid=data.team[0]._openid;
-        that.setData({sponsor:sponsor,surplustime:surplustime,surplusperson:data.shopping.people-data.team.length})
+        let sponsor = {}
+        sponsor.nickName = data.team[0].nickName;
+        sponsor.avatarUrl = data.team[0].avatarUrl;
+        sponsor._openid = data.team[0]._openid;
+        that.setData({
+          sponsor: sponsor,
+          surplustime: surplustime,
+          surplusperson: data.shopping.people - data.team.length
+        })
       })
     }
   },
-  increase:function(shape,mol,indx,code,team){
-    var that=this;
-    wx.showLoading({title:'拼团中'})
-    let userInfo=wx.getStorageSync('userInfo')
-    this.setData({avatarUrl:userInfo.avatarUrl})
-    let obj={};
-    obj._openid=userInfo._openid;
-    obj.nickName=userInfo.nickName;
-    obj.avatarUrl=userInfo.avatarUrl;
+  increase: function (shape, mol, indx, code, team) {
+    var that = this;
+    wx.showLoading({
+      title: '拼团中'
+    })
+    let userInfo = wx.getStorageSync('userInfo')
+    this.setData({
+      avatarUrl: userInfo.avatarUrl
+    })
+    let obj = {};
+    obj._openid = userInfo._openid;
+    obj.nickName = userInfo.nickName;
+    obj.avatarUrl = userInfo.avatarUrl;
     team.push(obj)
-    if(code==''){
+    if (code == '') {
       for (let e = 0; e < 10; e++) {
         code += Math.floor(Math.random() * 10)
       }
     }
     wx.cloud.callFunction({
-      name:'recordAdd',
-      data:{
-        collection:'coupon',
-        addData:{
-          creation_date:util.formatTimes(new Date()),
-          creation_timestamp:Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
-          cou_code:code,
-          _openid:userInfo._openid,
-          user:userInfo.nickName,
-          shop_code:that.data.data.shop_code,
-          shop_id:that.data.data.shop[0]._id,
-          act_code:that.data.data.act_code,
-          act_id:that.data.data._id,
-          shopping:that.data.data.shopping[indx],
-          shopping_ind:indx,
-          team:team,
-          status:shape
+      name: 'recordAdd',
+      data: {
+        collection: 'coupon',
+        addData: {
+          creation_date: util.formatTimes(new Date()),
+          creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
+          cou_code: code,
+          _openid: userInfo._openid,
+          user: userInfo.nickName,
+          shop_code: that.data.data.shop_code,
+          shop_id: that.data.data.shop[0]._id,
+          act_code: that.data.data.act_code,
+          act_id: that.data.data._id,
+          shopping: that.data.data.shopping[indx],
+          shopping_ind: indx,
+          team: team,
+          status: shape
         }
       }
-    }).then(res=>{
+    }).then(res => {
       console.log(res)
-      let data=that.data.data;
-      data.shopping[indx].status=true
-      that.setData({modalName:mol,avatarUrl:'',data:data,cou_code:code})
+      let data = that.data.data;
+      data.shopping[indx].status = true
+      that.setData({
+        modalName: mol,
+        avatarUrl: '',
+        data: data,
+        cou_code: code
+      })
       wx.hideLoading()
     }).catch(error => {
       wx.hideLoading({
@@ -309,77 +356,81 @@ Page({
         showCancel: false,
         title: '系统繁忙，请稍后重试'
       })
-    })      
+    })
   },
   //加入拼团
-  async joinGroup(e){
-    var that=this;
-    if(wx.getStorageSync('userInfo')){
-      let userInfo=wx.getStorageSync('userInfo')
-      if(that.data.transfer==false){
-        that.increase('success','goGroupSuccess',that.data.waresInd,'',[]);
-      }else{
-        if(share_coupon.team.indexOf(userInfo._openid)!==-1){
-          let team=share_coupon.team;
+  async joinGroup(e) {
+    var that = this;
+    if (wx.getStorageSync('userInfo')) {
+      let userInfo = wx.getStorageSync('userInfo')
+      if (that.data.transfer == false) {
+        that.increase('success', 'goGroupSuccess', that.data.waresInd, '', []);
+      } else {
+        if (share_coupon.team.indexOf(userInfo._openid) !== -1) {
+          let team = share_coupon.team;
           let status;
-          if(that.data.surplusperson<=1){
-            status='success'
-          }else{
-            status='waiting'
+          if (that.data.surplusperson <= 1) {
+            status = 'success'
+          } else {
+            status = 'waiting'
           }
-          await that.increase(status,'goGroupSuccess',share_coupon.shopping_ind,share_coupon.cou_code,team);
-          if(status=='success'){
-            for(let i in team){
-              that.sendMessage(team[i]._openid,share_coupon.shopping.name,'拼团成功',that.data.data.shop[0].shop_name);
+          await that.increase(status, 'goGroupSuccess', share_coupon.shopping_ind, share_coupon.cou_code, team);
+          if (status == 'success') {
+            for (let i in team) {
+              that.sendMessage(team[i]._openid, share_coupon.shopping.name, '拼团成功', that.data.data.shop[0].shop_name);
             }
-          } 
+          }
           wx.cloud.callFunction({
-            name:'recordUpdate',
-            data:{
-              collection:'coupon',
-              where:{
-                cou_code:share_coupon.cou_code,
-                act_id:share_coupon.act_id
+            name: 'recordUpdate',
+            data: {
+              collection: 'coupon',
+              where: {
+                cou_code: share_coupon.cou_code,
+                act_id: share_coupon.act_id
               },
-              updateData:{
-                team:team,
-                status:status
+              updateData: {
+                team: team,
+                status: status
               }
             }
-          }).then(res=>{console.log(res)})
-        }else{
+          }).then(res => {
+            console.log(res)
+          })
+        } else {
           wx.showToast({
             title: '您已经领取过该优惠券',
-            icon:'none',
+            icon: 'none',
           })
         }
-        
+
       }
-    }else{
+    } else {
       this.selectComponent("#authorize").showModal();
       this.retrieval();
     }
   },
   //发起拼团
-  launchGroup:function(e){
-    var that=this;
-    let ind=e.currentTarget.dataset.index;
+  launchGroup: function (e) {
+    var that = this;
+    let ind = e.currentTarget.dataset.index;
     var that = this;
     // 获取用户信息
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
-          if(wx.getStorageSync('userInfo')){
+          if (wx.getStorageSync('userInfo')) {
             wx.requestSubscribeMessage({
               tmplIds: ['Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
-              success (res) {
-                if(JSON.stringify(res).indexOf('accept')!==-1){
-                  that.setData({waresInd:ind})
-                  that.increase('waiting','initiateGroup',ind,'',[]);
+              success(res) {
+                if (JSON.stringify(res).indexOf('accept') !== -1) {
+                  that.setData({
+                    waresInd: ind
+                  })
+                  that.increase('waiting', 'initiateGroup', ind, '', []);
                 }
               }
             })
-          }else{
+          } else {
             that.selectComponent("#authorize").showModal();
             that.retrieval();
           }
@@ -389,19 +440,21 @@ Page({
         }
       }
     })
-    
+
   },
-  getIndex:function(e){
-    let ind=e.currentTarget.dataset.index;
-    this.setData({userInd:ind})
+  getIndex: function (e) {
+    let ind = e.currentTarget.dataset.index;
+    this.setData({
+      userInd: ind
+    })
   },
-  sendMessage:function(openid,wares,result,shop){
+  sendMessage: function (openid, wares, result, shop) {
     wx.cloud.callFunction({
-      name:'sendMessage',
-      data:{
-        openid:openid,
-        page:'pages/groupSpecial/groupSpecial',
-        data:{
+      name: 'sendMessage',
+      data: {
+        openid: openid,
+        page: 'pages/groupSpecial/groupSpecial',
+        data: {
           "thing2": {
             "value": wares
           },
@@ -412,32 +465,36 @@ Page({
             "value": shop
           },
         },
-        templateId:'Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'
+        templateId: 'Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'
       }
-    }).then(res=>{})
+    }).then(res => {})
   },
   //检索是否登陆
-  retrieval:function(){
-    var that=this;
-    let timing=setInterval(() => {
-      if(wx.getStorageSync('userInfo')){
-        let userInfo=wx.getStorageSync('userInfo')
-        that.setData({userInfo:userInfo})
-        let cou = userInfo.coupon.filter(item => item.act_id.indexOf(that.data.data._id)!==-1)
-        let data=that.data.data;
-        for(let i in data.shopping){
-          for(let u in cou){
-            if(i==cou[u].shopping_ind){
-              data.shopping[i].status=true 
-              that.setData({data:data})
-            } 
+  retrieval: function () {
+    var that = this;
+    let timing = setInterval(() => {
+      if (wx.getStorageSync('userInfo')) {
+        let userInfo = wx.getStorageSync('userInfo')
+        that.setData({
+          userInfo: userInfo
+        })
+        let cou = userInfo.coupon.filter(item => item.act_id.indexOf(that.data.data._id) !== -1)
+        let data = that.data.data;
+        for (let i in data.shopping) {
+          for (let u in cou) {
+            if (i == cou[u].shopping_ind) {
+              data.shopping[i].status = true
+              that.setData({
+                data: data
+              })
+            }
           }
         }
         setTimeout(() => {
           clearInterval(timing);
-        },900);
+        }, 900);
       }
-    }, 1000); 
+    }, 1000);
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -464,7 +521,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function (e) {
-    
+
   },
 
   /**
@@ -485,17 +542,21 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
-    var that=this;
-    let userInfo=wx.getStorageSync('userInfo')
+    var that = this;
+    let userInfo = wx.getStorageSync('userInfo')
     if (res.from === 'button') {
       console.log(res.from)
       return {
         title: "【仅剩1个名额】我领了100元拼团券，快来助我成团激活~", //分享标题
-        imageUrl: 'https://img13.360buyimg.com/ddimg/jfs/t1/121210/17/18389/166336/5faca14cE7949307a/1da2d6b96122e01d.jpg', //图片路径
-        path: 'pages/groupSpecial/groupSpecial?act_id='+that.data.data._id +'&cou_code='+that.data.cou_code
+        imageUrl: 'https://img13.360buyimg.com/ddimg/jfs/t1/160040/27/61/289416/5fe99874E75804776/891b1b08109afc6d.png', //图片路径
+        path: 'pages/groupSpecial/groupSpecial?act_id=' + that.data.data._id + '&cou_code=' + that.data.cou_code
       }
     } else {
-      console.log("1111")
+      return {
+        title: "雪莱特智能LED车灯", //标题
+        imageUrl: 'https://img10.360buyimg.com/ddimg/jfs/t1/148055/20/20623/109199/5fe94a22E2aeac6fb/f5ba90fc9d52fc06.png', //图片路径
+        path: '/page/groupSpecial/groupSpecial'
+      }
     }
   }
 })

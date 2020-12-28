@@ -12,6 +12,19 @@ App({
         env: 'cnlight-1gn7d20g2cef1b76',
         traceUser: true,
       })
+
+      wx.getSystemInfo({
+        success: e => {
+          this.globalData.StatusBar = e.statusBarHeight;
+          let capsule = wx.getMenuButtonBoundingClientRect();
+      if (capsule) {
+         this.globalData.Custom = capsule;
+        this.globalData.CustomBar = capsule.bottom + capsule.top - e.statusBarHeight;
+      } else {
+        this.globalData.CustomBar = e.statusBarHeight + 50;
+      }
+        }
+      })
     }
     wx.removeStorageSync('refreshData')
 
@@ -42,8 +55,15 @@ App({
       }
     })
   },
+ 
   globalData: {
     userInfo: null,
-    openid:''
+    openid:'',
+  //   ColorList: [{
+  //     title: '黑',
+  //     name: 'black',
+  //     color: '#03080e'
+  //   }
+  // ]
   }
 })

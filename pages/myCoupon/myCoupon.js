@@ -13,7 +13,7 @@ Page({
     })
   },
 
-  toCouponRules(){
+  toCouponRules() {
     wx.navigateTo({
       url: '/pages/couponRules/couponRules',
     })
@@ -29,12 +29,14 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    let userInfo=wx.getStorageSync('userInfo')
+    let userInfo = wx.getStorageSync('userInfo')
     wx.cloud.callFunction({
       name: 'multQuery',
       data: {
         collection: 'coupon',
-        match: {_openid:userInfo._openid},
+        match: {
+          _openid: userInfo._openid
+        },
         or: [{}],
         and: [{}],
         lookup: {
@@ -56,7 +58,7 @@ Page({
         limit: 10
       }
     }).then(res => {
-      let data=res.result.list[0];
+      let data = res.result.list[0];
     })
   },
 
@@ -71,7 +73,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
   /**

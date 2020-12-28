@@ -1,3 +1,7 @@
+.bgColor{
+  background-color: #03080e;
+}
+
 .groupSpecialContainer {
   display: flex;
   flex-direction: column;
