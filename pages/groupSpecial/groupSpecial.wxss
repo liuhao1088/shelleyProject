@@ -191,13 +191,12 @@
   height: 100%;
   width: 100rpx;
   line-height: 28rpx;
-  display: flex;
   justify-content: left;
+  display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   padding-left: 10rpx;
-
 }
 
 /* 发起拼团弹窗 */
@@ -339,7 +338,6 @@
   color: rgba(16, 16, 16, 100);
   font-size: 26rpx;
   padding: 20rpx 60rpx;
-  /* padding: 20rpx 100rpx; */
 }
 
 /* 问答 */

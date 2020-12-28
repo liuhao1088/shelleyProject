@@ -154,7 +154,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
     var that = this;
+
     wx.cloud.callFunction({
       name: 'multQuery',
       data: {
@@ -210,6 +212,7 @@ Page({
           that.setData({
             data: data
           })
+          console.log(data);
         })
       }
       let nowstamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
@@ -290,6 +293,7 @@ Page({
         sponsor.nickName = data.team[0].nickName;
         sponsor.avatarUrl = data.team[0].avatarUrl;
         sponsor._openid = data.team[0]._openid;
+
         that.setData({
           sponsor: sponsor,
           surplustime: surplustime,

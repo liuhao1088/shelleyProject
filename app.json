@@ -1,9 +1,8 @@
 {
   "pages":[
-    "pages/groupSpecial/groupSpecial",
     "pages/activityPoster/activityPoster",
+    "pages/groupSpecial/groupSpecial",
     "pages/myStore/myStore",
-    
     "pages/index/index",
     "pages/storeAppointment/storeAppointment",
     "pages/activitySelect/activitySelect",
