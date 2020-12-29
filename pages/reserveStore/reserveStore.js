@@ -77,61 +77,41 @@ Page({
     var stamp=Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
     console.log(stamp)
     var _=wx.cloud.database().command;
-    /***/wx.cloud.callFunction({
-                name:'recordQuery',
-                data:{
-                  collection:'shop',
-                  where:{prove:'success'},
-                  from:'activity',
-                  let: {
-                    shop_code: '$shop_code',
-                  },
-                  match:['$shop_code', '$$shop_code'],
-                  match2:['$type','reservation'],
-                  project:{shop_code:0},
-                  as:'act',
-                  sort:{creation_timestamp:-1},
-                  skip:0,
-                  limit:100
-                }
-              }).then(res=>{
-                console.log(res) })
     wx.cloud.callFunction({
-      name: 'multQuery',
-      data: {
-        collection: 'shop',
-        match: {prove:'success'},
-        or: [{}],
-        and: [{}],
-        lookup: {
-          from: 'activity',
-          localField: 'shop_code',
-          foreignField: 'shop_code',
-          as: 'act',
+      name:'recordQuery',
+      data:{
+        collection:'shop',
+        where:{prove:'success'},
+        from:'activity',
+        let: {
+          shop_code: '$shop_code',
         },
-        lookup2: {
-          from: 'reservation',
-          localField: 'shop_code',
-          foreignField: 'shop_code',
-          as: 'reservation',
-        },
-        sort: {
-          creation_date: -1
-        },
-        skip: 0,
-        limit: 100
+        match:['$shop_code', '$$shop_code'],
+        match2:['$type','reservation'],
+        project:{shop_code:0},
+        as:'act',
+        sort:{creation_timestamp:-1},
+        skip:0,
+        limit:100
       }
-    }).then(res => {
-      console.log(res)
+    }).then(res=>{
+      console.log(res) 
       let data=that.data.list.concat(res.result.list);
       if(res.result.list.length==0) wx.showToast({title:'暂无更多数据',icon:'none'})
       if(data.length==0) wx.showToast({title:'附近暂无门店',icon:'none',duration:10000000})
       for(let i in data){
         data[i].distance=that.getDistance(lat,lon,data[i].lat,data[i].lon)
+        if(data[i].act.length>0){
+          if(stamp<data[i].act[0].end_timestamp){
+            data[i].gift=true;
+          }
+        }
         if(i==data.length-1){
           data.sort(that.compare("distance"));
+          console.log(data)
           shop_data=data;
           let list=data.slice(0,9)
+          console.log(list)
           that.setData({list:list})
         }
       }

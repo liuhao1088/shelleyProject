@@ -50,6 +50,21 @@ Page({
         })
       }
     })
+    // 获取用户信息
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          if(wx.getStorageSync('userInfo')){
+
+          }else{
+            this.selectComponent("#authorize").showModal();
+          }
+        } else {
+          //打开授权登录页
+          this.selectComponent("#authorize").showModal();
+        }
+      }
+    })
   },
 
   /**

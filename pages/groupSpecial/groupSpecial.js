@@ -324,7 +324,6 @@ Page({
         userInfo: userInfo
       })
       let cou = userInfo.coupon.filter(item => item.act_id.indexOf(data._id) !== -1 && ((item.creation_timestamp + parseInt(item.shopping.time) * 60 > nowstamp && item.status == 'waiting') || item.status == 'success' || item.status == 'complete'))
-      console.log(cou)
       for (let i in data.shopping) {
         for (let u in cou) {
           if (i == cou[u].shopping_ind) {
@@ -540,7 +539,7 @@ Page({
       name: 'sendMessage',
       data: {
         openid: openid,
-        page: 'pages/groupSpecial/groupSpecial',
+        page: 'pages/myCoupon/myCoupon',
         data: {
           "thing2": {
             "value": wares

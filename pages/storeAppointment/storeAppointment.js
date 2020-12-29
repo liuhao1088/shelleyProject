@@ -65,11 +65,15 @@ Page({
     if (options.data) {
       let data = JSON.parse(options.data)
       console.log(data)
-      if (data.reservation.length !== 0) {
-        this.setData({
-          reservation: 'already'
-        })
-      }
+      let userInfo=wx.getStorageSync('userInfo')
+      wx.cloud.database().collection('reservation').where({shop_code:data.shop_code,_openid:userInfo._openid}).orderBy('creation_date','desc').get().then(res=>{
+        let list=res.data
+        if(list.length>=1){
+          this.setData({
+            reservation: 'already'
+          })
+        }
+      })
       this.setData({
         data: data
       })
@@ -92,6 +96,11 @@ Page({
     wx.cloud.callFunction({
       name: 'login'
     }).then(res => console.log(res))
+  },
+  callphone:function(){
+    wx.makePhoneCall({
+      phoneNumber: this.data.data.phone,
+    })
   },
   openLocation: function () {
     var that = this;
@@ -200,10 +209,10 @@ Page({
         addData: {
           _openid: userInfo._openid,
           creation_date: util.formatTime(new Date()),
-          phone: phone,
-          shop_code: that.data.data.shop[0].shop_code,
-          act_id: that.data.data._id,
-          act_code: that.data.data.act_code,
+          //phone: phone,
+          shop_code: that.data.data.shop_code,
+          act_id: that.data.data.act[0]._id,
+          act_code: that.data.data.act[0].act_code,
           shopping: that.data.nameList,
           time: that.data.startTime,
           timestamp: Date.parse(that.data.startTime.replace(/-/g, '/')) / 1000,

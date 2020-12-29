@@ -23,12 +23,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if(options.data){
-      let data=JSON.parse(options.data)
-      let shop=data.shop[data.shop.length-1]
-      console.log(shop)
-      this.setData({shop:shop})
-    }
+    let userInfo=wx.getStorageSync('userInfo')
+    let shop=userInfo.shop[userInfo.shop.length-1]
+    console.log(shop)
+    this.setData({shop:shop})
   },
 
   /**
