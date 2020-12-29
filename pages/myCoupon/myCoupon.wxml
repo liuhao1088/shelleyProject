@@ -5,7 +5,7 @@
 
     <view class="wrap-mainItem" wx:for="{{list}}" wx:key="id" data-index="{{index}}" style="background-color: {{item.usable?'':'rgba(140, 140, 140, 0.5)'}};">
       <view class="main-topItem">
-        <view class="main-store" style="background-color: {{item.usable?'':'rgba(0, 0, 0, 0.1)'}}">{{item.shop[0].shop_name}}</view>
+        <view class="main-store" style="background-color: {{item.usable?'':'rgba(0, 0, 0, 0.1)'}}">{{item.shop[0].shop_name||'全店通用'}}</view>
         <view wx:if="{{item.usable}}" class="main-tag">{{item.status=='waiting'?'待激活':'拼团成功'}}</view>
       </view>
 
@@ -16,7 +16,7 @@
           <view class="main-date">{{item.shopping.name}}适用</view>
           <view class="main-date" style="padding-top: 4rpx;" wx:if="{{item.status=='waiting'&&stamp<=item.creation_timestamp+(item.shopping.time)*60}}">
             剩余 <text style="color:red;">{{item.surplus}}</text> 分钟</view>
-          <view class="main-date" style="padding-top: 4rpx;" wx:else>有效期至 {{item.act[0].end_date}}</view>
+          <view class="main-date" style="padding-top: 4rpx;" wx:else>有效期至 {{item.act[0].end_date||item.end_date}}</view>
         </view>
         <view class="main-butItem" wx:if="{{item.usable}}">
           <view class="but">
@@ -58,9 +58,9 @@
     <view class="input-item">
       <input type="number" bindinput="inputCode" value="{{code}}" />
     </view>
-    <view class="checkbox-item">
+    <view class="checkbox-item" wx:if="{{cou_checked==true}}">
       <view class="checkbox">
-        <checkbox class="round blue" style="transform: scale(0.4,0.4);"></checkbox>
+        <checkbox class="round blue" checked="{{cou_checked}}" bindtap="check_change" style="transform: scale(0.4,0.4);"></checkbox>
       </view>
       <view class="checkbox-msg">合并使用100元现金抵用红包</view>
       

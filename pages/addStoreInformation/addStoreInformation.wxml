@@ -14,8 +14,8 @@
     <view class="box-wrapper">
       <view class="tag-wrapper">门店地址：</view>
       <view class="input-wrapper">
-        <input type="text" style="width:80%;z-index:100;" value="{{address}}" bindfocus="chooseLocation"
-          placeholder="请输入门店地址" placeholder-class="placeholder" />
+        <input type="text" style="width:80%;z-index:100;" value="{{address_label}}" bindfocus="chooseLocation" placeholder="请输入门店地址"
+          placeholder-class="placeholder" />
       </view>
     </view>
     <!-- 联系人姓名： -->
@@ -155,10 +155,9 @@
       </view>
     </view>
     <view class="padding-xl">
-      <button class='btn1 justify-center' wx:if="{{whetherEmpower=='yes'}}" open-type="getPhoneNumber"
-        bindgetphonenumber="getPhoneNumber" lang="zh_CN" style="width:80%;">
-        <image class='btnImg' src='../../images/weixin.png'></image>
-        <view>微信授权手机号</view>
+      <button class='btn1 justify-center' wx:if="{{whetherEmpower=='yes'}}" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" lang="zh_CN" style="width:80%;">
+          <image class='btnImg' src='../../images/weixin.png'></image>
+          <view>微信授权手机号</view>
       </button>
       <view style="color:gray;margin-top:20px;" wx:if="{{whetherEmpower=='yes'}}" bindtap="changeInput">或者手动填写</view>
     </view>

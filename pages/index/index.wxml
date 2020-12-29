@@ -60,12 +60,13 @@
           </view>
 
           <!-- 用户 -->
-          <view class="wrap-coupons">
-            <view class="wrap-couponsItem" bindtap="toMyCoupon">
+
+          <view class="wrap-coupons" wx:if="{{user.type === 'driver'}}" bindtap="toMyCoupon">
+            <view class="wrap-couponsItem">
               <text class="iconfont iconquan"></text>
               <view class="wrap-groupItem">我的卡券</view>
             </view>
-            <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;">当前暂无可用券</view>
+            <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;">{{coupon_count==0?'当前暂无可用券':'当前有'+coupon_count+'张可用券'}}</view>
           </view>
 
           <!-- 门店 -->
@@ -138,7 +139,7 @@
         </view>
 
         <view class="main-butItem">
-          <view class="but">
+          <view class="but" bindtap="getCoupon">
             <button>立即领取</button>
           </view>
         </view>

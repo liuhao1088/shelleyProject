@@ -1,5 +1,6 @@
 // pages/wode/wode.js
 var app = getApp();
+var util=require('../../utils/util.js')
 Page({
 
   /**
@@ -31,13 +32,82 @@ Page({
       name: '隐形车衣',
       checked: false,
     }],
-    modalName: 0,
+    modalName: null,
     top: '',
-    user:[{type:'driver'}]
+    user:[{type:'driver'}],
+    coupon_count:0
   },
   toVideo() {
     wx.navigateTo({
       url: '/pages/video/video',
+    })
+  },
+  getCoupon:function(){
+    var that=this;
+    let userInfo=wx.getStorageSync('userInfo')
+    wx.showLoading({
+      title: '领取中'
+    })
+    let code;
+    for (let e = 0; e < 10; e++) {
+      code += Math.floor(Math.random() * 10)
+    }
+    wx.cloud.callFunction({
+      name: 'recordAdd',
+      data: {
+        collection: 'coupon',
+        addData: {
+          creation_date: util.formatTimes(new Date()),
+          creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
+          end_date:util.nextYear(new Date()),
+          end_timestamp: Date.parse(util.nextYear(new Date()).replace(/-/g, '/')) / 1000,
+          _openid: userInfo._openid,
+          cou_code:code,
+          user: userInfo.nickName,
+          shop_code:'all',
+          shopping: {name:'全品类商品',price:'0',original_price:'100'},
+          status: 'success'
+        }
+      }
+    }).then(res => {
+      wx.hideLoading()
+      wx.showToast({
+        title: '领取成功',
+        icon:'success',
+        duration:1500
+      })
+      let device=[]
+      for(let i=0;i<that.data.checkbox.length;i++){
+        if(that.data.checkbox[i].checked==true){
+          device.push(that.data.checkbox[i].name)
+        }
+        if(i+1==that.data.checkbox.length){
+          wx.cloud.callFunction({
+            name: 'recordAdd',
+            data: {
+              collection: 'device',
+              addData: {
+                creation_date: util.formatTimes(new Date()),
+                creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
+                _openid: userInfo._openid,
+                user: userInfo.nickName,
+                device:device
+              }
+            }
+          }).then(res => {})
+        }
+      }
+      wx.setStorageSync('prize', [{status:'success',cou_code:code}])
+      let count=that.data.coupon_count;
+      that.setData({coupon_count:count+1,modalName:null})
+    }).catch(error => {
+      wx.hideLoading({
+        success: (res) => {},
+      })
+      wx.showModal({
+        showCancel: false,
+        title: '系统繁忙，请稍后重试'
+      })
     })
   },
   toSubnav(event) {
@@ -182,7 +252,7 @@ Page({
             }
           })
           if(wx.getStorageSync('userInfo')){
-
+            
           }else{
             this.selectComponent("#authorize").showModal();
           }
@@ -272,6 +342,13 @@ Page({
     var that = this;
     if (wx.getStorageSync('userInfo')) {
       let userInfo = wx.getStorageSync('userInfo')
+      wx.cloud.database().collection('coupon').where({_openid:userInfo._openid,shop_code:'all'}).get().then(res=>{
+        let data=res.data;
+        wx.setStorageSync('prize', data)
+        if(data.length==0){
+          that.setData({modalName:0})
+        }
+      })  
       wx.cloud.callFunction({
         name: 'multQuery',
         data: {
@@ -306,6 +383,13 @@ Page({
         })
         console.log(user)
         wx.setStorageSync('userInfo', user)
+      })
+      wx.cloud.database().collection('coupon').where({_openid: userInfo._openid,status:'success'}).count({
+        success: function (res) {
+          if(res.total>0){
+            that.setData({coupon_count:res.total})
+          }
+        }
       })
     }
 

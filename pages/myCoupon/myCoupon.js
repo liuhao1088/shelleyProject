@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list:[],stamp:'',code:'',cou_ind:0
+    list:[],stamp:'',code:'',cou_ind:0,cou_checked:false,cou_id:''
   },
   showModal(e) {
     let ind=e.currentTarget.dataset.index;
@@ -35,16 +35,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
-    if(wx.getStorageSync('userInfo')){
-      that.loadData();
-    }else{
-      wx.showToast({
-        title: '暂无卡券',
-        icon:'none',
-        duration:10000000
-      })
-    }
+   
     
   },
   submit:function(){
@@ -53,7 +44,7 @@ Page({
       title: '加载中',
     })
     let shop_code=that.data.list[that.data.cou_ind].shop_code;
-    if(that.data.code==shop_code){
+    if(that.data.code==shop_code||shop_code=='all'){
       wx.cloud.callFunction({
         name:'recordUpdate',
         data:{
@@ -96,6 +87,39 @@ Page({
           showCancel:false
         })
       })
+      if(that.data.cou_checked==true){
+        wx.cloud.callFunction({
+          name:'recordUpdate',
+          data:{
+            collection:'coupon',
+            where:{
+              cou_code:that.data.cou_id
+            },
+            updateData:{
+              status:'complete'
+            }
+          }
+        }).then(res=>{
+          console.log(res)
+          wx.hideLoading({
+            success: (res) => {},
+          })
+          if(res.result.stats.updated==1){
+            let list=that.data.list;
+            var index = list.findIndex(function(item) {
+              return item.shop_code == "all";
+            });
+            list[index].status='complete'
+            list[index].usable=false;
+            that.setData({
+              list:list,cou_checked:false
+            })
+          }else{
+          }
+          
+        }).catch(error=>{
+        })
+      }
     }else{
       wx.showToast({
         title:'门店码错误',
@@ -142,19 +166,20 @@ Page({
           icon:'none'
         })
       }
-      console.log(res)
       let stamp=Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000;
       that.setData({stamp:stamp})
       for(let i=0;i<data.length;i++){
         data[i].usable=true;
-        if(data[i].status=='waiting'){
-          if(stamp>=data[i].creation_timestamp+parseInt(data[i].shopping.time)*60){
-            data[i].usable=false;//拼团失败
+        if(data[i].shop.length>0){
+          if(data[i].status=='waiting'){
+            if(stamp>=data[i].creation_timestamp+parseInt(data[i].shopping.time)*60){
+              data[i].usable=false;//拼团失败
+            }
+            data[i].surplus=parseInt((data[i].creation_timestamp+parseInt(data[i].shopping.time)*60-stamp)/60)
           }
-          data[i].surplus=parseInt((data[i].creation_timestamp+parseInt(data[i].shopping.time)*60-stamp)/60)
-        }
-        if(stamp>=data[i].act[0].end_timestamp){
-          data[i].usable=false;//过期
+          if(stamp>=data[i].act[0].end_timestamp){
+            data[i].usable=false;//过期
+          }
         }
         if(data[i].status=='complete'){
           data[i].usable=false;//已使用
@@ -178,7 +203,30 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    skip=0;
+    this.loadData();
+    var that = this;
+    if(wx.getStorageSync('userInfo')){
+      let userInfo=wx.getStorageSync('userInfo')
+      let data=wx.getStorageSync('prize');
+      if(data[0].status){
+        if(data[0].status=='complete'){
+          that.setData({cou_checked:false})
+        }else{
+          that.setData({cou_checked:true,cou_id:data[0].cou_code})
+        }
+      }
+      if(data.length==0){
+        that.setData({cou_checked:false})
+      }
+      
+    }else{
+      wx.showToast({
+        title: '暂无卡券',
+        icon:'none',
+        duration:10000000
+      })
+    }
   },
 
   /**
