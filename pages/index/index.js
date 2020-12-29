@@ -33,7 +33,7 @@ Page({
     }],
     modalName: 0,
     top: '',
-    user:[]
+    user:[{type:'driver'}]
   },
   toVideo() {
     wx.navigateTo({

@@ -7,11 +7,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list:[],stamp:''
+    list:[],stamp:'',code:'',cou_ind:0
   },
   showModal(e) {
+    let ind=e.currentTarget.dataset.index;
     this.setData({
-      modalName: e.currentTarget.dataset.target
+      modalName: e.currentTarget.dataset.target,
+      cou_ind:ind
     })
   },
 
@@ -25,6 +27,9 @@ Page({
     this.setData({
       modalName: null
     })
+  },
+  inputCode:function(e){
+    this.setData({code:e.detail.value})
   },
   /**
    * 生命周期函数--监听页面加载
@@ -41,6 +46,63 @@ Page({
       })
     }
     
+  },
+  submit:function(){
+    var that=this;
+    wx.showLoading({
+      title: '加载中',
+    })
+    let shop_code=that.data.list[that.data.cou_ind].shop_code;
+    if(that.data.code==shop_code){
+      wx.cloud.callFunction({
+        name:'recordUpdate',
+        data:{
+          collection:'coupon',
+          where:{
+            _id:that.data.list[that.data.cou_ind]._id
+          },
+          updateData:{
+            status:'complete'
+          }
+        }
+      }).then(res=>{
+        console.log(res)
+        wx.hideLoading({
+          success: (res) => {},
+        })
+        if(res.result.stats.updated==1){
+          let list=that.data.list;
+          list[that.data.cou_ind].status='complete'
+          list[that.data.cou_ind].usable=false;
+          that.setData({
+            list:list,
+            modalName:null
+          })
+          wx.showToast({
+            title: '使用成功',
+            icon:'success',
+            duration:1500
+          })
+        }else{
+          wx.showModal({
+            title:'网络繁忙，请稍后重试',
+            showCancel:false
+          })
+        }
+        
+      }).catch(error=>{
+        wx.showModal({
+          title:'网络繁忙，请稍后重试',
+          showCancel:false
+        })
+      })
+    }else{
+      wx.showToast({
+        title:'门店码错误',
+        icon:'none',
+        duration:2000
+      })
+    }
   },
   loadData:function(){
     var that=this;
