@@ -33,7 +33,6 @@ Page({
     }],
     modalName: 0,
     top: '',
-    user:[]
   },
   toVideo() {
     wx.navigateTo({
@@ -301,9 +300,6 @@ Page({
         }
       }).then(res => {
         let user = res.result.list[0];
-        that.setData({
-          user
-        })
         console.log(user)
         wx.setStorageSync('userInfo', user)
       })

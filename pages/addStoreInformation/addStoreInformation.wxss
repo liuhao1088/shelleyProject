@@ -176,3 +176,7 @@ button {
 .btn-box{
   position: absolute;bottom:50px;width:100%;
 }
+
+.padding-xl{
+  background-color: #fff;
+}
