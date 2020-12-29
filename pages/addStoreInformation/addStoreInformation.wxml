@@ -54,7 +54,6 @@
       <view class="tag-wrapper">门店正面照：</view>
       <view class="wrapper-imgItem">
         <view class="grid grid-square flex-sub" style="height:120rpx;">
-
           <view class="solids" bindtap="ChooseImage">
             <text class="cuIcon-cameraadd" wx:if="{{shop_img}}"></text>
             <image wx:for="{{shop_img}}" wx:key="id" src="{{item}}" style="display:{{shop_img==[]?'none':'block'}};z-index:{{shop_img==[]?'-1':'10'}};width:100%;height:100%;background:white;" />

@@ -160,8 +160,76 @@ Page({
     if (!wx.getStorageSync('userInfo')) {
       this.selectComponent("#authorize").showModal();
     } else {
-      let userInfo = wx.getStorageSync('userInfo')
-      console.log(userInfo)
+      let userInfo = wx.getStorageSync('userInfo');
+      console.log(userInfo.shop.length);
+      if(!that.data.shop_name){
+        wx.showToast({
+          title: '请填写门店名称',
+          icon: 'none',
+          duration: 3000
+        })
+        return ;
+      }
+
+      if(!that.data.address){
+        wx.showToast({
+          title: '请填写门店地址',
+          icon: 'none',
+          duration: 3000
+        })
+        return ;
+      }
+
+      if(!that.data.person){
+        wx.showToast({
+          title: '请填写联系人姓名',
+          icon: 'none',
+          duration: 3000
+        })
+        return ;
+      }
+
+      if(!that.data.phone){
+        wx.showToast({
+          title: '请填写联系电话',
+          icon: 'none',
+          duration: 3000
+        })
+        return ;
+      }
+
+      if(that.data.firstLoading == true){
+        wx.showToast({
+          title: '请选择营业时间',
+          icon: 'none',
+          duration: 3000
+        })
+        return ;
+      }
+
+      if(that.data.shop_img.length == 0){
+        wx.showToast({
+          title: '请上传门店正面照',
+          icon: 'none',
+          duration: 3000
+        })
+        return ;
+      }
+
+      
+     
+      // if(userInfo.shop.length == 0){
+      //   console.log("111")
+      //   wx.showToast({
+      //     title: '请填写信息',
+      //     icon: 'none',
+      //     duration: 3000
+      //   })
+      //   return ;
+      // }
+
+      
+      
       if (userInfo.shop[userInfo.shop.length - 1].prove == 'waiting') {
         wx.showToast({
           title: '您的门店信息已提交，等待认证中，请勿重复提交',
