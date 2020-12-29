@@ -1,6 +1,6 @@
 // pages/addStoreInformation/addStoreInformation.js
 var hourArr;
-var util=require('../../utils/util.js');
+var util = require('../../utils/util.js');
 let timer;
 Page({
 
@@ -17,7 +17,11 @@ Page({
     phone: '',
     address_name: '',
     detail: '',
-    shop_img:[],z:-1,firstLoading:true,whetherEmpower:'yes',fo:false
+    shop_img: [],
+    z: -1,
+    firstLoading: true,
+    whetherEmpower: 'yes',
+    fo: false
   },
   //保存图片，扫码
   previewImg: function (e) {
@@ -51,26 +55,32 @@ Page({
 
   showModal(e) {
     this.setData({
-      modalName: e.currentTarget.dataset.target,z:200
+      modalName: e.currentTarget.dataset.target,
+      z: 200
     })
   },
   hideModal(e) {
     this.setData({
-      modalName: null,z:-1
+      modalName: null,
+      z: -1
     })
   },
- 
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    hourArr=['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'];
-    let array=[];
-    for(let i=0;i<2;i++){array.push(hourArr)}
-    this.setData({multiArray:array})
+    hourArr = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'];
+    let array = [];
+    for (let i = 0; i < 2; i++) {
+      array.push(hourArr)
+    }
+    this.setData({
+      multiArray: array
+    })
     wx.cloud.callFunction({
-      name:'login'
-    }).then(res=>console.log(res))
+      name: 'login'
+    }).then(res => console.log(res))
   },
 
   /**
@@ -86,9 +96,12 @@ Page({
   onShow: function () {
 
   },
-  MultiChange:function(e){
+  MultiChange: function (e) {
     console.log(e)
-    this.setData({multiIndex:e.detail.value,firstLoading:false})
+    this.setData({
+      multiIndex: e.detail.value,
+      firstLoading: false
+    })
   },
   inputShopname: function (e) {
     this.setData({
@@ -106,8 +119,10 @@ Page({
     })
   },
   chooseLocation: function (e) {
+    console.log("11111");
     var that = this;
     that.setData({
+      modalName: 'addressConfirm',
       z: 199
     })
     wx.chooseLocation({
@@ -118,8 +133,7 @@ Page({
         that.setData({
           address: res.address,
           address_name: res.name,
-          modalName:'addressConfirm',
-          z:200
+          z: 200
         })
       },
     })
@@ -143,50 +157,51 @@ Page({
   //提交
   async submit() {
     var that = this;
-    if(!wx.getStorageSync('userInfo')){
+    if (!wx.getStorageSync('userInfo')) {
       this.selectComponent("#authorize").showModal();
-    }else{
-      let userInfo=wx.getStorageSync('userInfo')
-      if(userInfo.shop[userInfo.shop.length-1].prove=='waiting'){
+    } else {
+      let userInfo = wx.getStorageSync('userInfo')
+      console.log(userInfo)
+      if (userInfo.shop[userInfo.shop.length - 1].prove == 'waiting') {
         wx.showToast({
           title: '您的门店信息已提交，等待认证中，请勿重复提交',
-          icon:'none',
-          duration:3000
+          icon: 'none',
+          duration: 3000
         })
-      }else if(userInfo.shop[userInfo.shop.length-1].prove=='success'){
+      } else if (userInfo.shop[userInfo.shop.length - 1].prove == 'success') {
         wx.showToast({
           title: '您的门店已经通过认证，无需再提交',
-          icon:'none',
-          duration:3000
+          icon: 'none',
+          duration: 3000
         })
-      }else{
+      } else {
         if (that.data.shop_name !== "" && that.data.address !== "" && that.data.phone !== "" && that.data.shop_img !== []) {
           wx.requestSubscribeMessage({
-            tmplIds: ['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI','SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM','Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
-            success (res) {
+            tmplIds: ['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI', 'SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM', 'Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
+            success(res) {
               console.log(res)
-              if(JSON.stringify(res).indexOf('accept')!==-1){
+              if (JSON.stringify(res).indexOf('accept') !== -1) {
                 wx.showLoading({
                   title: '提交中，请稍等',
                 })
                 if (timer) clearTimeout(timer);
-                timer= setTimeout(async res=>{
-                  let arr=[];
-                  if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop',arr )
+                timer = setTimeout(async res => {
+                  let arr = [];
+                  if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop', arr)
                   that.add(arr);
-                },500)
+                }, 500)
               }
             }
           })
         } else {
           wx.showToast({
             title: '请填写完整内容',
-            icon:'none',
-            duration:3000
+            icon: 'none',
+            duration: 3000
           })
         }
       }
-      
+
     }
   },
 
@@ -194,7 +209,7 @@ Page({
     var that = this;
     const creation_date = util.formatTime(new Date())
     let addressJson = wx.getStorageSync('addressJson');
-    let userInfo= wx.getStorageSync('userInfo');
+    let userInfo = wx.getStorageSync('userInfo');
     wx.cloud.callFunction({
       name: "recordAdd", //
       data: {
@@ -209,12 +224,12 @@ Page({
           detail: that.data.detail,
           person: that.data.person,
           phone: that.data.phone,
-          start_hour:hourArr[that.data.multiIndex[0]],
-          end_hour:hourArr[that.data.multiIndex[1]],
-          shop_img:imgArr,
-          _openid:userInfo._openid,
-          user:userInfo.nickName,
-          prove:'waiting',
+          start_hour: hourArr[that.data.multiIndex[0]],
+          end_hour: hourArr[that.data.multiIndex[1]],
+          shop_img: imgArr,
+          _openid: userInfo._openid,
+          user: userInfo.nickName,
+          prove: 'waiting',
           creation_timestamp: Date.parse(creation_date.replace(/-/g, '/')) / 1000,
         },
 
@@ -229,13 +244,15 @@ Page({
         icon: 'success',
         duration: 2000
       })
-      userInfo.shop=[{prove:'waiting'}]
+      userInfo.shop = [{
+        prove: 'waiting'
+      }]
       wx.setStorageSync('userInfo', userInfo)
       wx.showModal({
-        title:'信息已经提交，之后会有工作人员联系您，请耐心等待',
-        showCancel:false,
-        confirmText:'确认',
-        confirmColor:'#5B62D9',
+        title: '信息已经提交，之后会有工作人员联系您，请耐心等待',
+        showCancel: false,
+        confirmText: '确认',
+        confirmColor: '#5B62D9',
       })
       setTimeout(function () {
         that.setData({
@@ -245,7 +262,7 @@ Page({
           shop_name: '',
           address_name: '',
           detail: '',
-          shop_img:[]
+          shop_img: []
         })
       }, 2000)
     }).catch(error => {
@@ -264,82 +281,95 @@ Page({
   onHide: function () {
 
   },
-  phoneModal:function(){
-    this.setData({modalName:'phoneModal',z:200})
+  phoneModal: function () {
+    this.setData({
+      modalName: 'phoneModal',
+      z: 200
+    })
   },
-  getPhoneNumber:function(e){
-    var that=this;
+  getPhoneNumber: function (e) {
+    var that = this;
     console.log(e)
-    if(e.detail.errMsg=="getPhoneNumber:ok"){
+    if (e.detail.errMsg == "getPhoneNumber:ok") {
       wx.showLoading({
         title: '授权中',
       })
       wx.cloud.callFunction({
-        name:'decode',
+        name: 'decode',
         data: {
           weRunData: wx.cloud.CloudID(e.detail.cloudID),
         }
-      }).then(res=>{
+      }).then(res => {
         that.setData({
           phone: res.result,
         })
-        let phone=res.result;
-        if(!wx.getStorageSync('phone')){
+        let phone = res.result;
+        if (!wx.getStorageSync('phone')) {
           wx.setStorageSync('phone', res.result)
           wx.cloud.database().collection('user').where({
-            _openid:wx.getStorageSync('userInfo')._openid
-          }).get().then(res=>{
+            _openid: wx.getStorageSync('userInfo')._openid
+          }).get().then(res => {
             console.log(res)
-            if(!res.data[0].phone){
+            if (!res.data[0].phone) {
               wx.cloud.callFunction({
-                name:'recordUpdate',
-                data:{
-                  collection:'user',
-                  where:{_openid:wx.getStorageSync('userInfo')._openid},
-                  updateData:{phone:phone}
+                name: 'recordUpdate',
+                data: {
+                  collection: 'user',
+                  where: {
+                    _openid: wx.getStorageSync('userInfo')._openid
+                  },
+                  updateData: {
+                    phone: phone
+                  }
                 }
-              }).then(res=>{
+              }).then(res => {
                 console.log(res)
               })
             }
           })
         }
-        let userInfo=wx.getStorageSync('userInfo')
-        userInfo.phone=phone;
+        let userInfo = wx.getStorageSync('userInfo')
+        userInfo.phone = phone;
         wx.setStorageSync('userInfo', userInfo)
         wx.hideLoading()
         that.hideModal();
         wx.showToast({
           title: '授权成功',
-          icon:'success'
+          icon: 'success'
         })
-      }).catch(error=>{
+      }).catch(error => {
         console.log(error);
         wx.hideLoading()
         wx.showToast({
           title: '授权失败',
-          icon:'none'
+          icon: 'none'
         })
       })
-      
+
     }
   },
-  changeInput:function(){
-    var _this=this;
+  changeInput: function () {
+    var _this = this;
     this.hideModal()
-    setTimeout(res=>{
-      _this.setData({whetherEmpower:'no'})
+    setTimeout(res => {
+      _this.setData({
+        whetherEmpower: 'no'
+      })
     })
   },
-  changeEmpower:function(){
-    this.setData({whetherEmpower:'yes'})
+  changeEmpower: function () {
+    this.setData({
+      whetherEmpower: 'yes'
+    })
   },
-  phoneConfirm:function(e){
-    this.setData({phone:e.detail.value})
+  phoneConfirm: function (e) {
+    this.setData({
+      phone: e.detail.value
+    })
   },
   //上传图片到云存储
   uploadimg: function (i, parse, content, arr) {
-    if(parse.length == 0) return;
+    if (parse.length == 0) return;
     return new Promise((resolve, reject) => {
       var that = this;
       let code = that.getRandomCode();
@@ -347,9 +377,9 @@ Page({
       for (let e = 0; e < 6; e++) {
         numberCode += Math.floor(Math.random() * 10)
       }
-      let path=parse[i] 
-      let indx=path.lastIndexOf('.') 
-      let postfix=path.substring(indx)
+      let path = parse[i]
+      let indx = path.lastIndexOf('.')
+      let postfix = path.substring(indx)
       wx.cloud.uploadFile({
         cloudPath: content + '/' + content + '-' + code + "-" + numberCode + postfix,
         filePath: parse[i],
@@ -364,8 +394,8 @@ Page({
 
     })
   },
-   //生成随机6位数
-   getRandomCode: function () {
+  //生成随机6位数
+  getRandomCode: function () {
     let code = "";
     const array = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
       'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
