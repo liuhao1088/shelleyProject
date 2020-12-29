@@ -25,7 +25,7 @@
             </view>
 
             <!-- 用户 -->
-            <view class="topbar-item" bindtap="toReserveStore">
+            <view class="topbar-item" bindtap="toReserveStore" wx:if="{{user.type === 'driver'}}">
               <view class="topbar-icon">
                 <text class="iconfont iconstore2 icon" style=" font-size: 56rpx;"></text>
               </view>
@@ -36,7 +36,7 @@
             </view>
 
             <!-- 门店 -->
-            <!-- <view class="topbar-item" bindtap="toMyStore">
+            <view class="topbar-item" bindtap="toMyStore" wx:if="{{user.type === 'shopkeeper'}}">
               <view class="topbar-icon">
                 <text class="iconfont iconstore2 icon" style=" font-size: 56rpx;"></text>
               </view>
@@ -44,10 +44,10 @@
                 <view class="topbar-title">我的门店</view>
                 <view class="topbar-msg">活动配置/门店管理</view>
               </view>
-            </view> -->
+            </view>
 
             <!-- 品牌 -->
-            <!-- <view class="topbar-item" bindtap="toActivityDetails">
+            <view class="topbar-item" bindtap="toActivityDetails" wx:if="{{user.type === 'Brand'}}">
               <view class="topbar-icon">
                 <text class="iconfont iconflag icon" style=" font-size: 56rpx;"></text>
               </view>
@@ -55,12 +55,12 @@
                 <view class="topbar-title">品牌活动</view>
                 <view class="topbar-msg">品牌促销活动配置</view>
               </view>
-            </view> -->
+            </view>
 
           </view>
 
           <!-- 用户 -->
-          <view class="wrap-coupons">
+          <view class="wrap-coupons" wx:if="{{user.type === 'driver'}}">
             <view class="wrap-couponsItem" bindtap="toMyCoupon">
               <text class="iconfont iconquan"></text>
               <view class="wrap-groupItem">我的卡券</view>
@@ -69,22 +69,22 @@
           </view>
 
           <!-- 门店 -->
-          <!-- <view class="wrap-coupons">
+          <view class="wrap-coupons" wx:if="{{user.type === 'shopkeeper'}}">
             <view class="wrap-couponsItem" bindtap="toCarAppointment">
               <text class="iconfont iconyuyue"></text>
               <view class="wrap-groupItem">车主预约</view>
             </view>
             <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;">当前无预约待处理</view>
-          </view> -->
+          </view>
 
           <!-- 品牌 -->
-          <!-- <view class="wrap-coupons" bindtap="toAllStore">
+          <view class="wrap-coupons" bindtap="toAllStore" wx:if="{{user.type === 'Brand'}}">
             <view class="wrap-couponsItem">
               <text class="iconfont iconstore-fill"></text>
               <view class="wrap-groupItem">全部门店</view>
             </view>
             <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;">点击查看门店</view>
-          </view> -->
+          </view>
 
         </view>
         <view class="wrap-img">
