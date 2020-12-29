@@ -21,7 +21,8 @@ Page({
     z: -1,
     firstLoading: true,
     whetherEmpower: 'yes',
-    fo: false
+    fo: false,
+    address_label:''
   },
   //保存图片，扫码
   previewImg: function (e) {
@@ -60,9 +61,12 @@ Page({
     })
   },
   hideModal(e) {
+    let string=this.data.address+this.data.detail;
+    let label='***'+string.substring(string.length-7,string.length)
     this.setData({
       modalName: null,
-      z: -1
+      z: -1,
+      address_label:label
     })
   },
 
@@ -133,6 +137,7 @@ Page({
         that.setData({
           address: res.address,
           address_name: res.name,
+          modalName: 'addressConfirm',
           z: 200
         })
       },
