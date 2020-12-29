@@ -32,7 +32,7 @@
       <view class="input-wrapper" hidden="{{modalName=='phoneModal'}}">
         <input type="number" style="width:80%;" value="{{phone}}" bindinput="inputPhone" bindtap="phoneModal"
           disabled="{{whetherEmpower=='yes'}}" focus="{{whetherEmpower=='no'}}" bindblur="changeEmpower"
-          placeholder="请输入联系电话" placeholder-class="placeholder" />
+          placeholder="请输入联系电话" placeholder-class="placeholder" maxlength="11" />
       </view>
     </view>
     <!-- 营业时间： -->
@@ -159,7 +159,8 @@
           <image class='btnImg' src='../../images/weixin.png'></image>
           <view>微信授权手机号</view>
       </button>
-      <view style="color:gray;margin-top:20px;" wx:if="{{whetherEmpower=='yes'}}" bindtap="changeInput">或者手动填写</view>
+      <view style="color:gray;margin-top:10px;">或者</view>
+      <view style="color:gray;margin-top:10px;" wx:if="{{whetherEmpower=='yes'}}" bindtap="changeInput">手动填写</view>
     </view>
 
   </view>

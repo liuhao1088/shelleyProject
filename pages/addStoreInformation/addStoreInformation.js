@@ -244,19 +244,6 @@ Page({
         })
         return ;
       }
-
-      
-     
-      // if(userInfo.shop.length == 0){
-      //   console.log("111")
-      //   wx.showToast({
-      //     title: '请填写信息',
-      //     icon: 'none',
-      //     duration: 3000
-      //   })
-      //   return ;
-      // }
-
       
       if(userInfo.shop.length>0){
         if (userInfo.shop[userInfo.shop.length - 1].prove == 'waiting') {
