@@ -59,11 +59,5 @@ App({
   globalData: {
     userInfo: null,
     openid:'',
-  //   ColorList: [{
-  //     title: '黑',
-  //     name: 'black',
-  //     color: '#03080e'
-  //   }
-  // ]
   }
 })

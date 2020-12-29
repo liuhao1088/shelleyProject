@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 30rpx;
+  padding-bottom: 60rpx;
 }
 
 .title {

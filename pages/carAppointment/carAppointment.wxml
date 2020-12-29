@@ -18,9 +18,6 @@
     <view class="wrap">
       <view class="wrap-title">预约时间：3020年20月50日 15:00</view>
     </view>
-    <!-- <view class="wrap">
-      <view class="wrap-title">备注留言：</view>
-    </view> -->
     <view class="wrap">
       <view class="wrap-title" style="opacity: 0.5;">单号：y001182050010101</view>
     </view>

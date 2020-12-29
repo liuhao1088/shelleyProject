@@ -2,20 +2,19 @@
   <view class="header">
     <view class="search">
       <input type="text" value="{{searchContent}}" placeholder="请输入活动码/标题/类型查询" placeholder-class="placeholder"
-      bindinput="handleInputChange" />
-    <text class="iconfont iconziyuan searchIcon" bindtap="toSearch"></text>
+        bindinput="handleInputChange" />
+      <text class="iconfont iconziyuan searchIcon" bindtap="toSearch"></text>
     </view>
     <view class="header-item" bindtap="toActivitySelect">
       <text class="iconfont iconplus icon"></text>新建活动
     </view>
   </view>
 </view>
-<scroll-view scroll-top="{{scrollTop}}" scroll-y style="height:{{scrollHev}}px;" class=""
-   bindscrolltolower="bindDownLoad">
+<scroll-view scroll-top="{{scrollTop}}" scroll-y style="height:{{scrollHev}}px;" bindscrolltolower="bindDownLoad">
   <view class="wrapper" wx:for="{{list}}" data-index="{{index}}">
     <view class="wrap">
       <view class="wrap-title">活动标题：{{item.title}}</view>
-      <view class="wrap-tag" wx:if="{{stamp<=item.start_timestamp}}" style="opacity: 0.5;">未开始</view> 
+      <view class="wrap-tag" wx:if="{{stamp<=item.start_timestamp}}" style="opacity: 0.5;">未开始</view>
       <view class="wrap-tag" wx:elif="{{stamp>=item.end_timestamp}}" style="opacity: 0.5;">已过期</view>
       <view class="wrap-tag" wx:else><text class="iconfont iconflag"></text> 活动中</view>
     </view>
@@ -28,10 +27,10 @@
     <view class="wrap">
       <view class="wrap-title">活动码：{{item.act_code}}</view>
     </view>
-    
+
     <view class="wrap">
       <view class="wrap-title" style="opacity: 0.5;">创建时间：{{item.creation_date}}</view>
-      
+
     </view>
     <view class="wrap" style="">
       <view class="wrap-but">
@@ -41,10 +40,10 @@
         <view class="but" style="margin-right: 30rpx;" data-index="{{index}}" bindtap="delete">
           <button class="cu-btn round sm bg-white cancel">删除活动</button>
         </view>
-      
+
       </view>
     </view>
-    
+
   </view>
   <view style="height:20rpx;"></view>
 </scroll-view>

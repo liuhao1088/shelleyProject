@@ -110,7 +110,7 @@
 </view>
 
 <!-- 发起拼团弹窗 -->
-<view class="cu-modal {{modalName=='initiateGroup'?'show':''}}">
+<view class="cu-modal {{modalName=='initiateGroup'?'show':''}}" catchtouchmove="ture">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
       <view class="content"></view>
@@ -138,7 +138,7 @@
 </view>
 
 <!--去拼团弹窗  -->
-<view class="cu-modal {{modalName=='goGroup'?'show':''}}" style="z-index:10;">
+<view class="cu-modal {{modalName=='goGroup'?'show':''}}" style="z-index:10;" catchtouchmove="ture">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
       <view class="content"></view>
@@ -170,7 +170,7 @@
 </view>
 
 <!-- 去拼团成功弹窗 -->
-<view class="cu-modal {{modalName=='goGroupSuccess'?'show':''}}">
+<view class="cu-modal {{modalName=='goGroupSuccess'?'show':''}}" catchtouchmove="ture">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
       <view class="content"></view>
@@ -198,7 +198,7 @@
 </view>
 
 <!-- 问答 -->
-<view class="cu-modal {{modalName=='question'?'show':''}}">
+<view class="cu-modal {{modalName=='question'?'show':''}}" catchtouchmove="ture">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
       <view class="content"></view>

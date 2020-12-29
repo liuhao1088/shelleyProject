@@ -57,7 +57,7 @@
 
           <view class="solids" bindtap="ChooseImage">
             <text class="cuIcon-cameraadd" wx:if="{{shop_img}}"></text>
-            <image wx:for="{{shop_img}}" src="{{item}}" style="display:{{shop_img==[]?'none':'block'}};z-index:{{shop_img==[]?'-1':'10'}};width:100%;height:100%;background:white;" />
+            <image wx:for="{{shop_img}}" wx:key="id" src="{{item}}" style="display:{{shop_img==[]?'none':'block'}};z-index:{{shop_img==[]?'-1':'10'}};width:100%;height:100%;background:white;" />
           </view>
         </view>
 
@@ -85,7 +85,7 @@
   </view>
 </view>
 <!-- 流程 -->
-<view class="cu-modal {{modalName=='Modal'?'show':''}}">
+<view class="cu-modal {{modalName=='Modal'?'show':''}}" catchtouchmove="ture">
   <view class="cu-dialog" style="background-color: #fff;">
     <view class="cu-bar bg-white justify-end">
       <view class="content">品牌认证门店流程</view>

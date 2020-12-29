@@ -25,7 +25,7 @@
             </view>
 
             <!-- 用户 -->
-            <!-- <view class="topbar-item" bindtap="toReserveStore">
+            <view class="topbar-item" bindtap="toReserveStore">
               <view class="topbar-icon">
                 <text class="iconfont iconstore2 icon" style=" font-size: 56rpx;"></text>
               </view>
@@ -33,10 +33,10 @@
                 <view class="topbar-title">预约门店</view>
                 <view class="topbar-msg">立即预约零等待体验</view>
               </view>
-            </view> -->
+            </view>
 
             <!-- 门店 -->
-            <view class="topbar-item" bindtap="toMyStore">
+            <!-- <view class="topbar-item" bindtap="toMyStore">
               <view class="topbar-icon">
                 <text class="iconfont iconstore2 icon" style=" font-size: 56rpx;"></text>
               </view>
@@ -44,7 +44,7 @@
                 <view class="topbar-title">我的门店</view>
                 <view class="topbar-msg">活动配置/门店管理</view>
               </view>
-            </view>
+            </view> -->
 
             <!-- 品牌 -->
             <!-- <view class="topbar-item" bindtap="toActivityDetails">

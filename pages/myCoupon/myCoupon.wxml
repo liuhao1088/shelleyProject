@@ -3,7 +3,7 @@
   <view class="wrap">
     <view class="wrap-title">我的卡券</view>
 
-    <view class="wrap-mainItem" wx:for="{{list}}" data-index="{{index}}" style="background-color: {{item.usable?'':'rgba(140, 140, 140, 0.5)'}};">
+    <view class="wrap-mainItem" wx:for="{{list}}" wx:key="id" data-index="{{index}}" style="background-color: {{item.usable?'':'rgba(140, 140, 140, 0.5)'}};">
       <view class="main-topItem">
         <view class="main-store" style="background-color: {{item.usable?'':'rgba(0, 0, 0, 0.1)'}}">{{item.shop[0].shop_name}}</view>
         <view wx:if="{{item.usable}}" class="main-tag">{{item.status=='waiting'?'待激活':'拼团成功'}}</view>
@@ -43,36 +43,11 @@
         </view>
       </view>
     </view>
-
-
-    <!--<view class="wrap-mainItem" style="background-color: rgba(140, 140, 140, 0.5);">
-      <view class="main-topItem">
-        <view class="main-store" style="background-color: rgba(0, 0, 0, 0.1)">AAA宝安店</view>
-      </view>
-
-      <view class="main-counterItem">
-        <view class="main-price">￥100</view>
-        <view class="main-titleItem">
-          <view class="main-title">拼团优惠券</view>
-          <view class="main-date">全品类商品适用</view>
-          <view class="main-date" style="padding-top: 4rpx;">有效期至 2021.12.01 23:59</view>
-        </view>
-        <view class="main-butItem">
-          <view class="but" style="font-size: 24rpx;text-align: center;color: rgba(0, 0, 0, 0.5);">
-            已过期
-          </view>
-        </view>
-      </view>
-    </view>-->
-
-
-
-
   </view>
 </view>
 
 <!-- 弹窗 -->
-<view class="cu-modal {{modalName=='Modal'?'show':''}}">
+<view class="cu-modal {{modalName=='Modal'?'show':''}}" catchtouchmove="ture">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
       <view class="content" style="width: auto;">请工作人员输入门店码</view>
