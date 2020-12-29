@@ -34,7 +34,7 @@ Page({
     }],
     modalName: null,
     top: '',
-    user:[{type:'driver'}],
+    type:'driver',
     coupon_count:0
   },
   toVideo() {
@@ -255,10 +255,12 @@ Page({
             
           }else{
             this.selectComponent("#authorize").showModal();
+            this.retrieval()
           }
         } else {
           //打开授权登录页
           this.selectComponent("#authorize").showModal();
+          this.retrieval()
         }
       }
     })
@@ -379,7 +381,7 @@ Page({
       }).then(res => {
         let user = res.result.list[0];
         that.setData({
-          user
+          type:user.type
         })
         console.log(user)
         wx.setStorageSync('userInfo', user)
@@ -393,6 +395,24 @@ Page({
       })
     }
 
+  },
+  retrieval: function () {
+    var that = this;
+    let timing = setInterval(() => {
+      if (wx.getStorageSync('userInfo')) {
+        let userInfo = wx.getStorageSync('userInfo')
+        wx.cloud.database().collection('coupon').where({_openid:userInfo._openid,shop_code:'all'}).get().then(res=>{
+          let data=res.data;
+          wx.setStorageSync('prize', data)
+          if(data.length==0){
+            that.setData({modalName:0})
+          }
+        })
+        setTimeout(() => {
+          clearInterval(timing);
+        }, 900);
+      }
+    },1000)
   },
   getDistance(lat1, lng1, lat2, lng2) {
     var radLat1 = this.Rad(lat1);

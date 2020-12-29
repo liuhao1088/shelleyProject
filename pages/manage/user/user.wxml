@@ -4,10 +4,6 @@
     <text style="position:relative;left:20rpx;" class="iconfont iconziyuan searchIcon"></text>
     <input style="position:relative;left:40rpx;" type="text" placeholder="搜索关键字" confirm-type="search" bindinput='search' value="{{search}}"></input>
   </view>
-  <view class='action' bindtap='delete'>
-    <text class='icon-close'></text>
-    <text>取消</text>
-  </view>
 </view>
 <view class="container">
   <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHev}}px;" class="list"

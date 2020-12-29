@@ -56,11 +56,11 @@
     </view>
   </view>
 
-  <view class="experience-item" style="background-color: #202937;margin-top: 4rpx;">
+  <view class="experience-item" wx:if="{{data.gift}}" style="background-color: #202937;margin-top: 4rpx;">
     预约好礼
   </view>
-  <view class="text-item">
-    {{data.act[0].content||'暂无'}}
+  <view class="text-item" wx:if="{{data.gift}}">
+    {{data.act[0].content}}
   </view>
 
 </view>

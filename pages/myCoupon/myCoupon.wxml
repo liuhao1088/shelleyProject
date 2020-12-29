@@ -12,7 +12,7 @@
       <view class="main-counterItem">
         <view class="main-price">￥{{item.shopping.original_price-item.shopping.price}}</view>
         <view class="main-titleItem">
-          <view class="main-title">拼团优惠券</view>
+          <view class="main-title">{{item.shop_code=='all'?'现金抵扣红包':'拼团优惠券'}}</view>
           <view class="main-date">{{item.shopping.name}}适用</view>
           <view class="main-date" style="padding-top: 4rpx;" wx:if="{{item.status=='waiting'&&stamp<=item.creation_timestamp+(item.shopping.time)*60}}">
             剩余 <text style="color:red;">{{item.surplus}}</text> 分钟</view>

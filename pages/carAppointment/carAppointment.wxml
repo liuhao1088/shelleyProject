@@ -5,29 +5,29 @@
     <text class="iconfont iconziyuan searchIcon" bindtap="toSearch"></text>
   </view>
 
-  <view class="wrapper">
+  <view class="wrapper" wx:for="{{list}}">
     <view class="wrap">
-      <view class="wrap-title">预约体验：产品名称-型号</view>
+      <view class="wrap-title">预约体验：{{item.label}}</view>
       <view class="wrap-tag">待接受</view>
       <!-- <view class="wrap-tag" style="opacity: 0.5;">已接受</view> -->
 
     </view>
     <view class="wrap">
-      <view class="wrap-title">预留手机号：123-1234-1234</view>
+      <view class="wrap-title">预约人员：{{item.user}}</view>
     </view>
     <view class="wrap">
-      <view class="wrap-title">预约时间：3020年20月50日 15:00</view>
+      <view class="wrap-title">预约时间：{{item.time}}</view>
     </view>
     <view class="wrap">
-      <view class="wrap-title" style="opacity: 0.5;">单号：y001182050010101</view>
+      <view class="wrap-title" style="opacity: 0.5;">单号：{{item.re_code}}</view>
     </view>
 
-    <view class="wrap" style="display: inline;">
+    <view class="wrap" style="display: inline;" wx:if="{{item.status=='waiting'}}">
       <view class="wrap-but">
-        <view class="but">
+        <view class="but" data-index="{{index}}" bindtap="confirm">
           <button class="cu-btn round sm bg-blue accept">接受预约</button>
         </view>
-        <view class="but" style="margin-right: 30rpx;">
+        <view class="but" style="margin-right: 30rpx;" data-index="{{index}}" bindtap="cancel">
           <button class="cu-btn round sm bg-white cancel">取消预约</button>
         </view>
       

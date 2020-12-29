@@ -323,7 +323,7 @@ Page({
       that.setData({
         userInfo: userInfo
       })
-      let cou = userInfo.coupon.filter(item => item.act_id.indexOf(data._id) !== -1 && ((item.creation_timestamp + parseInt(item.shopping.time) * 60 > nowstamp && item.status == 'waiting') || item.status == 'success' || item.status == 'complete'))
+      let cou = userInfo.coupon.filter(item =>{if(item.act_id){item.act_id.indexOf(data._id) !== -1 && ((item.creation_timestamp + parseInt(item.shopping.time) * 60 > nowstamp && item.status == 'waiting') || item.status == 'success' || item.status == 'complete')} })
       for (let i in data.shopping) {
         for (let u in cou) {
           if (i == cou[u].shopping_ind) {

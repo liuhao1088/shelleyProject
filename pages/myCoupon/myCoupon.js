@@ -35,7 +35,30 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
+    skip=0;
+    this.loadData();
+    var that = this;
+    if(wx.getStorageSync('userInfo')){
+      let userInfo=wx.getStorageSync('userInfo')
+      let data=wx.getStorageSync('prize');
+      if(data[0].status){
+        if(data[0].status=='complete'){
+          that.setData({cou_checked:false})
+        }else{
+          that.setData({cou_checked:true,cou_id:data[0].cou_code})
+        }
+      }
+      if(data.length==0){
+        that.setData({cou_checked:false})
+      }
+      
+    }else{
+      wx.showToast({
+        title: '暂无卡券',
+        icon:'none',
+        duration:10000000
+      })
+    }
     
   },
   submit:function(){
@@ -203,30 +226,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    skip=0;
-    this.loadData();
-    var that = this;
-    if(wx.getStorageSync('userInfo')){
-      let userInfo=wx.getStorageSync('userInfo')
-      let data=wx.getStorageSync('prize');
-      if(data[0].status){
-        if(data[0].status=='complete'){
-          that.setData({cou_checked:false})
-        }else{
-          that.setData({cou_checked:true,cou_id:data[0].cou_code})
-        }
-      }
-      if(data.length==0){
-        that.setData({cou_checked:false})
-      }
-      
-    }else{
-      wx.showToast({
-        title: '暂无卡券',
-        icon:'none',
-        duration:10000000
-      })
-    }
+    
   },
 
   /**

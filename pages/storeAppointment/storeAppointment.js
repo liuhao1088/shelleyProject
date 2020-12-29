@@ -108,8 +108,8 @@ Page({
   openLocation: function () {
     var that = this;
     wx.openLocation({
-      latitude: that.data.data.shop[0].lat,
-      longitude: that.data.data.shop[0].lon,
+      latitude: that.data.data.lat,
+      longitude: that.data.data.lon,
     })
   },
   getPhoneNumber: function (e) {
@@ -200,20 +200,25 @@ Page({
           console.log(that.data.nameList)
           if (timer) clearTimeout(timer);
           timer = setTimeout(async res => {
-            let phone = wx.getStorageSync('phone')
+            //let phone = wx.getStorageSync('phone')
             let userInfo = wx.getStorageSync('userInfo')
-            that.add(phone, userInfo);
+            that.add(userInfo);
           }, 500)
         }
       }
     })
 
   },
-  add(phone, userInfo) {
+  add(userInfo) {
     var that = this;
     wx.showLoading({
       title: '预约中，请稍等',
     })
+    let code = that.getRanNum();
+    let numberCode = "";
+    for (let e = 0; e < 10; e++) {
+      numberCode += Math.floor(Math.random() * 10)
+    }
     wx.cloud.callFunction({
       name: 'recordAdd',
       data: {
@@ -222,6 +227,7 @@ Page({
           _openid: userInfo._openid,
           creation_date: util.formatTime(new Date()),
           //phone: phone,
+          re_code:code+numberCode,
           shop_code: that.data.data.shop_code,
           act_id: that.data.data.act[0]._id,
           act_code: that.data.data.act[0].act_code,
@@ -229,6 +235,7 @@ Page({
           time: that.data.startTime,
           timestamp: Date.parse(that.data.startTime.replace(/-/g, '/')) / 1000,
           user: userInfo.nickName,
+          status:'waiting',
           creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
         }
       }
@@ -248,27 +255,14 @@ Page({
       }, 1500)
     })
   },
-  req: function () {
-    const thing1 = "您的门店认证已经通过";
-    wx.cloud.callFunction({
-      name: 'sendMessage',
-      data: {
-        openid: 'oQQ_f4s48shRNF-_wWLKnAgCEfew',
-        page: 'index',
-        data: {
-          "thing1": {
-            "value": thing1
-          },
-          "thing3": {
-            "value": "您在雪莱特上提交的门店信息已经认证通过"
-          },
-        },
-        templateId: 'pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI',
-        state: 'developer'
-      }
-    }).then(res => {
-      console.log(res)
-    })
+  getRanNum(){
+    var result = [];
+    for(var i=0;i<2;i++){
+      var ranNum = Math.ceil(Math.random() * 25);
+      //大写字母'A'的ASCII是65,A~Z的ASCII码就是65 + 0~25;然后调用String.fromCharCode()传入ASCII值返回相应的字符并push进数组里
+      result.push(String.fromCharCode(65+ranNum));
+    }
+    return  result.join('');
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
