@@ -70,13 +70,33 @@ Page({
         }
       }
     }).then(res => {
-      console.log(res)
       wx.hideLoading()
       wx.showToast({
         title: '领取成功',
         icon:'success',
         duration:1500
       })
+      let device=[]
+      for(let i=0;i<that.data.checkbox.length;i++){
+        if(that.data.checkbox[i].checked==true){
+          device.push(that.data.checkbox[i].name)
+        }
+        if(i+1==that.data.checkbox.length){
+          wx.cloud.callFunction({
+            name: 'recordAdd',
+            data: {
+              collection: 'device',
+              addData: {
+                creation_date: util.formatTimes(new Date()),
+                creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
+                _openid: userInfo._openid,
+                user: userInfo.nickName,
+                device:device
+              }
+            }
+          }).then(res => {})
+        }
+      }
       wx.setStorageSync('prize', [{status:'success',cou_code:code}])
       let count=that.data.coupon_count;
       that.setData({coupon_count:count+1,modalName:null})

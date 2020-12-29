@@ -234,20 +234,47 @@ Page({
       // }
 
       
-      
-      if (userInfo.shop[userInfo.shop.length - 1].prove == 'waiting') {
-        wx.showToast({
-          title: '您的门店信息已提交，等待认证中，请勿重复提交',
-          icon: 'none',
-          duration: 3000
-        })
-      } else if (userInfo.shop[userInfo.shop.length - 1].prove == 'success') {
-        wx.showToast({
-          title: '您的门店已经通过认证，无需再提交',
-          icon: 'none',
-          duration: 3000
-        })
-      } else {
+      if(userInfo.shop.length>0){
+        if (userInfo.shop[userInfo.shop.length - 1].prove == 'waiting') {
+          wx.showToast({
+            title: '您的门店信息已提交，等待认证中，请勿重复提交',
+            icon: 'none',
+            duration: 3000
+          })
+        } else if (userInfo.shop[userInfo.shop.length - 1].prove == 'success') {
+          wx.showToast({
+            title: '您的门店已经通过认证，无需再提交',
+            icon: 'none',
+            duration: 3000
+          })
+        } else {
+          if (that.data.shop_name !== "" && that.data.address !== "" && that.data.phone !== "" && that.data.shop_img !== []) {
+            wx.requestSubscribeMessage({
+              tmplIds: ['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI', 'SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM', 'Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
+              success(res) {
+                console.log(res)
+                if (JSON.stringify(res).indexOf('accept') !== -1) {
+                  wx.showLoading({
+                    title: '提交中，请稍等',
+                  })
+                  if (timer) clearTimeout(timer);
+                  timer = setTimeout(async res => {
+                    let arr = [];
+                    if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop', arr)
+                    that.add(arr);
+                  }, 500)
+                }
+              }
+            })
+          } else {
+            wx.showToast({
+              title: '请填写完整内容',
+              icon: 'none',
+              duration: 3000
+            })
+          }
+        }
+      }else{
         if (that.data.shop_name !== "" && that.data.address !== "" && that.data.phone !== "" && that.data.shop_img !== []) {
           wx.requestSubscribeMessage({
             tmplIds: ['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI', 'SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM', 'Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
@@ -274,6 +301,7 @@ Page({
           })
         }
       }
+      
 
     }
   },
