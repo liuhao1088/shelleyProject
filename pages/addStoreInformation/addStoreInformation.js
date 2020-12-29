@@ -54,6 +54,30 @@ Page({
     });
   },
 
+  ViewImage(e) {
+    wx.previewImage({
+      urls: this.data.shop_img,
+      current: e.currentTarget.dataset.url
+    });
+  },
+
+  DelImg(e) {
+    let shop_img  = this.data.shop_img;
+    wx.showModal({
+      content: '确定要删除图片吗？',
+      cancelText: '取消',
+      confirmText: '确定',
+      success: res => {
+        if (res.confirm) {
+          shop_img.splice(0, 1);
+          this.setData({
+            shop_img
+          })
+        }
+      }
+    })
+  },
+
   showModal(e) {
     this.setData({
       modalName: e.currentTarget.dataset.target,

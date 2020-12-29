@@ -123,7 +123,14 @@ button {
 
 .solids {
   height: 100%;
-  width: 120rpx;
+  width: 160rpx;
+  position: relative;
+}
+
+.solids image{
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
 }
 
 /* 流程 */
