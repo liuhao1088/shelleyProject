@@ -36,7 +36,7 @@ Page({
     }
     if (nameList == '') {
       nameList = ['请选择想要体验的商品，可多选']
-    } 
+    }
     this.setData({
       modalName: null,
       nameList
@@ -65,10 +65,13 @@ Page({
     if (options.data) {
       let data = JSON.parse(options.data)
       console.log(data)
-      let userInfo=wx.getStorageSync('userInfo')
-      wx.cloud.database().collection('reservation').where({shop_code:data.shop_code,_openid:userInfo._openid}).orderBy('creation_date','desc').get().then(res=>{
-        let list=res.data
-        if(list.length>=1){
+      let userInfo = wx.getStorageSync('userInfo')
+      wx.cloud.database().collection('reservation').where({
+        shop_code: data.shop_code,
+        _openid: userInfo._openid
+      }).orderBy('creation_date', 'desc').get().then(res => {
+        let list = res.data
+        if (list.length >= 1) {
           this.setData({
             reservation: 'already'
           })
@@ -97,7 +100,7 @@ Page({
       name: 'login'
     }).then(res => console.log(res))
   },
-  callphone:function(){
+  callphone: function () {
     wx.makePhoneCall({
       phoneNumber: this.data.data.phone,
     })
@@ -158,7 +161,7 @@ Page({
         if (timer) clearTimeout(timer);
         timer = setTimeout(async res => {
           that.add(phone, userInfo);
-        }, 500)     
+        }, 500)
 
       }).catch(error => {
         console.log(error);
@@ -173,29 +176,38 @@ Page({
   },
   async submit() {
     var that = this;
+    if (that.data.nameList[0] == "请选择想要体验的商品，可多选") {
+      wx.showToast({
+        title: '请选择商品',
+        icon: 'none'
+      })
+      return;
+    }
+
+    if (that.data.startTime === util.formatTime(new Date())) {
+      wx.showToast({
+        title: '请选择到店时间',
+        icon: 'none'
+      })
+      return;
+    }
+
     wx.requestSubscribeMessage({
-      tmplIds: ['GN7JfS1q9N7eqdmvOxcFY6kjBBrUsnyRc6UGr58LAwg','pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI'],
-      success (res) {
+      tmplIds: ['GN7JfS1q9N7eqdmvOxcFY6kjBBrUsnyRc6UGr58LAwg', 'pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI'],
+      success(res) {
         console.log(res)
-        if(JSON.stringify(res).indexOf('accept')!==-1){
+        if (JSON.stringify(res).indexOf('accept') !== -1) {
           console.log(that.data.nameList)
-          if (that.data.nameList[0] == "请选择想要体验的商品，可多选") {
-            wx.showToast({
-              title: '请选择商品',
-              icon: 'none'
-            })
-          } else {
-            if (timer) clearTimeout(timer);
-            timer = setTimeout(async res => {
-              let phone = wx.getStorageSync('phone')
-              let userInfo = wx.getStorageSync('userInfo')
-              that.add(phone, userInfo);
-            }, 500)      
-          }
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(async res => {
+            let phone = wx.getStorageSync('phone')
+            let userInfo = wx.getStorageSync('userInfo')
+            that.add(phone, userInfo);
+          }, 500)
         }
       }
     })
-    
+
   },
   add(phone, userInfo) {
     var that = this;
@@ -236,14 +248,14 @@ Page({
       }, 1500)
     })
   },
-  req:function(){
-    const thing1="您的门店认证已经通过";
+  req: function () {
+    const thing1 = "您的门店认证已经通过";
     wx.cloud.callFunction({
-      name:'sendMessage',
-      data:{
-        openid:'oQQ_f4s48shRNF-_wWLKnAgCEfew',
-        page:'index',
-        data:{
+      name: 'sendMessage',
+      data: {
+        openid: 'oQQ_f4s48shRNF-_wWLKnAgCEfew',
+        page: 'index',
+        data: {
           "thing1": {
             "value": thing1
           },
@@ -251,10 +263,10 @@ Page({
             "value": "您在雪莱特上提交的门店信息已经认证通过"
           },
         },
-        templateId:'pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI',
-        state:'developer'
+        templateId: 'pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI',
+        state: 'developer'
       }
-    }).then(res=>{
+    }).then(res => {
       console.log(res)
     })
   },
@@ -273,7 +285,7 @@ Page({
       this.setData({
         isShow: true
       })
-    }*/ 
+    }*/
   },
 
   /**

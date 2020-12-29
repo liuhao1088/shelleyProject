@@ -64,7 +64,6 @@
             <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
               <text class="cuIcon-close"></text>
             </view>
-            <!-- style="display:{{shop_img==[]?'none':'block'}};z-index:{{shop_img==[]?'-1':'10'}};width:100%;height:100%;background:white;" -->
           </view>
         </view>
 
