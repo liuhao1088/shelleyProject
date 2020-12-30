@@ -38,7 +38,7 @@ Page({
     skip=0;
     this.loadData();
     var that = this;
-    if(wx.getStorageSync('userInfo')){
+    if(wx.getStorageSync('userInfo')&&wx.getStorageSync('prize')){
       let userInfo=wx.getStorageSync('userInfo')
       let data=wx.getStorageSync('prize');
       if(data[0].status){
@@ -63,53 +63,9 @@ Page({
   },
   submit:function(){
     var that=this;
-    wx.showLoading({
-      title: '加载中',
-    })
     let shop_code=that.data.list[that.data.cou_ind].shop_code;
     if(that.data.code==shop_code||shop_code=='all'){
-      wx.cloud.callFunction({
-        name:'recordUpdate',
-        data:{
-          collection:'coupon',
-          where:{
-            _id:that.data.list[that.data.cou_ind]._id
-          },
-          updateData:{
-            status:'complete'
-          }
-        }
-      }).then(res=>{
-        console.log(res)
-        wx.hideLoading({
-          success: (res) => {},
-        })
-        if(res.result.stats.updated==1){
-          let list=that.data.list;
-          list[that.data.cou_ind].status='complete'
-          list[that.data.cou_ind].usable=false;
-          that.setData({
-            list:list,
-            modalName:null
-          })
-          wx.showToast({
-            title: '使用成功',
-            icon:'success',
-            duration:1500
-          })
-        }else{
-          wx.showModal({
-            title:'网络繁忙，请稍后重试',
-            showCancel:false
-          })
-        }
-        
-      }).catch(error=>{
-        wx.showModal({
-          title:'网络繁忙，请稍后重试',
-          showCancel:false
-        })
-      })
+      that.apply(that.data.cou_ind,that.data.list[that.data.cou_ind]._id)
       if(that.data.cou_checked==true){
         wx.cloud.callFunction({
           name:'recordUpdate',
@@ -151,6 +107,57 @@ Page({
       })
     }
   },
+  apply:function(indx,id){
+    var that=this;
+    wx.showLoading({
+      title: '使用中，请稍等',
+    })
+    wx.cloud.callFunction({
+      name:'recordUpdate',
+      data:{
+        collection:'coupon',
+        where:{
+          _id:id
+        },
+        updateData:{
+          status:'complete',
+          apply_code:that.data.code
+        }
+      }
+    }).then(res=>{
+      wx.hideLoading({
+        success: (res) => {},
+      })
+      if(res.result.stats.updated==1){
+        let list=that.data.list;
+        list[indx].status='complete'
+        list[indx].usable=false;
+        if(that.data.list[that.data.cou_ind].shop_code=='all'){
+          that.setData({cou_checked:false})
+        }
+        that.setData({
+          list:list,
+          modalName:null
+        })
+        wx.showToast({
+          title: '使用成功',
+          icon:'success',
+          duration:1500
+        })
+      }else{
+        wx.showModal({
+          title:'网络繁忙，请稍后重试',
+          showCancel:false
+        })
+      }
+      
+    }).catch(error=>{
+      wx.showModal({
+        title:'网络繁忙，请稍后重试',
+        showCancel:false
+      })
+    })
+  },
   loadData:function(){
     var that=this;
     let userInfo=wx.getStorageSync('userInfo')
@@ -179,7 +186,7 @@ Page({
           creation_date: -1
         },
         skip: skip,
-        limit: 5
+        limit: 10
       }
     }).then(res => {
       let data=res.result.list;
@@ -254,7 +261,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    skip=skip+5;
+    skip=skip+10;
     this.loadData();
   },
 

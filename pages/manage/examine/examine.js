@@ -281,7 +281,7 @@ Page({
             _this.setData({
               faillist: _this.data.faillist
             })
-            skip2=0;
+            skip3=0;
             let faillist=[]
             _this.setData({faillist:[]})
             _this.loadData(_this.data.faillist, 'fail',faillist,0).then(res=>faillist=res)
