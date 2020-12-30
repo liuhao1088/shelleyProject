@@ -1,5 +1,6 @@
 // pages/storeAppointment/storeAppointment.js
-var util = require('../../utils/util.js')
+var util = require('../../utils/util.js');
+var date = new Date();
 var timer;
 Page({
 
@@ -7,14 +8,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    startTime: '2021-01-10 12:00',
+    // startTime: '2021-01-10 12:00',
     checkbox: [],
     nameList: ['请选择想要体验的商品，可多选'],
     data: '',
     firstLoading: true,
     isShow: false,
     reservation: '',
-    ind: 0
+    ind: 0,
+    startTime: "选择日期",
+    multiArray: [
+      [],
+      [],
+      []
+    ],
+    multiIndex: [0, 0, 0],
   },
   changeStartTime(e) {
     this.setData({
@@ -58,6 +66,60 @@ Page({
     })
   },
 
+  //预约时间选择器
+  pickerTap: function () {
+    var yesr = [];
+    var monthDay = ['明天', '后天'];
+    var hour = ['10:00','10:30', '11:00', '11:30', '12:00', '12:30', '13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00',];
+    // 月-日
+    for (var i = 3; i <= 30; i++) {
+      var date1 = new Date(date);
+      date1.setDate(date.getDate() + i);
+      var md = (date1.getMonth() + 1) + "月" + date1.getDate() + "日";
+      console.log(md);
+      monthDay.push(md);
+    }
+    var data = {
+      multiArray: this.data.multiArray,
+      multiIndex: this.data.multiIndex
+    };
+     var newYesr =  util.year(new Date());
+      yesr.push(newYesr);
+     console.log(yesr)
+    data.multiArray[0] = yesr;
+    data.multiArray[1] = monthDay;
+    data.multiArray[2] = hour;
+    this.setData(data);
+  },
+  bindMultiPickerColumnChange: function (e) {
+    var data = {
+      multiArray: this.data.multiArray,
+      multiIndex: this.data.multiIndex
+    };
+    // 把选择的对应值赋值给 multiIndex
+    data.multiIndex[e.detail.column] = e.detail.value;
+    this.setData(data);
+  },
+  bindStartMultiPickerChange: function (e) {
+    var that = this;
+    var monthDay = that.data.multiArray[1][e.detail.value[1]];
+    var timedate = that.data.multiArray[2][e.detail.value[2]];
+    console.log(monthDay)
+    if (monthDay === "明天") {
+      var month = date.getMonth() + 1;
+      var day = date.getDate() + 1;
+      monthDay = month + "月" + day + "日";
+    } else if (monthDay === "后天") {
+      var date1 = new Date(date);
+      date1.setDate(date.getDate() + 2);
+      monthDay = (date1.getMonth() + 1) + "月" + date1.getDate() + "日";
+    }
+    let startTime = monthDay + ' ' + timedate
+    that.setData({
+      startTime
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -84,7 +146,7 @@ Page({
     console.log(util.formatTime(new Date()));
     this.setData({
       
-      startTime: util.formatTime(new Date())
+      // startTime: util.formatTime(new Date())
     })
     var that = this;
     wx.cloud.callFunction({
@@ -186,7 +248,7 @@ Page({
       return;
     }
 
-    if (that.data.startTime === util.formatTime(new Date())) {
+    if (that.data.startTime === '选择日期') {
       wx.showToast({
         title: '请选择到店时间',
         icon: 'none'

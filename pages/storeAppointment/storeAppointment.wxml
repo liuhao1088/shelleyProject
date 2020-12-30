@@ -14,10 +14,11 @@
         <view class="wrap-date">营业时间：{{data.start_hour}} - {{data.end_hour}}</view>
         <view class="wrap-tagItem">
           <view class="wrap-starlight"
-          style="background-color: rgba(91, 98, 217, 100);border: 2rpx solid rgba(91, 98, 217, 100);text-align: center;">认证商家</view>
-        <view class="wrap-starlight" style="margin-left: 20rpx;">星级门店</view>
+            style="background-color: rgba(91, 98, 217, 100);border: 2rpx solid rgba(91, 98, 217, 100);text-align: center;">
+            认证商家</view>
+          <view class="wrap-starlight" style="margin-left: 20rpx;">星级门店</view>
         </view>
-       
+
       </view>
       <view class="wrap-tag" bindtap="openLocation">
         <view class="title-itme" style="text-align: center;">
@@ -50,9 +51,14 @@
   <view class="form-item" style="margin-top: 4rpx;">
     <view class="form-title">到店时间</view>
     <view class="form-input">
-      <rui-picker slot="flexchild" start="{{startTime}}" end="2999-12-31 00:00" value="{{startTime}}" fields="minute"
-        bindchangedatepicker="changeStartTime"></rui-picker>
-
+      <!-- <rui-picker slot="flexchild" start="{{startTime}}" end="2999-12-31 00:00" value="{{startTime}}" fields="minute"
+        bindchangedatepicker="changeStartTime"></rui-picker> -->
+      <picker class='time-picker' mode="multiSelector" bindchange="bindStartMultiPickerChange" bindtap='pickerTap'
+        bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+        <view class="picker">
+          <view class='title'>{{startTime}}</view>
+        </view>
+      </picker>
     </view>
   </view>
 
@@ -66,9 +72,10 @@
 </view>
 
 <view class="btn-item">
-  <button wx:if="{{isShow}}" style="display:{{reservation==''?'':'none'}}" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">预   约</button>
-  <button wx:if="{{!isShow}}" style="display:{{reservation==''?'':'none'}}" bindtap="submit">预   约</button>
-  <button style="display:{{reservation==''?'none':''}}" bindtap="">已   预   约</button>
+  <button wx:if="{{isShow}}" style="display:{{reservation==''?'':'none'}}" open-type="getPhoneNumber"
+    bindgetphonenumber="getPhoneNumber">预 约</button>
+  <button wx:if="{{!isShow}}" style="display:{{reservation==''?'':'none'}}" bindtap="submit">预 约</button>
+  <button style="display:{{reservation==''?'none':''}}" bindtap="">已 预 约</button>
 </view>
 
 <!-- 选择商品 -->

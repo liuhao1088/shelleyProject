@@ -132,6 +132,11 @@
   text-overflow: ellipsis;
 }
 
+.time-picker{
+  height: 100%;
+  width: 100%;
+}
+
 /* 预约 */
 .btn-item {
   width: 100%;
