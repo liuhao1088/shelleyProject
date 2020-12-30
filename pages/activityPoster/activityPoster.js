@@ -6,47 +6,57 @@ Page({
    */
   data: {
     x: 0,
-    area_width: 80,   //可滑动区域的宽，单位是百分比，设置好后自动居中
-    box_width: 160,   //滑块的宽,单位是 rpx
-    maxNum: 0, 
-    disabled:false,
-    tag:'进入首页'
+    area_width: 80, //可滑动区域的宽，单位是百分比，设置好后自动居中
+    box_width: 160, //滑块的宽,单位是 rpx
+    maxNum: 0,
+    disabled: false,
+    tag: '进入首页'
   },
 
-  togroupSpecial(){
+  togroupSpecial() {
     wx.reLaunch({
       url: '/pages/groupSpecial/groupSpecial',
     })
   },
 
   drag(e) {
-    coord = e.detail.x;  //根据bindchange 事件获取detail的x轴
+    coord = e.detail.x; //根据bindchange 事件获取detail的x轴
   },
   dragOver(e) { //根据触摸 手指触摸动作结束    判断 当前的x轴 是否大于预设值的值 
     var that = this;
-    console.log('detail的x轴:'+coord+'系统：'+that.data.maxNum)
-    that.setData({
-      disabled:true,
-      tag:''
-    })
-     wx.reLaunch({
-      url: '/pages/index/index',
-    })
+    let maxNum = that.data.maxNum;
+    console.log('detail的x轴:' + coord + '系统：' + that.data.maxNum)
+    if (coord >= maxNum) {
+      that.setData({
+        disabled: true,
+        tag: ''
+      })
+      wx.reLaunch({
+        url: '/pages/index/index',
+      })
+    } else {
+      that.setData({
+        x: 0,
+        tag: '进入首页'
+      })
+    }
+
+
   },
 
- 
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     var that = this;
-    wx.getSystemInfo({  //获取系统信息 设置预设值
+    wx.getSystemInfo({ //获取系统信息 设置预设值
       success: function (res) {
         console.log(res.windowWidth);
         var n = Math.floor(res.windowWidth * that.data.area_width / 100 - that.data.box_width / 2)
-        console.log(n)
+        console.log(n - 30)
         that.setData({
-          maxNum: n,
+          maxNum: n - 30,
         })
       }
     })
@@ -54,9 +64,9 @@ Page({
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
-          if(wx.getStorageSync('userInfo')){
+          if (wx.getStorageSync('userInfo')) {
 
-          }else{
+          } else {
             this.selectComponent("#authorize").showModal();
           }
         } else {
