@@ -291,7 +291,7 @@ Page({
           act_code: that.data.data.act[0].act_code,
           shopping: that.data.nameList,
           time: that.data.startTime,
-          timestamp: Date.parse(that.data.startTime.replace(/-/g, '/')) / 1000,
+          //timestamp: Date.parse(that.data.startTime.replace(/-/g, '/')) / 1000,
           user: userInfo.nickName,
           status:'waiting',
           creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,

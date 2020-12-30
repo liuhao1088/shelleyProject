@@ -63,6 +63,7 @@ Page({
           end_timestamp: Date.parse(util.nextYear(new Date()).replace(/-/g, '/')) / 1000,
           _openid: userInfo._openid,
           cou_code:code,
+          act_id:'-1',
           user: userInfo.nickName,
           shop_code:'all',
           shopping: {name:'全品类商品',price:'0',original_price:'100'},
@@ -97,7 +98,7 @@ Page({
           }).then(res => {})
         }
       }
-      wx.setStorageSync('prize', [{status:'success',cou_code:code}])
+      wx.setStorageSync('prize', [{status:'success',cou_code:code,act_id:'-1'}])
       let count=that.data.coupon_count;
       that.setData({coupon_count:count+1,modalName:null})
     }).catch(error => {
