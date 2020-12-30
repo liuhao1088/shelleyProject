@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    startTime: '2020-12-17 11:32',
+    startTime: '2021-01-10 12:00',
     checkbox: [],
     nameList: ['请选择想要体验的商品，可多选'],
     data: '',
@@ -81,7 +81,9 @@ Page({
         data: data
       })
     }
+    console.log(util.formatTime(new Date()));
     this.setData({
+      
       startTime: util.formatTime(new Date())
     })
     var that = this;
@@ -275,11 +277,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    /*if (!wx.getStorageSync('phone')) {
-      this.setData({
-        isShow: true
-      })
-    }*/
+    
   },
 
   /**

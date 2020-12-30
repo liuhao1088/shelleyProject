@@ -28,7 +28,7 @@
       <view class="wrap-msg">{{shop.start_hour}} - {{shop.end_hour}}</view>
     </view>
 
-    <view class="wrap-main">
+    <view class="wrap-main" style="height: 120rpx;">
       <view class="wrap-title">门店正面照：</view>
       <view class="wrap-msg">
         <image wx:for="{{shop.shop_img}}" wx:key="id" src="{{item}}" class="wrap-img" bindtap="previewImg"

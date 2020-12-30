@@ -53,9 +53,9 @@
 }
 
 .wrap-img {
-  height: 100rpx;
-  width: 100rpx;
-  background-color: red;
+  height: 100%;
+  width: 120rpx;
+  border-radius: 10rpx;
 }
 
 .wrap-tag {

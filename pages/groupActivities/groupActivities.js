@@ -8,8 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    startTime: '2020-12-17 11:32', //活动开始时间
-    endTime: '2020-12-17 11:32', //活动截止时间
+    startTime: '2021-01-10 12:00', //活动开始时间
+    endTime: '2020-01-10 12:00', //活动截止时间
     productList: [{
       "name": '请选择想要体验的商品',
       "price": '',
@@ -36,17 +36,6 @@ Page({
       endTime: e.detail.value
     })
   },
-
-  //获取分钟
-  // timeChange(e) {
-  //   let productList =  this.data.productList
-  //   var index = e.currentTarget.dataset.idx; //获取当前索引
-  //   // console.log(index)
-  //   productList[index].time = e.detail.value;
-  //   this.setData({
-  //     productList,
-  //   })
-  // },
 
   //添加活动商品
   onAdd(e) {
@@ -104,19 +93,7 @@ Page({
     }
   },
 
-  // //失去焦点赋值给input
-  // blurChanguser(e){
-  //   let productList = this.data.productList;
-  //   var index = e.currentTarget.dataset.idx; //获取当前索引
-  //   var type = e.currentTarget.id; //状态
-  //   console.log(index);
-  //   productList[index][type] = e.detail.value;
-  //   this.setData({
-  //     [productList[index][type]]:e.detail.value,
-  //   })
-  // },
   showModal(e) {
-    // console.log(e.currentTarget.dataset.idx)
     this.setData({
       modalName: e.currentTarget.dataset.target,
       index:e.currentTarget.dataset.idx

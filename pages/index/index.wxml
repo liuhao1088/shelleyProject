@@ -25,7 +25,11 @@
             </view>
 
             <!-- 用户 -->
+<<<<<<< Updated upstream
             <view class="topbar-item" bindtap="toReserveStore" wx:if="{{type === 'driver'}}">
+=======
+            <!-- <view class="topbar-item" bindtap="toReserveStore">
+>>>>>>> Stashed changes
               <view class="topbar-icon">
                 <text class="iconfont iconstore2 icon" style=" font-size: 56rpx;"></text>
               </view>
@@ -33,10 +37,14 @@
                 <view class="topbar-title">预约门店</view>
                 <view class="topbar-msg">立即预约零等待体验</view>
               </view>
-            </view>
+            </view> -->
 
             <!-- 门店 -->
+<<<<<<< Updated upstream
              <view class="topbar-item" bindtap="toMyStore" wx:if="{{type === 'shopkeeper'}}">
+=======
+            <view class="topbar-item" bindtap="toMyStore" wx:if="{{user.type === 'shopkeeper'}}">
+>>>>>>> Stashed changes
               <view class="topbar-icon">
                 <text class="iconfont iconstore2 icon" style=" font-size: 56rpx;"></text>
               </view>
@@ -44,7 +52,11 @@
                 <view class="topbar-title">我的门店</view>
                 <view class="topbar-msg">活动配置/门店管理</view>
               </view>
+<<<<<<< Updated upstream
             </view> <!---->
+=======
+            </view>
+>>>>>>> Stashed changes
 
             <!-- 品牌 -->
              <view class="topbar-item" bindtap="toActivityDetails" wx:if="{{type === 'brand'}}">
@@ -61,22 +73,34 @@
 
           <!-- 用户 -->
 
+<<<<<<< Updated upstream
           <view class="wrap-coupons" wx:if="{{type === 'driver'}}" bindtap="toMyCoupon">
+=======
+          <!-- <view class="wrap-coupons" bindtap="toMyCoupon">
+>>>>>>> Stashed changes
             <view class="wrap-couponsItem">
               <text class="iconfont iconquan"></text>
               <view class="wrap-groupItem">我的卡券</view>
             </view>
             <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;">{{coupon_count==0?'当前暂无可用券':'当前有'+coupon_count+'张可用券'}}</view>
-          </view>
+          </view> -->
 
           <!-- 门店 -->
+<<<<<<< Updated upstream
            <view class="wrap-coupons" wx:if="{{type === 'shopkeeper'}}">
+=======
+          <view class="wrap-coupons">
+>>>>>>> Stashed changes
             <view class="wrap-couponsItem" bindtap="toCarAppointment">
               <text class="iconfont iconyuyue"></text>
               <view class="wrap-groupItem">车主预约</view>
             </view>
             <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;">当前无预约待处理</view>
+<<<<<<< Updated upstream
           </view> <!---->
+=======
+          </view>
+>>>>>>> Stashed changes
 
           <!-- 品牌 -->
            <view class="wrap-coupons" bindtap="toAllStore" wx:if="{{type === 'brand'}}">
