@@ -20,7 +20,7 @@
               </view>
               <view class="topbar-guild">
                 <view class="topbar-title">拼团特惠</view>
-                <view class="topbar-msg">超值拼团价，仅限今日</view>
+                <view class="topbar-msg">超值拼团价，先到先得</view>
               </view>
             </view>
 

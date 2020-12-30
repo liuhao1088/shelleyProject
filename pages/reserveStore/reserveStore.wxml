@@ -10,7 +10,7 @@
     <view class="wrap" wx:for="{{list}}" wx:key="id"  data-index="{{index}}"  bindtap="toStoreAppointment">
       <view class="wrap-item">
         <view class="wrap-img">
-          <image src="{{item.shop_img}}" style=""></image>
+          <image src="{{item.shop_img}}" style="border-radius: 10rpx;"></image>
           <view wx:if="{{item.gift}}" class="wrap-tag">预约好礼</view>
         </view>
         <view class="wrap-titleItem">
