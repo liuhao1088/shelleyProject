@@ -2,7 +2,6 @@
   "pages":[
     "pages/index/index",
     "pages/reservationActivity/reservationActivity",
-   
     "pages/storeAppointment/storeAppointment",
     "pages/addStoreInformation/addStoreInformation",
     "pages/activityPoster/activityPoster",

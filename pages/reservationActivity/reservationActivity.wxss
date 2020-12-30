@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 30rpx;
+  padding-bottom: 60rpx;
 }
 
 .title {
@@ -52,14 +53,14 @@
   height: 100%;
   width: 100%;
   font-size: 28rpx;
- 
+
 }
 
 .placeholder {
   font-size: 28rpx;
 }
 
-.wrap-date{
+.wrap-date {
   width: 100%;
   padding-bottom: 40rpx;
   border-bottom: 2rpx solid black;
@@ -75,19 +76,19 @@
   display: flex;
 }
 
-.wrap-textareaItem{
+.wrap-textareaItem {
   width: 100%;
   padding-top: 40rpx;
 }
 
-.wrap-textarea{
+.wrap-textarea {
   width: 100%;
   height: 300rpx;
   border-bottom: 2rpx solid black;
   padding: 20rpx 30rpx;
 }
 
-textarea{
+textarea {
   height: 100%;
   width: 100%;
   background-color: rgba(255, 255, 255, 100);
@@ -97,16 +98,258 @@ textarea{
   padding: 20rpx;
 }
 
-.but-item{
+.but-item {
   height: 60rpx;
   width: 200rpx;
   border: 0rpx solid red;
   margin: auto;
 }
 
-.cu-btn{
+.cu-btn {
   height: 100%;
   width: 100%;
   line-height: 60rpx;
   background-color: rgba(105, 113, 254, 100);
+}
+
+/* 活动预览 */
+.wrap-max {
+  width: 90%;
+  height: 200rpx;
+  margin: auto;
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0px 4rpx 12rpx 0px rgba(0, 0, 0, 0.4);
+  border: 2rpx solid rgba(255, 255, 255, 100);
+  margin-top: 40rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrap-item {
+  height: 140rpx;
+  width: 95%;
+  border: 0rpx solid red;
+  display: flex;
+}
+
+.wrap-img {
+  height: 100%;
+  width: 140rpx;
+  background-color: #fafafa;
+  float: left;
+  position: relative;
+  border-radius: 10rpx;
+}
+
+.wrap-img image {
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
+  text-align: center;
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+}
+
+.wrap-tag {
+  height: 40rpx;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: #A7ABF2;
+  font-size: 20rpx;
+  text-align: center;
+  line-height: 40rpx;
+  color: #fff;
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+}
+
+.wrap-titleItemTwo {
+  flex: 1;
+  border: 0rpx solid black;
+  padding-left: 20rpx;
+}
+
+.preview-wrapTitle {
+  width: 100%;
+  height: 44rpx;
+  font-size: 32rpx;
+  line-height: 44rpx;
+  border: 0rpx solid red;
+}
+
+.preview-title {
+  float: left;
+}
+
+.wrap-address {
+  width: 100%;
+  height: 30rpx;
+  line-height: 30rpx;
+  font-size: 24rpx;
+  opacity: 0.6;
+  margin-top: 10rpx;
+}
+
+/* 预约门店 */
+.reservation{
+  width: 90%;
+  margin: auto;
+  margin-top: 40rpx;
+  box-shadow: 0px 4rpx 12rpx 0px rgba(0, 0, 0, 0.4);
+}
+
+.storeAppointmentContainer {
+  background-color: #1B222E;
+  color: #fff;
+  width: 100%;
+}
+
+.banner {
+  width: 100%;
+  height: 400rpx;
+}
+
+.banner-item {
+  height: 100%;
+  background-color: #baf;
+}
+
+.reservation-wrap {
+  width: 100%;
+  background-color: #202937;
+  padding-bottom: 20rpx;
+  display: flex;
+}
+
+.reservation-wrapItem {
+  width: 90%;
+  height: 100%;
+  border: 0rpx solid #bfa;
+  margin: auto;
+  display: flex;
+  padding: 40rpx 0;
+}
+
+.reservation-wrapTitle {
+  flex: 1;
+  border: 0rpx solid bisque;
+}
+
+.reservation-wrapTag {
+  height: 100%;
+  width: 110rpx;
+  border: 0rpx solid red;
+  float: right;
+  position: relative;
+}
+
+.reservation-titleItme {
+  width: 100%;
+  line-height: 50rpx;
+  font-size: 36rpx;
+
+}
+
+.navigation-item {
+  height: 160rpx;
+  width: 110rpx;
+  border: 0rpx solid #fff;
+  text-align: center;
+}
+
+.tag-itme {
+  width: 100%;
+  line-height: 40rpx;
+  background-color: #5B62D9;
+  font-size: 20rpx;
+  border-radius: 4rpx;
+  margin-top: 6rpx;
+}
+
+.reservation-wrapDate {
+  width: 100%;
+  line-height: 34rpx;
+  border: 0rpx solid bisque;
+  opacity: 0.5;
+  font-size: 24rpx;
+  margin-top: 6rpx;
+  float: left;
+}
+
+.wrap-starlight {
+  line-height: 36rpx;
+  border: 1px solid rgba(255, 255, 255, 100);
+  border-radius: 2px;
+  font-size: 20rpx;
+  margin-top: 6rpx;
+  float: left;
+  padding: 0 10rpx;
+}
+
+.experience-item {
+  height: 90rpx;
+  line-height: 90rpx;
+  border: 0rpx solid red;
+  padding-left: 40rpx;
+  color: rgba(255, 255, 255, 100);
+  font-size: 36rpx;
+}
+
+.form-item {
+  height: 124rpx;
+  padding: 0 40rpx;
+  background-color: #202937;
+  display: flex;
+  line-height: 124rpx;
+}
+
+.text-item {
+  line-height: 40rpx;
+  padding: 20rpx 40rpx 120rpx 40rpx;
+  background-color: #202937;
+  font-size: 28rpx;
+}
+
+.form-title {
+  width: 200rpx;
+  font-size: 36rpx;
+  border: 0rpx solid #fff;
+}
+
+.form-input {
+  flex: 1;
+  border: 0rpx solid black;
+  color: rgba(255, 255, 255, 100);
+  font-size: 24rpx;
+  text-align: right;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-item {
+  width: 100%;
+  height: 80rpx;
+}
+
+.btn-item button {
+  height: 100%;
+  width: 100%;
+  line-height: 80rpx;
+  border-radius: 0;
+  background-color: rgba(91, 98, 217, 100);
+  color: #fff;
+}
+
+.tag-border{
+  height: 50%;
+  width: 2rpx;
+  position: absolute;
+  top: 22rpx;
+  left: 0;
+  background-color: #94969A;
 }

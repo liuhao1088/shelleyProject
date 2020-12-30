@@ -48,7 +48,92 @@
 
   </view>
   <view class="title">活动预览</view>
-  <view class="wrap">
+  <view class="wrap" style="padding-bottom: 40rpx;">
+    <view class="wrap-max">
+      <view class="wrap-item">
+        <view class="wrap-img">
+          <view class="wrap-tag">预约好礼</view>
+        </view>
+        <view class="wrap-titleItemTwo">
+          <view class="preview-wrapTitle">
+            <view class="preview-title">AAAA宝安店</view>
+            <view class="cu-tag"
+              style="height: 100%;float: right;background-color: #5B62D9;color: #fff;border-radius: 10rpx;font-size: 18rpx;">
+              认证门店</view>
+          </view>
+          <view class="wrap-address">广东省深圳市宝安区</view>
+          <view class="wrap-address">XX街道XX大道XX工业园X栋XXX</view>
+        </view>
+      </view>
+    </view>
 
+    <view class="reservation">
+      <view class="storeAppointmentContainer">
+        <view class="banner">
+          <swiper indicator-dots autoplay circular style="height:100%;">
+            <swiper-item>
+              <image class="banner-item" wx:for="{{data.shop_img}}" wx:key="id" src="{{item}}" style="width:100%;" />
+            </swiper-item>
+          </swiper>
+        </view>
+
+        <view class="reservation-wrap">
+          <view class="reservation-wrapItem">
+            <view class="reservation-wrapTitle">
+              <view class="reservation-titleItme">AAAA宝安店</view>
+              <view class="reservation-wrapDate">营业时间：08：00- 22：00</view>
+              <view class="wrap-tagItem">
+                <view class="wrap-starlight"
+                  style="background-color: rgba(91, 98, 217, 100);border: 2rpx solid rgba(91, 98, 217, 100);text-align: center;">
+                  认证商家</view>
+                <view class="wrap-starlight" style="margin-left: 20rpx;">星级门店</view>
+              </view>
+
+            </view>
+            <view class="reservation-wrapTag">
+              <view class="reservation-titleItme" style="text-align: center;">
+                <text class="iconfont icondaohang"></text>
+              </view>
+              <view class="reservation-wrapDate" style="text-align: center;opacity: 1;">地址</view>
+            </view>
+            <view class="reservation-wrapTag">
+              <view class="reservation-titleItme" style="text-align: center;">
+                <text class="iconfont icondianhua1"></text>
+              </view>
+              <view class="reservation-wrapDate" style="text-align: center;opacity: 1;">电话</view>
+              <view class="tag-border"></view>
+            </view>
+          </view>
+
+
+        </view>
+
+        <view class="experience-item">
+          预约体验
+        </view>
+
+        <view class="form-item">
+          <view class="form-title">选择商品</view>
+          <view class="form-input">
+            请选择想要体验的商品，可多选
+          </view>
+        </view>
+        <view class="form-item" style="margin-top: 4rpx;">
+          <view class="form-title">到店时间</view>
+          <view class="form-input">
+            请选择到店体验的时间
+          </view>
+        </view>
+        <view class="experience-item" style="background-color: #202937;margin-top: 4rpx;">
+          预约好礼
+        </view>
+        <view class="text-item">
+          现在预约在活动期内到店即可领取奖品1~
+        </view>
+        <view class="btn-item">
+          <button>预 约</button>
+        </view>
+      </view>
+    </view>
   </view>
 </view>

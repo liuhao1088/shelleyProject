@@ -51,8 +51,6 @@
   <view class="form-item" style="margin-top: 4rpx;">
     <view class="form-title">到店时间</view>
     <view class="form-input">
-      <!-- <rui-picker slot="flexchild" start="{{startTime}}" end="2999-12-31 00:00" value="{{startTime}}" fields="minute"
-        bindchangedatepicker="changeStartTime"></rui-picker> -->
       <picker class='time-picker' mode="multiSelector" bindchange="bindStartMultiPickerChange" bindtap='pickerTap'
         bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
         <view class="picker">
