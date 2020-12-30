@@ -8,7 +8,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // startTime: '2021-01-10 12:00',
     checkbox: [],
     nameList: ['请选择想要体验的商品，可多选'],
     data: '',
@@ -65,7 +64,6 @@ Page({
       ind: ind
     })
   },
-
   //预约时间选择器
   pickerTap: function () {
     var yesr = [];
@@ -139,15 +137,11 @@ Page({
           })
         }
       })
+      console.log(data)
       this.setData({
         data: data
       })
     }
-    console.log(util.formatTime(new Date()));
-    this.setData({
-      
-      // startTime: util.formatTime(new Date())
-    })
     var that = this;
     wx.cloud.callFunction({
       name: 'showwares'

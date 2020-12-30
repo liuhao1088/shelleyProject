@@ -1,5 +1,6 @@
 // pages/reservationActivity/reservationActivity.js
 const util = require('../../utils/util');
+let date = util.formatTime(new Date())
 let timer;
 Page({
 
@@ -7,12 +8,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    startTime: '2020-12-17 11:32',
-    endTime: '2020-12-17 11:32',
-    title:'',content:''
+    startTime: '2021-01-10 12:00',
+    endTime: '2021-01-10 12:00',
+    title: '',
+    content: ''
   },
-  changeStartTime(e){
-    this.setData({ startTime: e.detail.value})
+  changeStartTime(e) {
+    this.setData({
+      startTime: e.detail.value
+    })
   },
   changeEndTime(e) {
     console.log(e)
@@ -25,15 +29,19 @@ Page({
       content: e.detail.value
     })
   },
-  inputTitle:function(e){
-    this.setData({title:e.detail.value})
+  inputTitle: function (e) {
+    this.setData({
+      title: e.detail.value
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let date=util.formatTime(new Date())
-    this.setData({startTime:date,endTime:date})
+    this.setData({
+      startTime: date,
+      endTime: date
+    })
   },
 
   /**
@@ -49,28 +57,65 @@ Page({
   onShow: function () {
 
   },
-  async submit(){
-    if(this.data.title!==''&&this.data.content!==''){
-      var that=this;
+  async submit() {
+    if (!this.data.title) {
+      wx.showToast({
+        title: '请输入活动标题',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (!this.data.title) {
+      wx.showToast({
+        title: '请输入活动标题',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (this.data.startTime === date) {
+      wx.showToast({
+        title: '请选择开始时间',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (this.data.endTime === date) {
+      wx.showToast({
+        title: '请选择截止时间',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (!this.data.content) {
+      wx.showToast({
+        title: '请输入内容',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+
+
+
+    if (this.data.title !== '' && this.data.content !== '') {
+      var that = this;
       wx.showLoading({
         title: '提交中',
       })
       if (timer) clearTimeout(timer);
-      timer= setTimeout(async res=>{
+      timer = setTimeout(async res => {
         await that.add();
-      },500)
-    }else{
-      wx.showToast({
-        title: '内容不能为空',
-        icon:'none',
-        duration:2000
-      })
+      }, 500)
     }
   },
-  add:function(){
-    var that=this;
-    var userInfo=wx.getStorageSync('userInfo')
-    var creation_date=util.formatTime(new Date())
+  add: function () {
+    var that = this;
+    var userInfo = wx.getStorageSync('userInfo')
+    var creation_date = util.formatTime(new Date())
     wx.showLoading({
       title: '提交中',
     })
@@ -80,39 +125,39 @@ Page({
       numberCode += Math.floor(Math.random() * 10)
     }
     wx.cloud.callFunction({
-      name:'recordAdd',
-      data:{
-        collection:'activity',
-        addData:{
-          creation_date:creation_date,
-          creation_timestamp:Date.parse(creation_date.replace(/-/g, '/')) / 1000,
-          title:that.data.title,
-          content:that.data.content,
-          start_date:that.data.startTime,
-          start_timestamp:Date.parse(that.data.startTime.replace(/-/g, '/')) / 1000,
-          end_date:that.data.endTime,
-          end_timestamp:Date.parse(that.data.endTime.replace(/-/g, '/')) / 1000,
-          act_code:code+numberCode,
-          shop_code:userInfo.shop[userInfo.shop.length-1].shop_code,
-          lat:userInfo.shop[userInfo.shop.length-1].lat,
-          lon:userInfo.shop[userInfo.shop.length-1].lon,
-          _openid:userInfo._openid,
-          type:'reservation'
+      name: 'recordAdd',
+      data: {
+        collection: 'activity',
+        addData: {
+          creation_date: creation_date,
+          creation_timestamp: Date.parse(creation_date.replace(/-/g, '/')) / 1000,
+          title: that.data.title,
+          content: that.data.content,
+          start_date: that.data.startTime,
+          start_timestamp: Date.parse(that.data.startTime.replace(/-/g, '/')) / 1000,
+          end_date: that.data.endTime,
+          end_timestamp: Date.parse(that.data.endTime.replace(/-/g, '/')) / 1000,
+          act_code: code + numberCode,
+          shop_code: userInfo.shop[userInfo.shop.length - 1].shop_code,
+          lat: userInfo.shop[userInfo.shop.length - 1].lat,
+          lon: userInfo.shop[userInfo.shop.length - 1].lon,
+          _openid: userInfo._openid,
+          type: 'reservation'
         }
       }
-    }).then(res=>{
+    }).then(res => {
       console.log(res)
       wx.hideLoading()
       wx.showToast({
         title: '发布活动成功',
-        icon:'success',
-        duration:2000
+        icon: 'success',
+        duration: 2000
       })
-      setTimeout(res=>{
-        wx.navigateBack({
-          delta: 0,
+      setTimeout(res => {
+        wx.navigateTo({
+          url: '/pages/activityDetails/activityDetails',
         })
-      },2000)
+      }, 2000)
     }).catch(error => {
       wx.hideLoading()
       wx.hideNavigationBarLoading()
@@ -121,14 +166,14 @@ Page({
       })
     })
   },
-  getRanNum(){
+  getRanNum() {
     var result = [];
-    for(var i=0;i<2;i++){
+    for (var i = 0; i < 2; i++) {
       var ranNum = Math.ceil(Math.random() * 25);
       //大写字母'A'的ASCII是65,A~Z的ASCII码就是65 + 0~25;然后调用String.fromCharCode()传入ASCII值返回相应的字符并push进数组里
-      result.push(String.fromCharCode(65+ranNum));
+      result.push(String.fromCharCode(65 + ranNum));
     }
-    return  result.join('');
+    return result.join('');
   },
   /**
    * 生命周期函数--监听页面隐藏
