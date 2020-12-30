@@ -75,7 +75,6 @@ Page({
       title: '加载中',
     })
     var stamp=Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
-    console.log(stamp)
     var _=wx.cloud.database().command;
     wx.cloud.callFunction({
       name:'recordQuery',

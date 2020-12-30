@@ -35,7 +35,8 @@ Page({
     modalName: null,
     top: '',
     type:'driver',
-    coupon_count:0
+    coupon_count:0,
+    re_count:0
   },
   toVideo() {
     wx.navigateTo({
@@ -302,7 +303,7 @@ Page({
             limit: 100
           }
         }).then(res => {
-          console.log(res)
+          //console.log(res)
           let data=res.result.list;
           for(let i in data){
             data[i].distance=that.getDistance(lat,lon,data[i].lat,data[i].lon)
@@ -345,13 +346,16 @@ Page({
     var that = this;
     if (wx.getStorageSync('userInfo')) {
       let userInfo = wx.getStorageSync('userInfo')
-      wx.cloud.database().collection('coupon').where({_openid:userInfo._openid,shop_code:'all'}).get().then(res=>{
-        let data=res.data;
-        wx.setStorageSync('prize', data)
-        if(data.length==0){
-          that.setData({modalName:0})
-        }
-      })  
+      let prize=wx.getStorageSync('prize')
+      if(prize==undefined||prize==''){
+        wx.cloud.database().collection('coupon').where({_openid:userInfo._openid,shop_code:'all'}).get().then(res=>{
+          let data=res.data;
+          wx.setStorageSync('prize', data)
+          if(data.length==0){
+            that.setData({modalName:0})
+          }
+        }) 
+      }
       wx.cloud.callFunction({
         name: 'multQuery',
         data: {
@@ -386,6 +390,15 @@ Page({
         })
         console.log(user)
         wx.setStorageSync('userInfo', user)
+        if(user.type=='shopkeeper'){
+          wx.cloud.database().collection('reservation').where({shop_code: userInfo.shop[userInfo.shop.length-1].shop_code,status:'waiting'}).count({
+            success: function (res) {
+              if(res.total>0){
+                that.setData({re_count:res.total})
+              }
+            }
+          })
+        }
       })
       wx.cloud.database().collection('coupon').where({_openid: userInfo._openid,status:'success'}).count({
         success: function (res) {

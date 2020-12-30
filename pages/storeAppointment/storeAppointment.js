@@ -131,10 +131,13 @@ Page({
         _openid: userInfo._openid
       }).orderBy('creation_date', 'desc').get().then(res => {
         let list = res.data
-        if (list.length >= 1) {
-          this.setData({
-            reservation: 'already'
-          })
+        let stamp=Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
+        if (list.length >= 1){
+          if((list[0].status=='success'&&stamp<=list[0].timestamp)||(list[0].status=='waiting'&&stamp<=list[0].timestamp)){
+            this.setData({
+              reservation: 'already'
+            })
+          }
         }
       })
       console.log(data)
@@ -251,9 +254,8 @@ Page({
     }
 
     wx.requestSubscribeMessage({
-      tmplIds: ['GN7JfS1q9N7eqdmvOxcFY6kjBBrUsnyRc6UGr58LAwg', 'pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI'],
+      tmplIds: ['-m92htbt5V0SlqRwZaMZAy9l3mv3CNseLM-yDKlRG5g', 'SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0','GN7JfS1q9N7eqdmvOxcFY6kjBBrUsnyRc6UGr58LAwg'],
       success(res) {
-        console.log(res)
         if (JSON.stringify(res).indexOf('accept') !== -1) {
           console.log(that.data.nameList)
           if (timer) clearTimeout(timer);
@@ -269,6 +271,16 @@ Page({
   },
   add(userInfo) {
     var that = this;
+    let time=that.data.startTime;
+    let yDigit=util.year(new Date());
+    let mDigit=time.substring(0,time.indexOf('月'));
+    if((new Date()).getMonth()+1!==mDigit&&(new Date()).getMonth()+1==12){
+      yDigit=yDigit+1;
+    }
+    if(mDigit<10) mDigit='0'+mDigit;
+    let dDigit=time.substring(time.indexOf('月')+1,time.indexOf('日'))
+    if(dDigit<10) dDigit='0'+dDigit;
+    let time_date=yDigit+'-'+mDigit+'-'+dDigit+time.substring(time.indexOf('日')+1);
     wx.showLoading({
       title: '预约中，请稍等',
     })
@@ -291,7 +303,8 @@ Page({
           act_code: that.data.data.act[0].act_code,
           shopping: that.data.nameList,
           time: that.data.startTime,
-          //timestamp: Date.parse(that.data.startTime.replace(/-/g, '/')) / 1000,
+          time_date:time_date,
+          timestamp: Date.parse(time_date.replace(/-/g, '/')) / 1000,
           user: userInfo.nickName,
           status:'waiting',
           creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
@@ -305,7 +318,9 @@ Page({
         icon: 'success',
         duration: 2000
       })
+      let cont=that.data.nameList.join(',').substring(0,20)
       wx.setStorageSync('refreshData', that.data.data)
+      that.sendMessage(that.data.data._openid,that.data.startTime,cont)
       setTimeout(() => {
         wx.navigateBack({
           delta: 0,
@@ -321,6 +336,24 @@ Page({
       result.push(String.fromCharCode(65+ranNum));
     }
     return  result.join('');
+  },
+  sendMessage: function (openid,time,content) {
+    wx.cloud.callFunction({
+      name: 'sendMessage',
+      data: {
+        openid: openid,
+        page: 'pages/carAppointment/carAppointment',
+        data: {
+          "time3": {
+            "value": time
+          },
+          "thing4": {
+            "value": content
+          },
+        },
+        templateId: 'SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM'
+      }
+    }).then(res => {})
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

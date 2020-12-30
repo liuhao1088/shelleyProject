@@ -70,12 +70,12 @@
           </view>
 
           <!-- 门店 -->
-           <view class="wrap-coupons" wx:if="{{type === 'shopkeeper'}}">
-            <view class="wrap-couponsItem" bindtap="toCarAppointment">
+           <view class="wrap-coupons" wx:if="{{type === 'shopkeeper'}}" bindtap="toCarAppointment">
+            <view class="wrap-couponsItem">
               <text class="iconfont iconyuyue"></text>
               <view class="wrap-groupItem">车主预约</view>
             </view>
-            <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;">当前无预约待处理</view>
+            <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;">{{re_count==0?'当前无预约待处理':'当前有'+re_count+'条预约待处理'}}</view>
           </view> <!---->
 
           <!-- 品牌 -->

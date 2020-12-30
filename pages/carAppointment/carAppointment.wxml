@@ -1,15 +1,15 @@
 <view class="carAppointmentContainer">
   <view class="search">
-    <input type="text" value="{{searchContent}}" placeholder="请输入预约单号/预留手机号查询" placeholder-class="placeholder"
-      bindinput="handleInputChange" />
+    <input type="text" value="{{searchContent}}" placeholder="请输入预约单号查询" placeholder-class="placeholder"
+      bindinput="inputSearch" value="{{search}}" />
     <text class="iconfont iconziyuan searchIcon" bindtap="toSearch"></text>
   </view>
 
-  <view class="wrapper" wx:for="{{list}}">
+  <view class="wrapper" wx:for="{{list}}" wx:if="{{!search_whether}}">
     <view class="wrap">
       <view class="wrap-title">预约体验：{{item.label}}</view>
-      <view class="wrap-tag">待接受</view>
-      <!-- <view class="wrap-tag" style="opacity: 0.5;">已接受</view> -->
+      <view class="wrap-tag" wx:if="{{item.status=='waiting'}}">待接受</view>
+      <view class="wrap-tag" style="opacity: 0.5;" wx:if="{{item.status=='success'}}">已接受</view> 
 
     </view>
     <view class="wrap">
@@ -19,7 +19,7 @@
       <view class="wrap-title">预约时间：{{item.time}}</view>
     </view>
     <view class="wrap">
-      <view class="wrap-title" style="opacity: 0.5;">单号：{{item.re_code}}</view>
+      <view class="wrap-title" style="opacity: 0.5;">预约单号：{{item.re_code}}</view>
     </view>
 
     <view class="wrap" style="display: inline;" wx:if="{{item.status=='waiting'}}">
@@ -35,4 +35,38 @@
     </view>
 
   </view>
+
+  
+  <view class="wrapper" wx:for="{{searchlist}}" wx:if="{{search_whether}}">
+    <view class="wrap">
+      <view class="wrap-title">预约体验：{{item.label}}</view>
+      <view class="wrap-tag" wx:if="{{item.status=='waiting'}}">待接受</view>
+      <view class="wrap-tag" style="opacity: 0.5;" wx:if="{{item.status=='success'}}">已接受</view> 
+
+    </view>
+    <view class="wrap">
+      <view class="wrap-title">预约人员：{{item.user}}</view>
+    </view>
+    <view class="wrap">
+      <view class="wrap-title">预约时间：{{item.time}}</view>
+    </view>
+    <view class="wrap">
+      <view class="wrap-title" style="opacity: 0.5;">预约单号：{{item.re_code}}</view>
+    </view>
+
+    <view class="wrap" style="display: inline;" wx:if="{{item.status=='waiting'}}">
+      <view class="wrap-but">
+        <view class="but" data-index="{{index}}" bindtap="confirm">
+          <button class="cu-btn round sm bg-blue accept">接受预约</button>
+        </view>
+        <view class="but" style="margin-right: 30rpx;" data-index="{{index}}" bindtap="cancel">
+          <button class="cu-btn round sm bg-white cancel">取消预约</button>
+        </view>
+      
+      </view>
+    </view>
+
+  </view>
+
 </view>
+
