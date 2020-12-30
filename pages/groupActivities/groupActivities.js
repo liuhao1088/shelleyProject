@@ -1,6 +1,6 @@
 // pages/groupActivities/groupActivities.js
 var clickindex = new Array();
-var util=require('../../utils/util.js')
+var util = require('../../utils/util.js')
 let timer;
 Page({
 
@@ -18,8 +18,9 @@ Page({
       "showView": false
     }], //活动商品
     checkbox: [], //商品选择
-    index:0,
-    title:'',ind:0
+    index: 0,
+    title: '',
+    ind: 0
   },
   //获取活动开始时间
   changeStartTime(e) {
@@ -41,11 +42,13 @@ Page({
   onAdd(e) {
     let productList = this.data.productList;
     let index = e.currentTarget.dataset.idx;
-    if(productList[index].price==''||productList[index].people==''||productList[index].time==''||productList[index].name=='请选择想要体验的商品'){
+    if (productList[index].price == '' || productList[index].people == '' || productList[index].time == '' || productList[index].name == '请选择想要体验的商品') {
       wx.showToast({
-        title: '请填写完内容，再添加活动商品',icon:'none',duration:2000
+        title: '请填写完内容，再添加活动商品',
+        icon: 'none',
+        duration: 2000
       })
-    }else{
+    } else {
       // console.log(index)
       let newData = {
         "name": '请选择想要体验的商品',
@@ -70,7 +73,7 @@ Page({
         productList,
       })
     }
-    
+
   },
 
   //获取input的值
@@ -82,7 +85,7 @@ Page({
     let value = e.detail.value;
     console.log(type);
     productList[index][type] = value
-    if(type == 'time' && value >= 1440){
+    if (type == 'time' && value >= 1440) {
       console.log(type)
       wx.showToast({
         title: '时间限制范围为1~1440',
@@ -96,29 +99,30 @@ Page({
   showModal(e) {
     this.setData({
       modalName: e.currentTarget.dataset.target,
-      index:e.currentTarget.dataset.idx
+      index: e.currentTarget.dataset.idx
     })
   },
   hideModal(e) {
     let index = this.data.index;
     let productList = this.data.productList;
-    let items = this.data.checkbox;console.log(productList[index])
-    productList[index] =Object.assign(productList[index],items[this.data.ind]);
+    let items = this.data.checkbox;
+    console.log(productList[index])
+    productList[index] = Object.assign(productList[index], items[this.data.ind]);
     console.log(productList[index])
     this.setData({
       modalName: null,
-      productList:productList
+      productList: productList
     })
     //console.log(productList)
   },
   chooseCheckbox(e) {
     let items = this.data.checkbox;
     let ind = e.currentTarget.dataset.index;
-    for(let i in items) items[i].checked=false
-    items[ind].checked=true;
+    for (let i in items) items[i].checked = false
+    items[ind].checked = true;
     this.setData({
       checkbox: items,
-      ind:ind
+      ind: ind
     })
   },
 
@@ -126,17 +130,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let date =  util.formatTime(new Date());
+    let date = util.formatTime(new Date());
     this.setData({
-      startTime:date,
-      endTime:date
+      startTime: date,
+      endTime: date
     })
-    var that=this;
-    wx.cloud.callFunction({name:'showwares'}).then(res=>{
-      let data=res.result;
-      for(let i=0;i<data.length;i++){
-        data[i].checked=false;
-        if(i+1==data.length) that.setData({checkbox:data})
+    var that = this;
+    wx.cloud.callFunction({
+      name: 'showwares'
+    }).then(res => {
+      let data = res.result;
+      for (let i = 0; i < data.length; i++) {
+        data[i].checked = false;
+        if (i + 1 == data.length) that.setData({
+          checkbox: data
+        })
       }
     })
   },
@@ -152,10 +160,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
-  inputTitle:function(e){
-    this.setData({title:e.detail.value})
+  inputTitle: function (e) {
+    this.setData({
+      title: e.detail.value
+    })
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -163,28 +173,28 @@ Page({
   onHide: function () {
 
   },
-  async submit_form(){
-    var _this=this;
-    var list=_this.data.productList;
-    if(_this.data.title==""||list[list.length-1].price==''||list[list.length-1].time==''||list[list.length-1].people==''||list[list.length-1].name=='请选择想要体验的商品'){
+  async submit_form() {
+    var _this = this;
+    var list = _this.data.productList;
+    if (_this.data.title == "" || list[list.length - 1].price == '' || list[list.length - 1].time == '' || list[list.length - 1].people == '' || list[list.length - 1].name == '请选择想要体验的商品') {
       wx.showToast({
         title: '内容不能为空',
-        icon:'none'
+        icon: 'none'
       })
-    }else{
+    } else {
       wx.showLoading({
         title: '提交中',
       })
       if (timer) clearTimeout(timer);
-      timer= setTimeout(async res=>{
+      timer = setTimeout(async res => {
         await _this.add();
-      },500)  
+      }, 500)
     }
   },
-  add:function(){
-    var that=this;
-    var userInfo=wx.getStorageSync('userInfo')
-    var creation_date=util.formatTime(new Date())
+  add: function () {
+    var that = this;
+    var userInfo = wx.getStorageSync('userInfo')
+    var creation_date = util.formatTime(new Date())
     wx.showLoading({
       title: '提交中',
     })
@@ -193,58 +203,61 @@ Page({
     for (let e = 0; e < 10; e++) {
       numberCode += Math.floor(Math.random() * 10)
     }
-    var list=that.data.productList;
-    for(let i in list){delete list[i].showView;delete list[i].checked}
+    var list = that.data.productList;
+    for (let i in list) {
+      delete list[i].showView;
+      delete list[i].checked
+    }
     wx.cloud.callFunction({
-      name:'recordAdd',
-      data:{
-        collection:'activity',
-        addData:{
-          creation_date:creation_date,
-          creation_timestamp:Date.parse(creation_date.replace(/-/g, '/')) / 1000,
-          title:that.data.title,
-          start_date:that.data.startTime,
-          start_timestamp:Date.parse(that.data.startTime.replace(/-/g, '/')) / 1000,
-          end_date:that.data.endTime,
-          end_timestamp:Date.parse(that.data.endTime.replace(/-/g, '/')) / 1000,
-          shopping:list,
-          act_code:code+numberCode,
-          shop_code:userInfo.shop[userInfo.shop.length-1].shop_code,
-          lat:userInfo.shop[userInfo.shop.length-1].lat,
-          lon:userInfo.shop[userInfo.shop.length-1].lon,
-          _openid:userInfo._openid,
-          type:'team'
+      name: 'recordAdd',
+      data: {
+        collection: 'activity',
+        addData: {
+          creation_date: creation_date,
+          creation_timestamp: Date.parse(creation_date.replace(/-/g, '/')) / 1000,
+          title: that.data.title,
+          start_date: that.data.startTime,
+          start_timestamp: Date.parse(that.data.startTime.replace(/-/g, '/')) / 1000,
+          end_date: that.data.endTime,
+          end_timestamp: Date.parse(that.data.endTime.replace(/-/g, '/')) / 1000,
+          shopping: list,
+          act_code: code + numberCode,
+          shop_code: userInfo.shop[userInfo.shop.length - 1].shop_code,
+          lat: userInfo.shop[userInfo.shop.length - 1].lat,
+          lon: userInfo.shop[userInfo.shop.length - 1].lon,
+          _openid: userInfo._openid,
+          type: 'team'
         }
       }
-    }).then(res=>{
+    }).then(res => {
       console.log(res)
       wx.hideLoading()
       wx.showToast({
         title: '发布活动成功',
-        icon:'success',
-        duration:2000
+        icon: 'success',
+        duration: 2000
       })
-      setTimeout(res=>{
+      setTimeout(res => {
         wx.navigateBack({
           delta: 0,
         })
-      },2000)
+      }, 2000)
     }).catch(error => {
       wx.hideLoading()
       wx.hideNavigationBarLoading()
       wx.showModal({
         title: '服务器繁忙，请稍后重试',
       })
-    }) 
+    })
   },
-  getRanNum(){
+  getRanNum() {
     var result = [];
-    for(var i=0;i<2;i++){
+    for (var i = 0; i < 2; i++) {
       var ranNum = Math.ceil(Math.random() * 25);
       //大写字母'A'的ASCII是65,A~Z的ASCII码就是65 + 0~25;然后调用String.fromCharCode()传入ASCII值返回相应的字符并push进数组里
-      result.push(String.fromCharCode(65+ranNum));
+      result.push(String.fromCharCode(65 + ranNum));
     }
-    return  result.join('');
+    return result.join('');
   },
   /**
    * 生命周期函数--监听页面卸载

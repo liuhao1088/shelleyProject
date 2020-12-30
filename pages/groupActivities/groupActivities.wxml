@@ -84,8 +84,65 @@
     </view>
   </view>
 
+  <!-- 活动预览 -->
   <view class="title">活动预览</view>
-  <view class="wrap">
+  <view class="wrap" style="display: flex;justify-content: space-around;flex-direction: column;align-items: center;    padding: 40rpx 0;">
+    <view class="preview-wrapTitle">拼团特惠</view>
+
+  <view class="preview-wrapTitle" style="font-size: 24rpx;margin-top: 20rpx;">
+    <text>活动开始倒计时</text>：
+    <text class='tui-conutdown-box'>20</text>天
+    <text class='tui-conutdown-box'>20</text>时
+    <text class='tui-conutdown-box'>20</text>分
+    <text class='tui-conutdown-box tui-countdown-bg'>20</text>秒
+  </view>
+
+  <view class="preview-couponItem">
+    <view class="preview-imgItem align-center">
+      <image style="height:190rpx;width:180rpx;" src="{{shopping.link}}" />
+    </view>
+
+    <view class="preview-wrapItem">
+      <view class="preview-couponTitleItem">
+        <text class="preview-couponTitle">产品名称1</text>
+        <text class="preview-couponAddress">AAAA宝安店专用</text>
+      </view>
+
+      <view class="preview-couponGroup">
+        <swiper class="top_swiper" circular vertical interval="2000" autoplay>
+          <swiper-item style="display: flex;">
+            <view class="coupon-main">
+              <view class="coupon-wrap">
+                <view class="coupon-user">
+                  <view class="swiper-img">
+                    <image class="swiper-img"></image>
+                  </view>
+                  <view class="swiper-name">微信用户</view>
+                </view>
+                <view class="coupon-msg">还差 <text style="color: red;">1</text> 人拼成</view>
+              </view>
+              <view class="coupon-wrap" style="padding-top: 6rpx;">剩余时间：10 分钟</view>
+            </view>
+            <view class="coupon-but">
+              <button class="but">去拼团</button>
+            </view>
+          </swiper-item>
+        </swiper>
+      </view>
+
+
+      <view class="preview-couponGroup">
+        <view class="coupon-main">
+          <view class="group-price">¥ 599</view>
+          <view class="price-item">原价：¥ 699</view>
+        </view>
+        <view class="coupon-but">
+          <button class="but"
+            style="background-color: rgba(255, 255, 255, 100);color: rgba(105, 113, 254, 100);border: 2rpx solid rgba(105, 113, 254, 100);padding: 0;">发起拼团</button>
+        </view>
+      </view>
+    </view>
+  </view>
   </view>
 </view>
 <view class="but-item" bindtap="submit_form">

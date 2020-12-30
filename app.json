@@ -16,7 +16,6 @@
     "pages/reserveStore/reserveStore",
     "pages/groupActivities/groupActivities",
     "pages/activityRule/activityRule",
-    
     "pages/carAppointment/carAppointment",
     "pages/activityDetails/activityDetails",
     "pages/video/video",
