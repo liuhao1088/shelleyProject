@@ -227,6 +227,16 @@ Page({
         return ;
       }
 
+      let phoenReg = /^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\d{8}$/;
+    if (!(phoenReg.test(that.data.phone))) {
+      wx.showToast({
+        title: '手机号格式不正确',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+
       if(that.data.firstLoading == true){
         wx.showToast({
           title: '请选择营业时间',

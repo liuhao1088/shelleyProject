@@ -54,9 +54,9 @@ Page({
       success: function (res) {
         console.log(res.windowWidth);
         var n = Math.floor(res.windowWidth * that.data.area_width / 100 - that.data.box_width / 2)
-        console.log(n - 30)
+        console.log(n - 20)
         that.setData({
-          maxNum: n - 30,
+          maxNum: n - 20,
         })
       }
     })

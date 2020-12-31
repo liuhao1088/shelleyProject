@@ -1,7 +1,8 @@
 {
   "pages":[
-    "pages/activityPoster/activityPoster",
     "pages/index/index",
+    "pages/activityPoster/activityPoster",
+    
     "pages/reservationActivity/reservationActivity",
     "pages/storeAppointment/storeAppointment",
     "pages/addStoreInformation/addStoreInformation",
