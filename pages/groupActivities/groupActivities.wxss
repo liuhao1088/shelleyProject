@@ -73,7 +73,6 @@
 }
 
 .input-item {
-  width: 240rpx;
   height: 100%;
   border: 0rpx solid red;
   display: flex;
@@ -89,7 +88,6 @@
 
 .input {
   height: 100%;
-  width: 70rpx;
   float: left;
 }
 
@@ -119,7 +117,6 @@
 }
 
 .wrap-iconItem{
-  height: 50rpx;
   width: 100%;
   line-height: 50rpx;
   font-size: 28rpx;
@@ -127,10 +124,22 @@
   color: rgba(16, 16, 16, 100);
   margin-top: 20rpx;
   opacity: 0.6;
+  display: flex;
+  justify-content: center;
+}
+
+.add-item{
+  width: 45%;
+  font-size: 24rpx;
+  border: 0rpx solid red;
 }
 
 .border{
   border-bottom: 2rpx solid #b5b5b5;
+}
+
+.cu-dialog{
+  background-color: #fff;
 }
 
 .cu-btn.lg {

@@ -21,7 +21,7 @@ Page({
     index: 0,
     title: '',
     ind: 0,
-    transmit:'',
+    transmit: '',
   },
   //获取活动开始时间
   changeStartTime(e) {
@@ -75,6 +75,23 @@ Page({
       })
     }
 
+  },
+
+  delList(e) {
+    var nowidx = e.currentTarget.dataset.idx; //当前索引
+    var newList = this.data.productList[nowidx];
+    console.log(this.data.productList[nowidx])
+    if (nowidx > 0) {
+      if (newList.showView === false) {
+        this.data.productList[nowidx - 1].showView = false;
+      }
+    }
+
+    var productList = this.data.productList;
+    productList.splice(nowidx, 1);
+    this.setData({
+      productList
+    })
   },
 
   //获取input的值
@@ -148,18 +165,23 @@ Page({
         })
       }
     })
-    if(options.data){
-      let data=JSON.parse(options.data)
+    if (options.data) {
+      let data = JSON.parse(options.data)
       console.log(data)
       wx.setNavigationBarTitle({
-        title: '编辑拼团活动' 
+        title: '编辑拼团活动'
       })
-      let i=0;
-      do{
+      let i = 0;
+      do {
         data.
         i++;
-      }while(i<data.length)
-      that.setData({transmit:data,title:data.title,startTime:data.start_date,endTime:data.end_date})
+      } while (i < data.length)
+      that.setData({
+        transmit: data,
+        title: data.title,
+        startTime: data.start_date,
+        endTime: data.end_date
+      })
     }
   },
 
@@ -264,13 +286,13 @@ Page({
       })
     })
   },
-  update:function(){
+  update: function () {
     var that = this;
     wx.showLoading({
       title: '保存中',
     })
     var list = that.data.productList;
-    list.forEach((item,index,arr)=>{
+    list.forEach((item, index, arr) => {
       delete item.showView;
       delete item.checked;
     })
@@ -278,7 +300,7 @@ Page({
       name: 'recordUpdate',
       data: {
         collection: 'activity',
-        where:{},
+        where: {},
         updateData: {
           title: that.data.title,
           start_date: that.data.startTime,
