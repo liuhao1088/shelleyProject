@@ -12,7 +12,7 @@ Page({
     endTime: '2021-01-10 12:00',
     title: '',
     content: '',
-    transmit:'',
+    transmit: '',
   },
   changeStartTime(e) {
     this.setData({
@@ -43,13 +43,19 @@ Page({
       startTime: date,
       endTime: date
     })
-    var that=this;
-    if(options.data){
-      let data=JSON.parse(options.data)
+    var that = this;
+    if (options.data) {
+      let data = JSON.parse(options.data)
       wx.setNavigationBarTitle({
-        title: '编辑预约活动' 
+        title: '编辑预约活动'
       })
-      that.setData({transmit:data,title:data.title,startTime:data.start_date,endTime:data.end_date,content:data.content})
+      that.setData({
+        transmit: data,
+        title: data.title,
+        startTime: data.start_date,
+        endTime: data.end_date,
+        content: data.content
+      })
     }
   },
 
@@ -111,7 +117,7 @@ Page({
 
     if (this.data.title !== '' && this.data.content !== '') {
       var that = this;
-      if(that.data.transmit==''){
+      if (that.data.transmit == '') {
         wx.showLoading({
           title: '提交中',
         })
@@ -120,14 +126,14 @@ Page({
           wx.setStorageSync('refresh', 'has')
           await that.add();
         }, 500)
-      }else{
+      } else {
         if (timer) clearTimeout(timer);
         timer = setTimeout(async res => {
           wx.setStorageSync('refresh', 'has')
           await that.update();
         }, 500)
       }
-      
+
     }
   },
   add: function () {
@@ -184,7 +190,7 @@ Page({
       })
     })
   },
-  update:function(){
+  update: function () {
     var that = this;
     wx.showLoading({
       title: '保存中',
@@ -193,14 +199,16 @@ Page({
       name: 'recordUpdate',
       data: {
         collection: 'activity',
-        where:{_id:that.data.transmit._id},
+        where: {
+          _id: that.data.transmit._id
+        },
         updateData: {
           title: that.data.title,
           start_date: that.data.startTime,
           start_timestamp: Date.parse(that.data.startTime.replace(/-/g, '/')) / 1000,
           end_date: that.data.endTime,
           end_timestamp: Date.parse(that.data.endTime.replace(/-/g, '/')) / 1000,
-          content:that.data.content
+          content: that.data.content
         }
       }
     }).then(res => {
@@ -213,7 +221,7 @@ Page({
       })
       setTimeout(res => {
         wx.navigateBack({
-          delta:1
+          delta: 1
         })
       }, 2000)
     }).catch(error => {

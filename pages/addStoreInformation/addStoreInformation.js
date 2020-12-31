@@ -22,8 +22,8 @@ Page({
     firstLoading: true,
     whetherEmpower: 'yes',
     fo: false,
-    address_label:'',
-    transmit:''
+    address_label: '',
+    transmit: ''
   },
   //保存图片，扫码
   previewImg: function (e) {
@@ -43,7 +43,7 @@ Page({
     })
   },
   ChooseImage() {
-    var that=this;
+    var that = this;
     wx.chooseImage({
       count: 1, //默认9
       sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
@@ -64,14 +64,14 @@ Page({
   },
 
   DelImg(e) {
-    let shop_img  = this.data.shop_img;
+    let shop_img = this.data.shop_img;
     wx.showModal({
       content: '确定要删除图片吗？',
       cancelText: '取消',
       confirmText: '确定',
       success: res => {
         if (res.confirm) {
-          shop_img.splice(0,1);
+          shop_img.splice(0, 1);
           this.setData({
             shop_img
           })
@@ -87,12 +87,12 @@ Page({
     })
   },
   hideModal(e) {
-    let string=this.data.address+this.data.detail;
-    let label='...'+string.substring(string.length-7,string.length)
+    let string = this.data.address + this.data.detail;
+    let label = '...' + string.substring(string.length - 7, string.length)
     this.setData({
       modalName: null,
       z: -1,
-      address_label:label
+      address_label: label
     })
   },
 
@@ -111,18 +111,34 @@ Page({
     wx.cloud.callFunction({
       name: 'login'
     }).then(res => console.log(res))
-    if(options.data){
-      var that=this;
-      let data=JSON.parse(options.data)
+    if (options.data) {
+      var that = this;
+      let data = JSON.parse(options.data)
       wx.setNavigationBarTitle({
-        title: '修改门店信息' 
+        title: '修改门店信息'
       })
-      let string=data.address+this.data.detail;
-      let label='...'+string.substring(string.length-7,string.length)
-      let start_ind=hourArr.findIndex(function(item) { return item == data.start_hour;})
-      let end_ind=hourArr.findIndex(function(item) { return item == data.end_hour;})
-      console.log(start_ind,end_ind)
-      that.setData({transmit:data,shop_name:data.shop_name,address_label:label,person:data.person,phone:data.phone,shop_img:data.shop_img,address:data.address,address_name:data.address_name,detail:data.detail,multiIndex:[start_ind,end_ind],firstLoading:false})
+      let string = data.address + this.data.detail;
+      let label = '...' + string.substring(string.length - 7, string.length)
+      let start_ind = hourArr.findIndex(function (item) {
+        return item == data.start_hour;
+      })
+      let end_ind = hourArr.findIndex(function (item) {
+        return item == data.end_hour;
+      })
+      console.log(start_ind, end_ind)
+      that.setData({
+        transmit: data,
+        shop_name: data.shop_name,
+        address_label: label,
+        person: data.person,
+        phone: data.phone,
+        shop_img: data.shop_img,
+        address: data.address,
+        address_name: data.address_name,
+        detail: data.detail,
+        multiIndex: [start_ind, end_ind],
+        firstLoading: false
+      })
     }
   },
 
@@ -206,72 +222,72 @@ Page({
     } else {
       let userInfo = wx.getStorageSync('userInfo');
       console.log(userInfo.shop.length);
-      if(!that.data.shop_name){
+      if (!that.data.shop_name) {
         wx.showToast({
           title: '请填写门店名称',
           icon: 'none',
           duration: 3000
         })
-        return ;
+        return;
       }
 
-      if(!that.data.address){
+      if (!that.data.address) {
         wx.showToast({
           title: '请填写门店地址',
           icon: 'none',
           duration: 3000
         })
-        return ;
+        return;
       }
 
-      if(!that.data.person){
+      if (!that.data.person) {
         wx.showToast({
           title: '请填写联系人姓名',
           icon: 'none',
           duration: 3000
         })
-        return ;
+        return;
       }
 
-      if(!that.data.phone){
+      if (!that.data.phone) {
         wx.showToast({
           title: '请填写联系电话',
           icon: 'none',
           duration: 3000
         })
-        return ;
+        return;
       }
 
       let phoenReg = /^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\d{8}$/;
-    if (!(phoenReg.test(that.data.phone))) {
-      wx.showToast({
-        title: '手机号格式不正确',
-        icon: 'none',
-        duration: 2000
-      })
-      return;
-    }
+      if (!(phoenReg.test(that.data.phone))) {
+        wx.showToast({
+          title: '手机号格式不正确',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
 
-      if(that.data.firstLoading == true){
+      if (that.data.firstLoading == true) {
         wx.showToast({
           title: '请选择营业时间',
           icon: 'none',
           duration: 3000
         })
-        return ;
+        return;
       }
 
-      if(that.data.shop_img.length == 0){
+      if (that.data.shop_img.length == 0) {
         wx.showToast({
           title: '请上传门店正面照',
           icon: 'none',
           duration: 3000
         })
-        return ;
+        return;
       }
-      if(that.data.transmit==''){
+      if (that.data.transmit == '') {
         //提交
-        if(userInfo.shop.length>0){
+        if (userInfo.shop.length > 0) {
           if (userInfo.shop[userInfo.shop.length - 1].prove == 'waiting') {
             wx.showToast({
               title: '您的门店信息已提交，等待认证中，请勿重复提交',
@@ -311,7 +327,7 @@ Page({
               })
             }
           }
-        }else{
+        } else {
           if (that.data.shop_name !== "" && that.data.address !== "" && that.data.phone !== "" && that.data.shop_img !== []) {
             wx.requestSubscribeMessage({
               tmplIds: ['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI', 'SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM', 'Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
@@ -337,18 +353,18 @@ Page({
               duration: 3000
             })
           }
-        } 
+        }
 
-      }else{
+      } else {
         //修改
         wx.showLoading({
           title: '保存中，请稍等',
         })
         if (timer) clearTimeout(timer);
         timer = setTimeout(async res => {
-          if(that.data.transmit.shop_img==that.data.shop_img){
+          if (that.data.transmit.shop_img == that.data.shop_img) {
             that.update(that.data.shop_img);
-          }else{
+          } else {
             let arr = [];
             wx.cloud.deleteFile({
               fileList: userInfo.shop[userInfo.shop.length - 1].shop_img,
@@ -366,10 +382,10 @@ Page({
             if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop', arr)
             that.update(arr);
           }
-          
+
         }, 500)
       }
-      
+
 
     }
   },
@@ -448,19 +464,21 @@ Page({
     var that = this;
     let addressJson = wx.getStorageSync('addressJson');
     let userInfo = wx.getStorageSync('userInfo');
-    let transmit=that.data.transmit;
-    if(transmit.address!==that.data.address){
-      transmit.address=that.data.address
-      transmit.address_name=that.data.address_name
-      transmit.detail=that.data.detail
-      transmit.lon=addressJson.longitude
-      transmit.lat=addressJson.latitude
+    let transmit = that.data.transmit;
+    if (transmit.address !== that.data.address) {
+      transmit.address = that.data.address
+      transmit.address_name = that.data.address_name
+      transmit.detail = that.data.detail
+      transmit.lon = addressJson.longitude
+      transmit.lat = addressJson.latitude
     }
     wx.cloud.callFunction({
       name: "recordUpdate", //
       data: {
         collection: 'shop',
-        where:{_id:that.data.transmit._id},
+        where: {
+          _id: that.data.transmit._id
+        },
         updateData: {
           shop_name: that.data.shop_name,
           address: transmit.address,
@@ -485,13 +503,13 @@ Page({
         icon: 'success',
         duration: 2000
       })
-      transmit.shop_name=that.data.shop_name;
-      transmit.person=that.data.person;
-      transmit.phone=that.data.phone;
-      transmit.start_hour=hourArr[that.data.multiIndex[0]];
-      transmit.end_hour=hourArr[that.data.multiIndex[1]];
-      transmit.shop_img=imgArr;
-      userInfo.shop[userInfo.shop.length-1]=transmit;
+      transmit.shop_name = that.data.shop_name;
+      transmit.person = that.data.person;
+      transmit.phone = that.data.phone;
+      transmit.start_hour = hourArr[that.data.multiIndex[0]];
+      transmit.end_hour = hourArr[that.data.multiIndex[1]];
+      transmit.shop_img = imgArr;
+      userInfo.shop[userInfo.shop.length - 1] = transmit;
       wx.setStorageSync('userInfo', userInfo)
       setTimeout(function () {
         wx.navigateBack({
