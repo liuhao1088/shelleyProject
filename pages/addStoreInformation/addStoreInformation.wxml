@@ -115,12 +115,12 @@
   </view>
 </view>
 
-<view class="cu-modal {{modalName=='addressConfirm'?'show':''}}" style="z-index:{{z}}">
+<view class="cu-modal {{modalName=='addressConfirm'?'show':''}}" style="z-index:{{z}}" catchtouchmove="ture">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
       <view class="content">地址信息</view>
       <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-red"></text>
+        <text class="cuIcon-close text-grey"></text>
       </view>
     </view>
     <view class="padding-xl">
@@ -146,12 +146,12 @@
   </view>
 </view>
 
-<view class="cu-modal {{modalName=='phoneModal'?'show':''}}" style="z-index:{{z}}">
+<view class="cu-modal {{modalName=='phoneModal'?'show':''}}" style="z-index:{{z}}" catchtouchmove="ture">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
       <view class="content">获取手机号</view>
       <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-red"></text>
+        <text class="cuIcon-close text-grey"></text>
       </view>
     </view>
     <view class="padding-xl">
