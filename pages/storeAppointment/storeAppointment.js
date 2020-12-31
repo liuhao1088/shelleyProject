@@ -19,9 +19,8 @@ Page({
     multiArray: [
       [],
       [],
-      []
     ],
-    multiIndex: [0, 0, 0],
+    multiIndex: [0, 0],
   },
   changeStartTime(e) {
     this.setData({
@@ -66,27 +65,26 @@ Page({
   },
   //预约时间选择器
   pickerTap: function () {
-    var yesr = [];
-    var monthDay = ['明天', '后天'];
-    var hour = ['10:00','10:30', '11:00', '11:30', '12:00', '12:30', '13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00',];
+    // var yesr = [];
+    var monthDay = [];
+    var hour = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', ];
     // 月-日
-    for (var i = 3; i <= 30; i++) {
+    for (var i = 0; i <= 30; i++) {
       var date1 = new Date(date);
       date1.setDate(date.getDate() + i);
       var md = (date1.getMonth() + 1) + "月" + date1.getDate() + "日";
-      console.log(md);
       monthDay.push(md);
     }
     var data = {
       multiArray: this.data.multiArray,
       multiIndex: this.data.multiIndex
     };
-     var newYesr =  util.year(new Date());
-      yesr.push(newYesr);
-     console.log(yesr)
-    data.multiArray[0] = yesr;
-    data.multiArray[1] = monthDay;
-    data.multiArray[2] = hour;
+    // var newYesr = util.year(new Date());
+    // yesr.push(newYesr);
+    // console.log(yesr)
+    // data.multiArray[0] = yesr;
+    data.multiArray[0] = monthDay;
+    data.multiArray[1] = hour;
     this.setData(data);
   },
   bindMultiPickerColumnChange: function (e) {
@@ -100,12 +98,20 @@ Page({
   },
   bindStartMultiPickerChange: function (e) {
     var that = this;
-    var monthDay = that.data.multiArray[1][e.detail.value[1]];
-    var timedate = that.data.multiArray[2][e.detail.value[2]];
+    var monthDay = that.data.multiArray[0][e.detail.value[0]];
+    var timedate = that.data.multiArray[1][e.detail.value[1]];
     console.log(monthDay)
+    // if(monthDay === '1月1日'){
+    //   var yesr = [];
+    //   var newYesr = util.year(new Date());
+    //   yesr.push(newYesr +1);
+    //   that.data.multiArray[0] = yesr;
+    // }
+
     if (monthDay === "明天") {
       var month = date.getMonth() + 1;
       var day = date.getDate() + 1;
+      console.log(month + "月" + day + "日")
       monthDay = month + "月" + day + "日";
     } else if (monthDay === "后天") {
       var date1 = new Date(date);
@@ -131,9 +137,9 @@ Page({
         _openid: userInfo._openid
       }).orderBy('creation_date', 'desc').get().then(res => {
         let list = res.data
-        let stamp=Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
-        if (list.length >= 1){
-          if((list[0].status=='success'&&stamp<=list[0].timestamp)||(list[0].status=='waiting'&&stamp<=list[0].timestamp)){
+        let stamp = Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
+        if (list.length >= 1) {
+          if ((list[0].status == 'success' && stamp <= list[0].timestamp) || (list[0].status == 'waiting' && stamp <= list[0].timestamp)) {
             this.setData({
               reservation: 'already'
             })
@@ -254,7 +260,7 @@ Page({
     }
 
     wx.requestSubscribeMessage({
-      tmplIds: ['-m92htbt5V0SlqRwZaMZAy9l3mv3CNseLM-yDKlRG5g', 'SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0','GN7JfS1q9N7eqdmvOxcFY6kjBBrUsnyRc6UGr58LAwg'],
+      tmplIds: ['-m92htbt5V0SlqRwZaMZAy9l3mv3CNseLM-yDKlRG5g', 'SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0', 'GN7JfS1q9N7eqdmvOxcFY6kjBBrUsnyRc6UGr58LAwg'],
       success(res) {
         if (JSON.stringify(res).indexOf('accept') !== -1) {
           console.log(that.data.nameList)
@@ -271,16 +277,16 @@ Page({
   },
   add(userInfo) {
     var that = this;
-    let time=that.data.startTime;
-    let yDigit=util.year(new Date());
-    let mDigit=time.substring(0,time.indexOf('月'));
-    if((new Date()).getMonth()+1!==mDigit&&(new Date()).getMonth()+1==12){
-      yDigit=yDigit+1;
+    let time = that.data.startTime;
+    let yDigit = util.year(new Date());
+    let mDigit = time.substring(0, time.indexOf('月'));
+    if ((new Date()).getMonth() + 1 !== mDigit && (new Date()).getMonth() + 1 == 12) {
+      yDigit = yDigit + 1;
     }
-    if(mDigit<10) mDigit='0'+mDigit;
-    let dDigit=time.substring(time.indexOf('月')+1,time.indexOf('日'))
-    if(dDigit<10) dDigit='0'+dDigit;
-    let time_date=yDigit+'-'+mDigit+'-'+dDigit+time.substring(time.indexOf('日')+1);
+    if (mDigit < 10) mDigit = '0' + mDigit;
+    let dDigit = time.substring(time.indexOf('月') + 1, time.indexOf('日'))
+    if (dDigit < 10) dDigit = '0' + dDigit;
+    let time_date = yDigit + '-' + mDigit + '-' + dDigit + time.substring(time.indexOf('日') + 1);
     wx.showLoading({
       title: '预约中，请稍等',
     })
@@ -297,16 +303,16 @@ Page({
           _openid: userInfo._openid,
           creation_date: util.formatTime(new Date()),
           //phone: phone,
-          re_code:code+numberCode,
+          re_code: code + numberCode,
           shop_code: that.data.data.shop_code,
           act_id: that.data.data.act[0]._id,
           act_code: that.data.data.act[0].act_code,
           shopping: that.data.nameList,
           time: that.data.startTime,
-          time_date:time_date,
+          time_date: time_date,
           timestamp: Date.parse(time_date.replace(/-/g, '/')) / 1000,
           user: userInfo.nickName,
-          status:'waiting',
+          status: 'waiting',
           creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
         }
       }
@@ -318,9 +324,9 @@ Page({
         icon: 'success',
         duration: 2000
       })
-      let cont=that.data.nameList.join(',').substring(0,20)
+      let cont = that.data.nameList.join(',').substring(0, 20)
       wx.setStorageSync('refreshData', that.data.data)
-      that.sendMessage(that.data.data._openid,that.data.startTime,cont)
+      that.sendMessage(that.data.data._openid, that.data.startTime, cont)
       setTimeout(() => {
         wx.navigateBack({
           delta: 0,
@@ -328,16 +334,16 @@ Page({
       }, 1500)
     })
   },
-  getRanNum(){
+  getRanNum() {
     var result = [];
-    for(var i=0;i<2;i++){
+    for (var i = 0; i < 2; i++) {
       var ranNum = Math.ceil(Math.random() * 25);
       //大写字母'A'的ASCII是65,A~Z的ASCII码就是65 + 0~25;然后调用String.fromCharCode()传入ASCII值返回相应的字符并push进数组里
-      result.push(String.fromCharCode(65+ranNum));
+      result.push(String.fromCharCode(65 + ranNum));
     }
-    return  result.join('');
+    return result.join('');
   },
-  sendMessage: function (openid,time,content) {
+  sendMessage: function (openid, time, content) {
     wx.cloud.callFunction({
       name: 'sendMessage',
       data: {
@@ -366,7 +372,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
   /**
