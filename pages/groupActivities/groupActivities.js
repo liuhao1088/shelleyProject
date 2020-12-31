@@ -20,7 +20,8 @@ Page({
     checkbox: [], //商品选择
     index: 0,
     title: '',
-    ind: 0
+    ind: 0,
+    transmit:'',
   },
   //获取活动开始时间
   changeStartTime(e) {
@@ -147,6 +148,19 @@ Page({
         })
       }
     })
+    if(options.data){
+      let data=JSON.parse(options.data)
+      console.log(data)
+      wx.setNavigationBarTitle({
+        title: '编辑拼团活动' 
+      })
+      let i=0;
+      do{
+        data.
+        i++;
+      }while(i<data.length)
+      that.setData({transmit:data,title:data.title,startTime:data.start_date,endTime:data.end_date})
+    }
   },
 
   /**
@@ -234,6 +248,51 @@ Page({
       wx.hideLoading()
       wx.showToast({
         title: '发布活动成功',
+        icon: 'success',
+        duration: 2000
+      })
+      setTimeout(res => {
+        wx.navigateBack({
+          delta: 0,
+        })
+      }, 2000)
+    }).catch(error => {
+      wx.hideLoading()
+      wx.hideNavigationBarLoading()
+      wx.showModal({
+        title: '服务器繁忙，请稍后重试',
+      })
+    })
+  },
+  update:function(){
+    var that = this;
+    wx.showLoading({
+      title: '保存中',
+    })
+    var list = that.data.productList;
+    list.forEach((item,index,arr)=>{
+      delete item.showView;
+      delete item.checked;
+    })
+    wx.cloud.callFunction({
+      name: 'recordUpdate',
+      data: {
+        collection: 'activity',
+        where:{},
+        updateData: {
+          title: that.data.title,
+          start_date: that.data.startTime,
+          start_timestamp: Date.parse(that.data.startTime.replace(/-/g, '/')) / 1000,
+          end_date: that.data.endTime,
+          end_timestamp: Date.parse(that.data.endTime.replace(/-/g, '/')) / 1000,
+          shopping: list,
+        }
+      }
+    }).then(res => {
+      console.log(res)
+      wx.hideLoading()
+      wx.showToast({
+        title: '编辑活动成功',
         icon: 'success',
         duration: 2000
       })

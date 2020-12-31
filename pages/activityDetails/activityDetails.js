@@ -70,6 +70,14 @@ Page({
     skip = skip + 10;
     await this.loadData()
   },
+  toEdit:function(e){
+    var ind=e.currentTarget.dataset.index;
+    if(this.data.list[ind].type=='team'){
+      wx.navigateTo({
+        url: '../groupActivities/groupActivities?data='+JSON.stringify(this.data.list[ind]),
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

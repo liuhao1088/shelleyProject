@@ -295,6 +295,12 @@ Page({
     for (let e = 0; e < 10; e++) {
       numberCode += Math.floor(Math.random() * 10)
     }
+    let id='';
+    let act_code='';
+    if(that.data.data.act.length>0){
+      id=that.data.data.act[0]._id
+      act_code=that.data.data.act[0].act_code
+    }
     wx.cloud.callFunction({
       name: 'recordAdd',
       data: {
@@ -305,8 +311,8 @@ Page({
           //phone: phone,
           re_code: code + numberCode,
           shop_code: that.data.data.shop_code,
-          act_id: that.data.data.act[0]._id,
-          act_code: that.data.data.act[0].act_code,
+          act_id: id,
+          act_code: act_code,
           shopping: that.data.nameList,
           time: that.data.startTime,
           time_date: time_date,
