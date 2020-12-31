@@ -72,7 +72,7 @@
 
 
     <view class="submit-wrapper">
-      <button hover-class="but-hover" bindtap="submit">提交</button>
+      <button hover-class="but-hover" bindtap="submit">{{transmit==''?'提交':'保存'}}</button>
     </view>
     <view class="process" bindtap="showModal" data-target="Modal">点击查看认证流程</view>
     <view class="codeItem">

@@ -156,7 +156,7 @@
   </view>
 </view>
 <view class="but-item" bindtap="submit_form">
-  <button bindtap="">{{transmit==''?'发布专属活动':'保存活动'}}</button>
+  <button bindtap="submit_form">{{transmit==''?'发布专属活动':'保存活动'}}</button>
 </view>
 
 

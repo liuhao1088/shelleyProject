@@ -173,14 +173,18 @@ Page({
       })
       let i = 0;
       do {
-        data.
+        data.shopping[i].showView = true;
+        if (i + 1 == data.shopping.length) {
+          data.shopping[i].showView = false;
+        }
         i++;
-      } while (i < data.length)
+      } while (i < data.shopping.length)
       that.setData({
         transmit: data,
         title: data.title,
         startTime: data.start_date,
-        endTime: data.end_date
+        endTime: data.end_date,
+        productList: data.shopping
       })
     }
   },
@@ -218,13 +222,23 @@ Page({
         icon: 'none'
       })
     } else {
-      wx.showLoading({
-        title: '提交中',
-      })
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(async res => {
-        await _this.add();
-      }, 500)
+      if (_this.data.transmit == '') {
+        wx.showLoading({
+          title: '提交中',
+        })
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(async res => {
+          wx.setStorageSync('refresh', 'has')
+          await _this.add();
+        }, 500)
+      } else {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(async res => {
+          wx.setStorageSync('refresh', 'has')
+          await _this.update();
+        }, 500)
+      }
+
     }
   },
   add: function () {
@@ -275,7 +289,7 @@ Page({
       })
       setTimeout(res => {
         wx.navigateBack({
-          delta: 0,
+          delta: 2,
         })
       }, 2000)
     }).catch(error => {
@@ -300,7 +314,9 @@ Page({
       name: 'recordUpdate',
       data: {
         collection: 'activity',
-        where: {},
+        where: {
+          _id: that.data.transmit._id
+        },
         updateData: {
           title: that.data.title,
           start_date: that.data.startTime,
@@ -320,7 +336,7 @@ Page({
       })
       setTimeout(res => {
         wx.navigateBack({
-          delta: 0,
+          delta: 1
         })
       }, 2000)
     }).catch(error => {

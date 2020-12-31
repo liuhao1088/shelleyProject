@@ -8,6 +8,7 @@ Page({
    */
   data: {
     list:[],stamp:Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
+    search_whether:false,search:''
   },
   toActivitySelect(event){
     wx.navigateTo({
@@ -28,6 +29,7 @@ Page({
         });
       }
     });
+    skip=0;
     that.loadData();
   },
 
@@ -37,12 +39,74 @@ Page({
   onReady: function () {
 
   },
-
+  inputSearch:function(e){
+    this.setData({
+      search:e.detail.value
+    })
+  },
+  toSearch:function(){
+    if(this.data.search!==''){
+      var that=this;
+      let userInfo=wx.getStorageSync('userInfo')
+      var _=wx.cloud.database().command;
+      let search=that.data.search;
+      if(search=='预约'||search=='预约活动'){
+        search='reservation'
+      }
+      if(search=='拼团'||search=='拼团活动'){
+        search='team'
+      }
+      wx.cloud.database().collection('activity').where({shop_code:userInfo.shop[userInfo.shop.length-1].shop_code}).where(_.or([{
+        act_code: {
+          $regex: '.*' + that.data.search,
+          $options: 'i'
+        }
+        }, {
+        title: {
+          $regex: '.*' + that.data.search,
+          $options: 'i'
+        }
+        },{
+        type:{
+          $regex: '.*' + search,
+          $options: 'i'
+        }
+      }])).orderBy('creation_date','desc').get().then(res=>{
+        if(res.data.length==0){
+          that.setData({searchlist:[],search_whether:false})
+          wx.showToast({
+            title: '活动不存在',
+            icon:'none',
+            duration:1500
+          })
+        }else{
+          let data=res.data
+          that.setData({searchlist:data,search_whether:true})
+        }
+      })
+    }else{
+      this.setData({searchlist:[],search_whether:false})
+      wx.showToast({
+        title: '预约单号不存在',
+        icon:'none',
+        duration:1500
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let data=wx.getStorageSync('refresh')
+    console.log(data)
+    if(wx.getStorageSync('refresh')){
+      setTimeout(() => {
+        skip=0;
+        this.setData({list:[]})
+        this.loadData();
+        wx.removeStorageSync('refresh')
+      }, 500);
+    }
   },
   loadData:function(){
     var that=this;
@@ -61,6 +125,13 @@ Page({
         })
       }
       that.setData({list:data})
+      if(that.data.list.length==0){
+        wx.showToast({
+          title: '暂无活动',
+          icon:'none',
+          duration:10000000
+        })
+      }
       wx.hideLoading()
       wx.hideNavigationBarLoading()
     })
@@ -76,7 +147,51 @@ Page({
       wx.navigateTo({
         url: '../groupActivities/groupActivities?data='+JSON.stringify(this.data.list[ind]),
       })
+    }else{
+      wx.navigateTo({
+        url: '../reservationActivity/reservationActivity?data='+JSON.stringify(this.data.list[ind]),
+      })
     }
+  },
+  delete:function(e){
+    var _this=this;
+    var ind=e.currentTarget.dataset.index;
+    wx.showModal({
+      title: '删除活动'+_this.data.list[ind].title,
+      content:'删除后不可恢复',
+      confirmColor:'red',
+      confirmText:'删除',
+      success:function(res){
+        if(res.confirm){
+          wx.showLoading({
+            title: '删除中',
+          })
+          wx.cloud.callFunction({
+            name:'recordDelete',
+            data:{
+              collection:'activity',
+              where:{
+                _id:_this.data.list[ind]._id
+              }
+            }
+          }).then(res=>{
+            console.log(res)
+            let list=_this.data.list;
+            list.splice(ind,1)
+            skip=skip-1;
+            _this.setData({list:list})
+            wx.hideLoading({
+              success: (res) => {},
+            })
+            wx.showToast({
+              title: '删除成功',
+              icon:'success',
+              duration:2000
+            })
+          })
+        }
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面隐藏

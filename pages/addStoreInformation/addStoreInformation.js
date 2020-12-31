@@ -22,7 +22,8 @@ Page({
     firstLoading: true,
     whetherEmpower: 'yes',
     fo: false,
-    address_label:''
+    address_label:'',
+    transmit:''
   },
   //保存图片，扫码
   previewImg: function (e) {
@@ -42,6 +43,7 @@ Page({
     })
   },
   ChooseImage() {
+    var that=this;
     wx.chooseImage({
       count: 1, //默认9
       sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
@@ -69,7 +71,7 @@ Page({
       confirmText: '确定',
       success: res => {
         if (res.confirm) {
-          shop_img.splice(0, 1);
+          shop_img.splice(0,1);
           this.setData({
             shop_img
           })
@@ -86,7 +88,7 @@ Page({
   },
   hideModal(e) {
     let string=this.data.address+this.data.detail;
-    let label='***'+string.substring(string.length-7,string.length)
+    let label='...'+string.substring(string.length-7,string.length)
     this.setData({
       modalName: null,
       z: -1,
@@ -109,6 +111,19 @@ Page({
     wx.cloud.callFunction({
       name: 'login'
     }).then(res => console.log(res))
+    if(options.data){
+      var that=this;
+      let data=JSON.parse(options.data)
+      wx.setNavigationBarTitle({
+        title: '修改门店信息' 
+      })
+      let string=data.address+this.data.detail;
+      let label='...'+string.substring(string.length-7,string.length)
+      let start_ind=hourArr.findIndex(function(item) { return item == data.start_hour;})
+      let end_ind=hourArr.findIndex(function(item) { return item == data.end_hour;})
+      console.log(start_ind,end_ind)
+      that.setData({transmit:data,shop_name:data.shop_name,address_label:label,person:data.person,phone:data.phone,shop_img:data.shop_img,address:data.address,address_name:data.address_name,detail:data.detail,multiIndex:[start_ind,end_ind],firstLoading:false})
+    }
   },
 
   /**
@@ -254,21 +269,49 @@ Page({
         })
         return ;
       }
-      
-      if(userInfo.shop.length>0){
-        if (userInfo.shop[userInfo.shop.length - 1].prove == 'waiting') {
-          wx.showToast({
-            title: '您的门店信息已提交，等待认证中，请勿重复提交',
-            icon: 'none',
-            duration: 3000
-          })
-        } else if (userInfo.shop[userInfo.shop.length - 1].prove == 'success') {
-          wx.showToast({
-            title: '您的门店已经通过认证，无需再提交',
-            icon: 'none',
-            duration: 3000
-          })
-        } else {
+      if(that.data.transmit==''){
+        //提交
+        if(userInfo.shop.length>0){
+          if (userInfo.shop[userInfo.shop.length - 1].prove == 'waiting') {
+            wx.showToast({
+              title: '您的门店信息已提交，等待认证中，请勿重复提交',
+              icon: 'none',
+              duration: 3000
+            })
+          } else if (userInfo.shop[userInfo.shop.length - 1].prove == 'success') {
+            wx.showToast({
+              title: '您的门店已经通过认证，无需再提交',
+              icon: 'none',
+              duration: 3000
+            })
+          } else {
+            if (that.data.shop_name !== "" && that.data.address !== "" && that.data.phone !== "" && that.data.shop_img !== []) {
+              wx.requestSubscribeMessage({
+                tmplIds: ['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI', 'SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM', 'Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
+                success(res) {
+                  console.log(res)
+                  if (JSON.stringify(res).indexOf('accept') !== -1) {
+                    wx.showLoading({
+                      title: '提交中，请稍等',
+                    })
+                    if (timer) clearTimeout(timer);
+                    timer = setTimeout(async res => {
+                      let arr = [];
+                      if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop', arr)
+                      that.add(arr);
+                    }, 500)
+                  }
+                }
+              })
+            } else {
+              wx.showToast({
+                title: '请填写完整内容',
+                icon: 'none',
+                duration: 3000
+              })
+            }
+          }
+        }else{
           if (that.data.shop_name !== "" && that.data.address !== "" && that.data.phone !== "" && that.data.shop_img !== []) {
             wx.requestSubscribeMessage({
               tmplIds: ['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI', 'SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM', 'Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
@@ -294,33 +337,37 @@ Page({
               duration: 3000
             })
           }
-        }
+        } 
+
       }else{
-        if (that.data.shop_name !== "" && that.data.address !== "" && that.data.phone !== "" && that.data.shop_img !== []) {
-          wx.requestSubscribeMessage({
-            tmplIds: ['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI', 'SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM', 'Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
-            success(res) {
-              console.log(res)
-              if (JSON.stringify(res).indexOf('accept') !== -1) {
-                wx.showLoading({
-                  title: '提交中，请稍等',
-                })
-                if (timer) clearTimeout(timer);
-                timer = setTimeout(async res => {
-                  let arr = [];
-                  if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop', arr)
-                  that.add(arr);
-                }, 500)
+        //修改
+        wx.showLoading({
+          title: '保存中，请稍等',
+        })
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(async res => {
+          if(that.data.transmit.shop_img==that.data.shop_img){
+            that.update(that.data.shop_img);
+          }else{
+            let arr = [];
+            wx.cloud.deleteFile({
+              fileList: userInfo.shop[userInfo.shop.length - 1].shop_img,
+              success: res => {
+                // handle success
+                console.log(res.fileList)
+              },
+              fail: err => {
+                // handle error
+              },
+              complete: res => {
+                // ...
               }
-            }
-          })
-        } else {
-          wx.showToast({
-            title: '请填写完整内容',
-            icon: 'none',
-            duration: 3000
-          })
-        }
+            })
+            if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop', arr)
+            that.update(arr);
+          }
+          
+        }, 500)
       }
       
 
@@ -385,6 +432,70 @@ Page({
           address_name: '',
           detail: '',
           shop_img: []
+        })
+      }, 2000)
+    }).catch(error => {
+      wx.hideLoading({
+        success: (res) => {},
+      })
+      wx.showModal({
+        showCancel: false,
+        title: '提交失败，请稍后重试'
+      })
+    })
+  },
+  update: function (imgArr) {
+    var that = this;
+    let addressJson = wx.getStorageSync('addressJson');
+    let userInfo = wx.getStorageSync('userInfo');
+    let transmit=that.data.transmit;
+    if(transmit.address!==that.data.address){
+      transmit.address=that.data.address
+      transmit.address_name=that.data.address_name
+      transmit.detail=that.data.detail
+      transmit.lon=addressJson.longitude
+      transmit.lat=addressJson.latitude
+    }
+    wx.cloud.callFunction({
+      name: "recordUpdate", //
+      data: {
+        collection: 'shop',
+        where:{_id:that.data.transmit._id},
+        updateData: {
+          shop_name: that.data.shop_name,
+          address: transmit.address,
+          lat: transmit.lat,
+          lon: transmit.lon,
+          address_name: transmit.address_name,
+          detail: transmit.detail,
+          person: that.data.person,
+          phone: that.data.phone,
+          start_hour: hourArr[that.data.multiIndex[0]],
+          end_hour: hourArr[that.data.multiIndex[1]],
+          shop_img: imgArr,
+        },
+
+      }
+    }).then(res => {
+      wx.hideLoading({
+        success: (res) => {},
+      })
+      wx.showToast({
+        title: '保存成功',
+        icon: 'success',
+        duration: 2000
+      })
+      transmit.shop_name=that.data.shop_name;
+      transmit.person=that.data.person;
+      transmit.phone=that.data.phone;
+      transmit.start_hour=hourArr[that.data.multiIndex[0]];
+      transmit.end_hour=hourArr[that.data.multiIndex[1]];
+      transmit.shop_img=imgArr;
+      userInfo.shop[userInfo.shop.length-1]=transmit;
+      wx.setStorageSync('userInfo', userInfo)
+      setTimeout(function () {
+        wx.navigateBack({
+          delta: 1,
         })
       }, 2000)
     }).catch(error => {

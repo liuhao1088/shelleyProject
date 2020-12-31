@@ -40,9 +40,9 @@
       </view>
     </view>
 
-    <view class="wrap-textareaItem">
+    <view class="wrap-textareaItem" bindtap="submit">
       <view class="but-item">
-        <button class="cu-btn round bg-blue button-hover" bindtap="submit">发布活动</button>
+        <button class="cu-btn round bg-blue button-hover" bindtap="submit">{{transmit==''?'发布活动':'保存活动'}}</button>
       </view>
     </view>
 

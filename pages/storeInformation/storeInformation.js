@@ -9,7 +9,7 @@ Page({
   },
   toAddStoreInformation(event){
     wx.navigateTo({
-      url: '/pages/addStoreInformation/addStoreInformation',
+      url: '/pages/addStoreInformation/addStoreInformation?data='+JSON.stringify(this.data.shop),
     })
   },
   previewImg:function(e){
@@ -23,10 +23,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let userInfo=wx.getStorageSync('userInfo')
-    let shop=userInfo.shop[userInfo.shop.length-1]
-    console.log(shop)
-    this.setData({shop:shop})
+    
   },
 
   /**
@@ -40,7 +37,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let userInfo=wx.getStorageSync('userInfo')
+    let shop=userInfo.shop[userInfo.shop.length-1]
+    console.log(shop)
+    this.setData({shop:shop})
   },
 
   /**
