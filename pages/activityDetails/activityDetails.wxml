@@ -11,7 +11,7 @@
   </view>
 </view>
 <scroll-view scroll-top="{{scrollTop}}" scroll-y style="height:{{scrollHev}}px;" bindscrolltolower="bindDownLoad" wx:if="{{!search_whether}}">
-  <view class="wrapper" wx:for="{{list}}" data-index="{{index}}">
+  <view class="wrapper" wx:for="{{list}}" wx:key="id" data-index="{{index}}">
     <view class="wrap">
       <view class="wrap-title">活动标题：{{item.title}}</view>
       <view class="wrap-tag" wx:if="{{stamp<=item.start_timestamp}}" style="opacity: 0.5;">未开始</view>
@@ -47,7 +47,7 @@
   </view>
   <view style="height:20rpx;"></view>
 </scroll-view>
-<view class="wrapper" wx:for="{{searchlist}}" data-index="{{index}}" wx:if="{{search_whether}}">
+<view class="wrapper" wx:for="{{searchlist}}"  wx:key="id"  data-index="{{index}}" wx:if="{{search_whether}}">
     <view class="wrap">
       <view class="wrap-title">活动标题：{{item.title}}</view>
       <view class="wrap-tag" wx:if="{{stamp<=item.start_timestamp}}" style="opacity: 0.5;">未开始</view>

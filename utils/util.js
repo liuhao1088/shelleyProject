@@ -43,8 +43,12 @@ function nowTime(date) {
 
 function year(date) {
   var year = date.getFullYear()
-
   return year;
+}
+
+function month(date) {
+  var month = date.getMonth() + 1
+  return month;
 }
 
 function formatNumber(n) {
@@ -57,5 +61,6 @@ module.exports = {
   formatTimes: formatTimes,
   nowTime: nowTime,
   year: year,
-  nextYear:nextYear
+  nextYear:nextYear,
+  month:month
 }

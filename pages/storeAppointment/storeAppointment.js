@@ -69,12 +69,31 @@ Page({
     var monthDay = [];
     var hour = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', ];
     // 月-日
-    for (var i = 0; i <= 30; i++) {
-      var date1 = new Date(date);
-      date1.setDate(date.getDate() + i);
-      var md = (date1.getMonth() + 1) + "月" + date1.getDate() + "日";
-      monthDay.push(md);
+    var month = util.month(new Date());
+    console.log(month);
+    if(month === 1 || month === 3 || month === 5 || month === 7 || month === 8 || month === 10 || month === 12){
+      for (var i = 0; i <= 30; i++) {
+        var date1 = new Date(date);
+        date1.setDate(date.getDate() + i);
+        var md = (date1.getMonth() + 1) + "月" + date1.getDate() + "日";
+        monthDay.push(md);
+      }
+    }else if(month === 2){
+      for (var i = 0; i <= 27; i++) {
+        var date1 = new Date(date);
+        date1.setDate(date.getDate() + i);
+        var md = (date1.getMonth() + 1) + "月" + date1.getDate() + "日";
+        monthDay.push(md);
+      }
+    }else{
+      for (var i = 0; i <= 29; i++) {
+        var date1 = new Date(date);
+        date1.setDate(date.getDate() + i);
+        var md = (date1.getMonth() + 1) + "月" + date1.getDate() + "日";
+        monthDay.push(md);
+      }
     }
+    
     var data = {
       multiArray: this.data.multiArray,
       multiIndex: this.data.multiIndex
@@ -101,13 +120,6 @@ Page({
     var monthDay = that.data.multiArray[0][e.detail.value[0]];
     var timedate = that.data.multiArray[1][e.detail.value[1]];
     console.log(monthDay)
-    // if(monthDay === '1月1日'){
-    //   var yesr = [];
-    //   var newYesr = util.year(new Date());
-    //   yesr.push(newYesr +1);
-    //   that.data.multiArray[0] = yesr;
-    // }
-
     if (monthDay === "明天") {
       var month = date.getMonth() + 1;
       var day = date.getDate() + 1;
