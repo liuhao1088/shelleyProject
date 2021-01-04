@@ -238,7 +238,6 @@ Page({
     //   })
     // }
 
-  
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -344,6 +343,7 @@ Page({
    */
   onShow: function () {
     var that = this;
+    wx.removeStorageSync('prize')
     if (wx.getStorageSync('userInfo')) {
       let userInfo = wx.getStorageSync('userInfo')
       let prize=wx.getStorageSync('prize')

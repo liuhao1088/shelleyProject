@@ -117,17 +117,17 @@ Page({
       })
     })
   },
-  confirm: function (e) {
-    var that = this;
-    var ind = e.currentTarget.dataset.index;
-    wx.showLoading({
-      title: '接受中',
-    })
-    let userInfo = wx.getStorageSync('userInfo')
+  confirm:function(e){
+    var that=this;
+    var ind=e.currentTarget.dataset.index;
+    let userInfo=wx.getStorageSync('userInfo')
     wx.requestSubscribeMessage({
       tmplIds: ['SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM'],
       success(res) {
         if (JSON.stringify(res).indexOf('accept') !== -1) {
+          wx.showLoading({
+            title: '接受中',
+          })
           wx.cloud.callFunction({
             name: 'recordUpdate',
             data: {
@@ -189,18 +189,22 @@ Page({
           }).then(res => {
             skip = skip - 1;
             let list = that.data.list;
+            wx.setStorageSync('_quit', list[ind]._openid)
             list.splice(ind, 1)
             that.setData({
               list: list
             })
             let userInfo = wx.getStorageSync('userInfo')
-            that.quitMessage(list[ind]._openid, userInfo.shop[userInfo.shop.length - 1].shop_name, '店主取消预约')
+            let id=wx.getStorageSync('_quit')
+            let name=userInfo.shop[userInfo.shop.length - 1].shop_name.substring(0,19);
+            that.quitMessage(id, name, '店主取消预约')
             wx.hideLoading({
               success: (res) => {},
             })
             wx.showToast({
               title: '取消成功',
             })
+            wx.removeStorageSync('_quit')
           })
         }
       }
