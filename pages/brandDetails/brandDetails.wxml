@@ -1,0 +1,4 @@
+<view class="brandDetailsContainer"></view>
+
+<!-- 导航栏 -->
+<tabbar tabbar="{{tabbar}}"></tabbar>
