@@ -50,10 +50,10 @@ Page({
           wx.showLoading({
             title: '认证中',
           })
-          wx.cloud.database().collection('shop').where({prove:'success'}).count({
-            success: function (res) {
+          wx.cloud.database().collection('shop').where({prove:'success'}).orderBy('creation_date','desc').skip(0).limit(1).get().then(
+            (res)=> {
               console.log(res)
-              let num=res.total+1;
+              let num=res.data[0].shop_code+1;
               wx.cloud.callFunction({
                 name:'recordUpdate',
                 data:{
@@ -99,7 +99,7 @@ Page({
                 wx.setStorageSync('refreshData', editData)
               })
             }
-          })
+          )
           /**/
         }
       }

@@ -1,13 +1,13 @@
 <view class="storeInformationContainer">
   <view class="header"></view>
   <view class="wrapper">
-    <view class="titleItem">请输入以下信息，之后会有我们的工作人员联系您。</view>
+    <view class="titleItem">{{transmit==''?'请输入以下信息，之后会有我们的工作人员联系您。':'请输入信息完成修改。'}}</view>
     <!-- 门店名称 -->
     <view class="box-wrapper">
       <view class="tag-wrapper">门店名称：</view>
       <view class="input-wrapper">
         <input type="text" style="width:80%;" value="{{shop_name}}" bindinput="inputShopname" placeholder="请输入门店名称"
-          placeholder-class="placeholder" />
+          placeholder-class="placeholder" maxlength='20' />
       </view>
     </view>
     <!-- 门店地址 -->

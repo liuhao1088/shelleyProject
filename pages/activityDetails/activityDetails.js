@@ -156,11 +156,10 @@ Page({
   delete:function(e){
     var _this=this;
     var ind=e.currentTarget.dataset.index;
+    let title=_this.data.list[ind].title.substring(0,4)+'...'
     wx.showModal({
-      title: '删除活动'+_this.data.list[ind].title,
-      content:'删除后不可恢复',
-      confirmColor:'red',
-      confirmText:'删除',
+      title: '是否删除活动'+title,
+      content:'删除后不可恢复，请慎重考虑',
       success:function(res){
         if(res.confirm){
           wx.showLoading({

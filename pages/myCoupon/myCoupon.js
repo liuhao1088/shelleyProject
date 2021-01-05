@@ -35,8 +35,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    skip=0;
-    this.loadData();
+    if(wx.getStorageSync('userInfo')){
+      skip=0;
+      this.loadData();
+    }else{
+      wx.showToast({
+        title: '暂无卡券',
+        icon:'none',
+        duration:10000000
+      })
+    }  
     var that = this;
     if(wx.getStorageSync('userInfo')&&wx.getStorageSync('prize')){
       let userInfo=wx.getStorageSync('userInfo')
@@ -88,6 +96,9 @@ Page({
             var index = list.findIndex(function(item) {
               return item.shop_code == "all";
             });
+            let prize=wx.getStorageSync('prize');
+            prize.status='complete';
+            wx.setStorageSync('prize', prize)
             list[index].status='complete'
             list[index].usable=false;
             that.setData({
@@ -134,6 +145,9 @@ Page({
         list[indx].usable=false;
         if(that.data.list[that.data.cou_ind].shop_code=='all'){
           that.setData({cou_checked:false})
+          let prize=wx.getStorageSync('prize');
+          prize.status='complete';
+          wx.setStorageSync('prize', prize)
         }
         that.setData({
           list:list,
