@@ -4,7 +4,6 @@
 @import './style/icon.wxss';
 page{
   height: 100%;
-  background-color: #1B222E;
 }
 .row{
   display: flex;

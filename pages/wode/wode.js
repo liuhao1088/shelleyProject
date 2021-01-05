@@ -6,6 +6,12 @@ Page({
    */
   data: {
     tabbar: {},
+    userInfo:{}
+  },
+  toMyCoupon(){
+    wx.navigateTo({
+      url: '/pages/myCoupon/myCoupon',
+    })
   },
 
   /**
@@ -13,6 +19,11 @@ Page({
    */
   onLoad: function (options) {
     app.editTabbar();
+    let userInfo =  wx.getStorageSync('userInfo');
+    this.setData({
+      userInfo
+    })
+    console.log(userInfo)
   },
 
   /**

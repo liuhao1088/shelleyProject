@@ -1,13 +1,36 @@
 <view class="wodeContainer">
+  <view class="header">
+    <view class="wrap">
+      <view class="img-item">
+        <image src="{{userInfo.avatarUrl}}" style="border-radius: 50%;"></image>
+      </view>
+      <view class="nickname">{{userInfo.nickName}}</view>
+    </view>
+  </view>
+
+  <view class="menu">
+    <view class="menu-item" bindtap="toMyCoupon">
+      <view class="menu-wrap">
+        <view class="icon-item">
+          <text class="iconfont iconquan" style="font-size: 50rpx;"></text>
+        </view>
+        <view class="menu-msg">我的卡券</view>
+      </view>
+    </view>
+    <view class="menu-item">
+      <view class="menu-wrap">
+        <view class="icon-item">
+          <text class="iconfont iconquan" style="font-size: 50rpx;"></text>
+        </view>
+        <view class="menu-msg">我的门店</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="poster-item"></view>
 
 
-
-
-
-
-  
 </view>
 
 <!-- 导航栏 -->
 <tabbar tabbar="{{tabbar}}"></tabbar>
-
