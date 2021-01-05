@@ -35,3 +35,6 @@
   </view>
   <view class="tag-title">门店认证</view>
 </view>
+
+<!-- 导航栏 -->
+<tabbar tabbar="{{tabbar}}"></tabbar>

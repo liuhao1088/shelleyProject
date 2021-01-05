@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "tabbar": "../../tabbar/tabbar"
+  },
   "navigationBarTitleText": "门店预约"
 }

@@ -1,6 +1,8 @@
 //app.js
 App({
   onLaunch: function () {
+    wx.hideTabBar();
+    this.getSystemInfo();
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
@@ -55,9 +57,72 @@ App({
       }
     })
   },
- 
+  onShow: function () {
+    //隐藏系统tabbar
+    wx.hideTabBar();
+  },
+  getSystemInfo: function () {
+    let t = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        t.globalData.systemInfo = res;
+      }
+    });
+  },
+  editTabbar: function () {
+    let tabbar = this.globalData.tabBar;
+    let currentPages = getCurrentPages();
+    let _this = currentPages[currentPages.length - 1];
+    let pagePath = _this.route;
+    (pagePath.indexOf('/') != 0) && (pagePath = '/' + pagePath);
+    for (let i in tabbar.list) {
+      tabbar.list[i].selected = false;
+      (tabbar.list[i].pagePath == pagePath) && (tabbar.list[i].selected = true);
+    }
+    _this.setData({
+      tabbar: tabbar
+    });
+  },
   globalData: {
     userInfo: null,
     openid:'',
+    tabBar: {
+      "backgroundColor": "#ffffff",
+      "color": "#979795",
+      "selectedColor": "#1c1c1b",
+      "list": [
+        {
+          "pagePath": "/pages/home/home",
+          "iconPath": "icon/chanpin-hui.png",
+          "selectedIconPath": "icon/chanpin.png",
+          "text": "产品"
+        },
+        {
+          "pagePath": "/pages/brandDetails/brandDetails",
+          "iconPath": "icon/pinpai-hui.png",
+          "selectedIconPath": "icon/pinpai.png",
+          "text": "品牌"
+        },
+        {
+          "pagePath": "/pages/index/index",
+          "iconPath": "icon/huodong-hui.png",
+          "selectedIconPath": "icon/huodong.png",
+          "isSpecial": true,
+          "text": "活动"
+        },
+        {
+          "pagePath": "/pages/reserveStore/reserveStore",
+          "iconPath": "icon/store-hui.png",
+          "selectedIconPath": "icon/store.png",
+          "text": "门店"
+        },
+        {
+          "pagePath": "/pages/wode/wode",
+          "iconPath": "icon/wode-hui.png",
+          "selectedIconPath": "icon/wode.png",
+          "text": "我的"
+        }
+      ]
+    }
   }
 })

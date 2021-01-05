@@ -1,9 +1,12 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/home/home",
+    "pages/text/text",
+    "pages/brandDetails/brandDetails",
+    "pages/wode/wode",
     "pages/storeAppointment/storeAppointment",
     "pages/groupActivities/groupActivities",
-    "pages/activityPoster/activityPoster",
     "pages/reservationActivity/reservationActivity",
     "pages/addStoreInformation/addStoreInformation",
     "pages/groupSpecial/groupSpecial",
@@ -13,7 +16,6 @@
     "pages/myCoupon/myCoupon",
     "pages/couponRules/couponRules",
     "pages/allStore/allStore",
-    "pages/text/text",
     "pages/reserveStore/reserveStore",
     "pages/activityRule/activityRule",
     "pages/carAppointment/carAppointment",
@@ -37,6 +39,43 @@
     "navigationBarBackgroundColor": "#03080e",
     "navigationBarTitleText": "雪莱特",
     "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "backgroundColor": "#ffffff",
+    "color": "#979795",
+    "selectedColor": "#1c1c1b",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "tabbar/icon/chanpin-hui.png",
+        "selectedIconPath": "tabbar/icon/chanpin.png",
+        "text": "产品"
+      },
+      {
+        "pagePath": "pages/brandDetails/brandDetails",
+        "iconPath": "tabbar/icon/pinpai-hui.png",
+        "selectedIconPath": "tabbar/icon/pinpai.png",
+        "text": "品牌"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "tabbar/icon/huodong-hui.png",
+        "selectedIconPath": "tabbar/icon/huodong.png",
+        "text": "活动"
+      },
+      {
+        "pagePath": "pages/reserveStore/reserveStore",
+        "iconPath": "tabbar/icon/store-hui.png",
+        "selectedIconPath": "tabbar/icon/store.png",
+        "text": "门店"
+      },
+      {
+        "pagePath": "pages/wode/wode",
+        "iconPath": "tabbar/icon/wode-hui.png",
+        "selectedIconPath": "tabbar/icon/wode.png",
+        "text": "我的"
+      }
+    ]
   },
   "usingComponents": {
     "authorize": "components/authorize/authorize",

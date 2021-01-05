@@ -137,7 +137,13 @@ Page({
 		} else {
 			console.log("向左滑动")
 		}
-	},
+  },
+  
+  toIndex(){
+    wx.redirectTo({
+      url: '/pages/index/index',
+    })
+  },
 
 
   /**

@@ -87,3 +87,14 @@
   width: 100%;
   background-color: orange;
 }
+
+/* 导航栏 */
+.tabbar-wrap{
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.margin-bottom-xl{
+  margin-bottom: 0;
+}
