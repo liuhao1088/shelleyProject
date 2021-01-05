@@ -1,0 +1,2 @@
+/* pages/manage/live/edit.wxss */
+@import "../examine/lookup.wxss";

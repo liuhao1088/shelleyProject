@@ -1,0 +1,6 @@
+{
+  "usingComponents": { 
+    "rui-picker": "../../../components/picker/picker" 
+  }, 
+  "navigationBarTitleText": "编辑" 
+}

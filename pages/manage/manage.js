@@ -17,6 +17,11 @@ Page({
       url: './examine/examine',
     })
   },
+  toLive:function(){
+    wx.navigateTo({
+      url: './live/live',
+    })
+  },
   toActivity:function(){
     wx.navigateTo({
       url: './activity/activity',

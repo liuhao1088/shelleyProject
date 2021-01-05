@@ -1,0 +1,31 @@
+<!--pages/manage/live/edit.wxml-->
+<view class='background'>
+
+<view class='box row align-center'>
+  <view class='field align-center'>标题</view>
+  <input class='input align-center' value="{{title}}" bindinput='inputTitle' placeholder='请输入直播标题'></input>
+</view>
+<view class='box row align-center'>
+  <view class='field align-center'>日期</view>
+  <rui-picker class="input align-center" slot="flexchild" fields="minute" value="{{date}}" start="{{nowDate}}" end="2021-11-11 11:00" 
+   bindchangedatepicker="changeDate"></rui-picker> 
+</view> 
+<view class='box row align-center'> 
+  <view class='field align-center'>内容</view> 
+  <textarea class='input' style="height:80px;" value="{{content}}" bindinput='inputContent' placeholder='请输入直播内容'></textarea> 
+</view>
+<view style='border-bottom:1px #d9d9d9 solid;width:100%;'>
+  <view class='box row align-center' style="border-bottom:0px">
+    <view class='field align-center'>宣传图</view>
+    <view class="iconlist row" style="margin-top:5px;margin-bottom:5px;">
+      <view bindtap="" style="" id="{{item}}" wx:for="{{tempFilePaths}}" wx:key="*this">
+        <image class="addIcon" src="{{item}}" />
+      </view>
+      <image class='addIcon align-center' src="/images/tianjia.png" bindtap="addImage"></image>
+    </view>
+  </view>
+</view>
+
+
+</view>
+<view class='form-btn' bindtap='submit'>{{transmit==''?'添加直播':'保存'}}</view>

@@ -13,6 +13,8 @@ Page({
     address: '',
     list: [],
     tabbar: {},
+    lon:'',
+    lat:''
   },
 
   toAddStoreInformation(event) {
@@ -59,7 +61,9 @@ Page({
           success: function (res) {
             console.log(res)
             that.setData({
-              address: res.originalData.result.business
+              address: res.originalData.result.business,
+              lon:lon,
+              lat:lat
             })
           },
           fail: function (r) {
@@ -101,7 +105,7 @@ Page({
         sort: {
           creation_timestamp: -1
         },
-        skip: 0,
+        skip: skip,
         limit: 100
       }
     }).then(res => {
@@ -193,13 +197,16 @@ Page({
       wx.removeStorageSync('refreshData')
     }
   },
-  bindDownLoad: function () {
+  async bindDownLoad() {
     wx.showNavigationBarLoading()
     wx.showLoading({
       title: '加载中',
       duration: 500
     })
     skip = skip + 10;
+    if(skip==100){ 
+      await this.loadData(this.data.lat,this.data.lon) 
+    } 
     let list = shop_data.slice(0 + skip, 9 + skip)
     if (list.length == 0) wx.showToast({
       title: '暂无更多数据',

@@ -1,0 +1,2 @@
+/* pages/manage/live/live.wxss */
+@import "../user/user.wxss";

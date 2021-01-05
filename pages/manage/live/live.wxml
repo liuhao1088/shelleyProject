@@ -1,0 +1,18 @@
+<!--pages/manage/live/live.wxml-->
+<view class="container">
+  <view class='viewbox' bindlongtap='deleteAddr' wx:for="{{list}}" wx:key="*" data-index="{{index}}">
+    <image class='viewbox-icon' src='/images/bianji.png' data-index="{{index}}" bindtap='toEdit'></image>
+    <view class='row' data-index="{{index}}" bindtap="toLookup">
+      <view class='viewbox-number'>直播：{{item.title}}</view>
+      <view class='viewbox-remark'></view>
+    </view>
+    <view class='row' data-index="{{index}}" bindtap="toLookup">
+      <view class="viewbox-address"><text decode="{{true}}">日期：{{item.date}} &nbsp;&nbsp;&nbsp;</text></view>
+    </view>
+  </view>
+
+  <view style="height:70px"></view>
+  <view class="bottom" style="background:#1B222E;">
+    <button class="button bg-grey justify-center align-center" style="" bindtap="toAdd">添加新的直播</button>
+  </view>
+</view>
