@@ -1,5 +1,7 @@
 {
   "usingComponents": {},
   "enableReachBottom": true,
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
   "navigationBarTitleText": "我的卡券"
 }

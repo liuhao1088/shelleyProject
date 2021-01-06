@@ -1,1 +1,10 @@
 /* pages/brandDetails/brandDetails.wxss */
+.brandDetailsContainer{
+  padding-bottom: 120rpx;
+}
+
+.brandDetailsContainer image{
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
+}

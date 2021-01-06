@@ -1,5 +1,6 @@
 {
   "usingComponents": {
     "tabbar": "../../tabbar/tabbar"
-  }
+  },
+  "navigationStyle": "custom"
 }

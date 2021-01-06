@@ -1,7 +1,10 @@
 .activityPosterContainer{
   height: 100vh;
   width: 100%;
-  background: url('https://img14.360buyimg.com/ddimg/jfs/t1/155149/29/12106/644710/5fe94f3eEc37378e2/505ace0773ded202.jpg') no-repeat;
-  background-size:100% 100%;
+}
+image{
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
 }
 

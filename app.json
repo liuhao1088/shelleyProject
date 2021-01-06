@@ -1,11 +1,11 @@
 {
   "pages":[
-    "pages/index/index",
+    "pages/myCoupon/myCoupon",
     "pages/text/text",
-    "pages/wode/wode",
-    
-    "pages/home/home",
+    "pages/index/index",
    
+    "pages/wode/wode",
+    "pages/home/home",
     "pages/brandDetails/brandDetails",
     "pages/storeAppointment/storeAppointment",
     "pages/groupActivities/groupActivities",
@@ -15,7 +15,7 @@
     "pages/myStore/myStore",
     "pages/activitySelect/activitySelect",
     "pages/storeInformation/storeInformation",
-    "pages/myCoupon/myCoupon",
+   
     "pages/couponRules/couponRules",
     "pages/allStore/allStore",
     "pages/reserveStore/reserveStore",
