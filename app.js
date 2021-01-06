@@ -14,7 +14,13 @@ App({
         env: 'cnlight-1gn7d20g2cef1b76',
         traceUser: true,
       })
-
+      var that=this;
+      wx.cloud.callFunction({
+        name: 'login'
+      }).then(res =>{
+        console.log(res)
+        that.globalData.openid=res.result.openid;
+      })
       wx.getSystemInfo({
         success: e => {
           this.globalData.StatusBar = e.statusBarHeight;
@@ -86,6 +92,7 @@ App({
   globalData: {
     userInfo: null,
     openid:'',
+    wares:'',
     tabBar: {
       "backgroundColor": "#ffffff",
       "color": "#979795",

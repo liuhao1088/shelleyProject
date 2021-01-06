@@ -14,11 +14,21 @@ exports.main = async (event, context) => {
         let:event.let,
         pipeline: $.pipeline()
           .match(_.expr($.and([
-            $.eq(event.match),$.eq(event.match2)
+            $.eq(event.match),$.eq(event.matchs)
           ])))
           .project(event.project).sort({creation_date:-1})
           .done(),
           as: event.as,
+		  }).lookup({
+		    from: event.from2,
+        let:event.let2,
+        pipeline: $.pipeline()
+          .match(_.expr($.and([
+            $.eq(event.match2),$.eq(event.matchs2)
+          ])))
+          .project(event.project2).sort({creation_date:-1})
+          .done(),
+          as: event.as2,
 		  }).sort(event.sort).skip(event.skip).limit(event.limit).end()
 		  .then(res => {
         console.log(res)

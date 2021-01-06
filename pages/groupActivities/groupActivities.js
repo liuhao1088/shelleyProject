@@ -1,4 +1,5 @@
 // pages/groupActivities/groupActivities.js
+var app = getApp();
 var clickindex = new Array();
 var util = require('../../utils/util.js')
 let timer;
@@ -154,17 +155,13 @@ Page({
       endTime: date
     })
     var that = this;
-    wx.cloud.callFunction({
-      name: 'showwares'
-    }).then(res => {
-      let data = res.result;
-      for (let i = 0; i < data.length; i++) {
-        data[i].checked = false;
-        if (i + 1 == data.length) that.setData({
-          checkbox: data
-        })
-      }
-    })
+    let wares = app.globalData.wares;
+    for (let i = 0; i < wares.length; i++) {
+      wares[i].checked = false;
+      if (i + 1 == wares.length) that.setData({
+        checkbox: wares
+      })
+    }
     if (options.data) {
       let data = JSON.parse(options.data)
       console.log(data)

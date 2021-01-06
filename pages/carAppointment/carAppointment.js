@@ -1,4 +1,5 @@
-// pages/carAppointment/carAppointment.js
+// pages/carAppointment/carAppointment.js\
+var nowDate=require('../../utils/util').formatTime(new Date())
 var skip = 0;
 Page({
 
@@ -147,6 +148,22 @@ Page({
                 userInfo.shop[userInfo.shop.length - 1].shop_name = userInfo.shop[userInfo.shop.length - 1].shop_name.substring(0, 6) + '...'
               }
               that.successMessage(list[ind]._openid, list[ind].time_date, '店家（' + userInfo.shop[userInfo.shop.length - 1].shop_name + '）已接受您的预约')
+              wx.cloud.callFunction({
+                name:'recordAdd',
+                data:{
+                  collection:'message',
+                  addData:{
+                    creation_date:nowDate,
+                    creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
+                    _openid:list[ind]._openid,
+                    title:'店家（' + userInfo.shop[userInfo.shop.length - 1].shop_name + '）已接受您的预约',
+                    content:list[ind].time_date,
+                    type:'re',
+                    res:'success',
+                    read:'unread'
+                  }
+                }
+              })
               wx.showToast({
                 title: '已接受预约',
                 icon: 'success',
@@ -198,6 +215,22 @@ Page({
             let id=wx.getStorageSync('_quit')
             let name=userInfo.shop[userInfo.shop.length - 1].shop_name.substring(0,19);
             that.quitMessage(id, name, '店主取消预约')
+            wx.cloud.callFunction({
+              name:'recordAdd',
+              data:{
+                collection:'message',
+                addData:{
+                  creation_date:nowDate,
+                  creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
+                  _openid:list[ind]._openid,
+                  title:'店家（' + userInfo.shop[userInfo.shop.length - 1].shop_name + '）取消了您的预约',
+                  content:list[ind].time_date,
+                  type:'re',
+                  res:'fail',
+                  read:'unread'
+                }
+              }
+            })
             wx.hideLoading({
               success: (res) => {},
             })

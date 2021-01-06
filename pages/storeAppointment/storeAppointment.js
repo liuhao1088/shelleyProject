@@ -1,4 +1,5 @@
 // pages/storeAppointment/storeAppointment.js
+var app = getApp();
 var util = require('../../utils/util.js');
 var date = new Date();
 var timer;
@@ -142,42 +143,36 @@ Page({
   onLoad: function (options) {
     if (options.data) {
       let data = JSON.parse(options.data)
-      console.log(data)
-      let userInfo = wx.getStorageSync('userInfo')
-      wx.cloud.database().collection('reservation').where({
-        shop_code: data.shop_code,
-        _openid: userInfo._openid
-      }).orderBy('creation_date', 'desc').get().then(res => {
-        let list = res.data
-        let stamp = Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
-        if (list.length >= 1) {
-          if ((list[0].status == 'success' && stamp <= list[0].timestamp) || (list[0].status == 'waiting' && stamp <= list[0].timestamp)) {
-            this.setData({
-              reservation: 'already'
-            })
-          }
+      let list = data.re;
+      let stamp = Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
+      if (list.length >= 1) {
+        console.log(list[0].status,stamp,list[0].timestamp)
+        if ((list[0].status == 'success' && stamp <= list[0].timestamp) || (list[0].status == 'waiting' && stamp <= list[0].timestamp)) {
+          this.setData({
+            reservation: 'already'
+          })
         }
-      })
-      console.log(data)
+      } 
+      if(data.reservation){
+        if(data.reservation[0]=='has') {
+          this.setData({
+            reservation: 'already'
+          })
+        }
+      }
       this.setData({
         data: data
       })
     }
     var that = this;
-    wx.cloud.callFunction({
-      name: 'showwares'
-    }).then(res => {
-      let data = res.result;
-      for (let i = 0; i < data.length; i++) {
-        data[i].checked = false;
-        if (i + 1 == data.length) that.setData({
-          checkbox: data
-        })
-      }
-    })
-    wx.cloud.callFunction({
-      name: 'login'
-    }).then(res => console.log(res))
+    let wares = app.globalData.wares;
+    for (let i = 0; i < wares.length; i++) {
+      wares[i].checked = false;
+      if (i + 1 == wares.length) that.setData({
+        checkbox: wares
+      })
+    }   
+    
   },
   callphone: function () {
     wx.makePhoneCall({

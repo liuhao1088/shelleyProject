@@ -1,5 +1,6 @@
 // pages/wode/wode.js
 var app = getApp();
+var util=require('../../utils/util.js')
 Page({
 
   /**
@@ -37,15 +38,14 @@ Page({
             
           }else{
             this.selectComponent("#authorize").showModal();
-            this.retrieval()
           }
         } else {
           //打开授权登录页
           this.selectComponent("#authorize").showModal();
-          this.retrieval()
         }
       }
     })
+    util.nearby();
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

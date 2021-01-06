@@ -1,4 +1,5 @@
 // pages/activityDetails/activityDetails.js
+var app=getApp();
 var util=require('../../utils/util.js')
 var skip=0;
 Page({
@@ -31,6 +32,16 @@ Page({
     });
     skip=0;
     that.loadData();
+    switch(app.globalData.wares){
+      case '':
+        wx.cloud.callFunction({
+          name: 'showwares'
+        }).then(res => {
+          console.log(res)
+          app.globalData.wares = res.result;
+        })
+        break;
+    }
   },
 
   /**

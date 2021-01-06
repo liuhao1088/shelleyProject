@@ -81,6 +81,22 @@ Page({
                   }
                 }).then(res=>{console.log(res)})
                 that.sendMessage("您的门店认证已经通过",editData.shop_name);
+                wx.cloud.callFunction({
+                  name:'recordAdd',
+                  data:{
+                    collection:'message',
+                    addData:{
+                      creation_date:nowDate,
+                      creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
+                      _openid:editData._openid,
+                      title:"您的门店认证已经通过",
+                      content:editData.shop_name,
+                      type:'check',
+                      res:'success',
+                      read:'unread'
+                    }
+                  }
+                })
                 editData.prove='success';
                 editData.shop_code=num;
                 editData.checker=userInfo.nickName;
@@ -134,6 +150,22 @@ Page({
       }).then(res=>{
         that.hideModal()
         that.sendMessage("您的门店信息已被驳回",that.data.reason);
+        wx.cloud.callFunction({
+          name:'recordAdd',
+          data:{
+            collection:'message',
+            addData:{
+              creation_date:nowDate,
+              creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
+              _openid:editData._openid,
+              title:"您的门店信息已被驳回",
+              content:that.data.reason,
+              type:'check',
+              res:'fail',
+              read:'unread'
+            }
+          }
+        })
         setTimeout(() => {
           wx.showToast({
             title: '已驳回',

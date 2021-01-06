@@ -77,6 +77,16 @@ Page({
         that.loadData(lat, lon);
       }
     })
+    switch(app.globalData.wares){
+      case '':
+        wx.cloud.callFunction({
+          name: 'showwares'
+        }).then(res => {
+          console.log(res)
+          app.globalData.wares = res.result;
+        })
+        break;
+    }
   },
   loadData: function (lat, lon) {
     var that = this;
@@ -97,11 +107,21 @@ Page({
           shop_code: '$shop_code',
         },
         match: ['$shop_code', '$$shop_code'],
-        match2: ['$type', 'reservation'],
+        matchs: ['$type', 'reservation'],
         project: {
           shop_code: 0
         },
         as: 'act',
+        from2: 'reservation',
+        let2: {
+          shop_code: '$shop_code',
+        },
+        match2: ['$shop_code', '$$shop_code'],
+        matchs2: ['$_openid', app.globalData.openid],
+        project2: {
+          shop_code: 0
+        },
+        as2: 're',
         sort: {
           creation_timestamp: -1
         },
@@ -109,7 +129,6 @@ Page({
         limit: 100
       }
     }).then(res => {
-      console.log(res)
       let data = that.data.list.concat(res.result.list);
       if (res.result.list.length == 0) wx.showToast({
         title: '暂无更多数据',
@@ -121,18 +140,16 @@ Page({
         duration: 10000000
       })
       for (let i in data) {
-        data[i].distance = that.getDistance(lat, lon, data[i].lat, data[i].lon)
+        data[i].distance = util.getDistance(lat, lon, data[i].lat, data[i].lon)
         if (data[i].act.length > 0) {
           if (stamp < data[i].act[0].end_timestamp) {
             data[i].gift = true;
           }
         }
         if (i == data.length - 1) {
-          data.sort(that.compare("distance"));
-          console.log(data)
+          data.sort(util.compare("distance"));
           shop_data = data;
           let list = data.slice(0, 9)
-          console.log(list)
           that.setData({
             list: list
           })
@@ -142,28 +159,7 @@ Page({
       wx.hideNavigationBarLoading()
     })
   },
-  getDistance(lat1, lng1, lat2, lng2) {
-    var radLat1 = this.Rad(lat1);
-    var radLat2 = this.Rad(lat2);
-    var a = radLat1 - radLat2;
-    var b = this.Rad(lng1) - this.Rad(lng2);
-    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
-    s = s * 6378.137;
-    s = Math.round(s * 10000) / 10000;
-    s = s.toFixed(1) //千米保留两位小数
-    return s
-  },
-  Rad(d) {
-    //根据经纬度判断距离
-    return d * Math.PI / 180.0;
-  },
-  compare: function (property) {
-    return function (a, b) {
-      var value1 = a[property];
-      var value2 = b[property];
-      return value1 - value2;
-    }
-  },
+  
   chooseLocation: function (e) {
     var that = this;
     wx.chooseLocation({
@@ -171,7 +167,12 @@ Page({
         console.log(res)
         that.setData({
           address: res.name,
+          list:[],
+          lon:res.longitude,
+          lat:res.latitude
         })
+        skip=0;
+        that.loadData(res.latitude,res.longitude)
       },
     })
   },
