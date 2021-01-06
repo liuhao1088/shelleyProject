@@ -1,9 +1,11 @@
 {
   "pages":[
-    "pages/wode/wode",
     "pages/index/index",
-    "pages/home/home",
     "pages/text/text",
+    "pages/wode/wode",
+    
+    "pages/home/home",
+   
     "pages/brandDetails/brandDetails",
     "pages/storeAppointment/storeAppointment",
     "pages/groupActivities/groupActivities",
@@ -59,7 +61,6 @@
       },
       {
         "pagePath": "pages/index/index",
-        "iconPath": "tabbar/icon/huodong-hui.png",
         "selectedIconPath": "tabbar/icon/huodong.png",
         "text": "活动"
       },

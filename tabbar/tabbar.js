@@ -26,7 +26,6 @@ Component({
           },
           {
             "pagePath": "/pages/index/index",
-            "iconPath": "icon/huodong-hui.png",
             "selectedIconPath": "icon/huodong.png",
             "isSpecial": true,
             "text": "活动"
