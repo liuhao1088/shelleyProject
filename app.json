@@ -1,9 +1,9 @@
 {
   "pages":[
+    "pages/reserveStore/reserveStore",
+    "pages/index/index",
     "pages/myCoupon/myCoupon",
     "pages/text/text",
-    "pages/index/index",
-   
     "pages/wode/wode",
     "pages/home/home",
     "pages/brandDetails/brandDetails",
@@ -15,10 +15,8 @@
     "pages/myStore/myStore",
     "pages/activitySelect/activitySelect",
     "pages/storeInformation/storeInformation",
-   
     "pages/couponRules/couponRules",
     "pages/allStore/allStore",
-    "pages/reserveStore/reserveStore",
     "pages/activityRule/activityRule",
     "pages/carAppointment/carAppointment",
     "pages/activityDetails/activityDetails",
