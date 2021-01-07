@@ -6,7 +6,6 @@ page {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
 .header {
@@ -169,7 +168,7 @@ page {
   border: 0rpx solid red;
   margin-top: 8rpx;
   display: flex;
-  
+
 }
 
 .store-tag {
@@ -179,7 +178,7 @@ page {
   font-size: 20rpx;
   text-align: center;
   background-image: linear-gradient(139deg, #fe5327, #fd7e21);
-  padding: 0 16rpx ;
+  padding: 0 16rpx;
 }
 
 
