@@ -92,7 +92,7 @@
     </view>
     <view class="grid col-3 padding-sm">
       <view wx:for="{{checkbox}}" class="padding-xs" wx:key="id">
-        <button class="cu-btn orange lg block {{item.checked?'line-red':'line-black'}}" bindtap="ChooseCheckbox"
+        <button class="cu-btn orange lg block {{item.checked?'line-red':''}}" bindtap="ChooseCheckbox"
           data-value="{{item.value}}" data-index="{{index}}" data-name="{{item.name}}"> {{item.name}}
         </button>
       </view>
