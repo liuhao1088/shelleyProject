@@ -4,6 +4,7 @@ var util = require('../../utils/util.js')
 var skip = 0;
 var ind;
 var shop_data;
+let pro=0;
 Page({
 
   /**
@@ -15,9 +16,9 @@ Page({
     tabbar: {},
     lon:'',
     lat:'',
-    
+    loadProgress:0,
+    complete:false
   },
-
   toAddStoreInformation(event) {
     wx.navigateTo({
       url: '/pages/addStoreInformation/addStoreInformation',
@@ -25,9 +26,11 @@ Page({
   },
   toStoreAppointment(e) {
     ind = parseInt(e.currentTarget.dataset.index)
+    let list=this.data.list[ind];
+    delete list.bg;
     if (wx.getStorageSync('userInfo')) {
       wx.navigateTo({
-        url: '/pages/storeAppointment/storeAppointment?data=' + JSON.stringify(this.data.list[ind]),
+        url: '/pages/storeAppointment/storeAppointment?data=' + JSON.stringify(list),
       })
     } else {
       this.selectComponent("#authorize").showModal();
@@ -49,6 +52,10 @@ Page({
         });
       }
     });
+    do{
+      that.loadProgress(pro)
+      pro++;
+    }while(pro<95)
     var BMap = new bmap.BMapWX({
       ak: 'yLnHh2rGyFiou5kZGVMtP0LLKWrXfr0i'
     });
@@ -91,9 +98,13 @@ Page({
   },
   loadData: function (lat, lon) {
     var that = this;
-    wx.showLoading({
-      title: '加载中',
-    })
+    if(pro>=100){
+      pro=0;
+    }
+    do{
+      that.loadProgress(pro)
+      pro++;
+    }while(pro<95)
     var stamp = Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
     var _ = wx.cloud.database().command;
     wx.cloud.callFunction({
@@ -131,31 +142,50 @@ Page({
       }
     }).then(res => {
       let data = that.data.list.concat(res.result.list);
-      if (res.result.list.length == 0) wx.showToast({
-        title: '暂无更多数据',
-        icon: 'none'
-      })
-      if (data.length == 0) wx.showToast({
-        title: '附近暂无门店',
-        icon: 'none',
-        duration: 10000000
-      })
-      for (let i in data) {
-        data[i].distance = util.getDistance(lat, lon, data[i].lat, data[i].lon)
-        if (data[i].act.length > 0) {
-          if (stamp < data[i].act[0].end_timestamp) {
-            data[i].gift = true;
+      if (res.result.list.length == 0){
+        that.loadProgress(100)
+        that.setData({complete:true})
+        wx.showToast({
+          title: '暂无更多数据',
+          icon: 'none'
+        })
+      }else{
+        do{
+          that.loadProgress(pro)
+          pro=pro+3;
+        }while(pro<100)
+        for (let i in data) {
+          data[i].distance = util.getDistance(lat, lon, data[i].lat, data[i].lon)
+          if (data[i].act.length > 0) {
+            if (stamp < data[i].act[0].end_timestamp) {
+              data[i].gift = true;
+            }
+          }
+          if (i == data.length - 1) {
+            that.loadProgress(100)
+            that.setData({complete:true})
+            data.sort(util.compare("distance"));
+            data.forEach((item,ind,arr)=>{
+              item.bg=util.bgimg()[ind%4];
+            })
+            shop_data = data;
+            let list = data.slice(0, 9)
+            that.setData({
+              list: list,
+            })
           }
         }
-        if (i == data.length - 1) {
-          data.sort(util.compare("distance"));
-          shop_data = data;
-          let list = data.slice(0, 9)
-          that.setData({
-            list: list
-          })
-        }
       }
+      if (data.length == 0){
+        that.loadProgress(100)
+        that.setData({complete:true})
+        wx.showToast({
+          title: '附近暂无门店',
+          icon: 'none',
+          duration: 10000000
+        })
+      } 
+      
       wx.hideLoading()
       wx.hideNavigationBarLoading()
     })
@@ -176,6 +206,16 @@ Page({
         that.loadData(res.latitude,res.longitude)
       },
     })
+  },
+  loadProgress(){
+    this.setData({
+      loadProgress: pro
+    })
+    if (this.data.loadProgress>=100){
+      this.setData({
+        loadProgress: 0
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -200,26 +240,7 @@ Page({
     }
   },
   async bindDownLoad() {
-    wx.showNavigationBarLoading()
-    wx.showLoading({
-      title: '加载中',
-      duration: 500
-    })
-    skip = skip + 10;
-    if(skip==100){ 
-      await this.loadData(this.data.lat,this.data.lon) 
-    } 
-    let list = shop_data.slice(0 + skip, 9 + skip)
-    if (list.length == 0) wx.showToast({
-      title: '暂无更多数据',
-      icon: 'none',
-      duration: 2000
-    })
-    let data = this.data.list.concat(list)
-    this.setData({
-      list: data
-    })
-    wx.hideNavigationBarLoading()
+    
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -245,8 +266,27 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-
+  async onReachBottom() {
+    wx.showNavigationBarLoading()
+    wx.showLoading({
+      title: '加载中',
+      duration: 500
+    })
+    skip = skip + 10;
+    if(skip==100){ 
+      await this.loadData(this.data.lat,this.data.lon) 
+    } 
+    let list = shop_data.slice(0 + skip, 9 + skip)
+    if (list.length == 0) wx.showToast({
+      title: '暂无更多数据',
+      icon: 'none',
+      duration: 2000
+    })
+    let data = this.data.list.concat(list)
+    this.setData({
+      list: data
+    })
+    wx.hideNavigationBarLoading()
   },
 
   /**

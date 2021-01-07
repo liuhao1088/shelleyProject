@@ -170,6 +170,10 @@ function nearby(){
   })
 }
 
+function bgimg() {
+  return ['https://mmbiz.qpic.cn/sz_mmbiz_png/dWEsFMLe38afiaKZibOf1pHgGh2cQFVKyx5gCsUVibsc906n0AgOlQia8JAoPCMKYcdBf0GSeNKLhIjmndT1SKAEfw/0?wx_fmt=png','https://mmbiz.qpic.cn/sz_mmbiz_png/dWEsFMLe38afiaKZibOf1pHgGh2cQFVKyxTUXEgpPTpAoHUxAI6bmw2ibOMFYTF1mkEic8opLyuPNJpp6GpTDtlEwQ/0?wx_fmt=png','https://mmbiz.qpic.cn/sz_mmbiz_png/dWEsFMLe38afiaKZibOf1pHgGh2cQFVKyxoyZR950Bw6XgicYmMibgDFRvibd75oyUIZPn1Vall1fKLf5TorjhVdffw/0?wx_fmt=png','https://mmbiz.qpic.cn/sz_mmbiz_png/dWEsFMLe38afiaKZibOf1pHgGh2cQFVKyxCeiaxyLfXQbWmyrQ1wibfm5ML17dGpTPdNicdJPSO6a6qdMFFftIJibdMQ/0?wx_fmt=png']
+}
+
 module.exports = {
   formatTime: formatTime,
   formatTimes: formatTimes,
@@ -180,5 +184,6 @@ module.exports = {
   uploadimg:uploadimg,
   getDistance:getDistance,
   compare:compare,
-  nearby:nearby
+  nearby:nearby,
+  bgimg:bgimg
 }

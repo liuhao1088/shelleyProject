@@ -1,5 +1,5 @@
 <authorize id="authorize" />
-<view class="reserveStoreContainer">
+<view class="reserveStoreContainer" wx:if="{{complete}}">
   <!-- 头部 -->
   <view class="header">
     <view class="header-imgItem">
@@ -24,25 +24,27 @@
 
 
   <view class="store-mainItem" column justify-center align-center>
-    <view class="store-boxItem" data-index="1" bindtap="toStoreAppointment" style="background: url('https://img13.360buyimg.com/ddimg/jfs/t1/157814/10/2104/41710/5ff6a6ccEf62ba875/7f9311e7d6d87070.png') no-repeat;background-size: 100% 100%;">
+    <view class="store-boxItem"  wx:for="{{list}}" wx:key="id"  data-index="{{index}}"  bindtap="toStoreAppointment" style="background: url({{item.bg}}) no-repeat;background-size: 100% 100%;">
       <view class="store-wrapItem">
         <view class="store-mainLeft">
-          <view class="store-titleItem">雪莱特特福田店</view>
-          <view class="store-address">广东省深圳市福田区福中路36号</view>
+          <view class="store-titleItem">{{item.shop_name}}</view>
+          <view class="store-address">{{item.address}}{{item.detail}}</view>
           <view class="store-tagItem">
             <view class="store-tag">认证商家</view>
-            <view class="store-tag" style="margin-left: 20rpx;">1.3km</view>
+            <view class="store-tag" style="margin-left: 20rpx;">{{item.distance}}km</view>
           </view>
         </view>
         <view class="store-imgItem">
-          <image src=""></image>
+          <image src="{{item.shop_img}}"></image>
         </view>
       </view>
     </view>
   </view>
 
+  <view style="height:100px;"></view>
 
-  <!-- <view class="wrapper">
+<!--<view class="reserveStoreContainer" wx:if="{{complete}}">
+  <view class="wrapper">
     <view class="search">
       <text class="iconfont icondingwei"></text>
       <input type="text" value="{{address}}" bindtap="chooseLocation" placeholder="请选择地址" style="position:relative;right:30rpx;" />
@@ -72,7 +74,9 @@
 
 </view>
 
-<!-- <view class="tag-store" bindtap="toAddStoreInformation">
+
+<!-- <view class="tag-store" bindtap="toAddStoreInformation" wx:if="{{complete}}">
+
   <view class="store">
      <text class="iconfont iconzu165"></text>
   </view>
@@ -81,3 +85,9 @@
 
 <!-- 导航栏 -->
 <tabbar tabbar="{{tabbar}}"></tabbar>
+
+
+<view class='load-progress {{loadProgress!=0?"show":"hide"}}' style="top:{{CustomBar}}px;z-index:1000;">
+  <view class='load-progress-bar bg-green' style="transform: translate3d(-{{100-loadProgress}}%, 0px, 0px);height:8rpx;background-color:#07BE02;"></view>
+  <view class='load-progress-spinner text-green' style="color:#07BE02;"></view>
+</view>

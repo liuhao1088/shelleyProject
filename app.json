@@ -2,10 +2,12 @@
   "pages":[
     "pages/reserveStore/reserveStore",
     "pages/index/index",
+    "pages/home/home",
+
     "pages/myCoupon/myCoupon",
     "pages/text/text",
     "pages/wode/wode",
-    "pages/home/home",
+    
     "pages/brandDetails/brandDetails",
     "pages/storeAppointment/storeAppointment",
     "pages/groupActivities/groupActivities",

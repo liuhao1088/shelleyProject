@@ -24,7 +24,12 @@ function getDates( todate) {
       break;
   }
 }
+function sub(data){
+  var result=data.substring(0,2)
+  return result
+}
 
 module.exports = {
-  getDates: getDates
+  getDates: getDates,
+  sub:sub
 }

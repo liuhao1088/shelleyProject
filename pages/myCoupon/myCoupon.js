@@ -1,5 +1,6 @@
 // pages/myCoupon/myCoupon.js
 var skip = 0;
+let pro=0;
 var util = require('../../utils/util.js');
 Page({
 
@@ -15,7 +16,11 @@ Page({
     cou_id: '',
     navId: 0,
     currentId:0,
-    height:0
+    height:0,
+    usable_list:[],
+    unusable_list:[],
+    loadProgress:0,
+    complete:false
   },
   changNav(event) {
     let navId = event.currentTarget.dataset.id; //获取导航栏下标
@@ -58,20 +63,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let windowHeight = wx.getSystemInfoSync().windowHeight // 屏幕的高度
-    let windowWidth = wx.getSystemInfoSync().windowWidth // 屏幕的宽度
-    this.setData({
-      height: windowHeight * 750 / windowWidth - 200 - 30
-    })
-
-
-    // 倒计时
     var that = this;
-    that.setData({
-      loading: true
-    })
-
     if (wx.getStorageSync('userInfo')) {
+      do{
+        that.loadProgress(pro)
+        pro=pro+3;
+      }while(pro<95)
       skip = 0;
       this.loadData();
     } else {
@@ -81,6 +78,18 @@ Page({
         duration: 10000000
       })
     }
+    let windowHeight = wx.getSystemInfoSync().windowHeight // 屏幕的高度
+    let windowWidth = wx.getSystemInfoSync().windowWidth // 屏幕的宽度
+    this.setData({
+      height: windowHeight * 750 / windowWidth - 200 - 30
+    })
+
+
+    // 倒计时
+    that.setData({
+      loading: true
+    })
+
     var that = this;
     if (wx.getStorageSync('userInfo') && wx.getStorageSync('prize')) {
       let userInfo = wx.getStorageSync('userInfo')
@@ -114,9 +123,9 @@ Page({
   },
   submit: function () {
     var that = this;
-    let shop_code = that.data.list[that.data.cou_ind].shop_code;
+    let shop_code = that.data.usable_list[that.data.cou_ind].shop_code;
     if (that.data.code == shop_code || shop_code == 'all') {
-      that.apply(that.data.cou_ind, that.data.list[that.data.cou_ind]._id)
+      that.apply(that.data.cou_ind, that.data.usable_list[that.data.cou_ind]._id)
       if (that.data.cou_checked == true) {
         wx.cloud.callFunction({
           name: 'recordUpdate',
@@ -135,7 +144,7 @@ Page({
             success: (res) => {},
           })
           if (res.result.stats.updated == 1) {
-            let list = that.data.list;
+            let list = that.data.usable_list;
             var index = list.findIndex(function (item) {
               return item.shop_code == "all";
             });
@@ -145,7 +154,7 @@ Page({
             list[index].status = 'complete'
             list[index].usable = false;
             that.setData({
-              list: list,
+              usable_list: list,
               cou_checked: false
             })
           } else {}
@@ -182,10 +191,10 @@ Page({
         success: (res) => {},
       })
       if (res.result.stats.updated == 1) {
-        let list = that.data.list;
+        let list = that.data.usable_list;
         list[indx].status = 'complete'
         list[indx].usable = false;
-        if (that.data.list[that.data.cou_ind].shop_code == 'all') {
+        if (list[that.data.cou_ind].shop_code == 'all') {
           that.setData({
             cou_checked: false
           })
@@ -194,7 +203,7 @@ Page({
           wx.setStorageSync('prize', prize)
         }
         that.setData({
-          list: list,
+          usable_list: list,
           modalName: null
         })
         wx.showToast({
@@ -218,6 +227,13 @@ Page({
   },
   loadData: function () {
     var that = this;
+    if(pro>=100){
+      pro=0;
+    }
+    do{
+      that.loadProgress(pro)
+      pro++;
+    }while(pro<95)
     let userInfo = wx.getStorageSync('userInfo')
     wx.cloud.callFunction({
       name: 'multQuery',
@@ -244,11 +260,17 @@ Page({
           creation_date: -1
         },
         skip: skip,
-        limit: 10
+        limit: 30
       }
     }).then(res => {
       let data = res.result.list;
+      do{
+        that.loadProgress(pro)
+        pro=pro+3;
+      }while(pro<100)
       if (data.length == 0) {
+        that.loadProgress(100)
+        that.setData({complete:true})
         wx.showToast({
           title: '暂无更多卡券',
           icon: 'none'
@@ -270,19 +292,46 @@ Page({
           if (stamp >= data[i].act[0].end_timestamp) {
             data[i].usable = false; //过期
           }
+          if(data[i].status == 'success'&&stamp < data[i].act[0].end_timestamp){
+            let remain=data[i].act[0].end_timestamp-stamp;
+            data[i].percent=(remain/(data[i].act[0].end_timestamp-data[i].act[0].start_timestamp))*100+'%';
+            let day=Math.floor(remain / (60 * 60 * 24));
+            if(day>10){
+              data[i].remain=data[i].act[0].end_date;
+            }else if(day>=1&&day<=10){
+              data[i].remain=parseInt(remain/(60*60*24))+' 天';
+            }else{
+              data[i].remain=parseInt(remain/(60*60))+' 小时';
+            }
+          }
         }
         if (data[i].status == 'complete') {
           data[i].usable = false; //已使用
         }
+        
         if (i + 1 == data.length) {
-          let alldata = that.data.list.concat(data)
+          let usable = that.data.usable_list.concat(data.filter(item => item.usable==true))
+          let unusable = that.data.unusable_list.concat(data.filter(item => item.usable!==true))
+          that.loadProgress(100)
+          that.setData({complete:true})
           that.setData({
-            list: alldata
+            usable_list: usable,
+            unusable_list:unusable
           })
         }
       }
     })
 
+  },
+  loadProgress(){
+    this.setData({
+      loadProgress: pro
+    })
+    if (this.data.loadProgress>=100){
+      this.setData({
+        loadProgress: 0
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -326,7 +375,11 @@ Page({
     // skip = skip + 10;
     // this.loadData();
   },
-
+  
+  more:function(){
+    skip = skip + 30;
+    this.loadData();
+  },
   /**
    * 用户点击右上角分享
    */
@@ -334,11 +387,10 @@ Page({
     var that = this;
     var ind = res.target.dataset.index;
     if (res.from === 'button') {
-      console.log(res.from, res, that.data.list[ind]._id, that.data.list[ind].cou_code, that.data.list[ind].act[0].end_timestamp)
       return {
         title: "【仅剩1个名额】我领了100元拼团券，快来助我成团激活~", //分享标题
         imageUrl: 'https://img13.360buyimg.com/ddimg/jfs/t1/160040/27/61/289416/5fe99874E75804776/891b1b08109afc6d.png', //图片路径
-        path: 'pages/groupSpecial/groupSpecial?act_id=' + that.data.list[ind].act_id + '&cou_code=' + that.data.list[ind].cou_code + '&end_timestamp=' + that.data.list[ind].act[0].end_timestamp
+        path: 'pages/groupSpecial/groupSpecial?act_id=' + that.data.usable_list[ind].act_id + '&cou_code=' + that.data.usable_list[ind].cou_code + '&end_timestamp=' + that.data.usable_list[ind].act[0].end_timestamp
       }
     } else {
       return {

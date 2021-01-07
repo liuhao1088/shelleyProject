@@ -125,6 +125,7 @@ page {
   flex: 1;
   border: 0rpx solid red;
   padding-right: 20rpx;
+  width:70%;
   color: rgb(255, 255, 255);
 }
 
@@ -151,7 +152,7 @@ page {
 }
 
 .store-address {
-  width: 100%;
+  width: 90%;
   height: 32rpx;
   line-height: 32rpx;
   font-size: 20rpx;
@@ -160,6 +161,8 @@ page {
   overflow: hidden;
   text-overflow: ellipsis;
   margin-top: 4rpx;
+  text-overflow:ellipsis; 
+  white-space:nowrap; 
 }
 
 .store-tagItem {

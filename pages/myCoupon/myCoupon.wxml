@@ -1,5 +1,219 @@
-<view class="myCouponContainer">
-  <!-- <view class="title"><text bindtap="toCouponRules">卡券使用规则</text></view>
+<wxs src="../../utils/util.wxs" module="utils" />
+<view class="myCouponContainer" wx:if="{{complete}}">
+  
+  <!-- <view class="maxScroll"> -->
+  <scroll-view scroll-x enable-flex scroll-with-animation class="navScroll" scroll-into-view="{{'scroll'+ navId}}">
+    <view id="{{'scroll'+ item.id}}" class="navItem">
+      <view class="navContent {{navId == 0?'active':'' }}" bindtap="changNav" data-id="0">
+        可用券
+      </view>
+    </view>
+    <view id="{{'scroll'+ item.id}}" class="navItem">
+      <view class="navContent {{navId == 1?'active':'' }}" bindtap="changNav" data-id="1">
+        已失效
+      </view>
+    </view>
+  </scroll-view>
+  <!-- </view> -->
+
+  <!--选项1-->
+  <scroll-view scroll-y class="couponScroll" style="height: {{height}}rpx;" refresher-enabled
+    refresher-triggered="{{isTriggered}}" bindscrolltolower="more" wx:if="{{navId == 0}}">
+
+    <!-- 可用 -->
+    <view class="coupon-mainItem" wx:for="{{usable_list}}" data-index="{{index}}"
+      style="{{item.status=='success'?'':'height: 268rpx'}};">
+      <view class="wrap" wx:if="{{item.status=='success'}}">
+        <view class="coupon-item">
+          <image mode="widthFix"
+            src="https://img10.360buyimg.com/ddimg/jfs/t1/149624/3/19385/9448/5ff524caEa02d65c6/bf827cac619224c2.png">
+          </image>
+          <!-- 斜条 -->
+          <view class="t-right-new">
+            <view class="item">{{item.shop_code=='all'?'全门店通用':utils.sub(item.shop[0].shop_name)+'店专用'}}</view>
+          </view>
+
+          <!-- 券 -->
+          <view class="quan-item">券</view>
+          <!-- 内容 -->
+          <view class="main-item">
+            <view class="mag-item">￥</view>
+            <view class="amount-item">{{item.shopping.original_price-item.shopping.price}}</view>
+            <view class="tool-item">
+              <view class="tool"></view>
+            </view>
+            <view class="main-rightItem">
+              <view class="title-item">{{item.shop_code=='all'?'现金抵扣红包':'拼团优惠券'}}</view>
+              <view class="product-nameItem">
+                {{item.shop_code=='all'?item.shopping.name+'适用':'仅限'+item.shopping.name+'使用'}}</view>
+              <view class="progress-item" wx:if="{{item.remain!==item.act[0].end_date}}">
+                <view class="time-item">剩余使用时间：{{item.remain}}</view>
+                <view class="cu-progress round">
+                  <view class="bg-color" style="width:{{loading?item.percent:''}};"></view>
+                </view>
+              </view>
+              <view class="product-nameItem" wx:else>有效期至{{item.act[0].end_date}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="use-item" bindtap="showModal" data-index="{{index}}" data-target="Modal">
+          <view class="voucher-wrap">
+            <view class="coupon-butItem">
+              <view class="but-magItem">立 即 使 用</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--待拼团-->
+      <view class="product-couponWrap" wx:if="{{item.status=='waiting'&&item.usable==true}}">
+        <view class="product-couponMain">
+          <!-- 斜条 -->
+          <view class="t-right-new">
+            <view class="item">{{item.shop_code=='all'?'全门店通用':utils.sub(item.shop[0].shop_name)+'店专用'}}</view>
+          </view>
+
+          <!-- 券 -->
+          <view class="product-tagItem"><text>待激活</text></view>
+          <!-- 内容 -->
+          <view class="main-item">
+            <view class="mag-item">￥</view>
+            <view class="amount-item">{{item.shopping.original_price-item.shopping.price}}</view>
+            <view class="tool-item">
+              <view class="tool"></view>
+            </view>
+            <view class="main-rightItem" style="flex: unset;">
+              <view class="title-item">{{item.shop_code=='all'?'现金抵扣红包':'拼团优惠券'}}</view>
+              <view class="product-nameItem">
+                {{item.shop_code=='all'?item.shopping.name+'适用':'仅限'+item.shopping.name+'使用'}}</view>
+              <view class="product-nameItem">剩余{{item.surplus}}分钟</view>
+            </view>
+            <view class="main-butItem">
+              <view class="share-but">
+                <button open-type='share' data-index="{{index}}">分享好友</button>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="group-numItem">拼团提醒： 还差 {{item.shopping.people-item.team.length}} 人拼团成功</view>
+      </view>
+      <!--已使用-->
+      <view class="product-couponMain" style="width:90%;background-image: linear-gradient(#898989,#616161);"
+        wx:if="{{item.usable!==true}}">
+        <!-- 斜条 -->
+        <view class="t-right-new"
+          style="background-image: linear-gradient(#999999,#b7b7b7);box-shadow: 0px 0px 6px 0px rgba(37, 37, 37, 0.43)">
+          <view class="item" style="color:rgba(56, 56, 56);">
+            {{item.shop_code=='all'?'全门店通用':utils.sub(item.shop[0].shop_name)+'店专用'}}</view>
+        </view>
+        <!-- 状态 -->
+        <view class="product-tagOne column justify-center align-center ">
+          <view class="product-tagTwo column justify-center align-center ">
+            <view class="product-tagThree" wx:if="{{item.status=='success'}}">已过期</view>
+            <view class="product-tagThree" wx:if="{{item.status=='waiting'}}">拼团失败</view>
+            <view class="product-tagThree" wx:if="{{item.status=='complete'}}">已使用</view>
+          </view>
+
+        </view>
+
+        <!-- 内容 -->
+        <view class="main-item">
+          <view class="mag-item" style="background-image: linear-gradient(#ebebeb,#adadad);">￥</view>
+          <view class="amount-item" style="background-image: linear-gradient(#ebebeb,#adadad);">
+            {{item.shopping.original_price-item.shopping.price}}</view>
+          <view class="tool-item">
+            <view class="tool" style="background-color: #a5a5a5;"></view>
+          </view>
+          <view class="main-rightItem">
+            <view class="title-item">{{item.shop_code=='all'?'现金抵扣红包':'拼团优惠券'}}</view>
+            <view class="product-nameItem">
+              {{item.shop_code=='all'?item.shopping.name+'适用':'仅限'+item.shopping.name+'使用'}}</view>
+            <view class="product-nameItem">有效期至{{item.act[0].end_date}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </scroll-view>
+
+  
+  <!--选项2-->
+  <scroll-view scroll-y class="couponScroll" style="height: {{height}}rpx;" refresher-enabled
+    refresher-triggered="{{isTriggered}}" bindscrolltolower="more" wx:if="{{navId == 1}}">
+    <view class="coupon-mainItem"  wx:for="{{unusable_list}}" data-index="{{index}}">
+      <!--已-->
+      <view class="product-couponMain" style="width:90%;background-image: linear-gradient(#898989,#616161);"
+        wx:if="{{item.usable!==true}}">
+        <!-- 斜条 -->
+        <view class="t-right-new"
+          style="background-image: linear-gradient(#999999,#b7b7b7);box-shadow: 0px 0px 6px 0px rgba(37, 37, 37, 0.43)">
+          <view class="item" style="color:rgba(56, 56, 56);">
+            {{item.shop_code=='all'?'全门店通用':utils.sub(item.shop[0].shop_name)+'店专用'}}</view>
+        </view>
+        <!-- 状态 -->
+        <view class="product-tagOne column justify-center align-center ">
+          <view class="product-tagTwo column justify-center align-center ">
+            <view class="product-tagThree" wx:if="{{item.status=='success'}}">已过期</view>
+            <view class="product-tagThree" wx:if="{{item.status=='waiting'}}">拼团失败</view>
+            <view class="product-tagThree" wx:if="{{item.status=='complete'}}">已使用</view>
+          </view>
+
+        </view>
+
+        <!-- 内容 -->
+        <view class="main-item">
+          <view class="mag-item" style="background-image: linear-gradient(#ebebeb,#adadad);">￥</view>
+          <view class="amount-item" style="background-image: linear-gradient(#ebebeb,#adadad);">
+            {{item.shopping.original_price-item.shopping.price}}</view>
+          <view class="tool-item">
+            <view class="tool" style="background-color: #a5a5a5;"></view>
+          </view>
+          <view class="main-rightItem">
+            <view class="title-item">{{item.shop_code=='all'?'现金抵扣红包':'拼团优惠券'}}</view>
+            <view class="product-nameItem">
+              {{item.shop_code=='all'?item.shopping.name+'适用':'仅限'+item.shopping.name+'使用'}}</view>
+            <view class="product-nameItem">有效期至{{item.act[0].end_date}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </scroll-view>
+
+</view>
+
+<!-- 弹窗 -->
+<view class="cu-modal {{modalName=='Modal'?'show':''}}" catchtouchmove="ture">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content" style="width: auto;">请工作人员输入门店码</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close" style="color: #CECECE;"></text>
+      </view>
+    </view>
+    <view class="input-item">
+      <input type="number" bindinput="inputCode" value="{{code}}" />
+    </view>
+    <view class="checkbox-item" wx:if="{{cou_checked==true}}">
+      <view class="checkbox">
+        <checkbox class="round blue" checked="{{cou_checked}}" bindtap="check_change"
+          style="transform: scale(0.4,0.4);"></checkbox>
+      </view>
+      <view class="checkbox-msg">合并使用100元现金抵用红包</view>
+
+    </view>
+    <view class="but-item">
+      <button bindtap="submit">确认提交</button>
+    </view>
+  </view>
+</view>
+
+<view class='load-progress {{loadProgress!=0?"show":"hide"}}' style="top:{{CustomBar}}px;">
+  <view class='load-progress-bar bg-green' style="transform: translate3d(-{{100-loadProgress}}%, 0px, 0px);height:8rpx;background-color:#07BE02;"></view>
+  <view class='load-progress-spinner text-green' style="color:#07BE02;"></view>
+</view>
+
+
+<!-- <view class="title"><text bindtap="toCouponRules">卡券使用规则</text></view>
   <view class="wrap">
     <view class="wrap-title">我的卡券</view>
 
@@ -46,80 +260,61 @@
   </view>
  -->
   <!-- 新卡券 -->
-  <!-- <view class="maxScroll"> -->
-  <scroll-view scroll-x enable-flex scroll-with-animation class="navScroll" scroll-into-view="{{'scroll'+ navId}}">
-    <view id="{{'scroll'+ item.id}}" class="navItem">
-      <view class="navContent {{navId == 0?'active':'' }}" bindtap="changNav" data-id="0">
-        可用券
-      </view>
-    </view>
-    <view id="{{'scroll'+ item.id}}" class="navItem">
-      <view class="navContent {{navId == 1?'active':'' }}" bindtap="changNav" data-id="1">
-        已失效
-      </view>
-    </view>
-  </scroll-view>
-  <!-- </view> -->
-
-  <scroll-view scroll-y class="couponScroll" style="height: {{height}}rpx;" refresher-enabled
-    refresher-triggered="{{isTriggered}}" bindrefresherrefresh="herrefresh">
-
-    <!-- 专用店拼团券 -->
-    <view class="coupon-mainItem">
-      <view class="wrap">
-        <view class="coupon-item">
-          <image mode="widthFix"
-            src="https://img10.360buyimg.com/ddimg/jfs/t1/149624/3/19385/9448/5ff524caEa02d65c6/bf827cac619224c2.png">
-          </image>
-          <!-- 斜条 -->
-          <view class="t-right-new">
-            <view class="item">宝安店专用</view>
-          </view>
-
-          <!-- 券 -->
-          <view class="quan-item">券</view>
-          <!-- 内容 -->
-          <view class="main-item">
-            <view class="mag-item">￥</view>
-            <view class="amount-item">200</view>
-            <view class="tool-item">
-              <view class="tool"></view>
-            </view>
-            <view class="main-rightItem">
-              <view class="title-item">拼团优惠券</view>
-              <view class="product-nameItem">仅限如影系列-R1使用</view>
-              <view class="progress-item">
-                <view class="time-item">剩余使用时间：30天</view>
-                <view class="cu-progress round">
-                  <view class="bg-color" style="width:{{loading?'90%':''}};"></view>
-                </view>
-              </view>
-              <!-- <view class="product-nameItem">有效期至2021.02.12</view> -->
-            </view>
-          </view>
-        </view>
-        <view class="use-item">
-          <view class="voucher-wrap">
-            <view class="coupon-butItem">
-              <view class="but-magItem">立 即 使 用</view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <!-- 商品拼团券 -->
+ <!-- 专用店拼团券 
+    <view class="coupon-mainItem"> 
+      <view class="wrap"> 
+        <view class="coupon-item"> 
+          <image mode="widthFix" 
+            src="https://img10.360buyimg.com/ddimg/jfs/t1/149624/3/19385/9448/5ff524caEa02d65c6/bf827cac619224c2.png"> 
+          </image> 
+          <!-- 斜条 
+          <view class="t-right-new"> 
+            <view class="item">宝安店专用</view> 
+          </view> 
+ 
+          <!-- 券
+          <view class="quan-item">券</view> 
+          <!-- 内容 
+          <view class="main-item"> 
+            <view class="mag-item">￥</view> 
+            <view class="amount-item">200</view> 
+            <view class="tool-item"> 
+              <view class="tool"></view> 
+            </view> 
+            <view class="main-rightItem"> 
+              <view class="title-item">拼团优惠券</view> 
+              <view class="product-nameItem">仅限如影系列-R1使用</view> 
+              <view class="progress-item"> 
+                <view class="time-item">剩余使用时间：30天</view> 
+                <view class="cu-progress round"> 
+                  <view class="bg-color" style="width:{{loading?'90%':''}};"></view> 
+                </view> 
+              </view> 
+              <!-- <view class="product-nameItem">有效期至2021.02.12</view> 
+            </view> 
+          </view> 
+        </view> 
+        <view class="use-item"> 
+          <view class="voucher-wrap"> 
+            <view class="coupon-butItem"> 
+              <view class="but-magItem">立 即 使 用</view> 
+            </view> 
+          </view> 
+        </view> 
+      </view> 
+    </view>--> 
+ <!-- 商品拼团券 
     <view class="coupon-mainItem" style="height: 268rpx;">
       <view class="product-couponWrap">
         <view class="product-couponMain">
-          <!-- 斜条 -->
+          <!-- 斜条 
           <view class="t-right-new">
             <view class="item">全店使用</view>
           </view>
 
-          <!-- 券 -->
+          <!-- 券 
           <view class="product-tagItem"><text>待激活</text></view>
-          <!-- 内容 -->
+          <!-- 内容 
           <view class="main-item">
             <view class="mag-item">￥</view>
             <view class="amount-item">35</view>
@@ -140,16 +335,18 @@
         </view>
         <view class="group-numItem">拼团提醒： 还差 1 人拼团成功</view>
       </view>
-    </view>
 
-    <!-- 失效拼团券 -->
+      
+    </view>-->
+
+    <!-- 失效拼团券 
     <view class="coupon-mainItem">
       <view class="product-couponMain" style="width:90%;background-image: linear-gradient(#898989,#616161);">
-        <!-- 斜条 -->
-        <view class="t-right-new" style="background-image: linear-gradient(#999999,#b7b7b7);box-shadow: 0px 0px 6px 0px rgba(76, 76, 76, 0.43)">
-          <view class="item" style="color:rgba(123, 123, 123);">全店使用</view>
+        <!-- 斜条 
+        <view class="t-right-new" style="background-image: linear-gradient(#999999,#b7b7b7);box-shadow: 0px 0px 6px 0px rgba(37, 37, 37, 0.43)">
+          <view class="item" style="color:rgba(56, 56, 56);">全店使用</view>
         </view>
-        <!-- 状态 -->
+        <!-- 状态 
         <view class="product-tagOne column justify-center align-center ">
           <view class="product-tagTwo column justify-center align-center ">
             <view class="product-tagThree">已失效</view>
@@ -157,7 +354,7 @@
           
         </view>
 
-        <!-- 内容 -->
+        <!-- 内容 
         <view class="main-item">
           <view class="mag-item" style="background-image: linear-gradient(#ebebeb,#adadad);">￥</view>
           <view class="amount-item" style="background-image: linear-gradient(#ebebeb,#adadad);">35</view>
@@ -171,36 +368,4 @@
           </view>
         </view>
       </view>
-    </view>
-
-  </scroll-view>
-
-
-
-</view>
-
-<!-- 弹窗 -->
-<view class="cu-modal {{modalName=='Modal'?'show':''}}" catchtouchmove="ture">
-  <view class="cu-dialog">
-    <view class="cu-bar bg-white justify-end">
-      <view class="content" style="width: auto;">请工作人员输入门店码</view>
-      <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close" style="color: #CECECE;"></text>
-      </view>
-    </view>
-    <view class="input-item">
-      <input type="number" bindinput="inputCode" value="{{code}}" />
-    </view>
-    <view class="checkbox-item" wx:if="{{cou_checked==true}}">
-      <view class="checkbox">
-        <checkbox class="round blue" checked="{{cou_checked}}" bindtap="check_change"
-          style="transform: scale(0.4,0.4);"></checkbox>
-      </view>
-      <view class="checkbox-msg">合并使用100元现金抵用红包</view>
-
-    </view>
-    <view class="but-item">
-      <button bindtap="submit">确认提交</button>
-    </view>
-  </view>
-</view>
+    </view>-->
