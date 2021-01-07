@@ -40,7 +40,24 @@ Page({
     sponsor: '',
     surplustime: '',
     surplusperson: '',
-    action: 'going'
+    action: 'going',
+    userList:[
+      {
+        img:'',
+        name:'测试1',
+        time:'20:00'
+      },
+      {
+        img:'',
+        name:'测试2',
+        time:'10:00'
+      },
+      {
+        img:'',
+        name:'测试2',
+        time:'30:00'
+      }
+    ]
 
   },
   toActivityRule(event) {

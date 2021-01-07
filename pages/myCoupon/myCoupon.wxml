@@ -59,7 +59,10 @@
         <view class="use-item" bindtap="showModal" data-index="{{index}}" data-target="Modal">
           <view class="voucher-wrap">
             <view class="coupon-butItem">
-              <view class="but-magItem">立 即 使 用</view>
+              <view class="but-magItem">
+                <view class="text-one">立 即</view>
+                <view class="text-one">使 用</view>
+              </view>
             </view>
           </view>
         </view>

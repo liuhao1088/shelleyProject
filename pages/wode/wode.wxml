@@ -9,7 +9,8 @@
   </view>
 
   <view class="menu-wode">
-    <view class="menu-item" bindtap="toMyCoupon">
+    <!-- 车主 -->
+    <view class="menu-item" bindtap="toMyCoupon" wx:if="{{userInfo.type === 'driver'}}">
       <view class="menu-wrap">
         <view class="icon-item">
           <text class="iconfont iconquan" style="font-size: 50rpx;"></text>
@@ -17,7 +18,24 @@
         <view class="menu-msg">我的卡券</view>
       </view>
     </view>
-    <view class="menu-item">
+    <view class="menu-item" bindtap="toAddStoreInformation" wx:if="{{userInfo.type === 'driver'}}">
+      <view class="menu-wrap">
+        <view class="icon-item">
+          <text class="iconfont iconquan" style="font-size: 50rpx;"></text>
+        </view>
+        <view class="menu-msg">认证门店</view>
+      </view>
+    </view>
+    <!-- 门店 -->
+    <view class="menu-item" bindtap="toMyCoupon" wx:if="{{userInfo.type === 'shopkeeper'}}">
+      <view class="menu-wrap">
+        <view class="icon-item">
+          <text class="iconfont iconquan" style="font-size: 50rpx;"></text>
+        </view>
+        <view class="menu-msg">车主预约</view>
+      </view>
+    </view>
+    <view class="menu-item" bindtap="toAddStoreInformation" wx:if="{{userInfo.type === 'shopkeeper'}}">
       <view class="menu-wrap">
         <view class="icon-item">
           <text class="iconfont iconquan" style="font-size: 50rpx;"></text>
@@ -25,12 +43,31 @@
         <view class="menu-msg">我的门店</view>
       </view>
     </view>
+    <!-- 品牌 -->
+    <view class="menu-item" bindtap="toAllstore" wx:if="{{userInfo.type === 'brand'}}">
+      <view class="menu-wrap">
+        <view class="icon-item">
+          <text class="iconfont iconquan" style="font-size: 50rpx;"></text>
+        </view>
+        <view class="menu-msg">全部门店</view>
+      </view>
+    </view>
+    <view class="menu-item" bindtap="toAddStoreInformation" wx:if="{{userInfo.type === 'brand'}}">
+      <view class="menu-wrap">
+        <view class="icon-item">
+          <text class="iconfont iconquan" style="font-size: 50rpx;"></text>
+        </view>
+        <view class="menu-msg">品牌活动</view>
+      </view>
+    </view>
+
+
   </view>
 
   <view class="poster-item">
     <image src=""></image>
   </view>
-  
+
   <view class="cu-list menu">
     <view class="cu-item arrow">
       <navigator class="content" hover-class="none" url="../list/list" open-type="navigate">
@@ -39,7 +76,7 @@
       </navigator>
     </view>
   </view>
-    
+
 
 </view>
 

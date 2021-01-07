@@ -81,10 +81,9 @@ button {
   border-radius: 30px;
   width: 50%;
   margin: auto;
-  background-color: rgba(91, 98, 217, 100);
-  color: rgba(255, 255, 255, 100);
+  background-image: linear-gradient(139deg, #fe5327, #fd7e21);
+  color: rgb(255, 255, 255);
   font-size: 28rpx;
-  box-shadow: 4rpx 4rpx 12rpx 0px rgba(0, 0, 0, 0.4);
 }
 
 .process {

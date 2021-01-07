@@ -13,6 +13,16 @@ Page({
       url: '/pages/myCoupon/myCoupon',
     })
   },
+  toAddStoreInformation(){
+    wx.navigateTo({
+      url: '/pages/addStoreInformation/addStoreInformation',
+    })
+  },
+  toAllstore(){
+    wx.navigateTo({
+      url: '/pages/allstore/allstore',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载

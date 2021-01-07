@@ -1,10 +1,82 @@
 <authorize id="authorize" />
-<cu-custom bgColor="bgColor" isBack="{{true}}" >
+<!-- <cu-custom bgColor="bgColor" isBack="{{true}}" >
   <view slot="backText"></view>
   <view slot="content">拼团特惠</view>
-</cu-custom>
+</cu-custom> -->
 <view class="groupSpecialContainer">
-  <view class="title"><text bindtap="toActivityRule">活动规则</text> </view>
+  <!-- 头部 -->
+  <view class="wrap">
+    <view class="header-imgItem">
+      <image src="https://img14.360buyimg.com/ddimg/jfs/t1/159173/33/2146/40556/5ff6c4d8Ece21510a/6d45385c83c62f3d.png" mode="widthFix"></image>
+    </view>
+    <view class="group-countdownItem">
+      <view class="group-titleItem">特惠拼团</view>
+      <view class="countdown-item">
+        <view class="wrap-title"><text wx:if="{{action=='finish'}}">活动已结束</text>
+      <text wx:else>{{action=='going'?'活动结束倒计时':'活动开始倒计时'}}</text>：
+      <text class='tui-conutdown-box'>{{days}}</text>天
+      <text class='tui-conutdown-box'>{{hours}}</text>时
+      <text class='tui-conutdown-box'>{{minutes}}</text>分
+      <text class='tui-conutdown-box tui-countdown-bg'>{{seconds}}</text>秒
+    </view>
+      </view>
+    </view>
+    <view class="group-mainItem"></view>
+  </view>
+  <view class="group-main">
+    <view class="coupon-item">
+      <view class="coupon-imgItem">
+        <image src="" style="border-radius: 10rpx;"></image>
+      </view>
+      <view class="coupon-mainItem">
+        <view class="coupon-titleItem">
+          <view class="coupon-title">产品名称123</view>
+          <view class="coupon-address">宝安店专用</view>
+        </view>
+       
+        <view class="coupon-swiper">
+          <swiper class="top_swiper" circular vertical interval="2000"  autoplay>
+            <swiper-item wx:for="{{userList}}" wx:key="id" style="display: flex;">
+              <view class="coupon-main">
+                <view class="coupon-wrap">
+                  <view class="coupon-user">
+                    <view class="swiper-img">
+                      <image class="swiper-img" src="{{item.img}}"></image>
+                    </view>
+                    <view class="swiper-name">{{item.name}}</view>
+                    <view class="coupon-msg">还差 <text style="color: red;">1</text> 人拼成</view>
+                  </view>
+                
+                  <view class="coupon-time">剩余时间：{{item.time}} 分钟</view>
+                </view>
+                
+              </view>
+            
+            </swiper-item>
+          </swiper>
+        </view>
+
+        <view class="coupon-priceItem">
+          <view class="coupon-price">拼团价：<text class="group-price">￥299</text>  <text style=" margin-left: 10rpx;text-decoration:line-through;">￥499</text></view>
+          <view class="coupon-butItem">
+            <view class="group-butItem" style="margin-right: 20rpx;">
+              <button class="but-group">去拼团</button>
+            </view>
+            <view class="group-butItem">
+              <button class="but-initiate">发起拼团</button>
+            </view>
+           
+          </view>
+        </view>
+
+
+
+      </view>
+    </view>
+  </view>
+
+
+  <!-- <view class="title"><text bindtap="toActivityRule">活动规则</text> </view>
   <view class="wrap">
     <view class="wrap-title">拼团特惠</view>
 
@@ -106,7 +178,7 @@
       </view>
     </view>
 
-  </view>
+  </view> -->
 </view>
 
 <!-- 发起拼团弹窗 -->
@@ -221,9 +293,4 @@
       </view>
     </view>
   </view>
-</view>
-
-<view class="footer" bindtap="toReserveStore">
-  <image src="https://img12.360buyimg.com/ddimg/jfs/t1/151069/6/12980/179796/5fe94d52E0361eb76/aa9038f20fb62046.png">
-  </image>
 </view>

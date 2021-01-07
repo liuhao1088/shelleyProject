@@ -192,7 +192,7 @@ image {
 
 .amount-item {
   height: 100%;
-  width: 148rpx;
+  width: 168rpx;
   line-height: 120rpx;
   font-size: 90rpx;
   font-weight: bold;
@@ -301,9 +301,17 @@ image {
 
 .but-magItem {
   width: 60rpx;
+  height: 60rpx;
   line-height: 34rpx;
   font-size: 26rpx;
   color: #fff;
+  border: 0rpx solid black;
+}
+
+.text-one{
+  height: 30rpx;
+  line-height: 30rpx;
+  font-size: 24rpx
 }
 
 /* 商品拼团券 */
