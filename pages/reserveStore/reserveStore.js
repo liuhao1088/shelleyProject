@@ -14,7 +14,8 @@ Page({
     list: [],
     tabbar: {},
     lon:'',
-    lat:''
+    lat:'',
+    
   },
 
   toAddStoreInformation(event) {

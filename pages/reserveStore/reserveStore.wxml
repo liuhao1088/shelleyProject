@@ -1,6 +1,48 @@
 <authorize id="authorize" />
 <view class="reserveStoreContainer">
-  <view class="wrapper">
+  <!-- 头部 -->
+  <view class="header">
+    <view class="header-imgItem">
+      <image src="https://img12.360buyimg.com/ddimg/jfs/t1/153682/20/13354/12467/5ff678e2E67db20c6/c7385673680b583f.png" mode="widthFix"></image>
+    </view>
+    <view class="header-wrap">
+      <view class="search">
+        <text class="iconfont icondingwei4"></text>
+        <input type="text" value="{{address}}" bindtap="chooseLocation" placeholder="请选择地址" style="position:relative;right:30rpx;" />
+      </view>
+
+      <view class="poster-item">
+        <image mode="widthFix" src="https://img11.360buyimg.com/ddimg/jfs/t1/170972/25/1385/108871/5ff6799cEb897f493/dea150afcdb9503b.png"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="title-item">
+    <text class="iconfont icondingwei"></text>
+    <view class="title-tagItem">附近门店</view>
+  </view>
+
+
+  <view class="store-mainItem" column justify-center align-center>
+    <view class="store-boxItem" style="background: url('https://img13.360buyimg.com/ddimg/jfs/t1/157814/10/2104/41710/5ff6a6ccEf62ba875/7f9311e7d6d87070.png') no-repeat;background-size: 100% 100%;">
+      <view class="store-wrapItem">
+        <view class="store-mainLeft">
+          <view class="store-titleItem">雪莱特特福田店</view>
+          <view class="store-address">广东省深圳市福田区福中路36号</view>
+          <view class="store-tagItem">
+            <view class="store-tag">认证商家</view>
+            <view class="store-tag" style="margin-left: 20rpx;">1.3km</view>
+          </view>
+        </view>
+        <view class="store-imgItem">
+          <image src=""></image>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <!-- <view class="wrapper">
     <view class="search">
       <text class="iconfont icondingwei"></text>
       <input type="text" value="{{address}}" bindtap="chooseLocation" placeholder="请选择地址" style="position:relative;right:30rpx;" />
@@ -25,16 +67,17 @@
       </view>
     </view>
     </scroll-view>
-  </view>
+  </view> -->
+  
 
 </view>
 
-<view class="tag-store" bindtap="toAddStoreInformation">
+<!-- <view class="tag-store" bindtap="toAddStoreInformation">
   <view class="store">
      <text class="iconfont iconzu165"></text>
   </view>
   <view class="tag-title">门店认证</view>
-</view>
+</view> -->
 
 <!-- 导航栏 -->
 <tabbar tabbar="{{tabbar}}"></tabbar>
