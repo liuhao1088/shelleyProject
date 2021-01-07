@@ -109,12 +109,65 @@
     </view>
 
     <!-- 商品拼团券 -->
-    <view class="product-couponItem">
+    <view class="coupon-mainItem" style="height: 268rpx;">
       <view class="product-couponWrap">
         <view class="product-couponMain">
-            <!-- 斜条 -->
-            <view class="t-right-new">
+          <!-- 斜条 -->
+          <view class="t-right-new">
             <view class="item">全店使用</view>
+          </view>
+
+          <!-- 券 -->
+          <view class="product-tagItem"><text>待激活</text></view>
+          <!-- 内容 -->
+          <view class="main-item">
+            <view class="mag-item">￥</view>
+            <view class="amount-item">35</view>
+            <view class="tool-item">
+              <view class="tool" ></view>
+            </view>
+            <view class="main-rightItem" style="flex: unset;">
+              <view class="title-item">拼团优惠券</view>
+              <view class="product-nameItem">仅限如影系列-R1使用</view>
+              <view class="product-nameItem">有效期至2021.02.12</view>
+            </view>
+            <view class="main-butItem">
+              <view class="share-but">
+                <button open-type='share'>分享好友</button>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="group-numItem">拼团提醒： 还差 1 人拼团成功</view>
+      </view>
+    </view>
+
+    <!-- 失效拼团券 -->
+    <view class="coupon-mainItem">
+      <view class="product-couponMain" style="width:90%;background-image: linear-gradient(#898989,#616161);">
+        <!-- 斜条 -->
+        <view class="t-right-new" style="background-image: linear-gradient(#999999,#b7b7b7);box-shadow: 0px 0px 6px 0px rgba(37, 37, 37, 0.43)">
+          <view class="item" style="color:rgba(56, 56, 56);">全店使用</view>
+        </view>
+        <!-- 状态 -->
+        <view class="product-tagOne column justify-center align-center ">
+          <view class="product-tagTwo column justify-center align-center ">
+            <view class="product-tagThree">已失效</view>
+          </view>
+          
+        </view>
+
+        <!-- 内容 -->
+        <view class="main-item">
+          <view class="mag-item" style="background-image: linear-gradient(#ebebeb,#adadad);">￥</view>
+          <view class="amount-item" style="background-image: linear-gradient(#ebebeb,#adadad);">35</view>
+          <view class="tool-item">
+            <view class="tool" style="background-color: #a5a5a5;"></view>
+          </view>
+          <view class="main-rightItem">
+            <view class="title-item">拼团优惠券</view>
+            <view class="product-nameItem">仅限如影系列-R1使用</view>
+            <view class="product-nameItem">有效期至2021.02.12</view>
           </view>
         </view>
       </view>
