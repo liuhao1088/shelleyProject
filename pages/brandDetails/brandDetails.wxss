@@ -1,4 +1,7 @@
-/* pages/brandDetails/brandDetails.wxss */
+page{
+  background-color: #f2f2f2;
+}
+
 .brandDetailsContainer{
   padding-bottom: 120rpx;
 }

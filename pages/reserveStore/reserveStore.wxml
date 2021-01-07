@@ -24,7 +24,7 @@
 
 
   <view class="store-mainItem" column justify-center align-center>
-    <view class="store-boxItem" style="background: url('https://img13.360buyimg.com/ddimg/jfs/t1/157814/10/2104/41710/5ff6a6ccEf62ba875/7f9311e7d6d87070.png') no-repeat;background-size: 100% 100%;">
+    <view class="store-boxItem" data-index="1" bindtap="toStoreAppointment" style="background: url('https://img13.360buyimg.com/ddimg/jfs/t1/157814/10/2104/41710/5ff6a6ccEf62ba875/7f9311e7d6d87070.png') no-repeat;background-size: 100% 100%;">
       <view class="store-wrapItem">
         <view class="store-mainLeft">
           <view class="store-titleItem">雪莱特特福田店</view>

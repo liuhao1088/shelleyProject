@@ -14,7 +14,7 @@
         <view class="wrap-date">营业时间：{{data.start_hour}} - {{data.end_hour}}</view>
         <view class="wrap-tagItem">
           <view class="wrap-starlight"
-            style="background-color: rgba(91, 98, 217, 100);border: 2rpx solid rgba(91, 98, 217, 100);text-align: center;">
+            style=" background-image: linear-gradient(133deg,#f92643,#e1001f,#ee0049);color: #fff;text-align: center;">
             认证商家</view>
           <view class="wrap-starlight" style="margin-left: 20rpx;">星级门店</view>
         </view>
@@ -60,7 +60,7 @@
     </view>
   </view>
 
-  <view class="experience-item" wx:if="{{data.gift}}" style="background-color: #202937;margin-top: 4rpx;">
+  <view class="experience-item" wx:if="{{data.gift}}" style="margin-top: 4rpx;">
     预约好礼
   </view>
   <view class="text-item" wx:if="{{data.gift}}">
@@ -80,7 +80,7 @@
 <view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap="hideModal">
   <view class="cu-dialog" catchtap style="height: 580rpx;">
     <view class="cu-bar bg-white" style="justify-content: flex-end;height: 80rpx;">
-      <view class="action text-green" bindtap="hideModal" style="margin-right: 30rpx;">确定</view>
+      <view class="action text-red" bindtap="hideModal" style="margin-right: 30rpx;color: red;">确定</view>
     </view>
     <view class="grid padding-sm" style="height: 200rpx;padding: 0 30rpx;align-items:flex-end;">
       <view class="cu-img">
@@ -92,7 +92,7 @@
     </view>
     <view class="grid col-3 padding-sm">
       <view wx:for="{{checkbox}}" class="padding-xs" wx:key="id">
-        <button class="cu-btn orange lg block {{item.checked?'bg-black':'line-black'}}" bindtap="ChooseCheckbox"
+        <button class="cu-btn orange lg block {{item.checked?'line-red':'line-black'}}" bindtap="ChooseCheckbox"
           data-value="{{item.value}}" data-index="{{index}}" data-name="{{item.name}}"> {{item.name}}
         </button>
       </view>

@@ -1,7 +1,9 @@
+page{
+  background-color: #f2f2f2;
+}
+
 .storeAppointmentContainer {
-  /* height: 100%; */
-  background-color: #1B222E;
-  color: #fff;
+  color: #000;
   padding-bottom: 80rpx;
 }
 
@@ -17,7 +19,7 @@
 
 .wrap {
   width: 100%;
-  background-color: #202937;
+  background-color: #fff;
   padding-bottom: 20rpx;
   display: flex;
 }
@@ -42,6 +44,7 @@
   border: 0rpx solid red;
   float: right;
   position: relative;
+  color: #f92643;
 }
 
 .title-itme {
@@ -79,12 +82,13 @@
 
 .wrap-starlight {
   line-height: 36rpx;
-  border: 1px solid rgba(255, 255, 255, 100);
-  border-radius: 2px;
+  border: 2rpx solid #f92643;
+  border-radius: 2rpx;
   font-size: 20rpx;
   margin-top: 6rpx;
   float: left;
   padding: 0 10rpx;
+  color: #f92643;
 }
 
 .experience-item {
@@ -93,7 +97,7 @@
   line-height: 90rpx;
   border: 0rpx solid red;
   padding-left: 40rpx;
-  color: rgba(255, 255, 255, 100);
+  color: #000;
   font-size: 36rpx;
 }
 
@@ -101,7 +105,7 @@
   height: 124rpx;
   width: 100%;
   padding: 0 40rpx;
-  background-color: #202937;
+  background-color: #fff;
   display: flex;
   line-height: 124rpx;
 }
@@ -110,7 +114,7 @@
   width: 100%;
   line-height: 40rpx;
   padding: 20rpx 40rpx 120rpx 40rpx;
-  background-color: #202937;
+  background-color: #fff;
   font-size: 28rpx;
 }
 
@@ -123,7 +127,7 @@
 .form-input {
   flex: 1;
   border: 0rpx solid black;
-  color: rgba(255, 255, 255, 100);
+  color: #000;
   font-size: 28rpx;
   text-align: right;
   display: block;
@@ -135,6 +139,7 @@
 .time-picker{
   height: 100%;
   width: 100%;
+ 
 }
 
 /* 预约 */
@@ -150,7 +155,7 @@
   width: 100%;
   line-height: 80rpx;
   border-radius: 0;
-  background-color: rgba(91, 98, 217, 100);
+  background-image: linear-gradient(133deg,#f92643,#e1001f,#ee0049);
   color: #fff;
 }
 
@@ -188,6 +193,7 @@
   height: 36rpx;
   float: left;
   margin-top: 10rpx;
+ 
 }
 
 .tag-border{
@@ -196,5 +202,11 @@
   position: absolute;
   top: 22rpx;
   left: 0;
-  background-color: #94969A;
+  background-color: rgba(225,0,31,0.45);
+}
+
+.line-red{
+  /* border: 2rpx solid #f92643; */
+  color: #f92643;
+  /* font-weight: bold; */
 }
