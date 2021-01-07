@@ -1,20 +1,17 @@
 {
   "pages":[
+    "pages/groupSpecial/groupSpecial",
     "pages/myCoupon/myCoupon",
     "pages/reserveStore/reserveStore",
     "pages/index/index",
     "pages/home/home",
-
-    
     "pages/text/text",
     "pages/wode/wode",
-    
     "pages/brandDetails/brandDetails",
     "pages/storeAppointment/storeAppointment",
     "pages/groupActivities/groupActivities",
     "pages/reservationActivity/reservationActivity",
     "pages/addStoreInformation/addStoreInformation",
-    "pages/groupSpecial/groupSpecial",
     "pages/myStore/myStore",
     "pages/activitySelect/activitySelect",
     "pages/storeInformation/storeInformation",

@@ -38,86 +38,40 @@
 
 
 <view class="wrap">
-        <view class="wrap-topbar">
-          <view class="topbar">
+  <view class="coupon-item">
+    <image mode="widthFix"
+      src="https://img10.360buyimg.com/ddimg/jfs/t1/149624/3/19385/9448/5ff524caEa02d65c6/bf827cac619224c2.png"></image>
+    <!-- 斜条 -->
+    <view class="t-right-new">
+      <view class="item">宝安店专用</view>
+    </view>
 
-            <view class="topbar-item" bindtap="toGroupSpecial">
-              <view class="topbar-icon">
-                <text class="iconfont iconqian icon"></text>
-              </view>
-              <view class="topbar-guild">
-                <view class="topbar-title">拼团特惠</view>
-                <view class="topbar-msg">超值拼团价，先到先得</view>
-              </view>
-            </view>
-
-            <!-- 用户 -->
-            <view class="topbar-item" bindtap="toReserveStore" wx:if="{{type === 'driver'}}">
-              <view class="topbar-icon">
-                <text class="iconfont iconstore2 icon" style=" font-size: 56rpx;"></text>
-              </view>
-              <view class="topbar-guild">
-                <view class="topbar-title">预约门店</view>
-                <view class="topbar-msg">立即预约零等待体验</view>
-              </view>
-            </view>
-
-            <!-- 门店 -->
-             <view class="topbar-item" bindtap="toMyStore" wx:if="{{type === 'shopkeeper'}}">
-              <view class="topbar-icon">
-                <text class="iconfont iconstore2 icon" style=" font-size: 56rpx;"></text>
-              </view>
-              <view class="topbar-guild">
-                <view class="topbar-title">我的门店</view>
-                <view class="topbar-msg">活动配置/门店管理</view>
-              </view>
-            </view> <!---->
-
-            <!-- 品牌 -->
-             <view class="topbar-item" bindtap="toActivityDetails" wx:if="{{type === 'brand'}}">
-              <view class="topbar-icon">
-                <text class="iconfont iconflag icon" style=" font-size: 56rpx;"></text>
-              </view>
-              <view class="topbar-guild">
-                <view class="topbar-title">品牌活动</view>
-                <view class="topbar-msg">品牌促销活动配置</view>
-              </view>
-            </view> 
-
+    <!-- 券 -->
+    <view class="quan-item">券</view>
+    <!-- 内容 -->
+    <view class="main-item">
+      <view class="mag-item">￥</view>
+      <view class="amount-item">200</view>
+      <view class="tool-item">
+        <view class="tool"></view>
+      </view>
+      <view class="main-rightItem">
+        <view class="title-item">拼团优惠券</view>
+        <view class="product-nameItem">仅限如影系列-R1使用</view>
+        <view class="progress-item">
+          <view class="time-item">剩余使用时间：30天</view>
+          <view class="cu-progress round">
+            <view class="bg-color" style="width:{{loading?'90%':''}};"></view>
           </view>
-
-          <!-- 用户 -->
-
-          <view class="wrap-coupons" wx:if="{{type === 'driver'}}" bindtap="toMyCoupon">
-            <view class="wrap-couponsItem">
-              <text class="iconfont iconquan"></text>
-              <view class="wrap-groupItem">我的卡券</view>
-            </view>
-            <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;">{{coupon_count==0?'当前暂无可用券':'当前有'+coupon_count+'张可用券'}}</view>
-          </view>
-
-          <!-- 门店 -->
-           <view class="wrap-coupons" wx:if="{{type === 'shopkeeper'}}" bindtap="toCarAppointment">
-            <view class="wrap-couponsItem">
-              <text class="iconfont iconyuyue"></text>
-              <view class="wrap-groupItem">车主预约</view>
-            </view>
-            <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;">{{re_count==0?'当前无预约待处理':'当前有'+re_count+'条预约待处理'}}</view>
-          </view> <!---->
-
-          <!-- 品牌 -->
-           <view class="wrap-coupons" bindtap="toAllStore" wx:if="{{type === 'brand'}}">
-            <view class="wrap-couponsItem">
-              <text class="iconfont iconstore-fill"></text>
-              <view class="wrap-groupItem">全部门店</view>
-            </view>
-            <view class="wrap-couponsItem" style="opacity: 0.5;font-size: 24rpx;text-align: center;">点击查看门店</view>
-          </view> <!---->
-
-        </view>
-        <view class="wrap-img">
-          <image
-            src="https://img12.360buyimg.com/ddimg/jfs/t1/142566/38/19593/28976/5fe2c174Eb6eb7895/f0b95245aa1ac5a8.png">
-          </image>
         </view>
       </view>
+    </view>
+  </view>
+  <view class="use-item">
+    <view class="voucher-wrap">
+      <view class="but-item">
+          <view class="but-magItem">立 即 使 用</view>
+      </view>
+    </view>
+  </view>
+</view>

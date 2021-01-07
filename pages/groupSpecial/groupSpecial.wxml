@@ -1,24 +1,21 @@
 <authorize id="authorize" />
-<!-- <cu-custom bgColor="bgColor" isBack="{{true}}" >
-  <view slot="backText"></view>
-  <view slot="content">拼团特惠</view>
-</cu-custom> -->
 <view class="groupSpecialContainer">
   <!-- 头部 -->
   <view class="wrap">
     <view class="header-imgItem">
-      <image src="https://img14.360buyimg.com/ddimg/jfs/t1/159173/33/2146/40556/5ff6c4d8Ece21510a/6d45385c83c62f3d.png" mode="widthFix"></image>
+      <image src="https://img14.360buyimg.com/ddimg/jfs/t1/159173/33/2146/40556/5ff6c4d8Ece21510a/6d45385c83c62f3d.png"
+        mode="widthFix"></image>
     </view>
     <view class="group-countdownItem">
       <view class="group-titleItem">特惠拼团</view>
       <view class="countdown-item">
         <view class="wrap-title"><text wx:if="{{action=='finish'}}">活动已结束</text>
-      <text wx:else>{{action=='going'?'活动结束倒计时':'活动开始倒计时'}}</text>：
-      <text class='tui-conutdown-box'>{{days}}</text>天
-      <text class='tui-conutdown-box'>{{hours}}</text>时
-      <text class='tui-conutdown-box'>{{minutes}}</text>分
-      <text class='tui-conutdown-box tui-countdown-bg'>{{seconds}}</text>秒
-    </view>
+          <text wx:else>{{action=='going'?'活动结束倒计时':'活动开始倒计时'}}</text>：
+          <text class='tui-conutdown-box'>{{days}}</text>天
+          <text class='tui-conutdown-box'>{{hours}}</text>时
+          <text class='tui-conutdown-box'>{{minutes}}</text>分
+          <text class='tui-conutdown-box tui-countdown-bg'>{{seconds}}</text>秒
+        </view>
       </view>
     </view>
     <view class="group-mainItem"></view>
@@ -33,9 +30,9 @@
           <view class="coupon-title">产品名称123</view>
           <view class="coupon-address">宝安店专用</view>
         </view>
-       
+
         <view class="coupon-swiper">
-          <swiper class="top_swiper" circular vertical interval="2000"  autoplay>
+          <swiper class="top_swiper" circular vertical interval="2000" autoplay>
             <swiper-item wx:for="{{userList}}" wx:key="id" style="display: flex;">
               <view class="coupon-main">
                 <view class="coupon-wrap">
@@ -46,33 +43,33 @@
                     <view class="swiper-name">{{item.name}}</view>
                     <view class="coupon-msg">还差 <text style="color: red;">1</text> 人拼成</view>
                   </view>
-                
+
                   <view class="coupon-time">剩余时间：{{item.time}} 分钟</view>
                 </view>
-                
               </view>
-            
             </swiper-item>
           </swiper>
         </view>
 
         <view class="coupon-priceItem">
-          <view class="coupon-price">拼团价：<text class="group-price">￥299</text>  <text style=" margin-left: 10rpx;text-decoration:line-through;">￥499</text></view>
+          <view class="coupon-price">拼团价：<text class="group-price">￥299</text> <text
+              style=" margin-left: 10rpx;text-decoration:line-through;">￥499</text></view>
           <view class="coupon-butItem">
             <view class="group-butItem" style="margin-right: 20rpx;">
-              <button class="but-group">去拼团</button>
+              <button class="but-group" bindtap="showModal" data-target="goGroup">去拼团</button>
             </view>
             <view class="group-butItem">
-              <button class="but-initiate">发起拼团</button>
+              <button class="but-initiate" bindtap="launchGroup" data-target="initiateGroup">发起拼团</button>
             </view>
-           
+
           </view>
         </view>
-
-
-
       </view>
     </view>
+
+
+
+
   </view>
 
 
@@ -219,8 +216,11 @@
       </view>
     </view>
     <view class="padding-xl">
-      <view class="modal-title">参与{{transfer?sponsor.nickName:data.shopping[waresInd].userList[userInd].anonymous}}的拼团</view>
-      <view class="modal-item" style="margin-top: 20rpx;">仅剩<text style="color:red;">{{transfer?surplusperson:1}}</text>个席位，{{transfer?surplustime:data.shopping[waresInd].userList[userInd].surplus}}分钟后结束</view>
+      <view class="modal-title">参与{{transfer?sponsor.nickName:data.shopping[waresInd].userList[userInd].anonymous}}的拼团
+      </view>
+      <view class="modal-item" style="margin-top: 20rpx;">仅剩<text
+          style="color:red;">{{transfer?surplusperson:1}}</text>个席位，{{transfer?surplustime:data.shopping[waresInd].userList[userInd].surplus}}分钟后结束
+      </view>
       <view class="modal-userItem">
         <view class="fight-master">
           <image src="{{transfer?sponsor.avatarUrl:data.shopping[waresInd].userList[userInd].image}}" style=""></image>
@@ -285,7 +285,8 @@
       </view>
       <view class="modal-wrap">
         <view class="modal-selectBut" wx:for="{{checkbox}}" wx:key="id">
-          <button style="{{item.checked?'background-color: rgba(104, 112, 253, 50);':''}}" bindtap="ChooseCheckbox" id="{{item.id}}">{{item.name}}</button>
+          <button style="{{item.checked?'background-color: rgba(104, 112, 253, 50);':''}}" bindtap="ChooseCheckbox"
+            id="{{item.id}}">{{item.name}}</button>
         </view>
       </view>
       <view class="modal-questionBut">

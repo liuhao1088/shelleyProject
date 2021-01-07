@@ -151,6 +151,12 @@ Page({
    */
   onLoad: function (options) {
     this.countTime();
+    let that = this;
+    setTimeout(function() {
+      that.setData({
+        loading: true
+      })
+    }, 500)
   },
 
   /**
