@@ -30,17 +30,17 @@ Page({
     hours: '00', //时
     minutes: '00', //分
     seconds: '01', //秒
-    data: '',
-    avatarUrl: '',
-    waresInd: 0,
+    data: '',//活动
+    avatarUrl: '',//头像
+    waresInd: 0,//商品index
     userInfo: '',
     userInd: 0,
-    cou_code: '',
+    cou_code: '',//分享的卡券
     transfer: false,
     sponsor: '',
     surplustime: '',
     surplusperson: '',
-    action: 'going',
+    action: 'going'
   },
   toActivityRule(event) {
     wx.navigateTo({
@@ -172,49 +172,53 @@ Page({
         })
       } else {
         console.log(options)
-        wx.cloud.callFunction({
-          name: "getRecord",
-          data: {
-            collection: 'coupon',
-            where: {
-              act_id: options.act_id,
-              cou_code: options.cou_code
-            },
-            ordername: 'creation_date',
-            order: 'asc',
-            skip: 0
-          }
-        }).then(res => {
-          console.log(res)
-          let data = res.result.data[0];
-          share_coupon = data;
-          let surplustime = 0;
-          if (nowstamp >= data.creation_timestamp + (parseInt(data.shopping.time) * 60)) {
-            wx.showModal({
-              title: '该拼团已过期',
-              showCancel: false,
-            })
-          } else {
-            surplustime = parseInt(parseInt(data.shopping.time) - (nowstamp - data.creation_timestamp) / 60)
-            let sponsor = {}
-            if (data.team[0].nickName.length > 2) {
-              let start = data.team[0].nickName.substring(0, 1)
-              let end = data.team[0].nickName.substring(data.team[0].nickName.length - 1)
-              data.team[0].nickName = start + '***' + end
+        if(options.cou_code!==''){
+          //获取分享的卡券
+          wx.cloud.callFunction({
+            name: "getRecord",
+            data: {
+              collection: 'coupon',
+              where: {
+                act_id: options.act_id,
+                cou_code: options.cou_code
+              },
+              ordername: 'creation_date',
+              order: 'asc',
+              skip: 0
             }
-            sponsor.nickName = data.team[0].nickName;
-            sponsor.avatarUrl = data.team[0].avatarUrl;
-            sponsor._openid = data.team[0]._openid;
-            that.setData({
-              sponsor: sponsor,
-              surplustime: surplustime,
-              surplusperson: data.shopping.people - data.team.length,
-              modalName: 'goGroup',
-              transfer: true
-            })
-          }
-        })
+          }).then(res => {
+            console.log(res)
+            let data = res.result.data[0];
+            share_coupon = data;
+            let surplustime = 0;
+            if (nowstamp >= data.creation_timestamp + (parseInt(data.shopping.time) * 60)) {
+              wx.showModal({
+                title: '该拼团已过期',
+                showCancel: false,
+              })
+            } else {
+              surplustime = parseInt(parseInt(data.shopping.time) - (nowstamp - data.creation_timestamp) / 60)
+              let sponsor = {}
+              if (data.team[0].nickName.length > 2) {
+                let start = data.team[0].nickName.substring(0, 1)
+                let end = data.team[0].nickName.substring(data.team[0].nickName.length - 1)
+                data.team[0].nickName = start + '***' + end
+              }
+              sponsor.nickName = data.team[0].nickName;
+              sponsor.avatarUrl = data.team[0].avatarUrl;
+              sponsor._openid = data.team[0]._openid;
+              that.setData({
+                sponsor: sponsor,
+                surplustime: surplustime,
+                surplusperson: data.shopping.people - data.team.length,
+                modalName: 'goGroup',
+                transfer: true
+              })
+            }
+          })
+        }
       }
+      //分享的活动
       wx.cloud.callFunction({
         name: 'multQuery',
         data: {
@@ -278,30 +282,33 @@ Page({
         code += Math.floor(Math.random() * 10)
       }
     }
+    let info={
+      creation_date: util.formatTimes(new Date()),
+      creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
+      _openid: userInfo._openid,
+      user: userInfo.nickName,
+      shop_code: that.data.data.shop_code,
+      shop_id: that.data.data.shop[0]._id,
+      act_code: that.data.data.act_code,
+      act_id: that.data.data._id,
+      shopping: that.data.data.shopping[indx],
+      shopping_ind: indx,
+      team: team,
+      status: shape,
+      cou_code: code
+    };
     wx.cloud.callFunction({
       name: 'recordAdd',
       data: {
         collection: 'coupon',
-        addData: {
-          creation_date: util.formatTimes(new Date()),
-          creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
-          cou_code: code,
-          _openid: userInfo._openid,
-          user: userInfo.nickName,
-          shop_code: that.data.data.shop_code,
-          shop_id: that.data.data.shop[0]._id,
-          act_code: that.data.data.act_code,
-          act_id: that.data.data._id,
-          shopping: that.data.data.shopping[indx],
-          shopping_ind: indx,
-          team: team,
-          status: shape
-        }
+        addData: info
       }
     }).then(res => {
       console.log(res)
       let data = that.data.data;
       data.shopping[indx].status = true
+      userInfo.coupon.push(info)
+      wx.setStorageSync('userInfo', userInfo)
       that.setData({
         modalName: mol,
         avatarUrl: '',
@@ -334,6 +341,9 @@ Page({
         for (let u in cou) {
           if (i == cou[u].shopping_ind) {
             data.shopping[i].status = true
+            if(cou[u].status=='waiting'){
+              data.shopping[i].parse=cou[u].cou_code
+            }
             that.setData({
               data: data
             })
@@ -371,11 +381,13 @@ Page({
       data: data
     })
     if (data.end_timestamp > nowstamp && nowstamp > data.start_timestamp) {
+      //活动正在进行
       that.setData({
         action: 'going'
       })
       let int = setInterval(() => {
         nowstamp = nowstamp + 1;
+        //活动结束
         if (nowstamp >= data.end_timestamp) {
           that.setData({
             days: '00',
@@ -390,12 +402,14 @@ Page({
         that.setTime(surplus);
       }, 1000);
     } else if (data.start_timestamp >= nowstamp) {
+      //活动未开始
       that.setData({
         action: 'not'
       })
       let int = setInterval(() => {
         nowstamp = nowstamp + 1;
         if (nowstamp == data.start_timestamp) {
+          //活动开始
           clearInterval(int)
           let int2 = setInterval(() => {
             nowstamp = nowstamp + 1;
@@ -404,6 +418,7 @@ Page({
                 action: 'going'
               })
             }
+            //活动结束
             if (nowstamp >= that.data.data.end_timestamp) {
               that.setData({
                 days: '00',
@@ -422,6 +437,7 @@ Page({
         that.setTime(surplus);
       }, 1000);
     } else {
+      //活动已结束
       that.setData({
         days: '00',
         hours: '00',
@@ -516,6 +532,11 @@ Page({
               success(res) {
                 if (JSON.stringify(res).indexOf('accept') !== -1) {
                   that.increase('waiting', 'initiateGroup', ind, '', []);
+                  setTimeout(()=>{
+                    let data=that.data.data;
+                    data.shopping[ind].parse=that.data.cou_code;
+                    that.setData({data:data})
+                  },1500)
                 }
               }
             })
@@ -634,19 +655,24 @@ Page({
    */
   onShareAppMessage: function (res) {
     var that = this;
+    console.log(res)
     let userInfo = wx.getStorageSync('userInfo')
     if (res.from === 'button') {
       console.log(res.from)
+      let code=that.data.cou_code;
+      if(res.target.dataset.parse=='none'){
+        code=''
+      }
       return {
         title: "【仅剩1个名额】我领了100元拼团券，快来助我成团激活~", //分享标题
         imageUrl: 'https://img13.360buyimg.com/ddimg/jfs/t1/160040/27/61/289416/5fe99874E75804776/891b1b08109afc6d.png', //图片路径
-        path: 'pages/groupSpecial/groupSpecial?act_id=' + that.data.data._id + '&cou_code=' + that.data.cou_code + '&end_timestamp=' + that.data.data.end_timestamp
+        path: 'pages/groupSpecial/groupSpecial?act_id=' + that.data.data._id + '&cou_code=' + code + '&end_timestamp=' + that.data.data.end_timestamp
       }
     } else {
       return {
         title: "雪莱特智能LED车灯", //标题
         imageUrl: 'https://img10.360buyimg.com/ddimg/jfs/t1/148055/20/20623/109199/5fe94a22E2aeac6fb/f5ba90fc9d52fc06.png', //图片路径
-        path: '/page/groupSpecial/groupSpecial'
+        path: '/page/groupSpecial/groupSpecial?act_id=' + that.data.data._id + '&cou_code='+'' + '&end_timestamp=' + that.data.data.end_timestamp
       }
     }
   }

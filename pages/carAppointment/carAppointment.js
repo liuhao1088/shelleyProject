@@ -1,5 +1,5 @@
 // pages/carAppointment/carAppointment.js\
-var nowDate=require('../../utils/util').formatTime(new Date())
+var util=require('../../utils/util')
 var skip = 0;
 Page({
 
@@ -125,6 +125,7 @@ Page({
     wx.requestSubscribeMessage({
       tmplIds: ['SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM'],
       success(res) {
+        let nowDate=util.formatTime(new Date());
         if (JSON.stringify(res).indexOf('accept') !== -1) {
           wx.showLoading({
             title: '接受中',
@@ -147,7 +148,18 @@ Page({
               if (userInfo.shop[userInfo.shop.length - 1].shop_name.length > 9) {
                 userInfo.shop[userInfo.shop.length - 1].shop_name = userInfo.shop[userInfo.shop.length - 1].shop_name.substring(0, 6) + '...'
               }
-              that.successMessage(list[ind]._openid, list[ind].time_date, '店家（' + userInfo.shop[userInfo.shop.length - 1].shop_name + '）已接受您的预约')
+              let pr={
+                "time1": {
+                  "value":list[ind].time_date
+                },
+                "phrase2": {
+                  "value": '到店预约'
+                },
+                "thing9": {
+                  "value": '店家（' + userInfo.shop[userInfo.shop.length - 1].shop_name + '）已接受您的预约'
+                }
+              }
+              util.sendMessage(list[ind]._openid, pr,'-m92htbt5V0SlqRwZaMZAy9l3mv3CNseLM-yDKlRG5g')
               wx.cloud.callFunction({
                 name:'recordAdd',
                 data:{
@@ -213,8 +225,17 @@ Page({
             })
             let userInfo = wx.getStorageSync('userInfo')
             let id=wx.getStorageSync('_quit')
+            let nowDate=util.formatTime(new Date());
             let name=userInfo.shop[userInfo.shop.length - 1].shop_name.substring(0,19);
-            that.quitMessage(id, name, '店主取消预约')
+            let pr={
+              "thing1": {
+                "value": name
+              },
+              "thing5": {
+                "value": '店主取消了您的预约'
+              }
+            }
+            util.sendMessage(id, pr, 'SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0')
             wx.cloud.callFunction({
               name:'recordAdd',
               data:{
@@ -243,45 +264,7 @@ Page({
       }
     })
   },
-  successMessage: function (openid, time, tips) {
-    wx.cloud.callFunction({
-      name: 'sendMessage',
-      data: {
-        openid: openid,
-        page: 'pages/index/index',
-        data: {
-          "time1": {
-            "value": time
-          },
-          "phrase2": {
-            "value": '到店预约'
-          },
-          "thing9": {
-            "value": tips
-          },
-        },
-        templateId: '-m92htbt5V0SlqRwZaMZAy9l3mv3CNseLM-yDKlRG5g'
-      }
-    }).then(res => {})
-  },
-  quitMessage: function (openid, name, reason) {
-    wx.cloud.callFunction({
-      name: 'sendMessage',
-      data: {
-        openid: openid,
-        page: 'pages/index/index',
-        data: {
-          "thing1": {
-            "value": name
-          },
-          "thing5": {
-            "value": reason
-          },
-        },
-        templateId: 'SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0'
-      }
-    }).then(res => {})
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

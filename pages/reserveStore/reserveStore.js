@@ -27,7 +27,6 @@ Page({
   toStoreAppointment(e) {
     ind = parseInt(e.currentTarget.dataset.index)
     let list=this.data.list[ind];
-    delete list.bg;
     if (wx.getStorageSync('userInfo')) {
       wx.navigateTo({
         url: '/pages/storeAppointment/storeAppointment?data=' + JSON.stringify(list),
