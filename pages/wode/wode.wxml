@@ -131,7 +131,8 @@
       </view>
     </view>
     <!-- 分享好友 -->
-    <view class="menu-item">
+   
+    <button hover-class="none" class="menu-item" open-type="share">
       <view class="menu-leftItem">
         <view class="icon-item">
           <text class="iconfont iconfenxiang1"></text>
@@ -141,7 +142,7 @@
       <view class="menu-rightItem">
         <text class="iconfont iconweibiaoti34"></text>
       </view>
-    </view>
+    </button>
      <!-- 使用手册 -->
      <view class="menu-item">
       <view class="menu-leftItem">

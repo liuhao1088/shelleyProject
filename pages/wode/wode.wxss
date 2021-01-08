@@ -2,6 +2,15 @@ page {
   background-color: #f0f0f0;
 }
 
+button {
+  padding: 0;
+  background-color: #fff;
+}
+
+button::after {
+  border: none;
+}
+
 .wodeContainer {
   padding-bottom: 140rpx;
   display: flex;
@@ -120,31 +129,31 @@ page {
   opacity: 0.5;
 }
 
-.quan-item{
+.quan-item {
   height: 160rpx;
   width: 160rpx;
-  background-color: rgba(204,12,6,0.08);
+  background-color: rgba(204, 12, 6, 0.08);
   border-radius: 50%;
   position: absolute;
   right: -40rpx;
   top: 40rpx;
 }
 
-.poster-item{
+.poster-item {
   width: 90%;
   border-radius: 34rpx;
   box-shadow: 2rpx 2rpx 6rpx 0 rgba(0, 0, 0, 0.4);
   margin-bottom: 54rpx;
 }
 
-.poster-item image{
+.poster-item image {
   height: 100%;
   width: 100%;
   border-radius: 34rpx;
   vertical-align: middle;
 }
 
-.menu-wrap{
+.menu-wrap {
   width: 90%;
   border-radius: 34rpx;
   background-color: #fff;
@@ -152,7 +161,7 @@ page {
   padding: 0 40rpx;
 }
 
-.menu-item{
+.menu-item {
   width: 100%;
   height: 84rpx;
   border: 0rpx solid red;
@@ -164,14 +173,14 @@ page {
   justify-content: space-between;
 }
 
-.menu-leftItem{
+.menu-leftItem {
   height: 100%;
   line-height: 42rpx;
   border: 0rpx solid red;
   display: flex;
 }
 
-.menu-rightItem{
+.menu-rightItem {
   height: 100%;
   width: 40rpx;
   line-height: 46rpx;
@@ -179,14 +188,14 @@ page {
 }
 
 
-.icon-item{
+.icon-item {
   height: 100%;
   width: 40rpx;
   line-height: 46rpx;
   border: 0rpx solid red;
 }
 
-.menu-tagItem{
+.menu-tagItem {
   height: 100%;
   text-align: left;
   margin-left: 10rpx;
@@ -194,6 +203,6 @@ page {
   font-size: 32rpx;
 }
 
-.menu-wrap text{
+.menu-wrap text {
   font-size: 36rpx;
 }
