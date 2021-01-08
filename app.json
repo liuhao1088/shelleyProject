@@ -1,8 +1,8 @@
 {
   "pages":[
+    "pages/index/index",
     "pages/wode/wode",
     "pages/activitySelect/activitySelect",
-    "pages/index/index",
     "pages/carAppointment/carAppointment",
     "pages/groupSpecial/groupSpecial",
     "pages/myCoupon/myCoupon",
@@ -16,12 +16,10 @@
     "pages/groupActivities/groupActivities",
     "pages/reservationActivity/reservationActivity",
     "pages/myStore/myStore",
-    
     "pages/storeInformation/storeInformation",
     "pages/couponRules/couponRules",
     "pages/allStore/allStore",
     "pages/activityRule/activityRule",
-   
     "pages/activityDetails/activityDetails",
     "pages/video/video",
     "pages/rTwo/rTwo",
