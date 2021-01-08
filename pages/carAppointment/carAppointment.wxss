@@ -60,7 +60,7 @@
 .wrap-tag {
   padding: 0rpx 20rpx;
   height: 100%;
-  color: rgba(105, 113, 254, 100);
+  color: rgb(225, 0, 31);
   font-size: 28rpx;
   border: 0rpx solid black;
 }
@@ -88,11 +88,11 @@
 
 
 .cancel {
-  border: 2rpx solid rgba(105, 113, 254, 100);
-  color: rgba(105, 113, 254, 100);
+  border: 2rpx solid #f92643;
+  color: #f92643;
 }
 
 .accept {
-  background-color: rgba(105, 113, 254, 100);
-  color: rgba(255, 255, 255, 100);
+  background-image: linear-gradient(133deg, #f92643, #e1001f, #ee0049);
+  color: rgb(255, 255, 255);
 }

@@ -57,7 +57,7 @@
     <view class="wrap" style="display: inline;" wx:if="{{item.status=='waiting'}}">
       <view class="wrap-but">
         <view class="but" data-index="{{index}}" bindtap="confirm">
-          <button class="cu-btn round sm bg-blue accept">接受预约</button>
+          <button class="cu-btn round sm accept">接受预约</button>
         </view>
         <view class="but" style="margin-right: 30rpx;" data-index="{{index}}" bindtap="cancel">
           <button class="cu-btn round sm bg-white cancel">取消预约</button>

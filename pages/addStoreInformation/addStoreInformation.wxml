@@ -62,7 +62,7 @@
           <view class="solids" bindtap="ViewImage" style="display:{{shop_img.length === 1?'block':'none'}};">
             <image wx:for="{{shop_img}}" wx:key="id" src="{{item}}" />
             <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
-              <text class="cuIcon-close"></text>
+              <text class="cuIcon-close" style="color:#f92643;"></text>
             </view>
           </view>
         </view>
@@ -96,7 +96,7 @@
     <view class="cu-bar bg-white justify-end">
       <view class="content">品牌认证门店流程</view>
       <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-grey"></text>
+        <text class="cuIcon-close" style="color:#f92643;"></text>
       </view>
     </view>
     <view class="wrapper-process">
@@ -120,7 +120,7 @@
     <view class="cu-bar bg-white justify-end">
       <view class="content">地址信息</view>
       <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-grey"></text>
+        <text class="cuIcon-close" style="color:#f92643;"></text>
       </view>
     </view>
     <view class="padding-xl">
@@ -138,7 +138,7 @@
       </view>
     </view>
     <view class="cu-bar bg-white justify-end">
-      <view class="action">
+      <view class="action" style="color: #fff;">
         <button class="cu-btn bg-green margin-left" style="width:180rpx;" bindtap="hideModal">确定</button>
 
       </view>
@@ -151,7 +151,7 @@
     <view class="cu-bar bg-white justify-end">
       <view class="content">获取手机号</view>
       <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-grey"></text>
+        <text class="cuIcon-close" style="color:#f92643;"></text>
       </view>
     </view>
     <view class="padding-xl">

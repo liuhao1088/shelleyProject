@@ -1,13 +1,13 @@
 {
   "pages":[
+    "pages/index/index",
+    "pages/carAppointment/carAppointment",
+  
     "pages/groupSpecial/groupSpecial",
     "pages/myCoupon/myCoupon",
     "pages/helpAndFeedback/helpAndFeedback",
     "pages/addStoreInformation/addStoreInformation",
     "pages/wode/wode",
-    
-    "pages/index/index",
-    
     "pages/reserveStore/reserveStore",
     "pages/home/home",
     "pages/text/text",
@@ -21,7 +21,7 @@
     "pages/couponRules/couponRules",
     "pages/allStore/allStore",
     "pages/activityRule/activityRule",
-    "pages/carAppointment/carAppointment",
+   
     "pages/activityDetails/activityDetails",
     "pages/video/video",
     "pages/rTwo/rTwo",
