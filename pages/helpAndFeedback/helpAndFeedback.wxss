@@ -1,0 +1,109 @@
+/* page{
+  background-color: var(--ghostWhite);
+} */
+
+.helpAndFeedbackContainer{
+  padding-bottom: 100rpx;
+}
+
+.type-item {
+  height: 300rpx;
+  width: 90%;
+  border: 2rpx solid red;
+  margin-top: 40rpx;
+}
+
+.title-item {
+  width: 90%;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-top: 40rpx;
+  font-size: 40rpx;
+}
+
+.wrap-item {
+  width: 90%;
+  height: 460rpx;
+  border-radius: 10rpx;
+  background-color: rgb(240, 240, 240);
+  margin-top: 10rpx;
+}
+
+.cu-form-group textarea {
+  height: 200rpx;
+  border: 0rpx solid black;
+}
+
+.img-item {
+  height: 140rpx;
+  width: 140rpx;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  border-radius: 20rpx;
+  border: 2rpx solid rgba(187, 187, 187);
+  border: 0rpx solid red;
+}
+
+.solids {
+  height: 100%;
+  width: 140rpx;
+  position: relative;
+}
+
+.solids image {
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
+}
+
+.grid.grid-square>view {
+  margin-right: 0rpx;
+  margin-bottom: 0rpx;
+}
+
+.grid.grid-square .cu-tag {
+  background-color: transparent;
+}
+
+.bg-red {
+  color: red;
+  font-weight: bold;
+}
+
+.contact-details {
+  margin-left: 20rpx;
+  color: rgba(16, 16, 16, 0.5);
+  font-size: 24rpx;
+}
+
+.input-item {
+  width: 90%;
+  height: 80rpx;
+  border-radius: 10rpx;
+  background-color: rgb(240, 240, 240);
+  margin-top: 10rpx;
+}
+
+.input-item input {
+  height: 100%;
+  width: 100%;
+  line-height: 80rpx;
+  padding: 0 20rpx;
+}
+
+.but-item {
+  width: 100%;
+  height: 80rpx;
+  position: fixed;
+  text-align: center;
+  bottom: 0;
+}
+
+.but-item button {
+  height: 100%;
+  width: 100%;
+  border-radius: 0rpx;
+  color: rgb(255, 255, 255);
+  font-size: 28rpx;
+  background-image: linear-gradient(133deg, #f92643, #e1001f, #ee0049);
+}
