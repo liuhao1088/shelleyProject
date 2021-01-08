@@ -57,7 +57,7 @@
       <view class="wrapper-imgItem">
         <view class="grid grid-square flex-sub" style="height:160rpx;">
           <view class="solids" bindtap="ChooseImage" style="display:{{shop_img.length === 0?'block':'none'}};">
-            <text class="cuIcon-cameraadd" wx:if="{{shop_img}}"></text>
+            <text class="cuIcon-cameraadd" style="color: #8799a3;" wx:if="{{shop_img}}"></text>
           </view>
           <view class="solids" bindtap="ViewImage" style="display:{{shop_img.length === 1?'block':'none'}};">
             <image wx:for="{{shop_img}}" wx:key="id" src="{{item}}" />

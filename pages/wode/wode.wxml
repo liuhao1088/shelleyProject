@@ -169,7 +169,7 @@
     </view>
 
       <!-- 帮助与反馈 -->
-      <view class="menu-item">
+      <view class="menu-item" bindtap="toHelpAndFeedback">
       <view class="menu-leftItem">
         <view class="icon-item">
           <text class="iconfont icondianhua01"></text>

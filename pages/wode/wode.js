@@ -33,6 +33,11 @@ Page({
       url: '/pages/allstore/allstore',
     })
   },
+  toHelpAndFeedback(){
+    wx.navigateTo({
+      url: '/pages/helpAndFeedback/helpAndFeedback',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载

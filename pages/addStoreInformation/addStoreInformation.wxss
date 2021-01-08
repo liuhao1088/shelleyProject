@@ -132,6 +132,15 @@ button {
   vertical-align: middle;
 }
 
+.grid.grid-square .cu-tag {
+  background-color: transparent;
+}
+
+.bg-red{
+  color: red;
+  font-weight: bold;
+}
+
 /* 流程 */
 .wrapper-process {
   width: 75%;
