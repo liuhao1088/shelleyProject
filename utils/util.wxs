@@ -29,7 +29,17 @@ function sub(data){
   return result
 }
 
+function substr(data){
+  if(data.length>=6){
+    var result=data.substring(0,4)+'...'
+    return result
+  }else{
+    return data;
+  }
+}
+
 module.exports = {
   getDates: getDates,
-  sub:sub
+  sub:sub,
+  substr:substr
 }

@@ -105,7 +105,6 @@ image {
 .coupon-imgItem {
   height: 130rpx;
   width: 130rpx;
-  background-color: #DF0101;
   border-radius: 10rpx;
 }
 
@@ -177,13 +176,13 @@ image {
 
 .swiper-img {
   height: 100%;
-  width: 26rpx;
+  width: 30rpx;
   background-color: white;
   float: left;
 }
 
 .swiper-img image {
-  height: 100%;
+  height: 30rpx;
   width: 100%;
   border-radius: 50%;
   vertical-align: middle;
