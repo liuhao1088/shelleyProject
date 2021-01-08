@@ -18,6 +18,16 @@ Page({
       url: '/pages/addStoreInformation/addStoreInformation',
     })
   },
+  toCarAppointment(){
+    wx.navigateTo({
+      url: '/pages/carAppointment/carAppointment',
+    })
+  },
+  toMyStore(){
+    wx.navigateTo({
+      url: '/pages/myStore/myStore',
+    })
+  },
   toAllstore(){
     wx.navigateTo({
       url: '/pages/allstore/allstore',
