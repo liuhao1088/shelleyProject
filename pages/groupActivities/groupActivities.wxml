@@ -82,12 +82,12 @@
     </view>
 
     <view class="wrap-iconItem">
-      <view class="add-item" style=";display:{{productList.length === 1?'none':'block'}};" data-idx='{{index}}'
-        bindtap="delList">
+      <view class="add-item" style="color: rgba(225, 0, 31);display:{{productList.length === 1?'none':'block'}};"
+        data-idx='{{index}}' bindtap="delList">
         <text class="iconfont iconhuishouzhan" style="font-size: 24rpx;"></text>删除商品
       </view>
-      <view class="add-item" style="color: rgb(105, 113, 254);display:{{productList[index].showView?'none':'block'}}" data-idx='{{index}}'
-        bindtap="onAdd" >
+      <view class="add-item" style="color: rgba(225, 0, 31, 0.6);display:{{productList[index].showView?'none':'block'}}"
+        data-idx='{{index}}' bindtap="onAdd">
         <text class="iconfont iconplus1" style="font-size: 24rpx;"></text>添加商品
       </view>
     </view>
@@ -161,10 +161,10 @@
 
 
 <!-- 选择商品 -->
-<view class="cu-modal bottom-modal {{modalName=='chooseModal'?'show':''}}" bindtap="hideModal">
+<view class="cu-modal bottom-modal {{modalName=='chooseModal'?'show':''}}" bindtap="hideModal" catchtouchmove="ture">
   <view class="cu-dialog" catchtap style="height: 580rpx;">
     <view class="cu-bar bg-white" style="justify-content: flex-end;height: 80rpx;">
-      <view class="action text-green" bindtap="hideModal" style="margin-right: 30rpx;">确定</view>
+      <view class="action text-green" bindtap="hideModal" style="margin-right: 30rpx;color: red;">确定</view>
     </view>
     <view class="grid padding-sm" style="height: 200rpx;padding: 0 30rpx;align-items:flex-end;">
       <view class="cu-img">
@@ -179,8 +179,8 @@
     </view>
     <view class="grid col-3 padding-sm">
       <view wx:for="{{checkbox}}" class="padding-xs" wx:key="id">
-        <button class="cu-btn orange lg block {{item.checked?'bg-black':'line-black'}}" bindtap="chooseCheckbox"
-          data-index="{{index}}" data-name="{{item.name}}"> {{item.name}}
+        <button class="cu-btn orange lg block {{item.checked?'bg':''}}" bindtap="chooseCheckbox"
+          data-index="{{index}}" data-name="{{item.name}}" style="background-color: rgba(0, 0, 0, 0.05);padding: 0;"> {{item.name}}
         </button>
       </view>
     </view>
