@@ -1,3 +1,7 @@
+page{
+  background-color: #f0f0f0;
+}
+
 .myCouponContainer {
   display: flex;
   flex-direction: column;
@@ -383,152 +387,6 @@ image {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-
-
-/* 
-.title {
-  width: 100%;
-  text-align: right;
-  opacity: 0.5;
-  color: rgba(255, 255, 255, 100);
-  font-size: 28rpx;
-  padding: 20rpx 40rpx;
-}
-
-.wrap {
-  width: 100%;
-  background-color: #fff;
-  border-radius: 40rpx;
-  box-shadow: 2rpx 2rpx 12rpx 0px rgba(0, 0, 0, 0.4);
-  padding: 50rpx 20rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.wrap-title {
-  width: 100%;
-  height: 60rpx;
-  line-height: 60rpx;
-  font-size: 40rpx;
-  text-align: center;
-}
-
-.wrap-mainItem {
-  width: 95%;
-  height: 200rpx;
-  border-radius: 20rpx;
-  background-color: rgba(105, 113, 254, 0.4);
-  color: rgba(16, 16, 16, 100);
-  font-size: 28rpx;
-  box-shadow: 0px 4rpx 12rpx 0px rgba(0, 0, 0, 0.4);
-  margin-top: 40rpx;
-  padding-right: 20rpx;
-}
-
-.main-topItem {
-  height: 40rpx;
-  width: 100%;
-  border: 0rpx solid red;
-}
-
-.main-counterItem {
-  width: 100%;
-  height: 130rpx;
-  border: 0rpx solid black;
-  display: flex;
-}
-
-.main-store {
-  width: 180rpx;
-  height: 50rpx;
-  line-height: 50rpx;
-  border-radius: 20rpx 0px 20rpx 0px;
-  background-color: rgba(104, 112, 253, 0.5);
-  color: rgba(16, 16, 16, 100);
-  font-size: 20rpx;
-  text-align: center;
-  float: left;
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.main-tag {
-  width: 120rpx;
-  line-height: 40rpx;
-  opacity: 0.5;
-  color: rgba(104, 112, 253, 100);
-  font-size: 24rpx;
-  float: right;
-  text-align: center;
-  margin-top: 10rpx;
-}
-
-.main-price {
-  width: 180rpx;
-  height: 100%;
-  font-size: 56rpx;
-  line-height: 130rpx;
-  text-align: right;
-  border: 0rpx solid orangered;
-}
-
-.main-titleItem {
-  flex: 1;
-  padding-top: 8rpx;
-  padding-left: 28rpx;
-  border: 0rpx solid #fff;
-}
-
-.main-butItem {
-  width: 140rpx;
-  height: 100%;
-  padding-left: 20rpx;
-  border: 0rpx solid orange;
-}
-
-.main-title {
-  line-height: 60rpx;
-  font-size: 40rpx;
-}
-
-.main-date {
-  line-height: 28rpx;
-  opacity: 0.65;
-  color: rgba(16, 16, 16, 100);
-  font-size: 20rpx;
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.but {
-  width: 100%;
-  height: 40rpx;
-  margin-top: 30rpx;
-}
-
-.but button {
-  line-height: 40rpx;
-  height: 100%;
-  width: 100%;
-  padding: 0;
-  border-radius: 24rpx;
-  color: rgba(104, 112, 253, 100);
-  font-size: 20rpx;
-  border: 2rpx solid rgba(104, 112, 253, 100);
-}
-
-.text-item {
-  line-height: 28rpx;
-  font-size: 20rpx;
-  margin-top: 26rpx;
-} */
-
 /* 弹窗 */
 .cu-dialog {
   width: 580rpx;
@@ -566,7 +424,7 @@ image {
 .but-item button {
   height: 100%;
   width: 100%;
-  background-color: #5B62D9;
+  background-image: linear-gradient(133deg, #f92643, #e1001f, #ee0049);
   border-radius: 10rpx;
   font-size: 28rpx;
   line-height: 60rpx;
@@ -593,4 +451,8 @@ image {
   line-height: 48rpx;
   font-size: 18rpx;
   text-align: left;
+}
+
+.red{
+  color: #f92643;
 }

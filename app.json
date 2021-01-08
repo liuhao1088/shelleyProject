@@ -1,9 +1,10 @@
 {
   "pages":[
+    "pages/myCoupon/myCoupon",
     "pages/helpAndFeedback/helpAndFeedback",
     "pages/addStoreInformation/addStoreInformation",
     "pages/wode/wode",
-    "pages/myCoupon/myCoupon",
+    
     "pages/index/index",
     "pages/groupSpecial/groupSpecial",
     "pages/reserveStore/reserveStore",

@@ -190,7 +190,7 @@
     <view class="cu-bar bg-white justify-end">
       <view class="content" style="width: auto;">请工作人员输入门店码</view>
       <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close" style="color: #CECECE;"></text>
+        <text class="cuIcon-close" style="color: #f92643;"></text>
       </view>
     </view>
     <view class="input-item">
@@ -198,7 +198,7 @@
     </view>
     <view class="checkbox-item" wx:if="{{cou_checked==true}}">
       <view class="checkbox">
-        <checkbox class="round blue" checked="{{cou_checked}}" bindtap="check_change"
+        <checkbox class="round red" checked="{{cou_checked}}" bindtap="check_change"
           style="transform: scale(0.4,0.4);"></checkbox>
       </view>
       <view class="checkbox-msg">合并使用100元现金抵用红包</view>
@@ -214,161 +214,3 @@
   <view class='load-progress-bar bg-green' style="transform: translate3d(-{{100-loadProgress}}%, 0px, 0px);height:8rpx;background-color:#07BE02;"></view>
   <view class='load-progress-spinner text-green' style="color:#07BE02;"></view>
 </view>
-
-
-<!-- <view class="title"><text bindtap="toCouponRules">卡券使用规则</text></view>
-  <view class="wrap">
-    <view class="wrap-title">我的卡券</view>
-
-    <view class="wrap-mainItem" wx:for="{{list}}" wx:key="id" data-index="{{index}}" style="background-color: {{item.usable?'':'rgba(140, 140, 140, 0.5)'}};">
-      <view class="main-topItem">
-        <view class="main-store" style="background-color: {{item.usable?'':'rgba(0, 0, 0, 0.1)'}}">{{item.shop[0].shop_name||'全店通用'}}</view>
-        <view wx:if="{{item.usable}}" class="main-tag">{{item.status=='waiting'?'待激活':'拼团成功'}}</view>
-      </view>
-
-      <view class="main-counterItem">
-        <view class="main-price">￥{{item.shopping.original_price-item.shopping.price}}</view>
-        <view class="main-titleItem">
-          <view class="main-title">{{item.shop_code=='all'?'现金抵扣红包':'拼团优惠券'}}</view>
-          <view class="main-date">{{item.shopping.name}}适用</view>
-          <view class="main-date" style="padding-top: 4rpx;" wx:if="{{item.status=='waiting'&&stamp<=item.creation_timestamp+(item.shopping.time)*60}}">
-            剩余 <text style="color:red;">{{item.surplus}}</text> 分钟</view>
-          <view class="main-date" style="padding-top: 4rpx;" wx:else>有效期至 {{item.act[0].end_date||item.end_date}}</view>
-        </view>
-        <view class="main-butItem" wx:if="{{item.usable}}">
-          <view class="but">
-            <button wx:if="{{item.status=='success'}}" bindtap="showModal" data-index="{{index}}" data-target="Modal">立即使用</button> 
-            <button wx:if="{{item.status=='waiting'}}" data-index="{{index}}" open-type='share'>分享好友</button>
-          </view>
-          <view class="text-item" wx:if="{{item.status=='waiting'}}">还差<text style="color: red;">{{item.shopping.people-item.team.length}}</text>人成团</view>
-          <view class="text-item justify-center" wx:if="{{item.status=='success'}}"></view>
-        </view>
-        <view class="main-butItem" wx:if="{{item.usable!==true&&item.status=='success'}}">
-          <view class="but" style="font-size: 24rpx;text-align: center;color: rgba(0, 0, 0, 0.5);">
-            已过期
-          </view>
-        </view>
-        <view class="main-butItem" wx:if="{{item.usable!==true&&item.status=='waiting'}}">
-          <view class="but" style="font-size: 24rpx;text-align: center;color: rgba(0, 0, 0, 0.5);">
-            拼团失败
-          </view>
-        </view>
-        <view class="main-butItem" wx:if="{{item.usable!==true&&item.status=='complete'}}">
-          <view class="but" style="font-size: 24rpx;text-align: center;color: rgba(0, 0, 0, 0.5);">
-            已使用
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
- -->
-  <!-- 新卡券 -->
- <!-- 专用店拼团券 
-    <view class="coupon-mainItem"> 
-      <view class="wrap"> 
-        <view class="coupon-item"> 
-          <image mode="widthFix" 
-            src="https://img10.360buyimg.com/ddimg/jfs/t1/149624/3/19385/9448/5ff524caEa02d65c6/bf827cac619224c2.png"> 
-          </image> 
-          <!-- 斜条 
-          <view class="t-right-new"> 
-            <view class="item">宝安店专用</view> 
-          </view> 
- 
-          <!-- 券
-          <view class="quan-item">券</view> 
-          <!-- 内容 
-          <view class="main-item"> 
-            <view class="mag-item">￥</view> 
-            <view class="amount-item">200</view> 
-            <view class="tool-item"> 
-              <view class="tool"></view> 
-            </view> 
-            <view class="main-rightItem"> 
-              <view class="title-item">拼团优惠券</view> 
-              <view class="product-nameItem">仅限如影系列-R1使用</view> 
-              <view class="progress-item"> 
-                <view class="time-item">剩余使用时间：30天</view> 
-                <view class="cu-progress round"> 
-                  <view class="bg-color" style="width:{{loading?'90%':''}};"></view> 
-                </view> 
-              </view> 
-              <!-- <view class="product-nameItem">有效期至2021.02.12</view> 
-            </view> 
-          </view> 
-        </view> 
-        <view class="use-item"> 
-          <view class="voucher-wrap"> 
-            <view class="coupon-butItem"> 
-              <view class="but-magItem">立 即 使 用</view> 
-            </view> 
-          </view> 
-        </view> 
-      </view> 
-    </view>--> 
- <!-- 商品拼团券 
-    <view class="coupon-mainItem" style="height: 268rpx;">
-      <view class="product-couponWrap">
-        <view class="product-couponMain">
-          <!-- 斜条 
-          <view class="t-right-new">
-            <view class="item">全店使用</view>
-          </view>
-
-          <!-- 券 
-          <view class="product-tagItem"><text>待激活</text></view>
-          <!-- 内容 
-          <view class="main-item">
-            <view class="mag-item">￥</view>
-            <view class="amount-item">35</view>
-            <view class="tool-item">
-              <view class="tool" ></view>
-            </view>
-            <view class="main-rightItem" style="flex: unset;">
-              <view class="title-item">拼团优惠券</view>
-              <view class="product-nameItem">仅限如影系列-R1使用</view>
-              <view class="product-nameItem">有效期至2021.02.12</view>
-            </view>
-            <view class="main-butItem">
-              <view class="share-but">
-                <button open-type='share'>分享好友</button>
-              </view>
-            </view>
-          </view>
-        </view>
-        <view class="group-numItem">拼团提醒： 还差 1 人拼团成功</view>
-      </view>
-
-      
-    </view>-->
-
-    <!-- 失效拼团券 
-    <view class="coupon-mainItem">
-      <view class="product-couponMain" style="width:90%;background-image: linear-gradient(#898989,#616161);">
-        <!-- 斜条 
-        <view class="t-right-new" style="background-image: linear-gradient(#999999,#b7b7b7);box-shadow: 0px 0px 6px 0px rgba(37, 37, 37, 0.43)">
-          <view class="item" style="color:rgba(56, 56, 56);">全店使用</view>
-        </view>
-        <!-- 状态 
-        <view class="product-tagOne column justify-center align-center ">
-          <view class="product-tagTwo column justify-center align-center ">
-            <view class="product-tagThree">已失效</view>
-          </view>
-          
-        </view>
-
-        <!-- 内容 
-        <view class="main-item">
-          <view class="mag-item" style="background-image: linear-gradient(#ebebeb,#adadad);">￥</view>
-          <view class="amount-item" style="background-image: linear-gradient(#ebebeb,#adadad);">35</view>
-          <view class="tool-item">
-            <view class="tool" style="background-color: #a5a5a5;"></view>
-          </view>
-          <view class="main-rightItem">
-            <view class="title-item">拼团优惠券</view>
-            <view class="product-nameItem">仅限如影系列-R1使用</view>
-            <view class="product-nameItem">有效期至2021.02.12</view>
-          </view>
-        </view>
-      </view>
-    </view>-->
