@@ -6,6 +6,43 @@ Page({
    */
   data: {
     shop_img: [],
+    typeList: [{
+        id: 0,
+        icon: 'icondingdan',
+        name: '门店投诉',
+        checked: false,
+      },
+      {
+        id: 1,
+        icon: 'icondingdan',
+        name: '活动建议',
+        checked: false,
+      },
+      {
+        id: 2,
+        icon: 'icondingdan',
+        name: '操作体验',
+        checked: false,
+      },
+      {
+        id: 3,
+        icon: 'icondingdan',
+        name: '功能建议',
+        checked: false,
+      },
+      {
+        id: 4,
+        icon: 'icondingdan',
+        name: 'BUG反馈',
+        checked: false,
+      },
+      {
+        id: 5,
+        icon: 'icondingdan',
+        name: '其他反馈',
+        checked: false,
+      }
+    ]
   },
   ChooseImage() {
     var that = this;
@@ -41,6 +78,25 @@ Page({
           })
         }
       }
+    })
+  },
+
+  chooseCheckbox(e) {
+    let typeList = this.data.typeList;
+    let index = e.currentTarget.dataset.index;
+    for (let i in typeList) typeList[i].checked = false
+    typeList[index].checked = true;
+    this.setData({
+      typeList
+    })
+    // for (let i = 0; i < typeList.length; ++i) {
+    //   if (checkbox[i].value == values) {
+    //     items[i].checked = !items[i].checked;
+    //     break
+    //   }
+    // }
+    this.setData({
+      typeList
     })
   },
 

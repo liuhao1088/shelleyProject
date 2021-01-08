@@ -1,9 +1,16 @@
 <view class="helpAndFeedbackContainer column justify-center align-center">
-  <view class="type-item">
-
+  <view class="type-wrap">
+    <view class="type-item column justify-center align-center {{item.checked?'line-red':''}}" wx:for="{{typeList}}" wx:key="id"  data-index="{{index}}" bindtap="chooseCheckbox">
+      <view class="type-mainItem">
+        <view class="icon-item">
+          <text class="iconfont {{item.icon}}"></text>
+        </view>
+        <view class="type-name">{{item.name}}</view>
+      </view>
+    </view>
   </view>
 
-  <view class="title-item">我要反馈</view>
+  <view class="title-item" style="margin-top: 20rpx;">我要反馈</view>
 
   <view class="wrap-item">
     <view class="cu-form-group" style="align-items: unset;">

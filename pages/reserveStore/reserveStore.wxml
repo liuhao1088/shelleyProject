@@ -23,7 +23,7 @@
   </view>
 
 
-  <view class="store-mainItem" column justify-center align-center>
+  <view class="store-mainItem">
     <view class="store-boxItem"  wx:for="{{list}}" wx:key="id"  data-index="{{index}}"  bindtap="toStoreAppointment" style="background: url({{item.bg}}) no-repeat;background-size: 100% 100%;">
       <view class="store-wrapItem">
         <view class="store-mainLeft">
