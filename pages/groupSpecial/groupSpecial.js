@@ -32,9 +32,9 @@ Page({
     seconds: '01', //秒
     data: '',
     avatarUrl: '',
-    waresInd: '',
+    waresInd: 0,
     userInfo: '',
-    userInd: '',
+    userInd: 0,
     cou_code: '',
     transfer: false,
     sponsor: '',
@@ -527,9 +527,6 @@ Page({
               tmplIds: ['Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
               success(res) {
                 if (JSON.stringify(res).indexOf('accept') !== -1) {
-                  that.setData({
-                    waresInd: ind
-                  })
                   that.increase('waiting', 'initiateGroup', ind, '', []);
                 }
               }
@@ -547,10 +544,12 @@ Page({
 
   },
   getIndex: function (e) {
-    let ind = e.currentTarget.dataset.index;
-    this.setData({
-      userInd: ind
-    })
+    let ind = e.detail.current;
+    if(this.data.modalName==null){
+      this.setData({
+        userInd: ind
+      })
+    }
   },
   sendMessage: function (openid, wares, result, shop) {
     wx.cloud.callFunction({
