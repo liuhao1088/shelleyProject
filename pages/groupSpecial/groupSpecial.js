@@ -41,24 +41,6 @@ Page({
     surplustime: '',
     surplusperson: '',
     action: 'going',
-    userList:[
-      {
-        img:'',
-        name:'测试1',
-        time:'20:00'
-      },
-      {
-        img:'',
-        name:'测试2',
-        time:'10:00'
-      },
-      {
-        img:'',
-        name:'测试2',
-        time:'30:00'
-      }
-    ]
-
   },
   toActivityRule(event) {
     wx.navigateTo({
@@ -79,6 +61,12 @@ Page({
       modalName: null
     })
   },
+  toCouponRules(){
+    wx.navigateTo({
+      url: '/pages/couponRules/couponRules',
+    })
+  },
+
 
   //弹窗
   showModal(e) {

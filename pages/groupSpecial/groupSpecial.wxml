@@ -96,111 +96,14 @@
       </view>
     </view>
   </view>
+</view>
 
-
-  <!-- <view class="title"><text bindtap="toActivityRule">活动规则</text> </view>
-  <view class="wrap">
-    <view class="wrap-title">拼团特惠</view>
-
-    <view class="wrap-title" style="font-size: 24rpx;margin-top: 20rpx;"><text wx:if="{{action=='finish'}}">活动已结束</text>
-      <text wx:else>{{action=='going'?'活动结束倒计时':'活动开始倒计时'}}</text>：
-      <text class='tui-conutdown-box'>{{days}}</text>天
-      <text class='tui-conutdown-box'>{{hours}}</text>时
-      <text class='tui-conutdown-box'>{{minutes}}</text>分
-      <text class='tui-conutdown-box tui-countdown-bg'>{{seconds}}</text>秒
-    </view>
-
-    <view class="coupon-item" wx:for="{{data.shopping}}" data-index="{{index}}" wx:for-item="shopping" wx:key="id">
-      <view class="img-item align-center">
-        <image style="height:190rpx;width:180rpx;" src="{{shopping.link}}" />
-      </view>
-
-      <view class="wrap-item">
-        <view class="coupon-titleItem">
-          <text class="coupon-title">{{shopping.name}}</text>
-          <text class="coupon-address">{{data.shop[0].shop_name}}专用</text>
-        </view>
-
-        <view class="coupon-group" wx:if="{{shopping.status==true}}">
-          <swiper class="top_swiper">
-            <swiper-item style="display: flex;">
-              <view class="coupon-main">
-                <view class="coupon-wrap">
-                  <view class="coupon-user">
-                    <view class="swiper-img">
-                      <image src="{{userInfo.avatarUrl}}"></image>
-                    </view>
-                    <view class="swiper-name">{{userInfo.nickName}}</view>
-                  </view>
-                  <view class="coupon-msg"> <text style="color: red;"></text> </view>
-                </view>
-                <view class="coupon-wrap" style="padding-top: 6rpx;">您已经领取过该优惠券</view>
-              </view>
-              <view class="coupon-but">
-                <button class="but" bindtap="toMyCoupon">去查看</button>
-              </view>
-            </swiper-item>
-          </swiper>
-        </view>
-        <view class="coupon-group" wx:if="{{action!=='going'&&shopping.status!==true}}">
-          <swiper class="top_swiper">
-            <swiper-item style="display: flex;">
-              <view class="coupon-main">
-                <view class="coupon-wrap">
-                  <view class="coupon-user">
-                    <view class="swiper-img">
-                      <image src="{{userInfo.avatarUrl}}" style="background-color:gray;"></image>
-                    </view>
-                    <view class="swiper-name" wx:if="{{userInfo.nickName}}">{{userInfo.nickName}}</view>
-                    <view class="swiper-name" wx:else>{{action=='finish'?'活动到期':'活动未开始'}}</view>
-                  </view>
-                  <view class="coupon-msg"> <text style="color: red;"></text> </view>
-                </view>
-                <view class="coupon-wrap" style="padding-top: 6rpx;">{{action=='finish'?'活动已经结束，下次再来！':'活动还未开始，敬请期待！'}}</view>
-              </view>
-              <view class="coupon-but">
-                <button class="but" bindtap="toMyCoupon">去查看</button>
-              </view>
-            </swiper-item>
-          </swiper>
-        </view>
-        <view class="coupon-group" wx:if="{{shopping.status!==true&&action=='going'}}" data-index="{{index}}" bindtap="showModal" data-target="goGroup">
-          <swiper class="top_swiper" circular vertical interval="2000" autoplay>
-            <swiper-item wx:for="{{shopping.userList}}" wx:key="id" style="display: flex;">
-              <view class="coupon-main">
-                <view class="coupon-wrap">
-                  <view class="coupon-user">
-                    <view class="swiper-img">
-                      <image class="swiper-img" src="{{item.image}}"></image>
-                    </view>
-                    <view class="swiper-name">{{item.name}}</view>
-                  </view>
-                  <view class="coupon-msg">还差 <text style="color: red;">1</text> 人拼成</view>
-                </view>
-                <view class="coupon-wrap" style="padding-top: 6rpx;">剩余时间：{{item.surplus}} 分钟</view>
-              </view>
-              <view class="coupon-but" bindtap="getIndex" data-index="{{index}}">
-                <button class="but">去拼团</button>
-              </view>
-            </swiper-item>
-          </swiper>
-        </view>
-
-
-        <view class="coupon-group">
-          <view class="coupon-main">
-            <view class="group-price">¥ {{shopping.price}}</view>
-            <view class="price-item">原价：¥ {{shopping.original_price}}</view>
-          </view>
-          <view class="coupon-but" wx:if="{{shopping.status!==true&&action=='going'}}">
-            <button class="but" style="background-color: rgba(255, 255, 255, 100);color: rgba(105, 113, 254, 100);border: 2rpx solid rgba(105, 113, 254, 100);padding: 0;"
-             data-index="{{index}}" bindtap="launchGroup" data-target="initiateGroup">发起拼团</button>
-          </view>
-        </view>
-      </view>
-    </view>
-
-  </view> -->
+<!-- 活动规则 -->
+<view class="rule-item column justify-center align-center" bindtap="toCouponRules">
+  <view class="rule-wrap">
+    <view class="text">活动</view>
+    <view class="text">规则</view>
+  </view>
 </view>
 
 <!-- 去拼团弹窗 -->

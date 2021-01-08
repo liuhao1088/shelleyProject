@@ -6,7 +6,6 @@
   background: white;
   padding: 0 40rpx ;
   padding-bottom: 60rpx;
-  margin-top: 30rpx;
   margin-bottom: 50rpx;
 }
 
