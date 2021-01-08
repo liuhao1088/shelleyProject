@@ -174,6 +174,18 @@ function bgimg() {
   return ['https://img13.360buyimg.com/ddimg/jfs/t1/157814/10/2104/41710/5ff6a6ccEf62ba875/7f9311e7d6d87070.png','https://img11.360buyimg.com/ddimg/jfs/t1/158346/5/2260/46592/5ff7c054Ec9e0f909/464a1a21b7a8f97b.png','https://img10.360buyimg.com/ddimg/jfs/t1/151820/6/13497/42625/5ff7c068E311166e1/b03b51f54a310603.png','https://img12.360buyimg.com/ddimg/jfs/t1/167998/25/1576/38065/5ff7c072E2a2e3e84/286f1057122a0f24.png']
 }
 
+function sendMessage(openid, parse, tpid) {
+  wx.cloud.callFunction({
+    name: 'sendMessage',
+    data: {
+      openid: openid,
+      page: 'pages/index/index',
+      data: parse,
+      templateId: tpid
+    }
+  }).then(res => {})
+}
+
 module.exports = {
   formatTime: formatTime,
   formatTimes: formatTimes,
@@ -185,5 +197,6 @@ module.exports = {
   getDistance:getDistance,
   compare:compare,
   nearby:nearby,
-  bgimg:bgimg
+  bgimg:bgimg,
+  sendMessage:sendMessage
 }

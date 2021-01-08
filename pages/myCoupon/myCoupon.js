@@ -77,6 +77,7 @@ Page({
         icon: 'none',
         duration: 10000000
       })
+      this.setData({complete:true})
     }
     let windowHeight = wx.getSystemInfoSync().windowHeight // 屏幕的高度
     let windowWidth = wx.getSystemInfoSync().windowWidth // 屏幕的宽度
@@ -274,6 +275,15 @@ Page({
         wx.showToast({
           title: '暂无更多卡券',
           icon: 'none'
+        })
+      }
+      if(that.data.usable_list==0&&that.data.unusable_list.length==0){
+        that.loadProgress(100)
+        that.setData({complete:true})
+        wx.showToast({
+          title: '暂无卡券',
+          icon: 'none',
+          duration:100000000
         })
       }
       let stamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000;

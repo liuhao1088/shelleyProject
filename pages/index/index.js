@@ -24,19 +24,7 @@ Page({
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
-          // 已经授权
-          wx.getUserInfo({
-            success: res => {
-              console.log(res)
-              this.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
-              })
-            }
-          })
-          if(wx.getStorageSync('userInfo')){
-            
-          }else{
+          if(!wx.getStorageSync('userInfo')){
             this.selectComponent("#authorize").showModal();
           }
         } else {

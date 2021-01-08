@@ -84,12 +84,23 @@
         <view class="coupon-priceItem">
           <view class="coupon-price">拼团价：<text class="group-price">￥{{shopping.price}}</text> <text
               style=" margin-left: 10rpx;text-decoration:line-through;">￥{{shopping.original_price}}</text></view>
-          <view class="coupon-butItem">
+          <view class="coupon-butItem" wx:if="{{shopping.status!==true&&action=='going'}}">
             <view class="group-butItem" style="margin-right: 20rpx;">
               <button class="but-group" bindtap="showModal" data-index="{{index}}" data-target="goGroup">去拼团</button>
             </view>
             <view class="group-butItem" bindtap="launchGroup" data-index="{{index}}">
               <button class="but-initiate">发起拼团</button>
+            </view>
+          </view>
+          <view class="coupon-butItem" wx:else>
+            <view class="group-butItem" style="margin-right: 20rpx;">
+              <button class="but-group" bindtap="toMyCoupon" data-index="{{index}}">去查看</button>
+            </view>
+            <view class="group-butItem" data-index="{{index}}" wx:if="{{shopping.parse}}">
+              <button class="but-initiate" open-type='share' data-parse='has'>分享好友</button>
+            </view>
+            <view class="group-butItem" data-index="{{index}}" wx:else>
+              <button class="but-initiate" open-type='share' data-parse='none'>分享好友</button>
             </view>
           </view>
         </view>
@@ -106,8 +117,8 @@
   </view>
 </view>
 
-<!-- 去拼团弹窗 -->
-<view class="cu-modal {{modalName=='goGroupSuccess'?'show':''}}" catchtouchmove="ture">
+<!-- 发起拼团成功弹窗 -->
+<view class="cu-modal {{modalName=='initiateGroup'?'show':''}}" catchtouchmove="ture">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
       <view class="content"></view>
@@ -127,7 +138,7 @@
           <button class="turn-but" bindtap="toMyCoupon">查看拼团券</button>
         </view>
         <view class="but-item">
-          <button class="share-but" open-type='share'>分享给好友</button>
+          <button class="share-but" open-type='share' data-parse="has">分享给好友</button>
         </view>
       </view>
     </view>
@@ -169,8 +180,8 @@
 
 </view>
 
-<!-- 发起拼团成功弹窗 -->
-<view class="cu-modal {{modalName=='initiateGroup'?'show':''}}" catchtouchmove="ture">
+<!-- 去拼团成功弹窗 -->
+<view class="cu-modal {{modalName=='goGroupSuccess'?'show':''}}" catchtouchmove="ture">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
       <view class="content"></view>

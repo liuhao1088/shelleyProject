@@ -6,7 +6,7 @@ Page({
    */
   data: {
     tabbar: {},
-    userInfo:{}
+    userInfo:{type:'driver',nickName:'用户名',avatarUrl:''}
   },
   toMyCoupon(){
     wx.navigateTo({
@@ -44,11 +44,13 @@ Page({
    */
   onLoad: function (options) {
     app.editTabbar();
-    let userInfo =  wx.getStorageSync('userInfo');
-    this.setData({
-      userInfo
-    })
-    console.log(userInfo)
+    if(wx.getStorageSync('userInfo')){
+      let userInfo =  wx.getStorageSync('userInfo');
+      this.setData({
+        userInfo
+      })
+      console.log(userInfo)
+    }
   },
 
   /**
