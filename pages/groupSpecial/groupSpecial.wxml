@@ -78,8 +78,8 @@
             </view>
           </view>
         </view>
-    
-        
+
+
 
         <view class="coupon-priceItem">
           <view class="coupon-price">拼团价：<text class="group-price">￥{{shopping.price}}</text> <text
@@ -89,7 +89,7 @@
               <button class="but-group" bindtap="showModal" data-index="{{index}}" data-target="goGroup">去拼团</button>
             </view>
             <view class="group-butItem" bindtap="launchGroup" data-index="{{index}}">
-              <button class="but-initiate" >发起拼团</button>
+              <button class="but-initiate">发起拼团</button>
             </view>
           </view>
         </view>
@@ -209,7 +209,7 @@
     <view class="cu-bar bg-white justify-end">
       <view class="content"></view>
       <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-gray"></text>
+        <text class="cuIcon-close" style="color: #f92643;"></text>
       </view>
     </view>
     <view class="padding-xl">
@@ -237,7 +237,7 @@
     <view class="cu-bar bg-white justify-end">
       <view class="content"></view>
       <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-gray"></text>
+        <text class="cuIcon-close" style="color: #f92643;"></text>
       </view>
     </view>
     <view class="padding-xl">
@@ -272,7 +272,7 @@
     <view class="cu-bar bg-white justify-end">
       <view class="content"></view>
       <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-gray"></text>
+        <text class="cuIcon-close" style="color: #f92643;"></text>
       </view>
     </view>
     <view class="padding-xl">
@@ -300,7 +300,7 @@
     <view class="cu-bar bg-white justify-end">
       <view class="content"></view>
       <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-gray"></text>
+        <text class="cuIcon-close" style="color: #f92643;"></text>
       </view>
     </view>
     <view class="padding-xl">
@@ -310,8 +310,7 @@
       </view>
       <view class="modal-wrap">
         <view class="modal-selectBut" wx:for="{{checkbox}}" wx:key="id">
-          <button style="{{item.checked?'background-color: rgba(104, 112, 253, 50);':''}}" bindtap="ChooseCheckbox"
-            id="{{item.id}}">{{item.name}}</button>
+          <button class="{{item.checked?'red':''}}" bindtap="ChooseCheckbox" id="{{item.id}}">{{item.name}}</button>
         </view>
       </view>
       <view class="modal-questionBut">
