@@ -1,3 +1,7 @@
+page {
+  background-color: #f0f0f0;
+}
+
 .allStoreContainer {
   width: 100%;
   padding: 0 30rpx;
@@ -17,7 +21,7 @@
   height: 100%;
   border: 0rpx solid floralwhite;
   display: flex;
-  color: rgba(255, 255, 255, 100);
+  color: #f92643;
 }
 
 .address text {
@@ -60,7 +64,7 @@
   font-size: 26rpx;
   line-height: 60rpx;
   float: right;
-  color: rgba(151, 151, 151, 0.5);
+  color: rgba(249,38,0, 0.5);
 }
 
 .main {
@@ -87,8 +91,9 @@
 .tag-item {
   float: right;
   opacity: 0.5;
-  color: rgba(16, 16, 16, 100);
+  color:rgba(249,38,0, 0.5);
   font-size: 32rpx;
+  font-weight: bold;
 }
 
 .main-item {

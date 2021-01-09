@@ -30,7 +30,7 @@ Page({
   },
   toAllstore(){
     wx.navigateTo({
-      url: '/pages/allstore/allstore',
+      url: '/pages/allStore/allStore',
     })
   },
   toHelpAndFeedback(){
