@@ -1,0 +1,18 @@
+page{
+  background-color: #f0f0f0;
+}
+
+.bg-green{
+  background-color: #39b54a;
+  color: white;
+}
+.cu-chat .cu-item>.main .content:not([class*="bg-"]) {
+  background-color: white;
+  color: black;
+}
+
+.bg{
+  color: #0065FF;
+  text-decoration:underline;
+}
+
