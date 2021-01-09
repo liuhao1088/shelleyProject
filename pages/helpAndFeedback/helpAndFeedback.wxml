@@ -14,16 +14,16 @@
 
   <view class="wrap-item">
     <view class="cu-form-group" style="align-items: unset;">
-      <textarea maxlength="-1" bindinput="textareaAInput"
+      <textarea maxlength="-1" bindinput="inputContent" value="{{content}}"
         placeholder="你要说什么..."></textarea>
     </view>
     <view class="img-item">
       <view class="grid grid-square flex-sub" style="height:100%;">
-          <view class="solids" bindtap="ChooseImage" style="display:{{shop_img.length === 0?'block':'none'}};">
-            <text class="cuIcon-cameraadd" style="color: #8799a3;" wx:if="{{shop_img}}"></text>
+          <view class="solids" bindtap="ChooseImage" style="display:{{img.length === 0?'block':'none'}};">
+            <text class="cuIcon-cameraadd" style="color: #8799a3;" wx:if="{{img}}"></text>
           </view>
-          <view class="solids" bindtap="ViewImage" style="display:{{shop_img.length === 1?'block':'none'}};">
-            <image wx:for="{{shop_img}}" wx:key="id" src="{{item}}" />
+          <view class="solids" bindtap="ViewImage" style="display:{{img.length === 1?'block':'none'}};">
+            <image wx:for="{{img}}" wx:key="id" src="{{item}}" />
             <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
               <text class="cuIcon-close"></text>
             </view>
@@ -38,11 +38,11 @@
   </view>
 
   <view class="input-item">
-    <input type="text" placeholder="请留下任意一个联系方式" />
+    <input type="text" bindinput="inputContact" value="{{contact}}" placeholder="请留下任意一个联系方式" />
   </view>
 
 </view>
 
-<view class="but-item">
+<view class="but-item" bindtap="submit">
   <button>提交反馈</button>
 </view>

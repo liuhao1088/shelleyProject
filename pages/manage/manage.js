@@ -22,6 +22,11 @@ Page({
       url: './live/live',
     })
   },
+  toFeedback:function(){
+    wx.navigateTo({
+      url: './feedback/feedback',
+    })
+  },
   toActivity:function(){
     wx.navigateTo({
       url: './activity/activity',

@@ -101,6 +101,23 @@ Page({
   onPullDownRefresh: function () {
 
   },
+  
+  toManage: function () {
+    if (!wx.getStorageSync('userInfo')) {
+      this.selectComponent("#authorize").showModal();
+    } else {
+      let openid = wx.getStorageSync('userInfo')._openid;
+      wx.cloud.database().collection('user').where({
+        _openid: openid
+      }).get().then(res => {
+        if (res.data[0].authority == 'admin') {
+          wx.navigateTo({
+            url: '/pages/manage/manage',
+          })
+        }
+      })
+    }
+  },
 
   /**
    * 页面上拉触底事件的处理函数

@@ -167,6 +167,7 @@ Page({
                   addData:{
                     creation_date:nowDate,
                     creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
+                    shop_code:userInfo.shop[userInfo.shop.length - 1].shop_code,
                     _openid:list[ind]._openid,
                     title:'店家（' + userInfo.shop[userInfo.shop.length - 1].shop_name + '）已接受您的预约',
                     content:list[ind].time_date,
@@ -243,6 +244,7 @@ Page({
                 addData:{
                   creation_date:nowDate,
                   creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
+                  shop_code:userInfo.shop[userInfo.shop.length - 1].shop_code,
                   _openid:list[ind]._openid,
                   title:'店家（' + userInfo.shop[userInfo.shop.length - 1].shop_name + '）取消了您的预约',
                   content:list[ind].time_date,

@@ -4,5 +4,6 @@
   <view class='form-btn bg-grey' bindtap='toUser'>用户管理</view>
   <view class='form-btn bg-grey' bindtap='toExamine'>门店认证</view>
   <view class='form-btn bg-grey' bindtap='toLive'>发布直播</view>
+  <view class='form-btn bg-grey' bindtap='toFeedback'>用户反馈</view>
   <button class='form-btn bg-grey' open-type="contact" bindcontact="handleContact">客服</button>
 </view>

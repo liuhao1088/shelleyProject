@@ -1,0 +1,29 @@
+<!--pages/manage/feedback/feedback.wxml-->
+<wxs src="../../../utils/util.wxs" module="utils" />
+<view wx:for="{{list}}" class="column justify-center" style="width:90%;margin-left:5%;margin-top:10px;">
+  <view class="bg-grey padding-sm radius margin-top-sm  text-sm">
+    <view class="flex">
+      <view>反馈内容：</view>
+      <view class="flex-sub">{{item.fb_content}}</view>
+    </view>
+    <view class="flex">
+      <view>反馈类型：</view>
+      <view class="flex-sub">{{item.fb_type}}</view>
+    </view>
+    <view class="flex" wx:if="{{item.fb_contact!==''}}">
+      <view bindtap="callphone" data-index="{{index}}" wx:if="{{item.checkup}}">联系方式：{{item.fb_contact}} <text class="cuIcon-phone text-white"></text></view>
+      <view bindtap="copy" data-index="{{index}}" wx:else>联系方式：{{item.fb_contact}} <text class="cuIcon-copy text-white"></text></view>
+    </view>
+    <view class="flex" data-index="{{index}}" style="display:{{item.fb_img==''?'none':'flex'}}">
+      <view>反馈图片： </view>
+      <view class="flex-sub" bindtap="preview" data-index="{{index}}"><image class="" src="{{item.fb_img}}" style="height:50px;width:50px;margin-top:10rpx;"></image></view>
+    </view>
+  </view>
+  <view class="margin-top-sm flex justify-between">
+    <view class="text-gray text-df"></view>
+    <view>
+      <text class="text-gray margin-left-sm">{{item.creation_date}}</text>
+    </view>
+  </view>
+
+</view>

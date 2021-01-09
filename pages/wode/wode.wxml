@@ -1,6 +1,7 @@
+<authorize id="authorize" />
 <view class="wodeContainer">
   <!-- 头部 -->
-  <view class="header">
+  <view class="header" bindtap="toSign">
     <view class="header-wrap">
       <view class="img-item justify-center">
         <view class="img">

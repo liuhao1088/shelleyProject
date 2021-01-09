@@ -186,6 +186,16 @@ function sendMessage(openid, parse, tpid) {
   }).then(res => {})
 }
 
+function add(tb,data){
+  return wx.cloud.callFunction({
+    name:'recordAdd',
+    data:{
+      collection:tb,
+      addData:data
+    }
+  })
+}
+
 module.exports = {
   formatTime: formatTime,
   formatTimes: formatTimes,
@@ -198,5 +208,6 @@ module.exports = {
   compare:compare,
   nearby:nearby,
   bgimg:bgimg,
+  add:add,
   sendMessage:sendMessage
 }

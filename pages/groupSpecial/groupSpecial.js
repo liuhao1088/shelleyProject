@@ -52,7 +52,8 @@ Page({
     sponsor: '',
     surplustime: '',
     surplusperson: '',
-    action: 'going'
+    action: 'going',
+    prize:false
   },
   toActivityRule(event) {
     wx.navigateTo({
@@ -102,6 +103,11 @@ Page({
         })
       }, 1000)
 
+    } else if(target=='goGroup'){
+      if(!wx.getStorageSync('userInfo')){
+        that.selectComponent("#authorize").showModal();
+        that.retrieval();
+      }
     } else {
       that.setData({
         modalName: target
@@ -340,25 +346,7 @@ Page({
     var that = this;
     let nowstamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
     if (wx.getStorageSync('userInfo')) {
-      let userInfo = wx.getStorageSync('userInfo')
-      that.setData({
-        userInfo: userInfo
-      })
-      let cou = userInfo.coupon.filter(item => item.act_id.indexOf(data._id) !== -1 && ((item.creation_timestamp + parseInt(item.shopping.time) * 60 > nowstamp && item.status == 'waiting') || item.status == 'success' || item.status == 'complete'))
-      console.log(cou)
-      for (let i in data.shopping) {
-        for (let u in cou) {
-          if (i == cou[u].shopping_ind) {
-            data.shopping[i].status = true
-            if (cou[u].status == 'waiting') {
-              data.shopping[i].parse = cou[u].cou_code
-            }
-            that.setData({
-              data: data
-            })
-          }
-        }
-      }
+      that.mine(data)
     }
     for (let i in data.shopping) {
       wx.cloud.callFunction({
@@ -597,22 +585,17 @@ Page({
     var that = this;
     let timing = setInterval(() => {
       if (wx.getStorageSync('userInfo')) {
-        let userInfo = wx.getStorageSync('userInfo')
-        that.setData({
-          userInfo: userInfo
-        })
-        let cou = userInfo.coupon.filter(item => item.act_id.indexOf(that.data.data._id) !== -1)
-        let data = that.data.data;
-        for (let i in data.shopping) {
-          for (let u in cou) {
-            if (i == cou[u].shopping_ind) {
-              data.shopping[i].status = true
-              that.setData({
-                data: data
-              })
-            }
+        let data=that.data.data;
+        that.mine(data)
+        let userInfo=wx.getStorageSync('userInfo')
+        wx.cloud.database().collection('coupon').where({_openid:userInfo._openid,shop_code:'all'}).get().then(res=>{
+          let data=res.data;
+          if(data.length==0){
+            that.setData({prize:true})
+          }else{
+            wx.setStorageSync('prize', data)
           }
-        }
+        })
         setTimeout(() => {
           clearInterval(timing);
         }, 900);
@@ -630,9 +613,117 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that=this;
+    switch(wx.getStorageSync('userInfo')==''){
+      case false:
+        let userInfo=wx.getStorageSync('userInfo')
+        if(!wx.getStorageSync('prize')){
+          wx.cloud.database().collection('coupon').where({_openid:userInfo._openid,shop_code:'all'}).get().then(res=>{
+            let data=res.data;
+            if(data.length==0){
+              that.setData({prize:true})
+            }else{
+              wx.setStorageSync('prize', data)
+            }
+          })
+        }
+        break;
+    }
+  },
+  
+  getCoupon:function(){
+    var that=this;
+    let userInfo=wx.getStorageSync('userInfo')
+    wx.showLoading({
+      title: '领取中'
+    })
+    let code;
+    for (let e = 0; e < 6; e++) {
+      code += Math.floor(Math.random() * 10)
+    }
+    wx.cloud.callFunction({
+      name: 'recordAdd',
+      data: {
+        collection: 'coupon',
+        addData: {
+          creation_date: util.formatTimes(new Date()),
+          creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
+          end_date:util.nextYear(new Date()),
+          end_timestamp: Date.parse(util.nextYear(new Date()).replace(/-/g, '/')) / 1000,
+          _openid: userInfo._openid,
+          cou_code:code,
+          act_id:'-1',
+          user: userInfo.nickName,
+          shop_code:'all',
+          shopping: {name:'全品类商品',price:'0',original_price:'100'},
+          status: 'success'
+        }
+      }
+    }).then(res => {
+      wx.hideLoading()
+      wx.showToast({
+        title: '领取成功',
+        icon:'success',
+        duration:1500
+      })
+      that.setData({modalName:null})
+      let device=[]
+      for(let i=0;i<that.data.checkbox.length;i++){
+        if(that.data.checkbox[i].checked==true){
+          device.push(that.data.checkbox[i].name)
+        }
+        if(i+1==that.data.checkbox.length){
+          wx.cloud.callFunction({
+            name: 'recordAdd',
+            data: {
+              collection: 'device',
+              addData: {
+                creation_date: util.formatTimes(new Date()),
+                creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
+                _openid: userInfo._openid,
+                user: userInfo.nickName,
+                device:device
+              }
+            }
+          }).then(res => {})
+        }
+      }
+      that.setData({prize:false})
+      wx.setStorageSync('prize', [{status:'success',cou_code:code,act_id:'-1'}])
+    }).catch(error => {
+      wx.hideLoading({
+        success: (res) => {},
+      })
+      wx.showModal({
+        showCancel: false,
+        title: '系统繁忙，请稍后重试'
+      })
+    })
   },
 
+  mine:function(data){
+    var that=this;
+    let userInfo = wx.getStorageSync('userInfo')
+    let nowstamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
+    that.setData({
+      userInfo: userInfo
+    })  
+    let cou = userInfo.coupon.filter(item =>item.act_id.indexOf(data._id) !== -1 && ((item.creation_timestamp + parseInt(item.shopping.time) * 60 > nowstamp && item.status == 'waiting') || item.status == 'success' || item.status == 'complete') )
+    for (let i in data.shopping) {
+      for (let u in cou) {
+        if (i == cou[u].shopping_ind) {
+          data.shopping[i].status = true
+          if(cou[u].status=='waiting'){
+            data.shopping[i].parse=cou[u].cou_code
+          }
+          that.setData({
+            data: data
+          })
+        }
+      }
+    } 
+  },
+  
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -667,7 +758,6 @@ Page({
   onShareAppMessage: function (res) {
     var that = this;
     console.log(res)
-    let userInfo = wx.getStorageSync('userInfo')
     if (res.from === 'button') {
       console.log(res.from)
       let code = that.data.cou_code;

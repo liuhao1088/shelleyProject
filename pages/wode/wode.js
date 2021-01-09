@@ -40,6 +40,8 @@ Page({
         checked: false,
       }
     ],
+    userInfo:{type:'driver',nickName:'用户名',avatarUrl:''},
+    unread:0
   },
   toMyCoupon() {
     wx.navigateTo({
@@ -145,13 +147,6 @@ Page({
    */
   onLoad: function (options) {
     app.editTabbar();
-    if (wx.getStorageSync('userInfo')) {
-      let userInfo = wx.getStorageSync('userInfo');
-      this.setData({
-        userInfo
-      })
-      console.log(userInfo)
-    }
   },
 
   /**
@@ -165,9 +160,32 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if(wx.getStorageSync('userInfo')){
+      let userInfo =  wx.getStorageSync('userInfo');
+      this.setData({
+        userInfo
+      })
+      console.log(userInfo)
+    }
+    var _t=this
+    switch(wx.getStorageSync('userInfo')!==''){
+      case true:
+        wx.cloud.database().collection('message').where({_openid:app.globalData.openid}).count({
+          success:function(res){
+            _t.setData({
+              unread:res.total
+            })
+          }
+        })
+        break;
+    }
   },
-
+  
+  toSign:function(){
+    if(!wx.getStorageSync('userInfo')){
+      this.selectComponent("#authorize").showModal();
+    }
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

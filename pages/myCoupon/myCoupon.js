@@ -316,7 +316,7 @@ Page({
           })
         }
       }
-      if(that.data.usable_list==0&&that.data.unusable_list.length==0){
+      if(data.length==0&&that.data.usable_list==0&&that.data.unusable_list.length==0){
         that.loadProgress(100)
         that.setData({complete:true})
         wx.showToast({

@@ -94,7 +94,7 @@
           </view>
           <view class="coupon-butItem" wx:else>
             <view class="group-butItem" style="margin-right: 20rpx;">
-              <button class="but-group" bindtap="toMyCoupon" data-index="{{index}}">去查看</button>
+              <button class="but-group" bindtap="toMyCoupon" data-index="{{index}}">去使用</button>
             </view>
             <view class="group-butItem" data-index="{{index}}" wx:if="{{shopping.parse}}">
               <button class="but-initiate" open-type='share' data-parse='has'>分享好友</button>
@@ -133,7 +133,15 @@
       <view class="modal-item">仅剩<text
           style="color:red;">{{data.shopping[waresInd].people-1}}</text>个席位，{{data.shopping[waresInd].time}}分钟后结束，赶快邀请好友来拼团吧！~
       </view>
-      <view class="modal-but">
+      <view class="modal-but" wx:if="{{prize}}">
+        <view class="but-item">
+          <button class="turn-but" open-type='share' data-parse="has">分享给好友</button>
+        </view>
+        <view class="but-item">
+          <button class="share-but" bindtap="showModal" data-target="question">再减100元</button>
+        </view>
+      </view>
+      <view class="modal-but" wx:else>
         <view class="but-item">
           <button class="turn-but" bindtap="toMyCoupon">查看拼团券</button>
         </view>
@@ -200,8 +208,8 @@
           <button class="turn-but" bindtap="toMyCoupon">去使用</button>
         </view>
         <view class="but-item">
-          <!-- <button class="share-but" style="font-size: 24rpx;" bindtap="toReserveStore">查看可用门店</button> -->
-          <button class="share-but" bindtap="showModal" data-target="question">再减100元</button>
+          <button class="share-but" bindtap="showModal" data-target="question" wx:if="{{prize}}">再减100元</button>
+          <button class="share-but" style="font-size: 24rpx;" bindtap="toReserveStore" wx:else>查看可用门店</button> 
         </view>
       </view>
     </view>
@@ -228,7 +236,7 @@
         </view>
       </view>
       <view class="modal-questionBut">
-        <button>立即领取</button>
+        <button bindtap="getCoupon">立即领取</button>
       </view>
     </view>
   </view>
