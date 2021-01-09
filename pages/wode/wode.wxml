@@ -124,9 +124,10 @@
         <view class="icon-item">
           <text class="iconfont iconGroup-"></text>
         </view>
-        <view class="menu-tagItem">消息中心</view>
+        <view class="menu-tagItem">我的消息</view>
       </view>
       <view class="menu-rightItem">
+        <view class="small-item">99+</view>
         <text class="iconfont iconweibiaoti34"></text>
       </view>
     </view>
