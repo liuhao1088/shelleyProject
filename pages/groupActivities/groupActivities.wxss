@@ -28,6 +28,7 @@ button::after{
 .wrap {
   width: 100%;
   border-radius: 20rpx;
+  font-size: 28rpx;
   background-color: #fff;
   margin-top: 20rpx;
   padding-bottom: 30rpx;
@@ -44,9 +45,9 @@ button::after{
 
 .wrap-title {
   height: 100%;
-  width: 280rpx;
+  width: 200rpx;
   color: rgba(16, 16, 16, 100);
-  font-size: 28rpx;
+  font-size: 32rpx;
   padding-left: 30rpx;
   border: 0rpx solid red;
 
@@ -57,7 +58,6 @@ button::after{
   border: 0rpx solid red;
   padding-left: 50rpx;
   color: rgba(125, 125, 125, 100);
-  font-size: 22rpx;
 }
 
 .wrap-input input {
@@ -66,9 +66,9 @@ button::after{
   
 }
 
-.placeholder {
+/* .placeholder {
   font-size: 22rpx;
-}
+} */
 
 .wrap-dateItem {
   width: 100%;
@@ -84,7 +84,6 @@ button::after{
   height: 100%;
   border: 0rpx solid red;
   display: flex;
-  font-size: 22rpx;
 }
 
 .text-item {
@@ -185,6 +184,7 @@ button::after{
 .preview-item image{
   height: 100%;
   width: 100%;
+  border-radius: 20rpx;
   vertical-align: middle;
 }
 /* 

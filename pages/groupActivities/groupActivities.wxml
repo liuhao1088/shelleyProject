@@ -12,7 +12,7 @@
     <view class="wrap-date">
       <view class="wrap-dateItem">
         <view class="wrap-title">
-          活动开始时间
+          开始时间
         </view>
         <view class="wrap-input">
           <rui-picker slot="flexchild" start="{{startTime}}" end="2999-12-31 00:00" value="{{startTime}}"
@@ -22,7 +22,7 @@
 
       <view class="wrap-dateItem">
         <view class="wrap-title">
-          活动截止时间
+          截止时间
         </view>
         <view class="wrap-input">
           <rui-picker slot="flexchild" start="{{endTime}}" end="2999-12-31 00:00" value="{{endTime}}" fields="minute"
@@ -95,8 +95,10 @@
 
   <!-- 活动预览 -->
   <view class="title">活动预览</view>
-  <view class="wrap" style="padding: 40rpx 0;">
-    <view class="preview-item"></view>
+  <view class="wrap">
+    <view class="preview-item">
+      <image mode="widthFix" src="https://img14.360buyimg.com/ddimg/jfs/t1/170936/16/1770/244406/5ff908deEdcbf84fa/8ea171c72c03297a.png"></image>
+    </view>
     <!-- <view class="preview-wrapTitle">拼团特惠</view>
 
     <view class="preview-wrapTitle" style="font-size: 24rpx;margin-top: 20rpx;">
