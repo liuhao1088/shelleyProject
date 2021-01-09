@@ -3,7 +3,7 @@
     <view class="type-item column justify-center align-center {{item.checked?'line-red':''}}" wx:for="{{typeList}}" wx:key="id"  data-index="{{index}}" bindtap="chooseCheckbox">
       <view class="type-mainItem">
         <view class="icon-item">
-          <text class="iconfont {{item.icon}}"></text>
+          <text class="iconfont {{item.icon}}" style="font-size: 44rpx;"></text>
         </view>
         <view class="type-name">{{item.name}}</view>
       </view>

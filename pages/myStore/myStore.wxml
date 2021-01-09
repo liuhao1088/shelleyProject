@@ -7,7 +7,7 @@
     <view class="wrapper-menu">
       <view class="topbar-item" bindtap="toStoreInformation">
         <view class="topbar-icon">
-          <text class="iconfont iconstore2 icon"></text>
+          <text class="iconfont iconstore-fill icon"></text>
         </view>
         <view class="topbar-guild">
           <view class="topbar-title">门店管理</view>

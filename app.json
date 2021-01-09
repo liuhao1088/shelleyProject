@@ -2,6 +2,7 @@
   "pages":[
     "pages/index/index",
     "pages/wode/wode",
+   
     "pages/activitySelect/activitySelect",
     "pages/carAppointment/carAppointment",
     "pages/groupSpecial/groupSpecial",

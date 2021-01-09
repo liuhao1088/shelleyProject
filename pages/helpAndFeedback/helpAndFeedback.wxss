@@ -21,7 +21,7 @@
   width: 30%;
   border-radius: 20rpx;
   background-color: rgba(0, 0, 0, 0.05);
-  color: rgba(16, 16, 16, 0.6); 
+  color: rgba(16, 16, 16, 0.6);
   border: 0rpx solid black;
 }
 
@@ -33,6 +33,8 @@
 
 .icon-item {
   width: 100%;
+  height: 50rpx;
+  line-height: 60rpx;
 }
 
 .type-name {
@@ -49,8 +51,8 @@
   font-size: 40rpx;
 }
 
-.line-red{
-   border: 2rpx solid #f92643; 
+.line-red {
+  border: 2rpx solid #f92643;
   color: #f92643;
 }
 

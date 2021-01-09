@@ -95,9 +95,9 @@
 
   <!-- 活动预览 -->
   <view class="title">活动预览</view>
-  <view class="wrap"
-    style="display: flex;justify-content: space-around;flex-direction: column;align-items: center;    padding: 40rpx 0;">
-    <view class="preview-wrapTitle">拼团特惠</view>
+  <view class="wrap" style="padding: 40rpx 0;">
+    <view class="preview-item"></view>
+    <!-- <view class="preview-wrapTitle">拼团特惠</view>
 
     <view class="preview-wrapTitle" style="font-size: 24rpx;margin-top: 20rpx;">
       <text>活动开始倒计时</text>：
@@ -152,7 +152,7 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
   </view>
 </view>
 <view class="but-item" bindtap="submit_form">
