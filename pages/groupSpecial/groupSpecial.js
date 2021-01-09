@@ -665,7 +665,7 @@ Page({
       }
       return {
         title: "【仅剩1个名额】我领了100元拼团券，快来助我成团激活~", //分享标题
-        imageUrl: 'https://img13.360buyimg.com/ddimg/jfs/t1/160040/27/61/289416/5fe99874E75804776/891b1b08109afc6d.png', //图片路径
+        imageUrl: 'https://img10.360buyimg.com/ddimg/jfs/t1/148055/20/20623/109199/5fe94a22E2aeac6fb/f5ba90fc9d52fc06.png', //图片路径
         path: 'pages/groupSpecial/groupSpecial?act_id=' + that.data.data._id + '&cou_code=' + code + '&end_timestamp=' + that.data.data.end_timestamp
       }
     } else {

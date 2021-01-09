@@ -1,9 +1,10 @@
 {
   "pages":[
-    "pages/wode/wode",
-    "pages/messageCenter/messageCenter",
-    "pages/addStoreInformation/addStoreInformation",
     "pages/index/index",
+    "pages/messageCenter/messageCenter",
+   
+    "pages/wode/wode",
+    "pages/addStoreInformation/addStoreInformation",
     "pages/commonProblem/commonProblem",
     "pages/home/home",
     "pages/activitySelect/activitySelect",

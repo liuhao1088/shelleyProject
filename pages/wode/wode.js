@@ -33,6 +33,11 @@ Page({
       url: '/pages/allStore/allStore',
     })
   },
+  toActivityDetails(){
+    wx.navigateTo({
+      url: '/pages/activityDetails/activityDetails',
+    })
+  },
   toHelpAndFeedback(){
     wx.navigateTo({
       url: '/pages/helpAndFeedback/helpAndFeedback',

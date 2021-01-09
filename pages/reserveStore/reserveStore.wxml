@@ -22,7 +22,6 @@
     <view class="title-tagItem">附近门店</view>
   </view>
 
-
   <view class="store-mainItem">
     <view class="store-boxItem"  wx:for="{{list}}" wx:key="id"  data-index="{{index}}"  bindtap="toStoreAppointment" style="background: url({{item.bg}}) no-repeat;background-size: 100% 100%;">
       <view class="store-wrapItem">
@@ -40,53 +39,11 @@
       </view>
     </view>
   </view>
-
   <view style="height:100px;"></view>
-
-<!--<view class="reserveStoreContainer" wx:if="{{complete}}">
-  <view class="wrapper">
-    <view class="search">
-      <text class="iconfont icondingwei"></text>
-      <input type="text" value="{{address}}" bindtap="chooseLocation" placeholder="请选择地址" style="position:relative;right:30rpx;" />
-    </view>
-    <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHev}}px;" class="list"
-    bindscrolltolower="bindDownLoad">
-    <view class="wrap" wx:for="{{list}}" wx:key="id"  data-index="{{index}}"  bindtap="toStoreAppointment">
-      <view class="wrap-item">
-        <view class="wrap-img">
-          <image src="{{item.shop_img}}" style="border-radius: 10rpx;"></image>
-          <view wx:if="{{item.gift}}" class="wrap-tag">预约好礼</view>
-        </view>
-        <view class="wrap-titleItem">
-          <view class="wrap-title">
-            <view class="title">{{item.shop_name}}</view>
-            <view class="cu-tag" style="height: 100%;float: right;background-color: #5B62D9;color: #fff;border-radius: 10rpx;font-size: 18rpx;">认证门店</view>
-          </view>
-          <view class="wrap-address">{{item.address_name}}
-          </view>
-          <view class="wrap-address">{{item.address}}</view>
-        </view>
-      </view>
-    </view>
-    </scroll-view>
-  </view> -->
-  
-
 </view>
-
-
-<!-- <view class="tag-store" bindtap="toAddStoreInformation" wx:if="{{complete}}">
-
-  <view class="store">
-     <text class="iconfont iconzu165"></text>
-  </view>
-  <view class="tag-title">门店认证</view>
-</view> -->
 
 <!-- 导航栏 -->
 <tabbar tabbar="{{tabbar}}"></tabbar>
-
-
 <view class='load-progress {{loadProgress!=0?"show":"hide"}}' style="top:{{CustomBar}}px;z-index:1000;">
   <view class='load-progress-bar bg-green' style="transform: translate3d(-{{100-loadProgress}}%, 0px, 0px);height:8rpx;background-color:#07BE02;"></view>
   <view class='load-progress-spinner text-green' style="color:#07BE02;"></view>

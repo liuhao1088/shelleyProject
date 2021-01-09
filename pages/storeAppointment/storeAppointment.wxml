@@ -28,7 +28,7 @@
       </view>
       <view class="wrap-tag" bindtap="callphone">
         <view class="title-itme" style="text-align: center;">
-          <text class="iconfont icondianhua1"></text>
+          <text class="iconfont icondianhua1" style="font-size: 40rpx;"></text>
         </view>
         <view class="wrap-date" style="text-align: center;opacity: 1;">电话</view>
         <view class="tag-border"></view>

@@ -92,14 +92,6 @@
         <view class="text-item" bindtap="callphone">400-9988-078 <text class="iconfont icondianhua"></text></view>
       </view>
     </view>
-
-    <!-- <view class="textItem align-center justify-center" bindtap="callmobile" style="padding-bottom: 14rpx;">
-      全国招商热线：186 6587 7758 <text class="iconfont icondianhua"></text>
-
-    </view>
-    <view class="textItem align-center justify-center" bindtap="callphone">客户服务：400-9988-078 <text
-        class="iconfont icondianhua"></text>
-    </view> -->
   </view>
 </view>
 <!-- 流程 -->

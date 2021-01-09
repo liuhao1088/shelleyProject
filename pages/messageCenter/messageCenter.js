@@ -7,14 +7,13 @@ Page({
   data: {
     ListTouchStart:0,
     ListTouchDirection:'',
-    modalName:''
+    modalName:'',
   },
   // ListTouch触摸开始
   ListTouchStart(e) {
     this.setData({
       ListTouchStart: e.touches[0].pageX
     })
-    console.log(this.data.ListTouchStart)
   },
 
   // ListTouch计算方向
@@ -39,8 +38,54 @@ Page({
     this.setData({
       ListTouchDirection: null
     })
-    console.log(this.data.ListTouchDirection + this.data.modalName)
   },
+
+  showModal(e) {
+    this.setData({
+      name: e.currentTarget.dataset.name
+    })
+  },
+  hideModal(e) {
+    this.setData({
+      name: null,
+    })
+  },
+
+  copyBtn(e){
+    var that = this;
+    var target = e.currentTarget.dataset.target;
+    if(target === 'video'){
+      that.copy("1111");
+    }else{
+      that.copy("222");
+    }
+  },
+  // 复制
+  copy(date){
+    wx.setClipboardData({
+      data:date,//一定要字符串
+      success: function (res) {
+        wx.getClipboardData({
+          success: function (res) {
+            console.log(res.data)
+          }
+        })
+      }
+    })
+  },
+
+  callPhone(){
+    wx.makePhoneCall({
+      phoneNumber: '4009988078',
+    })
+  },
+  addressBtn(){
+    wx.openLocation({
+      latitude: 43.86,
+      longitude: 10.40,
+    })
+  },
+  
 
   /**
    * 生命周期函数--监听页面加载

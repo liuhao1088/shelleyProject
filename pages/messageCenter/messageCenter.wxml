@@ -6,7 +6,8 @@
   <view class="cu-list menu-avatar">
     <!-- 未读 -->
     <view class="cu-item {{modalName=='move-box-'+ 0?'move-cur':''}}" bindtouchstart="ListTouchStart"
-      bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-0">
+      bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" bindtap="showModal" data-target="move-box-0"
+      data-name="Modal">
       <view class="message-wrap">
         <view class="title-item">
           <view class="title">门店预约成功</view>
@@ -39,4 +40,38 @@
     </view>
   </view>
 
+</view>
+
+<view class="cu-modal {{name=='Modal'?'show':''}}" catchtouchmove="ture">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content" style="font-weight: bold;">直播预约成功</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close" style="color:#f92643;"></text>
+      </view>
+    </view>
+    <!-- 直播预约成功 -->
+    <!-- <view class="wrapper-process">
+      <view class="wrap-process">您已经成功预约 1月24日16:00 的直播《手把手教你营销，只需这几步打造网红店铺》</view>
+      <view class="cu-imgItem"></view>
+      <view class="wrap-process">直播间地址：</view>
+      <view class="wrap-process">视频号：123123 <text class="iconfont iconfuzhi" bindtap="copyBtn" data-target="video"></text></view>
+      <view class="wrap-process">抖音号：456456 <text class="iconfont iconfuzhi" bindtap="copyBtn" data-target="douyin"></text></view>
+    </view> -->
+    <!--认证成功  -->
+    <!-- <view class="wrapper-process">
+      <view class="wrap-process">您的门店： AAAA宝安店 已认证成功，欢迎入驻雪莱特智能LED车灯官方小程序！</view>
+      <view class="wrap-process">门店码：001</view>
+    </view> -->
+
+    <!-- 门店预约 -->
+    <view class="wrapper-process">
+      <view class="wrap-process">您已经成功预约 1月24日16:00 在 AAAA宝安店 的 产品：如影系列-R1 、如影系列-R2体验服务。</view>
+      <view class="wrap-process">地址：</view>
+      <view class="wrap-process"> 广东省深圳市宝安区西乡街道25号<text class="iconfont icondaohang" bindtap="addressBtn"></text></view>
+      <view class="wrap-process">电话：12312345678<text class="iconfont icondianhua" bindtap="callPhone"></text>
+      </view>
+
+    </view>
+  </view>
 </view>

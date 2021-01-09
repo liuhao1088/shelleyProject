@@ -94,7 +94,7 @@
       </view>
     </view>
 
-    <view class="main-item column justify-center align-center" bindtap="toMyStore"
+    <view class="main-item column justify-center align-center" bindtap="toActivityDetails"
       wx:if="{{userInfo.type === 'brand'}}">
       <view class="quan-item"></view>
       <view class="main-wrapItem">
@@ -143,18 +143,6 @@
         <text class="iconfont iconweibiaoti34"></text>
       </view>
     </button>
-     <!-- 使用手册 -->
-     <view class="menu-item">
-      <view class="menu-leftItem">
-        <view class="icon-item">
-          <text class="iconfont iconwp-sj-2"></text>
-        </view>
-        <view class="menu-tagItem">使用手册</view>
-      </view>
-      <view class="menu-rightItem">
-        <text class="iconfont iconweibiaoti34"></text>
-      </view>
-    </view>
      <!-- 常见问题 -->
      <view class="menu-item" bindtap="toCommonProblem">
       <view class="menu-leftItem">
