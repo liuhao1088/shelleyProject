@@ -129,7 +129,8 @@ image {
 }
 
 .coupon-address {
-  height: 100%;
+  height: 75%;
+  line-height: 40rpx;
   color: rgb(128, 118, 118);
   font-size: 20rpx;
   padding: 0 10rpx;
@@ -146,6 +147,7 @@ image {
 .coupon-main {
   flex: 1;
   border: 0rpx solid black;
+  color: rgb(128, 118, 118);
 }
 
 .coupon-wrap {
@@ -216,7 +218,7 @@ image {
   height: 100%;
   line-height: 50rpx;
   white-space: pre-wrap;
-  color: rgb(194, 194, 194);
+  color: rgb(128, 118, 118);
   font-size: 20rpx;
 }
 

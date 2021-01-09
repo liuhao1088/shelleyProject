@@ -15,24 +15,6 @@ Page({
       'https://img10.360buyimg.com/ddimg/jfs/t1/153564/6/6918/31485/5fbb2566Ef69e10fb/37895c04bd3f96b7.png',
       'https://img12.360buyimg.com/ddimg/jfs/t1/121051/8/19558/32587/5fbb2550Ea70b561f/ed4f4616ae1b543b.png'
     ],
-    checkbox: [{
-      id: 0,
-      name: '行车记录仪',
-      checked: false,
-    }, {
-      id: 1,
-      name: '专车专用记录仪',
-      checked: false,
-    }, {
-      id: 2,
-      name: '智能车机',
-      checked: false,
-    }, {
-      id: 3,
-      name: '隐形车衣',
-      checked: false,
-    }],
-    modalName: null,
     tabbar: {},
   },
   toVideo() {
@@ -74,75 +56,8 @@ Page({
         url: '/pages/sThree/sThree',
       })
     }
-
   },
 
-  toMyCoupon(event) {
-    wx.navigateTo({
-      url: '/pages/myCoupon/myCoupon',
-    })
-  },
-
-  toReserveStore(event) {
-    wx.navigateTo({
-      url: '/pages/reserveStore/reserveStore',
-    })
-  },
-
-  toMyStore(event) {
-    wx.navigateTo({
-      url: '/pages/myStore/myStore',
-    })
-  },
-
-  toCarAppointment(event) {
-    wx.navigateTo({
-      url: '/pages/carAppointment/carAppointment',
-    })
-
-  },
-
-  toAllStore(event) {
-    wx.navigateTo({
-      url: '/pages/allStore/allStore',
-    })
-  },
-
-  toActivityDetails(event) {
-    wx.navigateTo({
-      url: '/pages/activityDetails/activityDetails',
-    })
-  },
-
-  toGroupSpecial(event) {
-    wx.navigateTo({
-      url: '/pages/groupSpecial/groupSpecial',
-    })
-  },
-
-  hideModal(e) {
-    this.setData({
-      modalName: 1
-    })
-  },
-
-  // 多选
-  ChooseCheckbox(e) {
-    console.log(e)
-    let items = this.data.checkbox;
-    let id = e.currentTarget.id;
-    console.log(id)
-    for (let i = 0; i < items.length; ++i) {
-      if (items[i].id == id) {
-        console.log(items[i].id)
-        items[i].checked = !items[i].checked;
-        break
-      }
-    }
-    this.setData({
-      checkbox: items
-    })
-  },
 
   /**
    * 生命周期函数--监听页面加载

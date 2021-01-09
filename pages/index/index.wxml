@@ -1,12 +1,5 @@
 <authorize id="authorize" />
 <view class="activityPosterContainer" bindtap="togroupSpecial">
-  <!-- <movable-area class="content" style="width:{{area_width}}%">
-    <text style="opacity: 0.6;">{{tag}}</text>
-    <movable-view class='box' style='width:{{box_width}}rpx' friction="{{100}}" direction="horizontal" x="{{x}}"
-      damping="{{500}}" bindchange="drag" bindtouchend="dragOver" disabled='{{disabled}}'>
-      <view class='iconfont iconjindu icon-item'></view>
-    </movable-view>
-  </movable-area> -->
   <image  src="https://img12.360buyimg.com/ddimg/jfs/t1/152421/35/13454/294865/5ff52644E515853a0/c8ad3bd34ec8d98e.jpg"></image>
 </view>
 

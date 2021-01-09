@@ -128,7 +128,7 @@
     </view>
     <view class="padding-xl">
       <view class="icon-item">
-        <text class="iconfont iconCheck" style="font-size: 120rpx;background-color: rgb(229, 7, 34, 0.5);"></text>
+        <text class="iconfont iconCheck" style="font-size: 120rpx;"></text>
       </view>
       <view class="modal-item">仅剩<text
           style="color:red;">{{data.shopping[waresInd].people-1}}</text>个席位，{{data.shopping[waresInd].time}}分钟后结束，赶快邀请好友来拼团吧！~
