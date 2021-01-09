@@ -113,13 +113,7 @@ Page({
         })
       }
 
-    } else {
-      wx.showToast({
-        title: '暂无卡券',
-        icon: 'none',
-        duration: 10000000
-      })
-    }
+    } 
 
   },
   submit: function () {
@@ -277,15 +271,6 @@ Page({
           icon: 'none'
         })
       }
-      if(that.data.usable_list==0&&that.data.unusable_list.length==0){
-        that.loadProgress(100)
-        that.setData({complete:true})
-        wx.showToast({
-          title: '暂无卡券',
-          icon: 'none',
-          duration:100000000
-        })
-      }
       let stamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000;
       that.setData({
         stamp: stamp
@@ -330,6 +315,15 @@ Page({
             unusable_list:unusable
           })
         }
+      }
+      if(that.data.usable_list==0&&that.data.unusable_list.length==0){
+        that.loadProgress(100)
+        that.setData({complete:true})
+        wx.showToast({
+          title: '暂无卡券',
+          icon: 'none',
+          duration:100000000
+        })
       }
     })
 
