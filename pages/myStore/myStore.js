@@ -39,6 +39,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //动态显示标题
+    wx.setNavigationBarTitle({
+      title: "我的门店码：001"
+    })
     var that = this;
     if (!wx.getStorageSync('userInfo').shop) {
       userInfo = wx.getStorageSync('userInfo')
