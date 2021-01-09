@@ -36,7 +36,7 @@
       </view>
       <view class="wrap-textarea">
         <textarea maxlength="-1" disabled="{{modalName!=null}}" bindinput="inputContent" value="{{content}}"
-          placeholder="请输入内容，如：现在预约在活动期内到店即可领取奖品~"></textarea>
+          ></textarea>
       </view>
     </view>
 

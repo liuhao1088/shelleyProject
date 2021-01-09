@@ -417,8 +417,8 @@ button::after {
 
 .title-item {
   width: 100%;
-  line-height: 48rpx;
-  font-size: 30rpx;
+  line-height: 54rpx;
+  font-size: 44rpx;
 }
 
 .tag-item {
@@ -426,6 +426,7 @@ button::after {
   line-height: 40rpx;
   text-align: center;
   font-size: 24rpx;
+  margin-top: 10rpx;
 }
 
 .modal-img image {

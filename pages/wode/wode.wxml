@@ -143,6 +143,19 @@
         <text class="iconfont iconweibiaoti34"></text>
       </view>
     </button>
+     <!-- 更多好礼 -->
+     <view class="menu-item" bindtap="showModal" data-target="question">
+      <view class="menu-leftItem">
+        <view class="icon-item">
+          <text class="iconfont iconkaquan"></text>
+        </view>
+        <view class="menu-tagItem">更多好礼</view>
+      </view>
+      <view class="menu-rightItem">
+        <view class="small-item">New</view>
+        <text class="iconfont iconweibiaoti34"></text>
+      </view>
+    </view>
      <!-- 常见问题 -->
      <view class="menu-item" bindtap="toCommonProblem">
       <view class="menu-leftItem">
@@ -171,6 +184,32 @@
 
   </view>
 
+</view>
+
+<!-- 问答 -->
+<view class="cu-modal {{modalName=='question'?'show':''}}" catchtouchmove="ture">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content"></view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close" style="color: #f92643;"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="modal-img">
+        <view class="title-item">点击即领百元抵扣红包</view>
+        <view class="tag-item">您是否有安装以下汽车配件？</view>
+      </view>
+      <view class="modal-wrap">
+        <view class="modal-selectBut" wx:for="{{checkbox}}" wx:key="id">
+          <button class="{{item.checked?'red':''}}" bindtap="ChooseCheckbox" id="{{item.id}}">{{item.name}}</button>
+        </view>
+      </view>
+      <view class="modal-questionBut">
+        <button>立即领取</button>
+      </view>
+    </view>
+  </view>
 </view>
 
 <!-- 导航栏 -->

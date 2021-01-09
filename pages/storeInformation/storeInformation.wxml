@@ -36,7 +36,7 @@
       </view>
     </view>
 
-    <view class="wrap-tag" wx:if="{{shop.prove=='waiting'}}">信息审核中，预计在提交日后的3-5个工作日产生结果，请耐心等待~</view>
+    <view class="wrap-tag" wx:if="{{shop.prove=='waiting'}}">感谢关注，预计在2-3个工作日完成审核，请耐心等待！</view>
     <view class="wrap-tag" wx:if="{{shop.prove=='fail'}}">信息被驳回，请检查后重新提交，驳回理由：{{shop.reason}}</view>
     <view class="wrap-tag" wx:if="{{shop.prove=='success'}}">门店已认证成功</view>
   </view>

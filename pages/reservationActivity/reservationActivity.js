@@ -11,7 +11,7 @@ Page({
     startTime: '2021-01-10 12:00',
     endTime: '2021-01-10 12:00',
     title: '',
-    content: '',
+    content: '从X月X日起，凡在活动期间内提前预约XX（门店名字）汽车维修/前灯改装并准时到达的车主，50元XX超市水果购物卡、汽车清洗养护、夏季雨刮液2瓶、壳牌机油1瓶，四重豪礼任选其一！',
     transmit: '',
   },
   changeStartTime(e) {

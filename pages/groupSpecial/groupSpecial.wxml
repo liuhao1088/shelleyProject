@@ -219,7 +219,7 @@
     </view>
     <view class="padding-xl">
       <view class="modal-img">
-        <view class="title-item">选择回答立领100元现金抵扣红包</view>
+        <view class="title-item">点击即领百元抵扣红包</view>
         <view class="tag-item">您是否有安装以下汽车配件？</view>
       </view>
       <view class="modal-wrap">
@@ -228,7 +228,7 @@
         </view>
       </view>
       <view class="modal-questionBut">
-        <button>立即领取并使用</button>
+        <button>立即领取</button>
       </view>
     </view>
   </view>

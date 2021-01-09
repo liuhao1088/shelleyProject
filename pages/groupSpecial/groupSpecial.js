@@ -13,29 +13,41 @@ Page({
       checked: false,
     }, {
       id: 1,
-      name: '专车专用记录仪',
+      name: '隐形车衣',
       checked: false,
     }, {
       id: 2,
-      name: '智能车机',
+      name: '360全景',
       checked: false,
-    }, {
+    },
+    {
       id: 3,
-      name: '隐形车衣',
+      name: '导航车机',
       checked: false,
-    }],
+    },
+    {
+      id: 4,
+      name: '汽车音响',
+      checked: false,
+    },
+    {
+      id: 5,
+      name: '汽车美容',
+      checked: false,
+    }
+  ],
     nowDate: '2020-12-22 18:00:00', //结束时间
     countdown: '', //倒计时
     days: '00', //天
     hours: '00', //时
     minutes: '00', //分
     seconds: '01', //秒
-    data: '',//活动
-    avatarUrl: '',//头像
-    waresInd: 0,//商品index
+    data: '', //活动
+    avatarUrl: '', //头像
+    waresInd: 0, //商品index
     userInfo: '',
     userInd: 0,
-    cou_code: '',//分享的卡券
+    cou_code: '', //分享的卡券
     transfer: false,
     sponsor: '',
     surplustime: '',
@@ -61,7 +73,7 @@ Page({
       modalName: null
     })
   },
-  toCouponRules(){
+  toCouponRules() {
     wx.navigateTo({
       url: '/pages/couponRules/couponRules',
     })
@@ -103,9 +115,6 @@ Page({
     })
   },
 
-  goGroupSuccessModal(e) {
-
-  },
   // 多选
   ChooseCheckbox(e) {
     console.log(e)
@@ -172,7 +181,7 @@ Page({
         })
       } else {
         console.log(options)
-        if(options.cou_code!==''){
+        if (options.cou_code !== '') {
           //获取分享的卡券
           wx.cloud.callFunction({
             name: "getRecord",
@@ -282,7 +291,7 @@ Page({
         code += Math.floor(Math.random() * 10)
       }
     }
-    let info={
+    let info = {
       creation_date: util.formatTimes(new Date()),
       creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
       _openid: userInfo._openid,
@@ -335,14 +344,14 @@ Page({
       that.setData({
         userInfo: userInfo
       })
-      let cou = userInfo.coupon.filter(item =>item.act_id.indexOf(data._id) !== -1 && ((item.creation_timestamp + parseInt(item.shopping.time) * 60 > nowstamp && item.status == 'waiting') || item.status == 'success' || item.status == 'complete') )
+      let cou = userInfo.coupon.filter(item => item.act_id.indexOf(data._id) !== -1 && ((item.creation_timestamp + parseInt(item.shopping.time) * 60 > nowstamp && item.status == 'waiting') || item.status == 'success' || item.status == 'complete'))
       console.log(cou)
       for (let i in data.shopping) {
         for (let u in cou) {
           if (i == cou[u].shopping_ind) {
             data.shopping[i].status = true
-            if(cou[u].status=='waiting'){
-              data.shopping[i].parse=cou[u].cou_code
+            if (cou[u].status == 'waiting') {
+              data.shopping[i].parse = cou[u].cou_code
             }
             that.setData({
               data: data
@@ -532,11 +541,13 @@ Page({
               success(res) {
                 if (JSON.stringify(res).indexOf('accept') !== -1) {
                   that.increase('waiting', 'initiateGroup', ind, '', []);
-                  setTimeout(()=>{
-                    let data=that.data.data;
-                    data.shopping[ind].parse=that.data.cou_code;
-                    that.setData({data:data})
-                  },1500)
+                  setTimeout(() => {
+                    let data = that.data.data;
+                    data.shopping[ind].parse = that.data.cou_code;
+                    that.setData({
+                      data: data
+                    })
+                  }, 1500)
                 }
               }
             })
@@ -554,7 +565,7 @@ Page({
   },
   getIndex: function (e) {
     let ind = e.detail.current;
-    if(this.data.modalName==null){
+    if (this.data.modalName == null) {
       this.setData({
         userInd: ind
       })
@@ -659,20 +670,20 @@ Page({
     let userInfo = wx.getStorageSync('userInfo')
     if (res.from === 'button') {
       console.log(res.from)
-      let code=that.data.cou_code;
-      if(res.target.dataset.parse=='none'){
-        code=''
+      let code = that.data.cou_code;
+      if (res.target.dataset.parse == 'none') {
+        code = ''
       }
       return {
-        title: "【仅剩1个名额】我领了100元拼团券，快来助我成团激活~", //分享标题
+        title: "【江湖救急】100元只差一下，快来助我成团～", //分享标题
         imageUrl: 'https://img10.360buyimg.com/ddimg/jfs/t1/161933/35/1864/399101/5ff976a9E2ef3c806/6a292f33f47f61c4.png', //图片路径
         path: 'pages/groupSpecial/groupSpecial?act_id=' + that.data.data._id + '&cou_code=' + code + '&end_timestamp=' + that.data.data.end_timestamp
       }
     } else {
       return {
-        title: "雪莱特智能LED车灯", //标题
+        title: "大品牌，好未来！", //标题
         imageUrl: 'https://img10.360buyimg.com/ddimg/jfs/t1/148055/20/20623/109199/5fe94a22E2aeac6fb/f5ba90fc9d52fc06.png', //图片路径
-        path: '/page/groupSpecial/groupSpecial?act_id=' + that.data.data._id + '&cou_code='+'' + '&end_timestamp=' + that.data.data.end_timestamp
+        path: '/page/groupSpecial/groupSpecial?act_id=' + that.data.data._id + '&cou_code=' + '' + '&end_timestamp=' + that.data.data.end_timestamp
       }
     }
   }

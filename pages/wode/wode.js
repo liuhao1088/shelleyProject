@@ -6,62 +6,147 @@ Page({
    */
   data: {
     tabbar: {},
-    userInfo:{type:'driver',nickName:'用户名',avatarUrl:''}
+    userInfo: {
+      type: 'driver',
+      nickName: '用户名',
+      avatarUrl: ''
+    },
+    checkbox: [{
+        id: 0,
+        name: '行车记录仪',
+        checked: false,
+      }, {
+        id: 1,
+        name: '隐形车衣',
+        checked: false,
+      }, {
+        id: 2,
+        name: '360全景',
+        checked: false,
+      },
+      {
+        id: 3,
+        name: '导航车机',
+        checked: false,
+      },
+      {
+        id: 4,
+        name: '汽车音响',
+        checked: false,
+      },
+      {
+        id: 5,
+        name: '汽车美容',
+        checked: false,
+      }
+    ],
   },
-  toMyCoupon(){
+  toMyCoupon() {
     wx.navigateTo({
       url: '/pages/myCoupon/myCoupon',
     })
   },
-  toAddStoreInformation(){
+  toAddStoreInformation() {
     wx.navigateTo({
       url: '/pages/addStoreInformation/addStoreInformation',
     })
   },
-  toCarAppointment(){
+  toCarAppointment() {
     wx.navigateTo({
       url: '/pages/carAppointment/carAppointment',
     })
   },
-  toMyStore(){
+  toMyStore() {
     wx.navigateTo({
       url: '/pages/myStore/myStore',
     })
   },
-  toAllstore(){
+  toAllstore() {
     wx.navigateTo({
       url: '/pages/allStore/allStore',
     })
   },
-  toActivityDetails(){
+  toActivityDetails() {
     wx.navigateTo({
       url: '/pages/activityDetails/activityDetails',
     })
   },
-  toHelpAndFeedback(){
+  toHelpAndFeedback() {
     wx.navigateTo({
       url: '/pages/helpAndFeedback/helpAndFeedback',
     })
   },
-  toCommonProblem(){
+  toCommonProblem() {
     wx.navigateTo({
       url: '/pages/commonProblem/commonProblem',
     })
   },
 
-  toMessageCenter(){
+  toMessageCenter() {
     wx.navigateTo({
       url: '/pages/messageCenter/messageCenter',
     })
   },
+
+    //弹窗
+    showModal(e) {
+      let that = this;
+      let target = e.currentTarget.dataset.target;
+      let ind = e.currentTarget.dataset.index;
+      that.setData({
+        waresInd: ind
+      })
+      console.log(that.data.waresInd)
+      if (target === 'goGroupSuccess') {
+        wx.showLoading({
+          title: '加载中...',
+        })
+        setTimeout(function () {
+          that.setData({
+            modalName: target
+          })
+          wx.hideLoading({
+            success: (res) => {},
+          })
+        }, 1000)
+  
+      } else {
+        that.setData({
+          modalName: target
+        })
+      }
+    },
+    hideModal(e) {
+      this.setData({
+        modalName: null,
+        transfer: false
+      })
+    },
+  
+    // 多选
+    ChooseCheckbox(e) {
+      let items = this.data.checkbox;
+      let id = e.currentTarget.id;
+      console.log(id)
+      for (let i = 0; i < items.length; ++i) {
+        if (items[i].id == id) {
+          console.log(items[i].id)
+          items[i].checked = !items[i].checked;
+          break
+        }
+      }
+      this.setData({
+        checkbox: items
+      })
+    },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     app.editTabbar();
-    if(wx.getStorageSync('userInfo')){
-      let userInfo =  wx.getStorageSync('userInfo');
+    if (wx.getStorageSync('userInfo')) {
+      let userInfo = wx.getStorageSync('userInfo');
       this.setData({
         userInfo
       })
@@ -118,13 +203,13 @@ Page({
     if (res.from === 'button') {
       console.log(res.from)
       return {
-        title: "雪莱特智能LED车灯", //分享标题
+        title: "大品牌，好未来！", //分享标题
         imageUrl: 'https://img10.360buyimg.com/ddimg/jfs/t1/148055/20/20623/109199/5fe94a22E2aeac6fb/f5ba90fc9d52fc06.png', //图片路径
         path: 'pages/index/index'
       }
     } else {
       return {
-        title: "雪莱特智能LED车灯", //标题
+        title: "大品牌，好未来！", //标题
         imageUrl: 'https://img10.360buyimg.com/ddimg/jfs/t1/148055/20/20623/109199/5fe94a22E2aeac6fb/f5ba90fc9d52fc06.png', //图片路径
         path: '/page/index/index'
       }
