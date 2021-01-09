@@ -44,6 +44,12 @@ Page({
     })
   },
 
+  toMessageCenter(){
+    wx.navigateTo({
+      url: '/pages/messageCenter/messageCenter',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

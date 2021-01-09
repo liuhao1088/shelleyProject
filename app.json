@@ -1,5 +1,8 @@
 {
   "pages":[
+    "pages/messageCenter/messageCenter",
+    "pages/addStoreInformation/addStoreInformation",
+    
     "pages/wode/wode",
     "pages/commonProblem/commonProblem",
     "pages/home/home",
@@ -9,7 +12,7 @@
     "pages/groupSpecial/groupSpecial",
     "pages/myCoupon/myCoupon",
     "pages/helpAndFeedback/helpAndFeedback",
-    "pages/addStoreInformation/addStoreInformation",
+    
     "pages/reserveStore/reserveStore",
     "pages/text/text",
     "pages/brandDetails/brandDetails",

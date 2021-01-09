@@ -1,5 +1,7 @@
 <view class="storeInformationContainer">
-  <view class="header"></view>
+  <view class="header">
+    <image mode="widthFix" src="https://img11.360buyimg.com/ddimg/jfs/t1/151048/34/15022/117437/5ff91f4bE355fc266/7ae4d5d274aa0891.jpg"></image>
+  </view>
   <view class="wrapper">
     <view class="titleItem">{{transmit==''?'请输入以下信息，之后会有我们的工作人员联系您。':'请输入信息完成修改。'}}</view>
     <!-- 门店名称 -->

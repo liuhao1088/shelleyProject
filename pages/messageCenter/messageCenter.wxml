@@ -1,0 +1,42 @@
+<view class="messageCenterContainer column justify-center align-center">
+  <view class="clear-item">
+    <view class="clear-main"><text class="iconfont iconrubber"></text> 全部已读</view>
+  </view>
+
+  <view class="cu-list menu-avatar">
+    <!-- 未读 -->
+    <view class="cu-item {{modalName=='move-box-'+ 0?'move-cur':''}}" bindtouchstart="ListTouchStart"
+      bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-0">
+      <view class="message-wrap">
+        <view class="title-item">
+          <view class="title">门店预约成功</view>
+          <view class="date-item">2020-10-10 12:00</view>
+        </view>
+        <view class="mag-item">您已在 AAAA宝安店 预约了 1月24日16:00 的 如影系列-R1 产品体验上的飞机撒撒旦飞洒就地方地方撒地方 东方科技撒酒疯士大夫撒扩大发</view>
+      </view>
+
+      <view class="move">
+        <view class="bg-grey">提醒</view>
+        <view class="bg-red">删除</view>
+      </view>
+    </view>
+
+    <!-- 已读 -->
+    <view class="cu-item {{modalName=='move-box-'+ 1?'move-cur':''}}" bindtouchstart="ListTouchStart"
+      bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-1">
+      <view class="message-wrap" style="color: rgba(16, 16, 16, 0.5);">
+        <view class="title-item">
+          <view class="title">门店预约成功</view>
+          <view class="date-item">2020-10-10 12:00</view>
+        </view>
+        <view class="mag-item">您已在 AAAA宝安店 预约了 1月24日16:00 的 如影系列-R1 产品体验上的飞机撒撒旦飞洒就地方地方撒地方 东方科技撒酒疯士大夫撒扩大发</view>
+      </view>
+
+      <view class="move">
+        <view class="bg-grey">提醒</view>
+        <view class="bg-red">删除</view>
+      </view>
+    </view>
+  </view>
+
+</view>

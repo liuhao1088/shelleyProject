@@ -119,7 +119,7 @@
 
   <view class="menu-wrap">
     <!-- 消息中心 -->
-    <view class="menu-item">
+    <view class="menu-item" bindtap="toMessageCenter">
       <view class="menu-leftItem">
         <view class="icon-item">
           <text class="iconfont iconGroup-"></text>
