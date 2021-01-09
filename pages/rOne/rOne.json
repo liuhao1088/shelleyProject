@@ -1,4 +1,5 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "R1"
+  "navigationStyle": "custom"
+
 }
