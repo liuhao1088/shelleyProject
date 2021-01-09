@@ -6,12 +6,12 @@
       </view>
     </view>
     <view class="cu-avatar radius"
-      style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+      style="background-image:url({{userUrl}});"></view>
   </view>
 
   <view class="cu-item">
     <view class="cu-avatar radius"
-      style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big143004.jpg);"></view>
+      style="background-image:url({{shelleyUrl}});"></view>
     <view class="main">
       <view class="content shadow">
         <text>操作步骤：
@@ -28,12 +28,12 @@
       </view>
     </view>
     <view class="cu-avatar radius"
-      style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+      style="background-image:url({{userUrl}});"></view>
   </view>
 
   <view class="cu-item">
     <view class="cu-avatar radius"
-      style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big143004.jpg);"></view>
+      style="background-image:url({{shelleyUrl}});"></view>
     <view class="main">
       <view class="content shadow">
         <text>拼团优惠券是【雪莱特智能LED车灯】小程序特有的优惠券，通过参与拼团活动获取，拼团成功后即可激活使用。
@@ -51,12 +51,12 @@
       </view>
     </view>
     <view class="cu-avatar radius"
-      style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+      style="background-image:url({{userUrl}});"></view>
   </view>
 
   <view class="cu-item">
     <view class="cu-avatar radius"
-      style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big143004.jpg);"></view>
+      style="background-image:url({{shelleyUrl}});"></view>
     <view class="main">
       <view class="content shadow">
         <text>同类型优惠券单个商品订单不能叠加使用。而对于可叠加使用的优惠券，可选取其中一张进行使用，并在【核验门店码】的弹窗中勾选【合并使用】。
@@ -72,7 +72,7 @@
       </view>
     </view>
     <view class="cu-avatar radius"
-      style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+      style="background-image:url({{userUrl}});"></view>
   </view>
 
 </view>
