@@ -131,7 +131,6 @@
       </view>
     </view>
     <!-- 分享好友 -->
-   
     <button hover-class="none" class="menu-item" open-type="share">
       <view class="menu-leftItem">
         <view class="icon-item">
@@ -156,7 +155,7 @@
       </view>
     </view>
      <!-- 常见问题 -->
-     <view class="menu-item">
+     <view class="menu-item" bindtap="toCommonProblem">
       <view class="menu-leftItem">
         <view class="icon-item">
           <text class="iconfont iconwenti1"></text>

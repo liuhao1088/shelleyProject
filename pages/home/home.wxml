@@ -1,15 +1,11 @@
-<authorize id="authorize" />
-<view class="container" bindlongpress="toManage" style="padding-bottom: 120rpx;background-color: #101721;">
+<view class="container" bindlongpress="toManage" style="padding-bottom: 120rpx;">
   <view class="swiper-wrapper">
     <view class="header">
       <view class="header-img">
-        <image
-          src="https://img14.360buyimg.com/ddimg/jfs/t1/148677/8/19473/316293/5fe2e232Ebe88b5dd/94894283bedee809.png">
+        <image mode="widthFix"
+          src="https://img11.360buyimg.com/ddimg/jfs/t1/159814/26/2432/218621/5ff90ff5E6fa81915/760fc9a612d288f5.jpg">
         </image>
       </view>
-      <image mode="widthFix" style="width:90%;margin: auto;"
-        src="https://img11.360buyimg.com/ddimg/jfs/t1/160234/10/1810/111986/5ff52360E09cc8a0e/bce92d404a39eb96.png">
-      </image>
     </view>
     <view class="wrap-productItem">
       <view class="product-imgItem">
@@ -26,41 +22,7 @@
     </view>
 
   </view>
-
 </view>
-
-<!-- <view class="cu-modal {{modalName==0?'show':''}}" catchtouchmove="ture" style="background: rgba(0, 0, 0, 0.3);">
-  <view class="cu-dialog">
-    <image 
-      src="https://img12.360buyimg.com/ddimg/jfs/t1/138733/28/20361/156371/5fe710f7Edabbaeb7/a0be7809e52ee7f9.png">
-    </image>
-    <view class="modal-wrap">
-      <view class="icon-item">
-          <text class="iconfont iconquxiao" bindtap="hideModal"></text>
-      </view>
-      <view class="main-item">
-        <view class="main-titleItem">
-          <view class="main-title">您是否有安装以下配件?</view>
-          <view class="main-tag">Install the following auto parts</view>
-        </view>
-
-        <view class="main-selectItem">
-          <view class="modal-selectBut" wx:for="{{checkbox}}" wx:key="id">
-            <button style="{{item.checked?'border: none;background-color: rgba(10, 75, 177, 1);':''}}" bindtap="ChooseCheckbox" id="{{item.id}}">{{item.name}}</button>
-          </view>
-        </view>
-
-        <view class="main-butItem">
-          <view class="but" bindtap="getCoupon">
-            <button>立即领取</button>
-          </view>
-        </view>
-
-      </view>
-      
-    </view>
-  </view>
-</view> -->
 
 <!-- 导航栏 -->
 <tabbar tabbar="{{tabbar}}"></tabbar>

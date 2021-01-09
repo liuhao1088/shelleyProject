@@ -38,6 +38,11 @@ Page({
       url: '/pages/helpAndFeedback/helpAndFeedback',
     })
   },
+  toCommonProblem(){
+    wx.navigateTo({
+      url: '/pages/commonProblem/commonProblem',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载

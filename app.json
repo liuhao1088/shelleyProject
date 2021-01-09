@@ -1,9 +1,10 @@
 {
   "pages":[
+    "pages/home/home",
+    "pages/commonProblem/commonProblem",
+    
     "pages/wode/wode",
     "pages/index/index",
-    
-   
     "pages/activitySelect/activitySelect",
     "pages/carAppointment/carAppointment",
     "pages/groupSpecial/groupSpecial",
@@ -11,7 +12,6 @@
     "pages/helpAndFeedback/helpAndFeedback",
     "pages/addStoreInformation/addStoreInformation",
     "pages/reserveStore/reserveStore",
-    "pages/home/home",
     "pages/text/text",
     "pages/brandDetails/brandDetails",
     "pages/storeAppointment/storeAppointment",
