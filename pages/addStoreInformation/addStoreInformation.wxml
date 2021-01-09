@@ -1,6 +1,8 @@
 <view class="storeInformationContainer">
   <view class="header">
-    <image mode="widthFix" src="https://img11.360buyimg.com/ddimg/jfs/t1/151048/34/15022/117437/5ff91f4bE355fc266/7ae4d5d274aa0891.jpg"></image>
+    <image mode="widthFix"
+      src="https://img11.360buyimg.com/ddimg/jfs/t1/151048/34/15022/117437/5ff91f4bE355fc266/7ae4d5d274aa0891.jpg">
+    </image>
   </view>
   <view class="wrapper">
     <view class="titleItem">{{transmit==''?'请输入以下信息，之后会有我们的工作人员联系您。':'请输入信息完成修改。'}}</view>
@@ -16,8 +18,8 @@
     <view class="box-wrapper">
       <view class="tag-wrapper">门店地址：</view>
       <view class="input-wrapper">
-        <input type="text" style="width:80%;z-index:100;" value="{{address_label}}" bindtap="chooseLocation" placeholder="请输入门店地址"
-          placeholder-class="placeholder" />
+        <input type="text" style="width:80%;z-index:100;" value="{{address_label}}" bindtap="chooseLocation"
+          placeholder="请输入门店地址" placeholder-class="placeholder" />
       </view>
     </view>
     <!-- 联系人姓名： -->
@@ -75,21 +77,29 @@
 
     <view class="submit-wrapper">
       <button hover-class="but-hover" bindtap="submit">{{transmit==''?'提交':'保存'}}</button>
+      <view class="process" bindtap="showModal" data-target="Modal">认证流程</view>
     </view>
-    <view class="process" bindtap="showModal" data-target="Modal">点击查看认证流程</view>
     <view class="codeItem">
-      <view class="codeImg" bindtap='previewImg'>
-        <image mode="widthFix" src="{{codeUrl}}"></image>
+      <view class="codeImg-left" bindtap='previewImg'>
+        <view class="code-img">
+          <image wx:for="{{codeUrl}}" wx:key="id" src="{{item}}"></image>
+        </view>
+        <view class="msg-item">（点击扫码关注）</view>
+      </view>
+      <view class="codeImg-right">
+        <view class="text-item">全国招商热线：</view>
+        <view class="text-item" bindtap="callmobile">186 6587 7758 <text class="iconfont icondianhua"></text></view>
+        <view class="text-item" bindtap="callphone">400-9988-078 <text class="iconfont icondianhua"></text></view>
       </view>
     </view>
 
-    <view class="textItem align-center justify-center" bindtap="callmobile" style="padding-bottom: 14rpx;">
+    <!-- <view class="textItem align-center justify-center" bindtap="callmobile" style="padding-bottom: 14rpx;">
       全国招商热线：186 6587 7758 <text class="iconfont icondianhua"></text>
 
     </view>
     <view class="textItem align-center justify-center" bindtap="callphone">客户服务：400-9988-078 <text
         class="iconfont icondianhua"></text>
-    </view>
+    </view> -->
   </view>
 </view>
 <!-- 流程 -->
@@ -157,9 +167,10 @@
       </view>
     </view>
     <view class="padding-xl">
-      <button class='btn1 justify-center' wx:if="{{whetherEmpower=='yes'}}" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" lang="zh_CN" style="width:80%;">
-          <image class='btnImg' src='../../images/weixin.png'></image>
-          <view>微信授权手机号</view>
+      <button class='btn1 justify-center' wx:if="{{whetherEmpower=='yes'}}" open-type="getPhoneNumber"
+        bindgetphonenumber="getPhoneNumber" lang="zh_CN" style="width:80%;">
+        <image class='btnImg' src='../../images/weixin.png'></image>
+        <view>微信授权手机号</view>
       </button>
       <view style="color:gray;margin-top:10px;">或者</view>
       <view style="color:gray;margin-top:10px;" wx:if="{{whetherEmpower=='yes'}}" bindtap="changeInput">手动填写</view>

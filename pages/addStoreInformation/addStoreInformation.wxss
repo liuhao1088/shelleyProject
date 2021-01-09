@@ -1,7 +1,11 @@
-image{
+image {
   height: 100%;
   width: 100%;
   vertical-align: middle;
+}
+
+button::after {
+  border: 0;
 }
 
 .storeInformationContainer {
@@ -13,7 +17,6 @@ image{
 }
 
 .header {
-  height: 300rpx;
   width: 100%;
   background-color: #1B222E;
 }
@@ -36,8 +39,9 @@ image{
   font-size: 28rpx;
   background-color: #fff;
   border: 1px solid rgba(255, 255, 255, 100);
+  padding-bottom: 40rpx;
   position: relative;
-  top: -64rpx;
+  top: -40rpx;
 }
 
 .box-wrapper {
@@ -79,44 +83,67 @@ image{
   height: 60rpx;
   border: 0rpx solid red;
   margin: 64rpx 0 60rpx 0;
+  position: relative;
 }
 
-button {
+.submit-wrapper button {
   height: 60rpx;
   line-height: 60rpx;
   border-radius: 30px;
-  width: 50%;
+  width: 60%;
   margin: auto;
-  background-image: linear-gradient(133deg,#f92643 ,#e1001f,#ee0049);
+  background-image: linear-gradient(133deg, #f92643, #e1001f, #ee0049);
   color: rgb(255, 255, 255);
   font-size: 28rpx;
 }
 
 .process {
-  width: 100%;
   text-align: center;
   padding-bottom: 40rpx;
   opacity: 0.5;
   font-size: 24rpx;
+  position: absolute;
+  right: 20rpx;
+  top: 10rpx;
 }
 
-.textItem {
+.text-item {
   width: 100%;
   text-align: center;
-  padding-bottom: 40rpx;
+  padding-top: 15rpx;
 }
 
 .codeItem {
-  width: 100%;
+  width: 80%;
   border: 0rpx solid red;
-  padding-bottom: 30rpx;
+  margin: auto;
+  display: flex;
 }
 
-.codeItem .codeImg {
-  height: 100%;
-  width: 100rpx;
-  margin: auto;
+.codeImg-left {
+  width: 200rpx;
+  height: 240rpx;
   border: 0rpx solid red
+}
+
+.codeImg-right {
+  flex: 1;
+  border: 0rpx solid black;
+  font-size: 28rpx;
+}
+
+.code-img {
+  width: 100%;
+  height: 200rpx;
+  border: 0rpx solid black;
+}
+
+.msg-item {
+  width: 100%;
+  height: 40rpx;
+  line-height: 40rpx;
+  color: rgba(16, 16, 16, 0.5);
+  font-size: 24rpx;
 }
 
 .wrapper-imgItem {
@@ -132,7 +159,7 @@ button {
   position: relative;
 }
 
-.solids image{
+.solids image {
   height: 100%;
   width: 100%;
   vertical-align: middle;
@@ -142,7 +169,7 @@ button {
   background-color: transparent;
 }
 
-.bg-red{
+.bg-red {
   color: red;
   font-weight: bold;
 }
@@ -185,19 +212,24 @@ button {
   align-items: center;
   justify-content: center;
 }
+
 .btnImg {
   margin-right: 8rpx;
   width: 46rpx;
   height: 46rpx;
 }
+
 .btn1::after {
   border-radius: 98rpx;
-  border: 0; 
-}
-.btn-box{
-  position: absolute;bottom:50px;width:100%;
+  border: 0;
 }
 
-.padding-xl{
+.btn-box {
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+}
+
+.padding-xl {
   background-color: #fff;
 }

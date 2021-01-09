@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    codeUrl: 'https://ae04.alicdn.com/kf/H320184699f6b4b16a88969d4fa0a9a73G.jpg', //二维码
+    codeUrl: ['https://dingyue.ws.126.net/2021/0109/39e9d227p00qmnnfv000ac0002x002xm.png'], //二维码
     multiArray: [],
     multiIndex: [0, 23],
     shop_name: '',
@@ -27,9 +27,9 @@ Page({
   },
   //保存图片，扫码
   previewImg: function (e) {
-    console.log(e);
     wx.previewImage({
-      urls: this.data.codeUrl.split(',') //所有要预览的图片的地址集合 数组形式,使用split把字符串转数组
+        urls: this.data.codeUrl,
+        current: e.currentTarget.dataset.url
     })
   },
   callmobile: function () {
