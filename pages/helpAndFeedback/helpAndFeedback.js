@@ -1,16 +1,16 @@
 // pages/helpAndFeedback/helpAndFeedback.js
-var app=getApp()
-var util=require('../../utils/util')
-var index=5;
+var app = getApp()
+var util = require('../../utils/util')
+var index = 5;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    img: [],
-    content:'',
-    contact:'',
+    img: [], //图片
+    content: '', //反馈信息
+    contact: '', //联系方式
     typeList: [{
         id: 0,
         icon: 'icontousu',
@@ -95,57 +95,96 @@ Page({
       typeList
     })
   },
- 
-  inputContent:function(e){
-    this.setData({content:e.detail.value})
+
+  inputContent: function (e) {
+    this.setData({
+      content: e.detail.value
+    })
   },
-  inputContact:function(e){
-    this.setData({contact:e.detail.value})
+  inputContact: function (e) {
+    this.setData({
+      contact: e.detail.value
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
 
+
   },
 
-  async submit(){
-    var that=this;
-    if(that.data.content==''){
-      wx.showToast({
-        title: '反馈内容不能为空',
-        icon:'none',
-      })
-      return
+  async submit() {
+    var that = this;
+    let typeList = that.data.typeList;
+    let checked = [];
+    for (var i in typeList) {
+      checked.push(typeList[i].checked);
+      if (typeList[i].name === '其他反馈' && typeList[i].checked === true) {
+        if (that.data.img.length === 0) {
+          wx.showToast({
+            title: '请选择图片',
+            icon: 'none',
+          })
+          return;
+        }
+      }
     }
-    let fb_img=[];
+    console.log(checked);
+    let flag = checked.indexOf(true);
+    console.log(flag);
+    if (flag === -1) {
+      wx.showToast({
+        title: '请选择反馈类型',
+        icon: 'none',
+      })
+      return;
+    }
+
+    if (!this.data.content) {
+      wx.showToast({
+        title: '请填写反馈信息',
+        icon: 'none',
+      })
+      return;
+    }
+
+    if (!this.data.contact) {
+      wx.showToast({
+        title: '请填写联系方式',
+        icon: 'none',
+      })
+      return;
+    }
+
+    let fb_img = [];
     wx.showLoading({
       title: '提交中',
     })
-    if(that.data.img!=='') await util.uploadimg(0,that.data.img,'feedback',fb_img)
-    let data={
+    if (that.data.img !== '') await util.uploadimg(0, that.data.img, 'feedback', fb_img)
+    let data = {
       creation_date: util.formatTimes(new Date()),
       creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
-      _openid:app.globalData.openid,
-      fb_type:that.data.typeList[index].name,
-      fb_content:that.data.content,
-      fb_contact:that.data.contact,
-      fb_img:fb_img,
+      _openid: app.globalData.openid,
+      fb_type: that.data.typeList[index].name,
+      fb_content: that.data.content,
+      fb_contact: that.data.contact,
+      fb_img: fb_img,
     }
-    util.add('feedback',data).then(res=>{
+    util.add('feedback', data).then(res => {
       wx.hideLoading({
         success: (res) => {},
       })
       wx.showToast({
         title: '提交成功',
-        icon:'success',
-        duration:1500
+        icon: 'success',
+        duration: 1500
       })
-      setTimeout(()=>{
+      setTimeout(() => {
         wx.navigateBack({
           delta: 0,
         })
-      },1500)
+      }, 1500)
     })
   },
   /**
