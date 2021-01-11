@@ -1,17 +1,19 @@
 // pages/messageCenter/messageCenter.js
-var app=getApp()
-var util=require('../../utils/util')
+var app = getApp()
+var util = require('../../utils/util')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    ListTouchStart:0,
-    ListTouchDirection:'',
-    modalName:'',
-    list:[],
-    ind:0
+    ListTouchStart: 0,
+    ListTouchDirection: '',
+    modalName: '',
+    list: [],
+    ind: 0,
+    hiddenFlag:true,
+    display:'none'
   },
   // ListTouch触摸开始
   ListTouchStart(e) {
@@ -30,7 +32,7 @@ Page({
 
   // ListTouch计算滚动
   ListTouchEnd(e) {
-    if (this.data.ListTouchDirection =='left'){
+    if (this.data.ListTouchDirection == 'left') {
       this.setData({
         modalName: e.currentTarget.dataset.target
       })
@@ -45,19 +47,23 @@ Page({
   },
 
   showModal(e) {
-    var index=e.currentTarget.dataset.index;
+    var index = e.currentTarget.dataset.index;
     this.setData({
       name: e.currentTarget.dataset.name,
-      ind:index,
+      ind: index,
     })
-    let list=this.data.list;
-    switch(list[index].read){
+    let list = this.data.list;
+    switch (list[index].read) {
       case 'unread':
-        list[index].read='read';
+        list[index].read = 'read';
         this.setData({
-          list:list
+          list: list
         })
-        util.update('message',{_id:list[index]._id},{read:'read'})
+        util.update('message', {
+          _id: list[index]._id
+        }, {
+          read: 'read'
+        })
         break;
     }
   },
@@ -67,19 +73,19 @@ Page({
     })
   },
 
-  copyBtn(e){
+  copyBtn(e) {
     var that = this;
     var target = e.currentTarget.dataset.target;
-    if(target === 'video'){
+    if (target === 'video') {
       that.copy("1111");
-    }else{
+    } else {
       that.copy("222");
     }
   },
   // 复制
-  copy(date){
+  copy(date) {
     wx.setClipboardData({
-      data:date,//一定要字符串
+      data: date, //一定要字符串
       success: function (res) {
         wx.getClipboardData({
           success: function (res) {
@@ -90,39 +96,43 @@ Page({
     })
   },
 
-  callPhone(){
+  callPhone() {
     wx.makePhoneCall({
       phoneNumber: this.data.list[this.data.ind].shop[0].phone,
     })
   },
-  openLocation(){
+  openLocation() {
     wx.openLocation({
       latitude: this.data.list[this.data.ind].shop[0].lat,
       longitude: this.data.list[this.data.ind].shop[0].lon,
+      name:this.data.list[this.data.ind].shop[0].shop_name,
+      address:this.data.list[this.data.ind].shop[0].address
     })
   },
-  
-  delete:function(e){
-    var that=this;
-    var ind=e.currentTarget.dataset.index;
+
+  delete: function (e) {
+    var that = this;
+    var ind = e.currentTarget.dataset.index;
     wx.showModal({
-      title:'删除该消息',
-      success:function(res){
-        if(res.confirm){
+      title: '删除该消息',
+      success: function (res) {
+        if (res.confirm) {
           wx.setStorageSync('del', ind)
-          let list=that.data.list;
-          list.splice(ind,1)
-          that.setData({list:list})
-          let i=wx.getStorageSync('del')
+          let list = that.data.list;
+          list.splice(ind, 1)
+          that.setData({
+            list: list
+          })
+          let i = wx.getStorageSync('del')
           wx.cloud.callFunction({
-            name:'recordDelete',
-            data:{
-              collection:'message',
-              where:{
-                _id:list[i]._id
+            name: 'recordDelete',
+            data: {
+              collection: 'message',
+              where: {
+                _id: list[i]._id
               }
             }
-          }).then(res=>{
+          }).then(res => {
             wx.removeStorageSync('del')
           })
         }
@@ -134,8 +144,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that=this;
-    if(wx.getStorageSync('userInfo')){
+    var that = this;
+    if (wx.getStorageSync('userInfo')) {
       wx.showLoading({
         title: '加载中',
       })
@@ -144,7 +154,7 @@ Page({
         data: {
           collection: 'message',
           match: {
-            _openid:app.globalData.openid
+            _openid: app.globalData.openid
           },
           or: [{}],
           and: [{}],
@@ -172,45 +182,55 @@ Page({
           success: (res) => {},
         })
         let data = res.result.list;
-        if(data.length==0){
-          wx.showToast({
-            title: '暂无消息',
-            icon:'none',
-            duration:10000000
+        if (data.length == 0) {
+          that.setData({
+            hiddenFlag:false
+          })
+        }else{
+          that.setData({
+            display:'block'
           })
         }
-        that.setData({list:data})
+        that.setData({
+          list: data
+        })
       })
     }
   },
-  
-  allread:function(){
-    if(wx.getStorageSync('userInfo')){
+
+  allread: function () {
+    if (wx.getStorageSync('userInfo')) {
       console.log(app.globalData.openid)
-      let list=this.data.list;
-      for(let i of list){
-        i.read='read';
-        this.setData({list})
+      let list = this.data.list;
+      for (let i of list) {
+        i.read = 'read';
+        this.setData({
+          list
+        })
       }
-      util.update('message',{_openid:app.globalData.openid},{read:'read'})
+      util.update('message', {
+        _openid: app.globalData.openid
+      }, {
+        read: 'read'
+      })
     }
   },
-  subscribe:function(e){
-    var ind=e.currentTarget.dataset.index;
+  subscribe: function (e) {
+    var ind = e.currentTarget.dataset.index;
     let tpid;
-    switch(this.data.list[ind].type){
+    switch (this.data.list[ind].type) {
       case 're':
-        if(this.data.list[ind].res=='success'){
-          tpid=['-m92htbt5V0SlqRwZaMZAy9l3mv3CNseLM-yDKlRG5g']
-        }else{
-          tpid=['SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0']
+        if (this.data.list[ind].res == 'success') {
+          tpid = ['-m92htbt5V0SlqRwZaMZAy9l3mv3CNseLM-yDKlRG5g']
+        } else {
+          tpid = ['SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0']
         }
         break;
       case 'check':
-        tpid=['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI']
+        tpid = ['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI']
         break;
       case 'myre':
-        tpid=['-m92htbt5V0SlqRwZaMZAy9l3mv3CNseLM-yDKlRG5g','SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0','GN7JfS1q9N7eqdmvOxcFY6kjBBrUsnyRc6UGr58LAwg']
+        tpid = ['-m92htbt5V0SlqRwZaMZAy9l3mv3CNseLM-yDKlRG5g', 'SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0', 'GN7JfS1q9N7eqdmvOxcFY6kjBBrUsnyRc6UGr58LAwg']
         break;
     }
     wx.requestSubscribeMessage({
@@ -220,8 +240,8 @@ Page({
         if (JSON.stringify(res).indexOf('accept') !== -1) {
           wx.showToast({
             title: '您已经订阅了消息通知',
-            icon:'success',
-            duration:2000
+            icon: 'success',
+            duration: 2000
           })
         }
       }

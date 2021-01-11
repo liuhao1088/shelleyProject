@@ -1,5 +1,5 @@
 <view class="messageCenterContainer column justify-center align-center">
-  <view class="clear-item">
+  <view class="clear-item" style="display:{{display}}">
     <view class="clear-main" bindtap="allread"><text class="iconfont iconrubber"></text> 全部已读</view>
   </view>
 
@@ -18,6 +18,10 @@
         <view class="bg-grey" data-index="{{index}}" bindtap="subscribe">订阅</view>
         <view class="bg-red" data-index="{{index}}" bindtap="delete">删除</view>
       </view>
+    </view>
+
+    <view class="tag-item" hidden="{{hiddenFlag}}">
+      <view class="tag">暂无更多信息</view>
     </view>
   </view>
 </view>
