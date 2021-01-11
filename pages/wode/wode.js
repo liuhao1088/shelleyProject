@@ -263,7 +263,7 @@ Page({
       that.setData({prize:false})
       wx.setStorageSync('prize', [{status:'success',cou_code:code,act_id:'-1'}])
       wx.showModal({
-        title:'成功领取100抵扣红包',
+        title:'成功领取100现金抵扣红包',
         content:'红包已经放进我的卡券里，是否前往查看',
         success:function(res){
           if(res.confirm){
