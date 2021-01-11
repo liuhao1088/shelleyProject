@@ -522,38 +522,30 @@ Page({
   launchGroup: function (e) {
     var that = this;
     let ind = e.currentTarget.dataset.index;
-    var that = this;
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          if (wx.getStorageSync('userInfo')) {
-            wx.requestSubscribeMessage({
-              tmplIds: ['Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
-              success(res) {
-                if (JSON.stringify(res).indexOf('accept') !== -1) {
-                  that.increase('waiting', 'initiateGroup', ind, '', []);
-                  setTimeout(() => {
-                    let data = that.data.data;
-                    data.shopping[ind].parse = that.data.cou_code;
-                    that.setData({
-                      data: data
-                    })
-                  }, 1500)
-                }
-              }
-            })
-          } else {
-            that.selectComponent("#authorize").showModal();
-            that.retrieval();
+    console.log(e)
+    if (wx.getStorageSync('userInfo')) {
+      wx.requestSubscribeMessage({
+        tmplIds: ['Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
+        success(res) {
+          console.log(res)
+          if (JSON.stringify(res).indexOf('accept') !== -1) {
+            that.increase('waiting', 'initiateGroup', ind, '', []);
+            console.log(res)
+            setTimeout(() => {
+              let data = that.data.data;
+              data.shopping[ind].parse = that.data.cou_code;
+              that.setData({
+                data: data
+              })
+            }, 1500)
           }
-        } else {
-          that.selectComponent("#authorize").showModal();
-          that.retrieval();
         }
-      }
-    })
-
+      })
+    } else {
+      that.selectComponent("#authorize").showModal();
+      that.retrieval();
+    }
+          
   },
   getIndex: function (e) {
     let ind = e.detail.current;
