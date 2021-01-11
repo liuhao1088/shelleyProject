@@ -96,7 +96,7 @@ App({
     tabBar: {
       "backgroundColor": "#ffffff",
       "color": "#979795",
-      "selectedColor": "#1c1c1b",
+      "selectedColor": "#f92643",
       "list": [
         {
           "pagePath": "/pages/home/home",

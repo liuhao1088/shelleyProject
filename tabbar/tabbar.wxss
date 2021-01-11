@@ -11,10 +11,6 @@
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
-/* .tabbar_box.iphoneX-height {
-  padding-bottom: 66rpx;
-} */
-
 .middle-wrapper {
   position: absolute;
   right: 310rpx;
