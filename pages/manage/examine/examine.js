@@ -240,8 +240,6 @@ Page({
     wx.showModal({
       title: '删除 '+_this.data.faillist[ind].shop_name,
       content: '',
-      confirmText: "删除",
-      confirmColor: "red",
       success: function (res) {
         if (res.confirm) {
           wx.showLoading({

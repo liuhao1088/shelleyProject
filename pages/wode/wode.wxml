@@ -128,7 +128,7 @@
         <view class="menu-tagItem">我的消息</view>
       </view>
       <view class="menu-rightItem">
-        <view class="small-item">99+</view>
+        <view class="small-item" wx:if="{{newMsg>0}}">{{newMsg>99?'99+':newMsg}}</view>
         <text class="iconfont iconweibiaoti34"></text>
       </view>
     </view>
@@ -145,7 +145,7 @@
       </view>
     </button>
      <!-- 更多好礼 -->
-     <view class="menu-item" bindtap="showModal" data-target="question">
+     <view class="menu-item" bindtap="showModal" data-target="question" wx:if="{{prize}}">
       <view class="menu-leftItem">
         <view class="icon-item">
           <text class="iconfont iconkaquan"></text>
@@ -207,7 +207,7 @@
         </view>
       </view>
       <view class="modal-questionBut">
-        <button>立即领取</button>
+        <button bindtap="getCoupon">立即领取</button>
       </view>
     </view>
   </view>

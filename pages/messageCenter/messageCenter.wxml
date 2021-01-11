@@ -1,56 +1,45 @@
 <view class="messageCenterContainer column justify-center align-center">
   <view class="clear-item">
-    <view class="clear-main"><text class="iconfont iconrubber"></text> 全部已读</view>
+    <view class="clear-main" bindtap="allread"><text class="iconfont iconrubber"></text> 全部已读</view>
   </view>
 
   <view class="cu-list menu-avatar">
     <!-- 未读 -->
-    <view class="cu-item {{modalName=='move-box-'+ 0?'move-cur':''}}" bindtouchstart="ListTouchStart"
-      bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" bindtap="showModal" data-target="move-box-0"
-      data-name="Modal">
-      <view class="message-wrap">
+    <view wx:for="{{list}}" data-index="{{index}}" class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}"
+      bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
+      <view class="message-wrap" style="{{item.read=='read'?'color: rgba(16, 16, 16, 0.5)':''}}" data-index="{{index}}" bindtap="showModal" data-name="Modal">
         <view class="title-item">
-          <view class="title">门店预约成功</view>
-          <view class="date-item">2020-10-10 12:00</view>
+          <view class="title">{{item.title}}</view>
+          <view class="date-item">{{item.creation_date}}</view>
         </view>
-        <view class="mag-item">您已在 AAAA宝安店 预约了 1月24日16:00 的 如影系列-R1 产品体验上的飞机撒撒旦飞洒就地方地方撒地方 东方科技撒酒疯士大夫撒扩大发</view>
+        <view class="mag-item">{{item.content}}</view>
       </view>
-
       <view class="move">
-        <view class="bg-grey">订阅</view>
-        <view class="bg-red">删除</view>
-      </view>
-    </view>
-
-    <!-- 已读 -->
-    <view class="cu-item {{modalName=='move-box-'+ 1?'move-cur':''}}" bindtouchstart="ListTouchStart"
-      bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-1">
-      <view class="message-wrap" style="color: rgba(16, 16, 16, 0.5);">
-        <view class="title-item">
-          <view class="title">门店预约成功</view>
-          <view class="date-item">2020-10-10 12:00</view>
-        </view>
-        <view class="mag-item">您已在 AAAA宝安店 预约了 1月24日16:00 的 如影系列-R1 产品体验上的飞机撒撒旦飞洒就地方地方撒地方 东方科技撒酒疯士大夫撒扩大发</view>
-      </view>
-
-      <view class="move">
-        <view class="bg-grey">订阅</view>
-        <view class="bg-red">删除</view>
+        <view class="bg-grey" data-index="{{index}}" bindtap="subscribe">订阅</view>
+        <view class="bg-red" data-index="{{index}}" bindtap="delete">删除</view>
       </view>
     </view>
   </view>
-
 </view>
 
 <view class="cu-modal {{name=='Modal'?'show':''}}" catchtouchmove="ture">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
-      <view class="content" style="font-weight: bold;">直播预约成功</view>
+      <view class="content" style="font-weight: bold;">{{list[ind].title}}</view>
       <view class="action" bindtap="hideModal">
         <text class="cuIcon-close" style="color:#f92643;"></text>
       </view>
     </view>
-    <!-- 直播预约成功 -->
+   
+    <view class="wrapper-process">
+      <view class="wrap-process">{{list[ind].content}}</view>
+      <view class="wrap-process" wx:if="{{list[ind].shop.length==1}}">地址：</view>
+      <view class="wrap-process" wx:if="{{list[ind].shop.length==1}}"> {{list[ind].shop[0].address}}{{list[ind].shop[0].detail}}<text class="iconfont icondaohang" bindtap="openLocation"></text></view>
+      <view class="wrap-process" wx:if="{{list[ind].shop.length==1}}">电话：{{list[ind].shop[0].phone}}<text class="iconfont icondianhua" bindtap="callPhone"></text>
+      </view>
+
+    </view>
+     <!-- 直播预约成功 -->
     <!-- <view class="wrapper-process">
       <view class="wrap-process">您已经成功预约 1月24日16:00 的直播《手把手教你营销，只需这几步打造网红店铺》</view>
       <view class="cu-imgItem"></view>
@@ -65,13 +54,5 @@
     </view> -->
 
     <!-- 门店预约 -->
-    <view class="wrapper-process">
-      <view class="wrap-process">您已经成功预约 1月24日16:00 在 AAAA宝安店 的 产品：如影系列-R1 、如影系列-R2体验服务。</view>
-      <view class="wrap-process">地址：</view>
-      <view class="wrap-process"> 广东省深圳市宝安区西乡街道25号<text class="iconfont icondaohang" bindtap="addressBtn"></text></view>
-      <view class="wrap-process">电话：12312345678<text class="iconfont icondianhua" bindtap="callPhone"></text>
-      </view>
-
-    </view>
   </view>
 </view>

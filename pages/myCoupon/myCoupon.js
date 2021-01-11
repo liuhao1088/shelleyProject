@@ -66,10 +66,6 @@ Page({
   onLoad: function (options) {
     var that = this;
     if (wx.getStorageSync('userInfo')) {
-      do {
-        that.loadProgress(pro)
-        pro = pro + 3;
-      } while (pro < 95)
       skip = 0;
       this.loadData();
     } else {
@@ -123,7 +119,8 @@ Page({
   submit: function () {
     var that = this;
     let shop_code = that.data.usable_list[that.data.cou_ind].shop_code;
-    if (that.data.code == shop_code || shop_code == 'all') {
+    console.log('00'+JSON.stringify(shop_code),that.data.usable_list)
+    if (that.data.code == shop_code|| that.data.code == '0'+JSON.stringify(shop_code)|| that.data.code == '00'+JSON.stringify(shop_code) || shop_code == 'all') {
       that.apply(that.data.cou_ind, that.data.usable_list[that.data.cou_ind]._id)
       if (that.data.cou_checked == true) {
         wx.cloud.callFunction({
@@ -226,13 +223,9 @@ Page({
   },
   loadData: function () {
     var that = this;
-    if (pro >= 100) {
-      pro = 0;
-    }
-    do {
-      that.loadProgress(pro)
-      pro++;
-    } while (pro < 95)
+    wx.showLoading({
+      title: '加载中',
+    })
     let userInfo = wx.getStorageSync('userInfo')
     wx.cloud.callFunction({
       name: 'multQuery',
@@ -263,12 +256,10 @@ Page({
       }
     }).then(res => {
       let data = res.result.list;
-      do {
-        that.loadProgress(pro)
-        pro = pro + 3;
-      } while (pro < 100)
+      wx.hideLoading({
+        success: (res) => {},
+      })
       if (data.length == 0) {
-        that.loadProgress(100)
         that.setData({
           complete: true,
           hiddenFlag:false
@@ -347,6 +338,13 @@ Page({
       loadProgress: pro
     })
     if (this.data.loadProgress >= 100) {
+      if(pro>=100){
+        pro=0;
+      }
+      do {
+        this.loadProgress(pro)
+        pro = pro + 3;
+      } while (pro < 100)
       this.setData({
         loadProgress: 0
       })

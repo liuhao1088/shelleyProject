@@ -196,6 +196,17 @@ function add(tb, data) {
   })
 }
 
+function update(tb,where,data){
+  return wx.cloud.callFunction({
+    name:'recordUpdate',
+    data:{
+      collection: tb,
+      where:where,
+      updateData: data
+    }
+  })
+}
+
 module.exports = {
   formatTime: formatTime,
   formatTimes: formatTimes,
@@ -209,5 +220,6 @@ module.exports = {
   nearby: nearby,
   bgimg: bgimg,
   add: add,
+  update:update,
   sendMessage: sendMessage
 }

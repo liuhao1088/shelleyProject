@@ -169,8 +169,9 @@ Page({
                     creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
                     shop_code:userInfo.shop[userInfo.shop.length - 1].shop_code,
                     _openid:list[ind]._openid,
-                    title:'店家（' + userInfo.shop[userInfo.shop.length - 1].shop_name + '）已接受您的预约',
-                    content:list[ind].time_date,
+                    re_code:list[ind].re_code,
+                    title:'门店接受预约',
+                    content:userInfo.shop[userInfo.shop.length - 1].shop_name+'接受了您'+list[ind].time+'的到店预约',
                     type:'re',
                     res:'success',
                     read:'unread'
@@ -246,8 +247,9 @@ Page({
                   creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
                   shop_code:userInfo.shop[userInfo.shop.length - 1].shop_code,
                   _openid:list[ind]._openid,
-                  title:'店家（' + userInfo.shop[userInfo.shop.length - 1].shop_name + '）取消了您的预约',
-                  content:list[ind].time_date,
+                  re_code:list[ind].re_code,
+                  title:'门店取消预约',
+                  content:userInfo.shop[userInfo.shop.length - 1].shop_name+'取消了您'+list[ind].time+'的到店预约',
                   type:'re',
                   res:'fail',
                   read:'unread'

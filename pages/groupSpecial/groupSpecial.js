@@ -633,7 +633,7 @@ Page({
     wx.showLoading({
       title: '领取中'
     })
-    let code;
+    let code='';
     for (let e = 0; e < 6; e++) {
       code += Math.floor(Math.random() * 10)
     }

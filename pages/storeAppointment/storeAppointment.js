@@ -342,6 +342,23 @@ Page({
       let cont = that.data.nameList.join(',').substring(0, 20)
       wx.setStorageSync('refreshData', that.data.data)
       that.sendMessage(that.data.data._openid, that.data.startTime, cont)
+      wx.cloud.callFunction({
+        name:'recordAdd',
+        data:{
+          collection:'message',
+          addData:{
+            creation_date:util.formatTime(new Date()),
+            creation_timestamp:Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
+            _openid:app.globalData.openid,
+            shop_code:that.data.data.shop_code,
+            re_code: code + numberCode,
+            title:"门店预约成功",
+            content:'您在'+that.data.data.shop_name+'预约了'+that.data.startTime+'到店体验'+cont,
+            type:'myre',
+            read:'unread'
+          }
+        }
+      })
       setTimeout(() => {
         wx.navigateBack({
           delta: 0,
