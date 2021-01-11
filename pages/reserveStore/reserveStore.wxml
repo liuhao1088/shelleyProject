@@ -39,6 +39,9 @@
       </view>
     </view>
   </view>
+  <view class="tag-item" hidden="{{hiddenFlag}}">
+    <view class="tag">暂无更多门店</view>
+  </view>
   <view style="height:100px;"></view>
 </view>
 

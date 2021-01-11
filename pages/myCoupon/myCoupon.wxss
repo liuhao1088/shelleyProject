@@ -1,4 +1,4 @@
-page{
+page {
   background-color: #f0f0f0;
 }
 
@@ -243,7 +243,7 @@ image {
   left: 20rpx;
 }
 
-.share-but button{
+.share-but button {
   border-radius: 24rpx;
   background-image: linear-gradient(#ffe370, #ff9239);
   color: rgba(255, 255, 255, 1);
@@ -312,7 +312,7 @@ image {
   border: 0rpx solid black;
 }
 
-.text-one{
+.text-one {
   height: 30rpx;
   line-height: 30rpx;
   font-size: 24rpx
@@ -360,7 +360,7 @@ image {
   padding-top: 2rpx;
 }
 
-.product-tagOne{
+.product-tagOne {
   height: 160rpx;
   width: 160rpx;
   border-radius: 50%;
@@ -370,14 +370,14 @@ image {
   bottom: -56rpx;
 }
 
-.product-tagTwo{
+.product-tagTwo {
   width: 90%;
   height: 90%;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.product-tagThree{
+.product-tagThree {
   width: 90%;
   height: 90%;
   line-height: 100rpx;
@@ -385,7 +385,7 @@ image {
   font-size: 24rpx;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.1);
-  color: rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* 弹窗 */
@@ -396,12 +396,12 @@ image {
 }
 
 .input-item {
-  width: 50%;
+  width: 70%;
   height: 60rpx;
   border: 0rpx solid red;
   margin: auto;
   margin-top: 40rpx;
-  border-radius: 40rpx;
+  border-radius: 10rpx;
   border: 2rpx solid rgba(0, 0, 0, 1);
 }
 
@@ -416,7 +416,7 @@ image {
 
 .but-item {
   height: 60rpx;
-  width: 35%;
+  width: 70%;
   margin: auto;
   margin-top: 50rpx;
   border: 0rpx solid red;
@@ -434,7 +434,7 @@ image {
 }
 
 .checkbox-item {
-  width: 50%;
+  width: 70%;
   height: 50rpx;
   margin: auto;
   margin-top: 20rpx;
@@ -450,10 +450,67 @@ image {
 .checkbox-msg {
   flex: 1;
   line-height: 48rpx;
-  font-size: 18rpx;
+  font-size: 26rpx;
+  padding-left: 15rpx;
   text-align: left;
 }
 
-.red{
-  color: #f92643;
+.red {
+  background-color: red;
+  color: #fff;
+}
+
+.cu-titleTtem {
+  width: 100%;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  font-size: 44rpx;
+}
+
+.placeholder{
+  line-height: 60rpx;
+  font-size: 26rpx;
+}
+
+.tag-item {
+  width: 60%;
+  height: 28rpx;
+  border: 0rpx solid red;
+  margin: auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20rpx;
+}
+
+.tag {
+  height: 100%;
+  line-height: 28rpx;
+  color: rgb(200, 200, 200);
+  font-size: 20rpx;
+}
+
+.tag::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 0px;
+  width: calc(60% - 120rpx);
+  border-bottom: 1px solid #ccc;
+  left: 0;
+  top: 50%;
+  z-index: 0;
+}
+
+.tag::before {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 0px;
+  width: calc(60% - 120rpx);
+  border-bottom: 1px solid #ccc;
+  right: 0;
+  top: 50%;
+  z-index: 0;
 }

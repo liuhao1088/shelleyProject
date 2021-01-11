@@ -1,6 +1,6 @@
 // pages/myCoupon/myCoupon.js
 var skip = 0;
-let pro=0;
+let pro = 0;
 var util = require('../../utils/util.js');
 Page({
 
@@ -15,12 +15,13 @@ Page({
     cou_checked: false,
     cou_id: '',
     navId: 0,
-    currentId:0,
-    height:0,
-    usable_list:[],
-    unusable_list:[],
-    loadProgress:0,
-    complete:false
+    currentId: 0,
+    height: 0,
+    usable_list: [],
+    unusable_list: [],
+    loadProgress: 0,
+    complete: false,
+    hiddenFlag: true,
   },
   changNav(event) {
     let navId = event.currentTarget.dataset.id; //获取导航栏下标
@@ -65,19 +66,22 @@ Page({
   onLoad: function (options) {
     var that = this;
     if (wx.getStorageSync('userInfo')) {
-      do{
+      do {
         that.loadProgress(pro)
-        pro=pro+3;
-      }while(pro<95)
+        pro = pro + 3;
+      } while (pro < 95)
       skip = 0;
       this.loadData();
     } else {
-      wx.showToast({
-        title: '暂无卡券',
-        icon: 'none',
-        duration: 10000000
+      // wx.showToast({
+      //   title: '暂无卡券',
+      //   icon: 'none',
+      //   duration: 10000000
+      // })
+      this.setData({
+        complete: true,
+        hiddenFlag:false
       })
-      this.setData({complete:true})
     }
     let windowHeight = wx.getSystemInfoSync().windowHeight // 屏幕的高度
     let windowWidth = wx.getSystemInfoSync().windowWidth // 屏幕的宽度
@@ -113,7 +117,7 @@ Page({
         })
       }
 
-    } 
+    }
 
   },
   submit: function () {
@@ -222,13 +226,13 @@ Page({
   },
   loadData: function () {
     var that = this;
-    if(pro>=100){
-      pro=0;
+    if (pro >= 100) {
+      pro = 0;
     }
-    do{
+    do {
       that.loadProgress(pro)
       pro++;
-    }while(pro<95)
+    } while (pro < 95)
     let userInfo = wx.getStorageSync('userInfo')
     wx.cloud.callFunction({
       name: 'multQuery',
@@ -259,17 +263,21 @@ Page({
       }
     }).then(res => {
       let data = res.result.list;
-      do{
+      do {
         that.loadProgress(pro)
-        pro=pro+3;
-      }while(pro<100)
+        pro = pro + 3;
+      } while (pro < 100)
       if (data.length == 0) {
         that.loadProgress(100)
-        that.setData({complete:true})
-        wx.showToast({
-          title: '暂无更多卡券',
-          icon: 'none'
+        that.setData({
+          complete: true,
+          hiddenFlag:false
         })
+       
+        // wx.showToast({
+        //   title: '暂无更多卡券',
+        //   icon: 'none'
+        // })
       }
       let stamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000;
       that.setData({
@@ -287,52 +295,58 @@ Page({
           if (stamp >= data[i].act[0].end_timestamp) {
             data[i].usable = false; //过期
           }
-          if(data[i].status == 'success'&&stamp < data[i].act[0].end_timestamp){
-            let remain=data[i].act[0].end_timestamp-stamp;
-            data[i].percent=(remain/(data[i].act[0].end_timestamp-data[i].act[0].start_timestamp))*100+'%';
-            let day=Math.floor(remain / (60 * 60 * 24));
-            if(day>10){
-              data[i].remain=data[i].act[0].end_date;
-            }else if(day>=1&&day<=10){
-              data[i].remain=parseInt(remain/(60*60*24))+' 天';
-            }else{
-              data[i].remain=parseInt(remain/(60*60))+' 小时';
+          if (data[i].status == 'success' && stamp < data[i].act[0].end_timestamp) {
+            let remain = data[i].act[0].end_timestamp - stamp;
+            data[i].percent = (remain / (data[i].act[0].end_timestamp - data[i].act[0].start_timestamp)) * 100 + '%';
+            let day = Math.floor(remain / (60 * 60 * 24));
+            if (day > 10) {
+              data[i].remain = data[i].act[0].end_date;
+            } else if (day >= 1 && day <= 10) {
+              data[i].remain = parseInt(remain / (60 * 60 * 24)) + ' 天';
+            } else {
+              data[i].remain = parseInt(remain / (60 * 60)) + ' 小时';
             }
           }
         }
         if (data[i].status == 'complete') {
           data[i].usable = false; //已使用
         }
-        
+
         if (i + 1 == data.length) {
-          let usable = that.data.usable_list.concat(data.filter(item => item.usable==true))
-          let unusable = that.data.unusable_list.concat(data.filter(item => item.usable!==true))
+          let usable = that.data.usable_list.concat(data.filter(item => item.usable == true))
+          let unusable = that.data.unusable_list.concat(data.filter(item => item.usable !== true))
           that.loadProgress(100)
-          that.setData({complete:true})
-          
+          that.setData({
+            complete: true,
+            hiddenFlag:false
+          })
+
           that.setData({
             usable_list: usable,
-            unusable_list:unusable
+            unusable_list: unusable
           })
         }
       }
-      if(data.length==0&&that.data.usable_list==0&&that.data.unusable_list.length==0){
+      if (data.length == 0 && that.data.usable_list == 0 && that.data.unusable_list.length == 0) {
         that.loadProgress(100)
-        that.setData({complete:true})
-        wx.showToast({
-          title: '暂无卡券',
-          icon: 'none',
-          duration:100000000
+        that.setData({
+          complete: true,
+          hiddenFlag:false
         })
+        // wx.showToast({
+        //   title: '暂无卡券',
+        //   icon: 'none',
+        //   duration: 100000000
+        // })
       }
     })
 
   },
-  loadProgress(){
+  loadProgress() {
     this.setData({
       loadProgress: pro
     })
-    if (this.data.loadProgress>=100){
+    if (this.data.loadProgress >= 100) {
       this.setData({
         loadProgress: 0
       })
@@ -376,12 +390,9 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    // skip = skip + 10;
-    // this.loadData();
-  },
-  
-  more:function(){
+  onReachBottom: function () {},
+
+  more: function () {
     skip = skip + 30;
     this.loadData();
   },
