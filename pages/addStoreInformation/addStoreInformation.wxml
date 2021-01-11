@@ -143,7 +143,7 @@
     </view>
     <view class="cu-bar bg-white justify-end">
       <view class="action" style="color: #fff;">
-        <button class="cu-btn bg-green margin-left" style="width:180rpx;" bindtap="hideModal">确定</button>
+        <button class="cu-btn margin-left" style="width:180rpx;background-color:#E1001F;color:white;" bindtap="hideModal">确定</button>
 
       </view>
     </view>

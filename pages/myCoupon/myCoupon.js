@@ -306,6 +306,7 @@ Page({
         if (i + 1 == data.length) {
           let usable = that.data.usable_list.concat(data.filter(item => item.usable == true))
           let unusable = that.data.unusable_list.concat(data.filter(item => item.usable !== true))
+          console.log(usable,unusable)
           that.loadProgress(100)
           that.setData({
             complete: true,
