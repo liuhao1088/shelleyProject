@@ -107,6 +107,10 @@ Page({
       if(!wx.getStorageSync('userInfo')){
         that.selectComponent("#authorize").showModal();
         that.retrieval();
+      }else{
+        that.setData({
+          modalName: target
+        })
       }
     } else {
       that.setData({
