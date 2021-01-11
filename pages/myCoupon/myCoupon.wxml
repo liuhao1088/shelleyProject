@@ -1,7 +1,5 @@
 <wxs src="../../utils/util.wxs" module="utils" />
 <view class="myCouponContainer" wx:if="{{complete}}">
-  
-  <!-- <view class="maxScroll"> -->
   <scroll-view scroll-x enable-flex scroll-with-animation class="navScroll" scroll-into-view="{{'scroll'+ navId}}">
     <view id="{{'scroll'+ item.id}}" class="navItem">
       <view class="navContent {{navId == 0?'active':'' }}" bindtap="changNav" data-id="0">
@@ -14,14 +12,13 @@
       </view>
     </view>
   </scroll-view>
-  <!-- </view> -->
 
   <!--选项1-->
-  <scroll-view scroll-y class="couponScroll" style="height: {{height}}rpx;" refresher-enabled
-    refresher-triggered="{{isTriggered}}" bindscrolltolower="more" wx:if="{{navId == 0}}">
+  <scroll-view scroll-y class="couponScroll" style="height: {{height}}rpx;" bindscrolltolower="more"
+    wx:if="{{navId == 0}}">
 
     <!-- 可用 -->
-    <view class="coupon-mainItem" wx:for="{{usable_list}}" data-index="{{index}}"
+    <view class="coupon-mainItem" wx:for="{{usable_list}}" wx:key="id" data-index="{{index}}"
       style="{{item.status=='success'?'':'height: 268rpx'}};">
       <view class="wrap" wx:if="{{item.status=='success'}}">
         <view class="coupon-item">
@@ -136,13 +133,16 @@
       </view>
     </view>
 
+    <view class="tag-item" hidden="{{hiddenFlag}}">
+      <view class="tag">暂无更多卡券</view>
+    </view>
   </scroll-view>
 
-  
+
   <!--选项2-->
-  <scroll-view scroll-y class="couponScroll" style="height: {{height}}rpx;" refresher-enabled
-    refresher-triggered="{{isTriggered}}" bindscrolltolower="more" wx:if="{{navId == 1}}">
-    <view class="coupon-mainItem"  wx:for="{{unusable_list}}" data-index="{{index}}">
+  <scroll-view scroll-y class="couponScroll" style="height: {{height}}rpx;" bindscrolltolower="more"
+    wx:if="{{navId == 1}}">
+    <view class="coupon-mainItem" wx:for="{{unusable_list}}" wx:key="id" data-index="{{index}}">
       <!--已-->
       <view class="product-couponMain" style="width:90%;background-image: linear-gradient(#898989,#616161);"
         wx:if="{{item.usable!==true}}">
@@ -180,6 +180,9 @@
       </view>
     </view>
 
+    <view class="tag-item" hidden="{{hiddenFlag}}">
+      <view class="tag">暂无更多卡券</view>
+    </view>
   </scroll-view>
 
 </view>
@@ -188,18 +191,19 @@
 <view class="cu-modal {{modalName=='Modal'?'show':''}}" catchtouchmove="ture">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
-      <view class="content" style="width: auto;">请工作人员输入门店码</view>
+      <view class="content" style="width: auto;"></view>
       <view class="action" bindtap="hideModal">
         <text class="cuIcon-close" style="color: #f92643;"></text>
       </view>
     </view>
+    <view class="cu-titleTtem">卡券核验</view>
     <view class="input-item">
-      <input type="number" bindinput="inputCode" value="{{code}}" />
+      <input type="number" bindinput="inputCode" value="{{code}}" placeholder="请让工作人员输入门店码"
+        placeholder-class="placeholder" />
     </view>
     <view class="checkbox-item" wx:if="{{cou_checked==true}}">
       <view class="checkbox">
-        <checkbox class="round red" checked="{{cou_checked}}" bindtap="check_change"
-          style="transform: scale(0.4,0.4);"></checkbox>
+        <checkbox class="round red" checked="{{cou_checked}}" style="transform: scale(0.6,0.6);"></checkbox>
       </view>
       <view class="checkbox-msg">合并使用100元现金抵用红包</view>
 
@@ -211,6 +215,7 @@
 </view>
 
 <view class='load-progress {{loadProgress!=0?"show":"hide"}}' style="top:{{CustomBar}}px;">
-  <view class='load-progress-bar bg-green' style="transform: translate3d(-{{100-loadProgress}}%, 0px, 0px);height:8rpx;background-color:#07BE02;"></view>
+  <view class='load-progress-bar bg-green'
+    style="transform: translate3d(-{{100-loadProgress}}%, 0px, 0px);height:8rpx;background-color:#07BE02;"></view>
   <view class='load-progress-spinner text-green' style="color:#07BE02;"></view>
 </view>

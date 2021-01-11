@@ -4,7 +4,7 @@ var util = require('../../utils/util.js')
 var skip = 0;
 var ind;
 var shop_data;
-let pro=0;
+let pro = 0;
 Page({
 
   /**
@@ -14,10 +14,11 @@ Page({
     address: '',
     list: [],
     tabbar: {},
-    lon:'',
-    lat:'',
-    loadProgress:0,
-    complete:false
+    lon: '',
+    lat: '',
+    loadProgress: 0,
+    complete: false,
+    hiddenFlag:true
   },
   toAddStoreInformation(event) {
     wx.navigateTo({
@@ -26,7 +27,7 @@ Page({
   },
   toStoreAppointment(e) {
     ind = parseInt(e.currentTarget.dataset.index)
-    let list=this.data.list[ind];
+    let list = this.data.list[ind];
     if (wx.getStorageSync('userInfo')) {
       wx.navigateTo({
         url: '/pages/storeAppointment/storeAppointment?data=' + JSON.stringify(list),
@@ -51,10 +52,10 @@ Page({
         });
       }
     });
-    do{
+    do {
       that.loadProgress(pro)
       pro++;
-    }while(pro<95)
+    } while (pro < 95)
     var BMap = new bmap.BMapWX({
       ak: 'yLnHh2rGyFiou5kZGVMtP0LLKWrXfr0i'
     });
@@ -69,8 +70,8 @@ Page({
             console.log(res)
             that.setData({
               address: res.originalData.result.business,
-              lon:lon,
-              lat:lat
+              lon: lon,
+              lat: lat
             })
           },
           fail: function (r) {
@@ -84,7 +85,7 @@ Page({
         that.loadData(lat, lon);
       }
     })
-    switch(app.globalData.wares){
+    switch (app.globalData.wares) {
       case '':
         wx.cloud.callFunction({
           name: 'showwares'
@@ -97,13 +98,13 @@ Page({
   },
   loadData: function (lat, lon) {
     var that = this;
-    if(pro>=100){
-      pro=0;
+    if (pro >= 100) {
+      pro = 0;
     }
-    do{
+    do {
       that.loadProgress(pro)
       pro++;
-    }while(pro<95)
+    } while (pro < 95)
     var stamp = Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
     var _ = wx.cloud.database().command;
     wx.cloud.callFunction({
@@ -141,18 +142,20 @@ Page({
       }
     }).then(res => {
       let data = that.data.list.concat(res.result.list);
-      if (res.result.list.length == 0){
+      if (res.result.list.length == 0) {
         that.loadProgress(100)
-        that.setData({complete:true})
+        that.setData({
+          complete: true
+        })
         wx.showToast({
           title: '暂无更多数据',
           icon: 'none'
         })
-      }else{
-        do{
+      } else {
+        do {
           that.loadProgress(pro)
-          pro=pro+3;
-        }while(pro<100)
+          pro = pro + 3;
+        } while (pro < 100)
         for (let i in data) {
           data[i].distance = util.getDistance(lat, lon, data[i].lat, data[i].lon)
           if (data[i].act.length > 0) {
@@ -162,34 +165,38 @@ Page({
           }
           if (i == data.length - 1) {
             that.loadProgress(100)
-            that.setData({complete:true})
+            that.setData({
+              complete: true
+            })
             data.sort(util.compare("distance"));
-            data.forEach((item,ind,arr)=>{
-              item.bg=util.bgimg()[ind%4];
+            data.forEach((item, ind, arr) => {
+              item.bg = util.bgimg()[ind % 4];
             })
             shop_data = data;
             let list = data.slice(0, 9)
             that.setData({
-              list: list,
+              list: list
             })
           }
         }
       }
-      if (data.length == 0){
+      if (data.length == 0) {
         that.loadProgress(100)
-        that.setData({complete:true})
+        that.setData({
+          complete: true
+        })
         wx.showToast({
           title: '附近暂无门店',
           icon: 'none',
           duration: 10000000
         })
-      } 
-      
+      }
+
       wx.hideLoading()
       wx.hideNavigationBarLoading()
     })
   },
-  
+
   chooseLocation: function (e) {
     var that = this;
     wx.chooseLocation({
@@ -197,20 +204,20 @@ Page({
         console.log(res)
         that.setData({
           address: res.name,
-          list:[],
-          lon:res.longitude,
-          lat:res.latitude
+          list: [],
+          lon: res.longitude,
+          lat: res.latitude
         })
-        skip=0;
-        that.loadData(res.latitude,res.longitude)
+        skip = 0;
+        that.loadData(res.latitude, res.longitude)
       },
     })
   },
-  loadProgress(){
+  loadProgress() {
     this.setData({
       loadProgress: pro
     })
-    if (this.data.loadProgress>=100){
+    if (this.data.loadProgress >= 100) {
       this.setData({
         loadProgress: 0
       })
@@ -229,7 +236,7 @@ Page({
   onShow: function () {
     var that = this;
     if (wx.getStorageSync('refreshData')) {
-      let data = wx.getStorageSync('refreshData');
+      // let data = wx.getStorageSync('refreshData');
       let list = that.data.list;
       list[ind].reservation = ['has'];
       that.setData({
@@ -239,7 +246,7 @@ Page({
     }
   },
   async bindDownLoad() {
-    
+
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -272,15 +279,15 @@ Page({
       duration: 500
     })
     skip = skip + 10;
-    if(skip==100){ 
-      await this.loadData(this.data.lat,this.data.lon) 
-    } 
+    if (skip == 100) {
+      await this.loadData(this.data.lat, this.data.lon)
+    }
     let list = shop_data.slice(0 + skip, 9 + skip)
-    if (list.length == 0) wx.showToast({
-      title: '暂无更多数据',
-      icon: 'none',
-      duration: 2000
-    })
+    if (list.length == 0) {
+      this.setData({
+        hiddenFlag:false
+      })
+    }
     let data = this.data.list.concat(list)
     this.setData({
       list: data

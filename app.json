@@ -1,6 +1,9 @@
 {
   "pages":[
+    "pages/reserveStore/reserveStore",
     "pages/index/index",
+    
+    
     "pages/wode/wode",
     "pages/groupSpecial/groupSpecial",
     "pages/home/home",
@@ -11,7 +14,6 @@
     "pages/carAppointment/carAppointment",
     "pages/myCoupon/myCoupon",
     "pages/helpAndFeedback/helpAndFeedback",
-    "pages/reserveStore/reserveStore",
     "pages/text/text",
     "pages/brandDetails/brandDetails",
     "pages/storeAppointment/storeAppointment",
