@@ -184,6 +184,8 @@ Page({
     wx.openLocation({
       latitude: that.data.data.lat,
       longitude: that.data.data.lon,
+      name: that.data.data.address_name,
+      address:that.data.data.address
     })
   },
   getPhoneNumber: function (e) {

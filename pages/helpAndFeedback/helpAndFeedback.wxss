@@ -54,6 +54,7 @@
 .line-red {
   border: 2rpx solid #f92643;
   color: #f92643;
+  background-color: #fff;
 }
 
 .wrap-item {

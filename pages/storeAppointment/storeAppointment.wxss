@@ -207,7 +207,5 @@ page{
 }
 
 .line-red{
-  /* border: 2rpx solid #f92643; */
   color: #f92643;
-  /* font-weight: bold; */
 }

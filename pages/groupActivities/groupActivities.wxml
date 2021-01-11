@@ -125,8 +125,8 @@
     </view>
     <view class="grid col-3 padding-sm">
       <view wx:for="{{checkbox}}" class="padding-xs" wx:key="id">
-        <button class="cu-btn orange lg block {{item.checked?'bg':''}}" bindtap="chooseCheckbox"
-          data-index="{{index}}" data-name="{{item.name}}" style="background-color: rgba(0, 0, 0, 0.05);padding: 0;"> {{item.name}}
+        <button class="cu-btn orange lg block {{item.checked?'line-red':''}}" bindtap="chooseCheckbox"
+          data-index="{{index}}" data-name="{{item.name}}"> {{item.name}}
         </button>
       </view>
     </view>

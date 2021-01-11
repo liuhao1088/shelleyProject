@@ -77,8 +77,8 @@
 </view>
 
 <!-- 选择商品 -->
-<view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap="hideModal">
-  <view class="cu-dialog" catchtap style="height: 580rpx;">
+<view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap="hideModal" catchtouchmove="ture">
+  <view class="cu-dialog" catchtap style="height: 580rpx;background-color: #fff;">
     <view class="cu-bar bg-white" style="justify-content: flex-end;height: 80rpx;">
       <view class="action text-red" bindtap="hideModal" style="margin-right: 30rpx;color: red;">确定</view>
     </view>
