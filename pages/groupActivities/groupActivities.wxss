@@ -1,8 +1,8 @@
-page{
+page {
   background-color: #f0f0f0;
 }
 
-button::after{
+button::after {
   border: 0;
 }
 
@@ -101,18 +101,18 @@ button::after{
   bottom: 0;
 }
 
-.but-item button{
+.but-item button {
   height: 100%;
   width: 100%;
   line-height: 100rpx;
   border-radius: 0;
   text-align: center;
-  background-image: linear-gradient(133deg,#f92643 ,#e1001f,#ee0049);
+  background-image: linear-gradient(133deg, #f92643, #e1001f, #ee0049);
   color: rgba(255, 255, 255, 100);
   font-size: 28rpx;
 }
 
-.wrap-iconItem{
+.wrap-iconItem {
   width: 100%;
   line-height: 50rpx;
   font-size: 28rpx;
@@ -124,17 +124,17 @@ button::after{
   justify-content: center;
 }
 
-.add-item{
+.add-item {
   width: 45%;
   font-size: 24rpx;
   border: 0rpx solid red;
 }
 
-.border{
+.border {
   border-bottom: 2rpx solid #b5b5b5;
 }
 
-.cu-dialog{
+.cu-dialog {
   background-color: #fff;
 }
 
@@ -142,10 +142,10 @@ button::after{
   font-size: 24rpx;
 }
 
-.cu-img{
+.cu-img {
   height: 100%;
   width: 200rpx;
-  background-color:white;
+  background-color: white;
   float: left;
   border-radius: 10rpx;
 }
@@ -154,11 +154,11 @@ button::after{
   height: 100%;
   width: 100%;
   vertical-align: middle;
-  text-align: center; 
+  text-align: center;
   border-radius: 10rpx;
 }
 
-.cu-description{
+.cu-description {
   flex: 1;
   text-align: left;
   padding-left: 20rpx;
@@ -166,17 +166,16 @@ button::after{
   font-size: 24rpx;
 }
 
-.bg{
+.line-red{
   color: #f92643;
-  border: 2rpx solid #f92643;
 }
 
 /* 活动预览 */
-.preview-item{
+.preview-item {
   width: 100%;
 }
 
-.preview-item image{
+.preview-item image {
   height: 100%;
   width: 100%;
   border-radius: 20rpx;
