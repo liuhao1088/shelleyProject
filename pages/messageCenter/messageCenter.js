@@ -105,7 +105,7 @@ Page({
     wx.openLocation({
       latitude: this.data.list[this.data.ind].shop[0].lat,
       longitude: this.data.list[this.data.ind].shop[0].lon,
-      name:this.data.list[this.data.ind].shop[0].shop_name,
+      name:this.data.list[this.data.ind].shop[0].address_name,
       address:this.data.list[this.data.ind].shop[0].address
     })
   },
