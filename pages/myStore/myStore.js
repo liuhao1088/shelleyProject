@@ -9,28 +9,28 @@ Page({
 
   },
   toStoreInformation(event) {
-    let data=JSON.stringify(wx.getStorageSync('userInfo'))
+    let data = JSON.stringify(wx.getStorageSync('userInfo'))
     wx.navigateTo({
-      url: '/pages/storeInformation/storeInformation?data='+data,
+      url: '/pages/storeInformation/storeInformation?data=' + data,
     })
   },
   toActivityDetails(event) {
-    let userInfo=wx.getStorageSync('userInfo')
-    if(userInfo.shop[userInfo.shop.length-1].prove=='success'){
+    let userInfo = wx.getStorageSync('userInfo')
+    if (userInfo.shop[userInfo.shop.length - 1].prove == 'success') {
       wx.navigateTo({
         url: '/pages/activityDetails/activityDetails',
       })
-    }else if(userInfo.shop[userInfo.shop.length-1].prove=='waiting'){
+    } else if (userInfo.shop[userInfo.shop.length - 1].prove == 'waiting') {
       wx.showToast({
         title: '您的门店信息正在认证中，请耐心等待',
-        icon:'none',
-        duration:3000
+        icon: 'none',
+        duration: 3000
       })
-    }else{
+    } else {
       wx.showToast({
         title: '您的门店信息认证被驳回，请查看原因后重新提交',
-        icon:'none',
-        duration:3000
+        icon: 'none',
+        duration: 3000
       })
     }
   },
@@ -39,11 +39,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //动态显示标题
-    wx.setNavigationBarTitle({
-      title: "我的门店码：001"
-    })
-    var that = this;
     if (!wx.getStorageSync('userInfo').shop) {
       userInfo = wx.getStorageSync('userInfo')
       wx.cloud.callFunction({
@@ -77,8 +72,15 @@ Page({
         console.log(res)
         let data = res.result.list[0];
         wx.setStorageSync('userInfo', data)
-        userInfo=data;
+        userInfo = data;
       })
+    } else {
+      let shopCode = wx.getStorageSync('userInfo').shop[0].shop_code;
+      //动态显示标题
+      wx.setNavigationBarTitle({
+        title: "我的门店码：" + shopCode
+      })
+      console.log(shopCode)
     }
 
   },
