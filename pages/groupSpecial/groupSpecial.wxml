@@ -15,7 +15,7 @@
           <text class='tui-conutdown-box'>{{days}}</text>天
           <text class='tui-conutdown-box'>{{hours}}</text>时
           <text class='tui-conutdown-box'>{{minutes}}</text>分
-          <text class='tui-conutdown-box tui-countdown-bg'>{{seconds}}</text>秒
+          <text class='tui-conutdown-box'>{{seconds}}</text>秒
         </view>
       </view>
     </view>
