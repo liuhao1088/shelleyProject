@@ -113,9 +113,22 @@
   </view>
 
   <view class="poster-item">
-    <image mode="widthFix"
-      src="https://img14.360buyimg.com/ddimg/jfs/t1/166688/37/1598/104678/5ff7cf5bEb402e7cf/f01242efb00089f2.png">
-    </image>
+    <!-- <swiper indicator-dots autoplay circular interval='3000' style="height:260rpx; width: 100%;">
+      <swiper-item wx:for="{{posterImg}}" wx:key="id">
+        <image  src="{{item}}"/>
+      </swiper-item>
+    </swiper> -->
+
+    <swiper class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots circular autoplay
+  interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+  <swiper-item wx:for="{{posterImg}}" wx:key="id" class="{{cardCur==index?'cur':''}}">
+    <view class="swiper-item">
+      <image src="{{item}}" mode="aspectFill"></image>
+      
+    </view>
+  </swiper-item>
+</swiper>
+
   </view>
 
   <view class="menu-wrap">

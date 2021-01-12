@@ -43,7 +43,13 @@ Page({
     ],
     userInfo:{type:'driver',nickName:'用户名',avatarUrl:''},
     newMsg:0,
-    prize:false
+    prize:false,
+    posterImg:[
+      'https://img14.360buyimg.com/ddimg/jfs/t1/166688/37/1598/104678/5ff7cf5bEb402e7cf/f01242efb00089f2.png',
+      'https://img14.360buyimg.com/ddimg/jfs/t1/166688/37/1598/104678/5ff7cf5bEb402e7cf/f01242efb00089f2.png',
+      'https://img14.360buyimg.com/ddimg/jfs/t1/166688/37/1598/104678/5ff7cf5bEb402e7cf/f01242efb00089f2.png'
+    ],
+    cardCur: 0,
   },
   toMyCoupon() {
     wx.navigateTo({
@@ -94,6 +100,18 @@ Page({
         url: '/pages/messageCenter/messageCenter',
       })
     }
+  },
+
+  DotStyle(e) {
+    this.setData({
+      DotStyle: e.detail.value
+    })
+  },
+
+  cardSwiper(e) {
+    this.setData({
+      cardCur: e.detail.current
+    })
   },
 
     //弹窗
