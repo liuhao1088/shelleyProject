@@ -2,6 +2,7 @@
 var app = getApp();
 var util = require('../../utils/util.js');
 var timer;
+let flag;
 Page({
 
   /**
@@ -23,9 +24,12 @@ Page({
     multiIndex: [0, 0],
   },
   changeStartTime(e) {
+    let time = util.formatTime(new Date());//当前时间
     this.setData({
       startTime: e.detail.value
     })
+    let startTime = this.data.startTime;//到店时间
+    flag =  this.compareDate(time,startTime);
   },
   showModal(e) {
     this.setData({
@@ -195,10 +199,7 @@ Page({
   },
   async submit() {
     var that = this;
-    let time = util.formatTime(new Date());//当前时间
-    let startTime = that.data.startTime;//到店时间
-    let flag =  that.compareDate(time,startTime);
-    console.log(flag);
+  
     if (that.data.nameList[0] == "请选择想要体验的商品，可多选") {
       wx.showToast({
         title: '请选择商品',
@@ -206,7 +207,7 @@ Page({
       })
       return;
     }
-
+    
     if (that.data.startTime === '请选择到店时间') {
       wx.showToast({
         title: '请选择到店时间',
@@ -222,7 +223,7 @@ Page({
       })
       return;
     }
-   
+
     wx.requestSubscribeMessage({
       tmplIds: ['-m92htbt5V0SlqRwZaMZAy9l3mv3CNseLM-yDKlRG5g', 'SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0', 'GN7JfS1q9N7eqdmvOxcFY6kjBBrUsnyRc6UGr58LAwg'],
       success(res) {
@@ -237,19 +238,12 @@ Page({
         }
       }
     })
+    
   },
+
   add(userInfo) {
     var that = this;
     let time = that.data.startTime;
-    let yDigit = util.year(new Date());
-    let mDigit = time.substring(0, time.indexOf('月'));
-    if ((new Date()).getMonth() + 1 !== mDigit && (new Date()).getMonth() + 1 == 12) {
-      yDigit = yDigit + 1;
-    }
-    if (mDigit < 10) mDigit = '0' + mDigit;
-    let dDigit = time.substring(time.indexOf('月') + 1, time.indexOf('日'))
-    if (dDigit < 10) dDigit = '0' + dDigit;
-    let time_date = yDigit + '-' + mDigit + '-' + dDigit + time.substring(time.indexOf('日') + 1);
     wx.showLoading({
       title: '预约中，请稍等',
     })
@@ -278,8 +272,8 @@ Page({
           act_code: act_code,
           shopping: that.data.nameList,
           time: that.data.startTime,
-          time_date: time_date,
-          timestamp: Date.parse(time_date.replace(/-/g, '/')) / 1000,
+          time_date:time,
+          timestamp: Date.parse(time.replace(/-/g, '/')) / 1000,
           user: userInfo.nickName,
           status: 'waiting',
           creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,

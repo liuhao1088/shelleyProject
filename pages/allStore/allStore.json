@@ -1,4 +1,5 @@
 {
   "usingComponents": {},
+  "enableReachBottom": true,
   "navigationBarTitleText": "全部门店"
 }

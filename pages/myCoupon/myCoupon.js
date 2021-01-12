@@ -38,6 +38,16 @@ Page({
   },
   showModal(e) {
     let ind = e.currentTarget.dataset.index;
+    switch(this.data.cou_id){
+      case '':
+        break;
+      default:
+        if(this.data.usable_list[ind].team){
+          this.setData({cou_checked:true})
+        }else{
+          this.setData({cou_checked:false})
+        }
+    }
     this.setData({
       modalName: e.currentTarget.dataset.target,
       cou_ind: ind
@@ -119,7 +129,6 @@ Page({
   submit: function () {
     var that = this;
     let shop_code = that.data.usable_list[that.data.cou_ind].shop_code;
-    console.log('00'+JSON.stringify(shop_code),that.data.usable_list)
     if (that.data.code == shop_code|| that.data.code == '0'+JSON.stringify(shop_code)|| that.data.code == '00'+JSON.stringify(shop_code) || shop_code == 'all') {
       that.apply(that.data.cou_ind, that.data.usable_list[that.data.cou_ind]._id)
       if (that.data.cou_checked == true) {
@@ -142,7 +151,7 @@ Page({
           if (res.result.stats.updated == 1) {
             let list = that.data.usable_list;
             var index = list.findIndex(function (item) {
-              return item.shop_code == "all";
+              return item.shop_code == "all" && item.act_id == '-1';
             });
             let prize = wx.getStorageSync('prize');
             prize.status = 'complete';
@@ -276,13 +285,12 @@ Page({
       })
       for (let i = 0; i < data.length; i++) {
         data[i].usable = true;
-        if (data[i].shop.length > 0) {
-          if (data[i].status == 'waiting') {
-            if (stamp >= data[i].creation_timestamp + parseInt(data[i].shopping.time) * 60) {
-              data[i].usable = false; //拼团失败
-            }
-            data[i].surplus = parseInt((data[i].creation_timestamp + parseInt(data[i].shopping.time) * 60 - stamp) / 60)
+        if(data[i].end_timestamp){
+          if (stamp >= data[i].end_timestamp) {
+            data[i].usable = false; //过期
           }
+        }
+        if (data[i].act.length > 0) {
           if (stamp >= data[i].act[0].end_timestamp) {
             data[i].usable = false; //过期
           }
@@ -298,6 +306,12 @@ Page({
               data[i].remain = parseInt(remain / (60 * 60)) + ' 小时';
             }
           }
+        }
+        if (data[i].status == 'waiting') {
+          if (stamp >= data[i].creation_timestamp + parseInt(data[i].shopping.time) * 60) {
+            data[i].usable = false; //拼团失败
+          }
+          data[i].surplus = parseInt((data[i].creation_timestamp + parseInt(data[i].shopping.time) * 60 - stamp) / 60)
         }
         if (data[i].status == 'complete') {
           data[i].usable = false; //已使用

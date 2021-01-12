@@ -301,13 +301,21 @@ Page({
         code += Math.floor(Math.random() * 10)
       }
     }
+    let id;
+    switch(that.data.data.shop.length){
+      case 0:
+        id=0
+        break;
+      default:
+        id=that.data.data.shop[0]._id
+    }
     let info = {
       creation_date: util.formatTimes(new Date()),
       creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
       _openid: userInfo._openid,
       user: userInfo.nickName,
       shop_code: that.data.data.shop_code,
-      shop_id: that.data.data.shop[0]._id,
+      shop_id: id,
       act_code: that.data.data.act_code,
       act_id: that.data.data._id,
       shopping: that.data.data.shopping[indx],
@@ -483,9 +491,17 @@ Page({
             status = 'waiting'
           }
           await that.increase(status, 'goGroupSuccess', share_coupon.shopping_ind, share_coupon.cou_code, team);
+          let name;
+          switch(that.data.data.shop.length){
+            case 0:
+              name='全门店通用'
+              break;
+            default:
+              name=that.data.data.shop[0].shop_name;
+          }
           if (status == 'success') {
             for (let i in team) {
-              that.sendMessage(team[i]._openid, share_coupon.shopping.name, '拼团成功', that.data.data.shop[0].shop_name);
+              that.sendMessage(team[i]._openid, share_coupon.shopping.name, '拼团成功',name);
             }
           }
           wx.cloud.callFunction({

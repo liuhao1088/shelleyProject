@@ -69,7 +69,7 @@ Page({
           success: function (res) {
             console.log(res)
             that.setData({
-              address: res.originalData.result.business,
+              address: res.originalData.result.formatted_address,
               lon: lon,
               lat: lat
             })
@@ -203,7 +203,7 @@ Page({
       success: function (res) {
         console.log(res)
         that.setData({
-          address: res.name,
+          address: res.address,
           list: [],
           lon: res.longitude,
           lat: res.latitude
