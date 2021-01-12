@@ -35,6 +35,7 @@
         </view>
         <view class="store-imgItem">
           <image src="{{item.shop_img}}"></image>
+          <view class="msg-item">预约好礼</view>
         </view>
       </view>
     </view>

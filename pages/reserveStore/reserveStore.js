@@ -238,6 +238,7 @@ Page({
     if (wx.getStorageSync('refreshData')) {
       // let data = wx.getStorageSync('refreshData');
       let list = that.data.list;
+      
       list[ind].reservation = ['has'];
       that.setData({
         list: list
@@ -292,6 +293,7 @@ Page({
     this.setData({
       list: data
     })
+    console.log(this.data.list)
     wx.hideNavigationBarLoading()
   },
 

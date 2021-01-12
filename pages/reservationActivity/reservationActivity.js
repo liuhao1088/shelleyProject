@@ -40,8 +40,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      startTime: date,
-      endTime: date
+      startTime: '请选择开始时间',
+      endTime: '请选择截止时间'
     })
     var that = this;
     if (options.data) {
@@ -73,6 +73,12 @@ Page({
 
   },
   async submit() {
+    let startTime = this.data.startTime;//开始时间
+    let endTime = this.data.endTime;//结束时间
+    var oDate1 = new Date(date);
+    var oDate2 = new Date(startTime);
+    var oDate3 = new Date(endTime);
+    console.log("当前时间："+oDate1.getTime(),"到店时间："+oDate2.getTime(),"结束时间："+oDate3.getTime());
     if (!this.data.title) {
       wx.showToast({
         title: '请输入活动标题',
@@ -81,15 +87,8 @@ Page({
       })
       return;
     }
-    if (!this.data.title) {
-      wx.showToast({
-        title: '请输入活动标题',
-        icon: 'none',
-        duration: 2000
-      })
-      return;
-    }
-    if (this.data.startTime === date) {
+    
+    if (this.data.startTime === '请选择开始时间') {
       wx.showToast({
         title: '请选择开始时间',
         icon: 'none',
@@ -97,7 +96,7 @@ Page({
       })
       return;
     }
-    if (this.data.endTime === date) {
+    if (this.data.endTime === '请选择截止时间') {
       wx.showToast({
         title: '请选择截止时间',
         icon: 'none',
@@ -105,6 +104,31 @@ Page({
       })
       return;
     }
+
+    if (oDate1.getTime() >= oDate2.getTime()) {
+      wx.showToast({
+        title: '时间已过，请重新选择开始时间',
+        icon: 'none'
+      })
+      return ;
+    } 
+    if (oDate1.getTime() >= oDate3.getTime()) {
+      wx.showToast({
+        title: '时间已过，请重新选择截止时间',
+        icon: 'none'
+      })
+      return ;
+    } 
+
+    if (oDate2.getTime() >= oDate3.getTime()) {
+      wx.showToast({
+        title: '截止时间不能小于开始时间',
+        icon: 'none'
+      })
+      return ;
+    } 
+
+
     if (!this.data.content) {
       wx.showToast({
         title: '请输入内容',

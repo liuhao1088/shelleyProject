@@ -87,6 +87,7 @@ Page({
       let data = JSON.parse(options.data)
       let list = data.re;
       let stamp = Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
+      
       if (list.length >= 1) {
         console.log(list[0].status, stamp, list[0].timestamp)
         if ((list[0].status == 'success' && stamp <= list[0].timestamp) || (list[0].status == 'waiting' && stamp <= list[0].timestamp)) {
@@ -114,7 +115,7 @@ Page({
         checkbox: wares
       })
     }
-
+    console.log(this.data.data.act[0].end_date)
   },
   callphone: function () {
     wx.makePhoneCall({

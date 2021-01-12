@@ -51,19 +51,13 @@
   <view class="form-item" style="margin-top: 4rpx;">
     <view class="form-title">到店时间</view>
     <view class="form-input">
-      <!-- <picker class='time-picker' mode="multiSelector" bindchange="bindStartMultiPickerChange" bindtap='pickerTap'
-        bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-        <view class="picker">
-          <view class='title'>{{startTime}}</view>
-        </view>
-      </picker> -->
       <rui-picker slot="flexchild" start="{{startTime}}" end="2999-12-31 00:00" value="{{startTime}}"
             fields="minute" bindchangedatepicker="changeStartTime"></rui-picker>
     </view>
   </view>
 
   <view class="experience-item" wx:if="{{data.gift}}" style="margin-top: 4rpx;">
-    预约好礼
+    预约好礼<text>截止至 {{data.act[0].end_date}}</text>
   </view>
   <view class="text-item" wx:if="{{data.gift}}">
     {{data.act[0].content}}

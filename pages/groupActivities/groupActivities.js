@@ -1,6 +1,5 @@
 // pages/groupActivities/groupActivities.js
 var app = getApp();
-var clickindex = new Array();
 var util = require('../../utils/util.js')
 let timer;
 Page({
@@ -9,8 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    startTime: '2021-01-20 12:00', //活动开始时间
-    endTime: '2020-01-20 12:00', //活动截止时间
+    startTime: '2021-01-10 12:00', //活动开始时间
+    endTime: '2021-01-10 12:00', //活动截止时间
     productList: [{
       "name": '请选择想要体验的商品',
       "price": '',
@@ -149,10 +148,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let date = util.formatTime(new Date());
     this.setData({
       startTime: '请选择开始时间',
-      endTime: '请选择结束时间'
+      endTime: '请选择截止时间'
     })
     var that = this;
     let wares = app.globalData.wares;
@@ -213,6 +211,36 @@ Page({
   async submit_form() {
     var _this = this;
     var list = _this.data.productList;
+    let time = util.formatTime(new Date());//当前时间
+    let startTime = _this.data.startTime;//开始时间
+    let endTime = _this.data.endTime;//结束时间
+    var oDate1 = new Date(time);
+    var oDate2 = new Date(startTime);
+    var oDate3 = new Date(endTime);
+    console.log("当前时间："+oDate1.getTime(),"到店时间："+oDate2.getTime(),"结束时间："+oDate3.getTime());
+    if (oDate1.getTime() >= oDate2.getTime()) {
+      wx.showToast({
+        title: '时间已过，请重新选择开始时间',
+        icon: 'none'
+      })
+      return ;
+    } 
+    if (oDate1.getTime() >= oDate3.getTime()) {
+      wx.showToast({
+        title: '时间已过，请重新选择截止时间',
+        icon: 'none'
+      })
+      return ;
+    } 
+
+    if (oDate2.getTime() >= oDate3.getTime()) {
+      wx.showToast({
+        title: '截止时间不能小于开始时间',
+        icon: 'none'
+      })
+      return ;
+    } 
+    
     if (_this.data.title == "" || list[list.length - 1].price == '' || list[list.length - 1].time == '' || list[list.length - 1].people == '' || list[list.length - 1].name == '请选择想要体验的商品') {
       wx.showToast({
         title: '内容不能为空',
