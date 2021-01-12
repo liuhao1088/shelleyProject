@@ -9,8 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    startTime: '2021-01-10 12:00', //活动开始时间
-    endTime: '2020-01-10 12:00', //活动截止时间
+    startTime: '2021-01-20 12:00', //活动开始时间
+    endTime: '2020-01-20 12:00', //活动截止时间
     productList: [{
       "name": '请选择想要体验的商品',
       "price": '',
@@ -151,8 +151,8 @@ Page({
   onLoad: function (options) {
     let date = util.formatTime(new Date());
     this.setData({
-      startTime: date,
-      endTime: date
+      startTime: '请选择开始时间',
+      endTime: '请选择结束时间'
     })
     var that = this;
     let wares = app.globalData.wares;

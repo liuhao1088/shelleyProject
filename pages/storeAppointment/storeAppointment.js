@@ -1,7 +1,6 @@
 // pages/storeAppointment/storeAppointment.js
 var app = getApp();
 var util = require('../../utils/util.js');
-var date = new Date();
 var timer;
 Page({
 
@@ -16,7 +15,7 @@ Page({
     isShow: false,
     reservation: '',
     ind: 0,
-    startTime: "选择日期",
+    startTime: "2021-01-01 12:00",
     multiArray: [
       [],
       [],
@@ -64,97 +63,40 @@ Page({
       ind: ind
     })
   },
-  //预约时间选择器
-  pickerTap: function () {
-    // var yesr = [];
-    var monthDay = [];
-    var hour = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', ];
-    // 月-日
-    var month = util.month(new Date());
-    console.log(month);
-    if(month === 1 || month === 3 || month === 5 || month === 7 || month === 8 || month === 10 || month === 12){
-      for (var i = 0; i <= 30; i++) {
-        var date1 = new Date(date);
-        date1.setDate(date.getDate() + i);
-        var md = (date1.getMonth() + 1) + "月" + date1.getDate() + "日";
-        monthDay.push(md);
-      }
-    }else if(month === 2){
-      for (var i = 0; i <= 27; i++) {
-        var date1 = new Date(date);
-        date1.setDate(date.getDate() + i);
-        var md = (date1.getMonth() + 1) + "月" + date1.getDate() + "日";
-        monthDay.push(md);
-      }
-    }else{
-      for (var i = 0; i <= 29; i++) {
-        var date1 = new Date(date);
-        date1.setDate(date.getDate() + i);
-        var md = (date1.getMonth() + 1) + "月" + date1.getDate() + "日";
-        monthDay.push(md);
-      }
+
+  //日期大小比较
+  compareDate(date1, date2) {
+    var oDate1 = new Date(date1);//当前时间
+    var oDate2 = new Date(date2);//到店时间
+    console.log("当前时间："+oDate1.getTime(),"到店时间："+oDate2 )
+    if (oDate1.getTime() >= oDate2.getTime()) {
+      return true; //第一个大
+    } else {
+      return false; //第二个大
     }
-    
-    var data = {
-      multiArray: this.data.multiArray,
-      multiIndex: this.data.multiIndex
-    };
-    // var newYesr = util.year(new Date());
-    // yesr.push(newYesr);
-    // console.log(yesr)
-    // data.multiArray[0] = yesr;
-    data.multiArray[0] = monthDay;
-    data.multiArray[1] = hour;
-    this.setData(data);
-  },
-  bindMultiPickerColumnChange: function (e) {
-    var data = {
-      multiArray: this.data.multiArray,
-      multiIndex: this.data.multiIndex
-    };
-    // 把选择的对应值赋值给 multiIndex
-    data.multiIndex[e.detail.column] = e.detail.value;
-    this.setData(data);
-  },
-  bindStartMultiPickerChange: function (e) {
-    var that = this;
-    var monthDay = that.data.multiArray[0][e.detail.value[0]];
-    var timedate = that.data.multiArray[1][e.detail.value[1]];
-    console.log(monthDay)
-    if (monthDay === "明天") {
-      var month = date.getMonth() + 1;
-      var day = date.getDate() + 1;
-      console.log(month + "月" + day + "日")
-      monthDay = month + "月" + day + "日";
-    } else if (monthDay === "后天") {
-      var date1 = new Date(date);
-      date1.setDate(date.getDate() + 2);
-      monthDay = (date1.getMonth() + 1) + "月" + date1.getDate() + "日";
-    }
-    let startTime = monthDay + ' ' + timedate
-    that.setData({
-      startTime
-    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      startTime: '请选择到店时间'
+    })
     if (options.data) {
       let data = JSON.parse(options.data)
       let list = data.re;
       let stamp = Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
       if (list.length >= 1) {
-        console.log(list[0].status,stamp,list[0].timestamp)
+        console.log(list[0].status, stamp, list[0].timestamp)
         if ((list[0].status == 'success' && stamp <= list[0].timestamp) || (list[0].status == 'waiting' && stamp <= list[0].timestamp)) {
           this.setData({
             reservation: 'already'
           })
         }
-      } 
-      if(data.reservation){
-        if(data.reservation[0]=='has') {
+      }
+      if (data.reservation) {
+        if (data.reservation[0] == 'has') {
           this.setData({
             reservation: 'already'
           })
@@ -171,8 +113,8 @@ Page({
       if (i + 1 == wares.length) that.setData({
         checkbox: wares
       })
-    }   
-    
+    }
+
   },
   callphone: function () {
     wx.makePhoneCall({
@@ -185,7 +127,7 @@ Page({
       latitude: that.data.data.lat,
       longitude: that.data.data.lon,
       name: that.data.data.address_name,
-      address:that.data.data.address
+      address: that.data.data.address
     })
   },
   getPhoneNumber: function (e) {
@@ -252,6 +194,10 @@ Page({
   },
   async submit() {
     var that = this;
+    let time = util.formatTime(new Date());//当前时间
+    let startTime = that.data.startTime;//到店时间
+    let flag =  that.compareDate(time,startTime);
+    console.log(flag);
     if (that.data.nameList[0] == "请选择想要体验的商品，可多选") {
       wx.showToast({
         title: '请选择商品',
@@ -260,7 +206,7 @@ Page({
       return;
     }
 
-    if (that.data.startTime === '选择日期') {
+    if (that.data.startTime === '请选择到店时间') {
       wx.showToast({
         title: '请选择到店时间',
         icon: 'none'
@@ -268,6 +214,14 @@ Page({
       return;
     }
 
+    if(flag === true){
+      wx.showToast({
+        title: '时间已过，请重新选择',
+        icon: 'none'
+      })
+      return;
+    }
+   
     wx.requestSubscribeMessage({
       tmplIds: ['-m92htbt5V0SlqRwZaMZAy9l3mv3CNseLM-yDKlRG5g', 'SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0', 'GN7JfS1q9N7eqdmvOxcFY6kjBBrUsnyRc6UGr58LAwg'],
       success(res) {
@@ -282,7 +236,6 @@ Page({
         }
       }
     })
-
   },
   add(userInfo) {
     var that = this;
@@ -304,11 +257,11 @@ Page({
     for (let e = 0; e < 10; e++) {
       numberCode += Math.floor(Math.random() * 10)
     }
-    let id='';
-    let act_code='';
-    if(that.data.data.act.length>0){
-      id=that.data.data.act[0]._id
-      act_code=that.data.data.act[0].act_code
+    let id = '';
+    let act_code = '';
+    if (that.data.data.act.length > 0) {
+      id = that.data.data.act[0]._id
+      act_code = that.data.data.act[0].act_code
     }
     wx.cloud.callFunction({
       name: 'recordAdd',
@@ -343,19 +296,19 @@ Page({
       wx.setStorageSync('refreshData', that.data.data)
       that.sendMessage(that.data.data._openid, that.data.startTime, cont)
       wx.cloud.callFunction({
-        name:'recordAdd',
-        data:{
-          collection:'message',
-          addData:{
-            creation_date:util.formatTime(new Date()),
-            creation_timestamp:Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
-            _openid:app.globalData.openid,
-            shop_code:that.data.data.shop_code,
+        name: 'recordAdd',
+        data: {
+          collection: 'message',
+          addData: {
+            creation_date: util.formatTime(new Date()),
+            creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
+            _openid: app.globalData.openid,
+            shop_code: that.data.data.shop_code,
             re_code: code + numberCode,
-            title:"门店预约成功",
-            content:'您在'+that.data.data.shop_name+'预约了'+that.data.startTime+'到店体验'+cont,
-            type:'myre',
-            read:'unread'
+            title: "门店预约成功",
+            content: '您在' + that.data.data.shop_name + '预约了' + that.data.startTime + '到店体验' + cont,
+            type: 'myre',
+            read: 'unread'
           }
         }
       })
