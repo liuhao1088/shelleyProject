@@ -5,13 +5,11 @@
         <text>怎么参加优惠活动？</text>
       </view>
     </view>
-    <view class="cu-avatar radius"
-      style="background-image:url({{userUrl}});"></view>
+    <view class="cu-avatar radius" style="background-image:url({{userUrl}});"></view>
   </view>
 
   <view class="cu-item">
-    <view class="cu-avatar radius"
-      style="background-image:url({{shelleyUrl}});"></view>
+    <view class="cu-avatar radius" style="background-image:url({{shelleyUrl}});"></view>
     <view class="main">
       <view class="content shadow">
         <text>操作步骤：
@@ -27,18 +25,17 @@
         <text>什么是拼团优惠券？怎么用？</text>
       </view>
     </view>
-    <view class="cu-avatar radius"
-      style="background-image:url({{userUrl}});"></view>
+    <view class="cu-avatar radius" style="background-image:url({{userUrl}});"></view>
   </view>
 
   <view class="cu-item">
-    <view class="cu-avatar radius"
-      style="background-image:url({{shelleyUrl}});"></view>
+    <view class="cu-avatar radius" style="background-image:url({{shelleyUrl}});"></view>
     <view class="main">
-      <view class="content shadow">
+      <view class="content shadow" bindtap="toCouponRules">
         <text>拼团优惠券是【雪莱特智能LED车灯】小程序特有的优惠券，通过参与拼团活动获取，拼团成功后即可激活使用。
           使用方法：
           进入雪莱特小程序-底部导航栏的【我的】-【我的卡券】-【立即使用】-核验对应门店码-线下支付优惠后价格。
+          <text class="bg">具体详见[卡券使用规则]</text>
         </text>
       </view>
     </view>
@@ -50,13 +47,11 @@
         <text>我要用好几张优惠券怎么办？</text>
       </view>
     </view>
-    <view class="cu-avatar radius"
-      style="background-image:url({{userUrl}});"></view>
+    <view class="cu-avatar radius" style="background-image:url({{userUrl}});"></view>
   </view>
 
   <view class="cu-item">
-    <view class="cu-avatar radius"
-      style="background-image:url({{shelleyUrl}});"></view>
+    <view class="cu-avatar radius" style="background-image:url({{shelleyUrl}});"></view>
     <view class="main">
       <view class="content shadow">
         <text>同类型优惠券单个商品订单不能叠加使用。而对于可叠加使用的优惠券，可选取其中一张进行使用，并在【核验门店码】的弹窗中勾选【合并使用】。
@@ -71,8 +66,7 @@
         <text class="bg">我还有更多问题要反馈</text>
       </view>
     </view>
-    <view class="cu-avatar radius"
-      style="background-image:url({{userUrl}});"></view>
+    <view class="cu-avatar radius" style="background-image:url({{userUrl}});"></view>
   </view>
 
 </view>

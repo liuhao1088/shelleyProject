@@ -158,7 +158,7 @@ button::after {
   width: 90%;
   border-radius: 34rpx;
   background-color: #fff;
-  box-shadow: 2rpx 2rpx 6rpx 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0rpx 0rpx 6rpx 0 rgba(0, 0, 0, 0.2);
   padding: 0 40rpx;
 }
 

@@ -14,6 +14,11 @@ Page({
       url: '/pages/helpAndFeedback/helpAndFeedback',
     })
   },
+  toCouponRules(){
+    wx.navigateTo({
+      url: '/pages/couponRules/couponRules',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载

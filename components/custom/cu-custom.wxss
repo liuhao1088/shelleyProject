@@ -1,1 +1,21 @@
 /* colorui/components/cu-custom.wxss */
+.cu-bar .action:first-child>text[class*="cuIcon-"] {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.cu-bar .action {
+  width: 88rpx;
+  height: 64rpx;
+  border: 0rpx solid black;
+}
+
+.yuan-item {
+  width: 64rpx;
+  height: 64rpx;
+  border: 1rpx solid rgb(232, 232, 232,0.2);
+  border-radius: 50%;
+  line-height: 62rpx;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.5);
+}

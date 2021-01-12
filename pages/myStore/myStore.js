@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    storeImg: ''
   },
   toStoreInformation(event) {
     let data = JSON.stringify(wx.getStorageSync('userInfo'))
@@ -17,25 +17,31 @@ Page({
   toActivityDetails(event) {
     wx.navigateTo({
       url: '/pages/activityDetails/activityDetails',
-    })   
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let userInfo=wx.getStorageSync('userInfo')
-    let code=userInfo.shop[userInfo.shop.length-1].shop_code;
-    switch(JSON.stringify(code).length){
+    let userInfo = wx.getStorageSync('userInfo');
+    console.log(userInfo)
+    let code = userInfo.shop[userInfo.shop.length - 1].shop_code;
+    let storeImg = userInfo.shop[userInfo.shop.length - 1].shop_img;
+    switch (JSON.stringify(code).length) {
       case 1:
-        code='00'+JSON.stringify(code)
+        code = '00' + JSON.stringify(code)
         break;
       case 2:
-        code='0'+JSON.stringify(code)
+        code = '0' + JSON.stringify(code)
         break;
     }
+
+    this.setData({
+      storeImg
+    })
     wx.setNavigationBarTitle({
-      title: "我的门店码："+code
+      title: "我的门店码：" + code
     })
 
   },

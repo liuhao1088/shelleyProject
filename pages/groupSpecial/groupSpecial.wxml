@@ -1,5 +1,6 @@
 <authorize id="authorize" />
 <wxs src="../../utils/util.wxs" module="utils" />
+<cu-custom bgColor="bg-gradual-pink" isBack="{{true}}" style="position: absolute;"></cu-custom>
 <view class="groupSpecialContainer">
   <!-- 头部 -->
   <view class="wrap">

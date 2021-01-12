@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/storeAppointment/storeAppointment",
     "pages/helpAndFeedback/helpAndFeedback",
     "pages/reserveStore/reserveStore",
     "pages/wode/wode",
@@ -14,7 +15,7 @@
     "pages/myCoupon/myCoupon",
     "pages/text/text",
     "pages/brandDetails/brandDetails",
-    "pages/storeAppointment/storeAppointment",
+    
     "pages/groupActivities/groupActivities",
     "pages/reservationActivity/reservationActivity",
     "pages/myStore/myStore",

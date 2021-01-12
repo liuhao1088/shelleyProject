@@ -4,7 +4,7 @@ page{
 
 .storeAppointmentContainer {
   color: #000;
-  padding-bottom: 80rpx;
+  padding-bottom: 160rpx;
 }
 
 .banner {
@@ -146,16 +146,22 @@ page{
 /* 预约 */
 .btn-item {
   width: 100%;
-  height: 80rpx;
+  height: 140rpx;
+  border-top: 2rpx solid #e8e8e8;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
   position: fixed;
   bottom: 0;
 }
 
 .btn-item button {
-  height: 100%;
-  width: 100%;
+  height: 80rpx;
+  width: 90%;
   line-height: 80rpx;
-  border-radius: 0;
+  border-radius: 10rpx;
   background-image: linear-gradient(133deg,#f92643,#e1001f,#ee0049);
   color: #fff;
 }
