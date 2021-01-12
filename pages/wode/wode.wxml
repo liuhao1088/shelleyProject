@@ -113,21 +113,15 @@
   </view>
 
   <view class="poster-item">
-    <!-- <swiper indicator-dots autoplay circular interval='3000' style="height:260rpx; width: 100%;">
-      <swiper-item wx:for="{{posterImg}}" wx:key="id">
-        <image  src="{{item}}"/>
-      </swiper-item>
-    </swiper> -->
+    <swiper class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots circular autoplay interval="5000"
+      duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="color: #00000">
+      <swiper-item wx:for="{{posterImg}}" wx:key="id" class="{{cardCur==index?'cur':''}}">
+        <view class="swiper-item">
+          <image src="{{item}}" mode="aspectFill"></image>
 
-    <swiper class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots circular autoplay
-  interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
-  <swiper-item wx:for="{{posterImg}}" wx:key="id" class="{{cardCur==index?'cur':''}}">
-    <view class="swiper-item">
-      <image src="{{item}}" mode="aspectFill"></image>
-      
-    </view>
-  </swiper-item>
-</swiper>
+        </view>
+      </swiper-item>
+    </swiper>
 
   </view>
 
@@ -145,6 +139,19 @@
         <text class="iconfont iconweibiaoti34"></text>
       </view>
     </view>
+    <!-- 更多好礼 -->
+    <view class="menu-item" bindtap="showModal" data-target="question" wx:if="{{prize}}">
+      <view class="menu-leftItem">
+        <view class="icon-item">
+          <text class="iconfont iconkaquan"></text>
+        </view>
+        <view class="menu-tagItem">更多好礼</view>
+      </view>
+      <view class="menu-rightItem">
+        <view class="small-item">New</view>
+        <text class="iconfont iconweibiaoti34"></text>
+      </view>
+    </view>
     <!-- 分享好友 -->
     <button hover-class="none" class="menu-item" open-type="share">
       <view class="menu-leftItem">
@@ -157,21 +164,8 @@
         <text class="iconfont iconweibiaoti34"></text>
       </view>
     </button>
-     <!-- 更多好礼 -->
-     <view class="menu-item" bindtap="showModal" data-target="question" wx:if="{{prize}}">
-      <view class="menu-leftItem">
-        <view class="icon-item">
-          <text class="iconfont iconkaquan"></text>
-        </view>
-        <view class="menu-tagItem">更多好礼</view>
-      </view>
-      <view class="menu-rightItem">
-        <view class="small-item">New</view>
-        <text class="iconfont iconweibiaoti34"></text>
-      </view>
-    </view>
-     <!-- 常见问题 -->
-     <view class="menu-item" bindtap="toCommonProblem">
+    <!-- 常见问题 -->
+    <view class="menu-item" bindtap="toCommonProblem">
       <view class="menu-leftItem">
         <view class="icon-item">
           <text class="iconfont iconwenti1"></text>
@@ -183,8 +177,8 @@
       </view>
     </view>
 
-      <!-- 帮助与反馈 -->
-      <view class="menu-item" bindtap="toHelpAndFeedback">
+    <!-- 帮助与反馈 -->
+    <view class="menu-item" bindtap="toHelpAndFeedback">
       <view class="menu-leftItem">
         <view class="icon-item">
           <text class="iconfont icondianhua01"></text>
@@ -201,7 +195,50 @@
 </view>
 
 <!-- 问答 -->
-<view class="cu-modal {{modalName=='question'?'show':''}}" catchtouchmove="ture">
+<view class="cu-modal {{modalName=='question'?'':'show'}}" catchtouchmove="ture">
+  <view class="cu-dialog">
+    <view class="bg-img">
+      <image mode="widthFix"
+        src="https://img12.360buyimg.com/ddimg/jfs/t1/170634/13/2348/38275/5ffd6464E00870d97/6e91693256806f23.png">
+      </image>
+      <view class="modal-wrap">
+        <view class="question-item">
+          <scroll-view scroll-y class="scroll-item">
+            <view class="title-item">请问您是否有安装车灯？</view>
+            <view class="car-lightsItem">
+              <view class="car-lightsBut" wx:for="{{carLight}}" wx:key="id">
+                <button class="{{item.checked?'carLightsRed':'red'}}" bindtap="carLightsCheckbox"
+                  id="{{item.id}}">{{item.name}}</button>
+              </view>
+            </view>
+            <view class="title-item">请问您对车灯的选购有什么要求？</view>
+            <view class="car-lightsItem">
+              <view class="car-lightsBut" style="margin-bottom: 20rpx;" wx:for="{{claim}}" wx:key="id">
+                <button class="{{item.checked?'carLightsRed':'red'}}" bindtap="claimCheckbox"
+                  id="{{item.id}}">{{item.name}}</button>
+              </view>
+            </view>
+            <view class="title-item">请问您还安装了以下哪些配件服务？</view>
+            <view class="car-lightsItem">
+              <view class="car-lightsBut" style="margin-bottom: 20rpx;" wx:for="{{checkbox}}" wx:key="id">
+                <button class="{{item.checked?'carLightsRed':'red'}}" bindtap="ChooseCheckbox"
+                  id="{{item.id}}">{{item.name}}</button>
+              </view>
+            </view>
+
+          </scroll-view>
+        </view>
+        <view class="but-item">
+          <button>立即领取</button>
+        </view>
+        <view class="已阅，暂不领取"></view>
+      </view>
+
+    </view>
+  </view>
+</view>
+
+<!-- <view class="cu-modal {{modalName=='question'?'show':''}}" catchtouchmove="ture">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
       <view class="content"></view>
@@ -224,7 +261,7 @@
       </view>
     </view>
   </view>
-</view>
+</view> -->
 
 <!-- 导航栏 -->
 <tabbar tabbar="{{tabbar}}"></tabbar>
