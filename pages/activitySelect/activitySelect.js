@@ -5,24 +5,42 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    parse:''
   },
   toReservationActivity(event){
-    wx.navigateTo({
-      url: '/pages/reservationActivity/reservationActivity',
-    })
+    switch(this.data.parse){
+      case '':
+        wx.navigateTo({
+          url: '/pages/reservationActivity/reservationActivity',
+        })
+        break;
+      default:
+        wx.navigateTo({
+          url: '/pages/reservationActivity/reservationActivity?parse='+'parse',
+        })
+    }
   },
   toGroupActivities(event){
-    wx.navigateTo({
-      url: '/pages/groupActivities/groupActivities',
-    })
+    switch(this.data.parse){
+      case '':
+        wx.navigateTo({
+          url: '/pages/groupActivities/groupActivities',
+        })
+        break;
+      default:
+        wx.navigateTo({
+          url: '/pages/groupActivities/groupActivities?parse='+'parse',
+        })
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    if(options.data){
+      this.setData({parse:'pr'})
+    }
   },
 
   /**

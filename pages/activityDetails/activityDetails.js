@@ -2,6 +2,7 @@
 var app=getApp();
 var util=require('../../utils/util.js')
 var skip=0;
+var code;
 Page({
 
   /**
@@ -9,12 +10,21 @@ Page({
    */
   data: {
     list:[],stamp:Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
-    search_whether:false,search:''
+    search_whether:false,search:'',transmit:false
   },
   toActivitySelect(event){
-    wx.navigateTo({
-      url: '/pages/activitySelect/activitySelect',
-    })
+    switch(code){
+      case 'all':
+        wx.navigateTo({
+          url: '/pages/activitySelect/activitySelect?data='+'parse',
+        })
+        break;
+      default:
+        wx.navigateTo({
+          url: '/pages/activitySelect/activitySelect',
+        })
+    }
+    
   },
   /**
    * 生命周期函数--监听页面加载
@@ -31,6 +41,11 @@ Page({
       }
     });
     skip=0;
+    let userInfo=wx.getStorageSync('userInfo')
+    code=userInfo.shop[userInfo.shop.length-1].shop_code;
+    if(options.data){
+      code='all'
+    }
     that.loadData();
     switch(app.globalData.wares){
       case '':
@@ -58,7 +73,6 @@ Page({
   toSearch:function(){
     if(this.data.search!==''){
       var that=this;
-      let userInfo=wx.getStorageSync('userInfo')
       var _=wx.cloud.database().command;
       let search=that.data.search;
       if(search=='预约'||search=='预约活动'){
@@ -67,7 +81,7 @@ Page({
       if(search=='拼团'||search=='拼团活动'){
         search='team'
       }
-      wx.cloud.database().collection('activity').where({shop_code:userInfo.shop[userInfo.shop.length-1].shop_code}).where(_.or([{
+      wx.cloud.database().collection('activity').where({shop_code:code}).where(_.or([{
         act_code: {
           $regex: '.*' + that.data.search,
           $options: 'i'
@@ -124,9 +138,8 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    let userInfo=wx.getStorageSync('userInfo')
     var _=wx.cloud.database().command;
-    wx.cloud.database().collection('activity').where({shop_code:userInfo.shop[userInfo.shop.length-1].shop_code}).orderBy('creation_date','desc').skip(skip).limit(10).get().then(res=>{
+    wx.cloud.database().collection('activity').where({shop_code:code}).orderBy('creation_date','desc').skip(skip).limit(10).get().then(res=>{
       let data=that.data.list.concat(res.data)
       if(res.data.length==0){
         wx.showToast({

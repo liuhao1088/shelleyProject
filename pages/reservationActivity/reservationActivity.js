@@ -2,6 +2,7 @@
 const util = require('../../utils/util');
 let date = util.formatTime(new Date())
 let timer;
+let scode;
 Page({
 
   /**
@@ -44,6 +45,11 @@ Page({
       endTime: '请选择截止时间'
     })
     var that = this;
+    let userInfo=wx.getStorageSync('userInfo')
+    scode=userInfo.shop[userInfo.shop.length - 1].shop_code;
+    if(options.parse){
+      scode='all'
+    }
     if (options.data) {
       let data = JSON.parse(options.data)
       wx.setNavigationBarTitle({
@@ -186,7 +192,7 @@ Page({
           end_date: that.data.endTime,
           end_timestamp: Date.parse(that.data.endTime.replace(/-/g, '/')) / 1000,
           act_code: code + numberCode,
-          shop_code: userInfo.shop[userInfo.shop.length - 1].shop_code,
+          shop_code: scode,
           lat: userInfo.shop[userInfo.shop.length - 1].lat,
           lon: userInfo.shop[userInfo.shop.length - 1].lon,
           _openid: userInfo._openid,

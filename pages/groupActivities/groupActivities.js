@@ -2,6 +2,7 @@
 var app = getApp();
 var util = require('../../utils/util.js')
 let timer;
+var scode;
 Page({
 
   /**
@@ -137,7 +138,15 @@ Page({
     let items = this.data.checkbox;
     let ind = e.currentTarget.dataset.index;
     for (let i in items) items[i].checked = false
-    items[ind].checked = true;
+    if(items[ind].not_joining){
+      wx.showToast({
+        title: '该商品暂不参与活动',
+        icon:'none',
+        duration:1000
+      })
+    }else{
+      items[ind].checked = true;
+    }
     this.setData({
       checkbox: items,
       ind: ind
@@ -159,6 +168,11 @@ Page({
       if (i + 1 == wares.length) that.setData({
         checkbox: wares
       })
+    }
+    let userInfo=wx.getStorageSync('userInfo')
+    scode=userInfo.shop[userInfo.shop.length - 1].shop_code;
+    if(options.parse){
+      scode='all'
     }
     if (options.data) {
       let data = JSON.parse(options.data)
@@ -297,7 +311,7 @@ Page({
           end_timestamp: Date.parse(that.data.endTime.replace(/-/g, '/')) / 1000,
           shopping: list,
           act_code: code + numberCode,
-          shop_code: userInfo.shop[userInfo.shop.length - 1].shop_code,
+          shop_code: scode,
           lat: userInfo.shop[userInfo.shop.length - 1].lat,
           lon: userInfo.shop[userInfo.shop.length - 1].lon,
           _openid: userInfo._openid,

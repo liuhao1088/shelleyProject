@@ -40,16 +40,16 @@
               <view class="tool"></view>
             </view>
             <view class="main-rightItem">
-              <view class="title-item">{{item.shop_code=='all'?'现金抵扣红包':'拼团优惠券'}}</view>
+              <view class="title-item">{{!item.team?'现金抵扣红包':'拼团优惠券'}}</view>
               <view class="product-nameItem">
-                {{item.shop_code=='all'?item.shopping.name+'适用':'仅限'+item.shopping.name+'使用'}}</view>
+                {{!item.team?item.shopping.name+'适用':'仅限'+item.shopping.name+'使用'}}</view>
               <view class="progress-item" wx:if="{{item.remain!==item.act[0].end_date}}">
                 <view class="time-item">剩余使用时间：{{item.remain}}</view>
                 <view class="cu-progress round">
                   <view class="bg-color" style="width:{{loading?item.percent:''}};"></view>
                 </view>
               </view>
-              <view class="product-nameItem" wx:else>有效期至{{item.shop_code=='all'?item.end_date:item.act[0].end_date}}</view>
+              <view class="product-nameItem" wx:else>有效期至{{!item.team?item.end_date:item.act[0].end_date}}</view>
             </view>
           </view>
         </view>
@@ -82,9 +82,9 @@
               <view class="tool"></view>
             </view>
             <view class="main-rightItem" style="flex: unset;">
-              <view class="title-item">{{item.shop_code=='all'?'现金抵扣红包':'拼团优惠券'}}</view>
+              <view class="title-item">{{!item.team?'现金抵扣红包':'拼团优惠券'}}</view>
               <view class="product-nameItem">
-                {{item.shop_code=='all'?item.shopping.name+'适用':'仅限'+item.shopping.name+'使用'}}</view>
+                {{!item.team?item.shopping.name+'适用':'仅限'+item.shopping.name+'使用'}}</view>
               <view class="product-nameItem">剩余{{item.surplus}}分钟</view>
             </view>
             <view class="main-butItem">
@@ -124,10 +124,10 @@
             <view class="tool" style="background-color: #a5a5a5;"></view>
           </view>
           <view class="main-rightItem">
-            <view class="title-item">{{item.shop_code=='all'?'现金抵扣红包':'拼团优惠券'}}</view>
+            <view class="title-item">{{!item.team?'现金抵扣红包':'拼团优惠券'}}</view>
             <view class="product-nameItem">
-              {{item.shop_code=='all'?item.shopping.name+'适用':'仅限'+item.shopping.name+'使用'}}</view>
-            <view class="product-nameItem">有效期至{{item.shop_code=='all'?item.end_date:item.act[0].end_date}}</view>
+              {{!item.team?item.shopping.name+'适用':'仅限'+item.shopping.name+'使用'}}</view>
+            <view class="product-nameItem">有效期至{{!item.team?item.end_date:item.act[0].end_date}}</view>
           </view>
         </view>
       </view>
@@ -171,10 +171,10 @@
             <view class="tool" style="background-color: #a5a5a5;"></view>
           </view>
           <view class="main-rightItem">
-            <view class="title-item">{{item.shop_code=='all'?'现金抵扣红包':'拼团优惠券'}}</view>
+            <view class="title-item">{{!item.team?'现金抵扣红包':'拼团优惠券'}}</view>
             <view class="product-nameItem">
-              {{item.shop_code=='all'?item.shopping.name+'适用':'仅限'+item.shopping.name+'使用'}}</view>
-            <view class="product-nameItem">有效期至{{item.shop_code=='all'?item.end_date:item.act[0].end_date}}</view>
+              {{!item.team?item.shopping.name+'适用':'仅限'+item.shopping.name+'使用'}}</view>
+            <view class="product-nameItem">有效期至{{!item.team?item.end_date:item.act[0].end_date}}</view>
           </view>
         </view>
       </view>

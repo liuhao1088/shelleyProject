@@ -125,7 +125,7 @@ Page({
   },
   toActivityDetails() {
     wx.navigateTo({
-      url: '/pages/activityDetails/activityDetails',
+      url: '/pages/activityDetails/activityDetails?data='+'parse',
     })
   },
   toHelpAndFeedback() {

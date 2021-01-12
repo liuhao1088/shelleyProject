@@ -158,6 +158,40 @@ function nearby() {
       }).then(res => {
         //console.log(res)
         let data = res.result.list;
+        if(data.length==0){
+          wx.cloud.callFunction({
+            name: 'multQuery',
+            data: {
+              collection: 'activity',
+              match: {
+                type: 'team',
+                shop_code:'all'
+              },
+              or: [{}],
+              and: [{}],
+              lookup: {
+                from: 'shop',
+                localField: 'shop_code',
+                foreignField: 'shop_code',
+                as: 'shop',
+              },
+              lookup2: {
+                from: 'user',
+                localField: '_openid',
+                foreignField: '_openid',
+                as: 'user',
+              },
+              sort: {
+                creation_date: -1
+              },
+              skip: 0,
+              limit: 10
+            }
+          }).then(res => {
+            let list=res.result.list;
+            if(list.length!==0)  wx.setStorageSync('nearby', list[0])
+          })
+        }
         for (let i in data) {
           data[i].distance = getDistance(lat, lon, data[i].lat, data[i].lon)
           if (i == data.length - 1) {
