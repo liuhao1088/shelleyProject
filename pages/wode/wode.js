@@ -15,7 +15,7 @@ Page({
     carLight: [{
         id: 0,
         name: '是',
-        checked: false,
+        checked: true,
       },
       {
         id: 1,
@@ -23,11 +23,10 @@ Page({
         checked: false,
       },
     ],
-    claim:[
-      {
+    claim: [{
         id: 0,
         name: '产品设计',
-        checked: false,
+        checked: true,
       },
       {
         id: 1,
@@ -58,7 +57,7 @@ Page({
     checkbox: [{
         id: 0,
         name: '行车记录仪',
-        checked: false,
+        checked: true,
       }, {
         id: 1,
         name: '隐形车衣',
@@ -92,11 +91,12 @@ Page({
     newMsg: 0,
     prize: false,
     posterImg: [
+      'https://img10.360buyimg.com/ddimg/jfs/t1/152563/16/14632/154080/5ffe5234Ef203ada0/78ad42bb28dba617.jpg',
       'https://img14.360buyimg.com/ddimg/jfs/t1/166688/37/1598/104678/5ff7cf5bEb402e7cf/f01242efb00089f2.png',
-      'https://img14.360buyimg.com/ddimg/jfs/t1/166688/37/1598/104678/5ff7cf5bEb402e7cf/f01242efb00089f2.png',
-      'https://img14.360buyimg.com/ddimg/jfs/t1/166688/37/1598/104678/5ff7cf5bEb402e7cf/f01242efb00089f2.png'
+      'https://img10.360buyimg.com/ddimg/jfs/t1/152563/16/14632/154080/5ffe5234Ef203ada0/78ad42bb28dba617.jpg'
     ],
     cardCur: 0,
+    scrollNum: false,
   },
   toMyCoupon() {
     wx.navigateTo({
@@ -125,7 +125,7 @@ Page({
   },
   toActivityDetails() {
     wx.navigateTo({
-      url: '/pages/activityDetails/activityDetails?data='+'parse',
+      url: '/pages/activityDetails/activityDetails?data=' + 'parse',
     })
   },
   toHelpAndFeedback() {
@@ -240,6 +240,12 @@ Page({
     })
   },
 
+  questionScroll(e) {
+    this.setData({
+      scrollNum: true
+    })
+
+  },
   /**
    * 生命周期函数--监听页面加载
    */

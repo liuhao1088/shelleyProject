@@ -351,3 +351,52 @@ image {
   font-size: 20rpx;
   color:#fff;
 }
+
+.wrap{
+  width:200px;
+  height: 160px;
+  margin:200px auto;
+  animation: drop 1s infinite;
+}
+.wrap view{
+  width:200px;
+  height: 160px;
+  position: relative;
+  animation: drop 4s infinite;
+  background-color: transparent; /*test color*/
+}
+@keyframes drop{
+  0%{
+    transform:scale(1.2,1.2);
+  }
+  50%{
+    transform:scale(1.5,1.5);
+  }
+  to{
+    transform: scale(1.2,1.2);
+  }
+}
+.wrap view:before{
+  content: '';
+  position: absolute;
+  left:0;
+  top:0;
+  width:100px;
+  height: 160px;
+  border-radius:100px 100px 0 0;
+  transform:rotate(45deg);
+  transform-origin: right bottom;
+  background-color: red;
+}
+.wrap view:after{
+  content: '';
+  position: absolute;
+  right: 0;
+  top:0;
+  width: 100px;
+  height: 160px;
+  border-radius:100px 100px 0 0;
+  background-color: red;
+  transform:rotate(-45deg);
+  transform-origin:left bottom;
+}

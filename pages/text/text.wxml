@@ -36,42 +36,7 @@
 
 <!-- <view class="div2" bindtouchstart="touchstart" bindtouchend="touchend">向左向左向左，向右滑动啦啦啦</view> -->
 
-
 <view class="wrap">
-  <view class="coupon-item">
-    <image mode="widthFix"
-      src="https://img10.360buyimg.com/ddimg/jfs/t1/149624/3/19385/9448/5ff524caEa02d65c6/bf827cac619224c2.png"></image>
-    <!-- 斜条 -->
-    <view class="t-right-new">
-      <view class="item">宝安店专用</view>
-    </view>
-
-    <!-- 券 -->
-    <view class="quan-item">券</view>
-    <!-- 内容 -->
-    <view class="main-item">
-      <view class="mag-item">￥</view>
-      <view class="amount-item">200</view>
-      <view class="tool-item">
-        <view class="tool"></view>
-      </view>
-      <view class="main-rightItem">
-        <view class="title-item">拼团优惠券</view>
-        <view class="product-nameItem">仅限如影系列-R1使用</view>
-        <view class="progress-item">
-          <view class="time-item">剩余使用时间：30天</view>
-          <view class="cu-progress round">
-            <view class="bg-color" style="width:{{loading?'90%':''}};"></view>
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
-  <view class="use-item">
-    <view class="voucher-wrap">
-      <view class="but-item">
-          <view class="but-magItem">立 即 使 用</view>
-      </view>
-    </view>
-  </view>
+    <!-- <view></view> -->
+    
 </view>

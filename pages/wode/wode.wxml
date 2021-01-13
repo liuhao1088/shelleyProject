@@ -113,8 +113,8 @@
   </view>
 
   <view class="poster-item">
-    <swiper class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots circular autoplay interval="5000"
-      duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="color: #00000">
+    <swiper class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" circular autoplay interval="5000"
+      duration="500" bindchange="cardSwiper">
       <swiper-item wx:for="{{posterImg}}" wx:key="id" class="{{cardCur==index?'cur':''}}">
         <view class="swiper-item">
           <image src="{{item}}" mode="aspectFill"></image>
@@ -195,7 +195,7 @@
 </view>
 
 <!-- 问答 -->
-<view class="cu-modal {{modalName=='question'?'':'show'}}" catchtouchmove="ture">
+<view class="cu-modal {{modalName=='question'?'show':''}}" catchtouchmove="ture">
   <view class="cu-dialog">
     <view class="bg-img">
       <image mode="widthFix"
@@ -203,7 +203,7 @@
       </image>
       <view class="modal-wrap">
         <view class="question-item">
-          <scroll-view scroll-y class="scroll-item">
+          <scroll-view scroll-y class="scroll-item" bindscroll="questionScroll">
             <view class="title-item">请问您是否有安装车灯？</view>
             <view class="car-lightsItem">
               <view class="car-lightsBut" wx:for="{{carLight}}" wx:key="id">
@@ -228,40 +228,18 @@
 
           </scroll-view>
         </view>
-        <view class="but-item">
-          <button>立即领取</button>
+        <view class="but-item" wx:if="{{scrollNum === false}}">
+          <button style=" background-color: rgb(120, 120, 120);background-image: unset;">立即领取</button>
         </view>
-        <view class="已阅，暂不领取"></view>
+        <view class="but-item" wx:else>
+          <button bindtap="getCoupon">立即领取</button>
+        </view>
+        <view class="close-item" bindtap="hideModal">已阅，暂不领取</view>
       </view>
 
     </view>
   </view>
 </view>
-
-<!-- <view class="cu-modal {{modalName=='question'?'show':''}}" catchtouchmove="ture">
-  <view class="cu-dialog">
-    <view class="cu-bar bg-white justify-end">
-      <view class="content"></view>
-      <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close" style="color: #f92643;"></text>
-      </view>
-    </view>
-    <view class="padding-xl">
-      <view class="modal-img">
-        <view class="title-item">点击即领百元抵扣红包</view>
-        <view class="tag-item">您是否有安装以下汽车配件？</view>
-      </view>
-      <view class="modal-wrap">
-        <view class="modal-selectBut" wx:for="{{checkbox}}" wx:key="id">
-          <button class="{{item.checked?'red':''}}" bindtap="ChooseCheckbox" id="{{item.id}}">{{item.name}}</button>
-        </view>
-      </view>
-      <view class="modal-questionBut">
-        <button bindtap="getCoupon">立即领取</button>
-      </view>
-    </view>
-  </view>
-</view> -->
 
 <!-- 导航栏 -->
 <tabbar tabbar="{{tabbar}}"></tabbar>

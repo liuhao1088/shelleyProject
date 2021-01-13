@@ -1,7 +1,60 @@
 <authorize id="authorize" />
 <view class="activityPosterContainer" bindtap="togroupSpecial">
-  <image  src="https://img12.360buyimg.com/ddimg/jfs/t1/152421/35/13454/294865/5ff52644E515853a0/c8ad3bd34ec8d98e.jpg"></image>
+  <image  src="https://img13.360buyimg.com/ddimg/jfs/t1/167054/26/2308/280759/5ffe5384E4947e41d/c6b1f2726a984798.jpg"></image>
+  <view class="poster-but">
+  <button>立即领取</button>
 </view>
+</view>
+
 
 <!-- 导航栏 -->
 <tabbar tabbar="{{tabbar}}"></tabbar>
+
+<!-- 问答 -->
+<view class="cu-modal {{modalName=='question'?'':'show'}}" catchtouchmove="ture">
+  <view class="cu-dialog">
+    <view class="bg-img">
+      <image mode="widthFix"
+        src="https://img12.360buyimg.com/ddimg/jfs/t1/170634/13/2348/38275/5ffd6464E00870d97/6e91693256806f23.png">
+      </image>
+      <view class="modal-wrap">
+        <view class="question-item">
+          <scroll-view scroll-y class="scroll-item" bindscroll="questionScroll">
+            <view class="title-item">请问您是否有安装车灯？</view>
+            <view class="car-lightsItem">
+              <view class="car-lightsBut" wx:for="{{carLight}}" wx:key="id">
+                <button class="{{item.checked?'carLightsRed':'red'}}" bindtap="carLightsCheckbox"
+                  id="{{item.id}}">{{item.name}}</button>
+              </view>
+            </view>
+            <view class="title-item">请问您对车灯的选购有什么要求？</view>
+            <view class="car-lightsItem">
+              <view class="car-lightsBut" style="margin-bottom: 20rpx;" wx:for="{{claim}}" wx:key="id">
+                <button class="{{item.checked?'carLightsRed':'red'}}" bindtap="claimCheckbox"
+                  id="{{item.id}}">{{item.name}}</button>
+              </view>
+            </view>
+            <view class="title-item">请问您还安装了以下哪些配件服务？</view>
+            <view class="car-lightsItem">
+              <view class="car-lightsBut" style="margin-bottom: 20rpx;" wx:for="{{checkbox}}" wx:key="id">
+                <button class="{{item.checked?'carLightsRed':'red'}}" bindtap="ChooseCheckbox"
+                  id="{{item.id}}">{{item.name}}</button>
+              </view>
+            </view>
+
+          </scroll-view>
+        </view>
+        <view class="but-item" wx:if="{{scrollNum === false}}">
+          <button style=" background-color: rgb(120, 120, 120);background-image: unset;">立即领取</button>
+        </view>
+        <view class="but-item" wx:else>
+          <button bindtap="getCoupon">立即领取</button>
+        </view>
+        <view class="close-item" bindtap="hideModal" data-target="question">已阅，暂不领取</view>
+      </view>
+
+    </view>
+  </view>
+</view>
+
+
