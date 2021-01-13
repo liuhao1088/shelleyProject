@@ -113,8 +113,8 @@
 <!-- 活动规则 -->
 <view class="rule-item column justify-center align-center" bindtap="toCouponRules">
   <view class="rule-wrap">
-    <view class="text">活动</view>
-    <view class="text">规则</view>
+    <view class="rule-text">活动</view>
+    <view class="rule-text">规则</view>
   </view>
 </view>
 
