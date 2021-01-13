@@ -46,7 +46,7 @@ image {
   height: 100%;
   width: 100%;
   line-height: 70rpx;
-  color: rgb(233, 10, 0);
+  color: #e90a00;
   font-weight: bold;
   font-size: 34rpx;
   border-radius: 50rpx;

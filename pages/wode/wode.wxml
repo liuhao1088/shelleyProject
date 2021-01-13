@@ -113,7 +113,7 @@
   </view>
 
   <view class="poster-item">
-    <swiper class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" circular autoplay interval="5000"
+    <swiper class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" circular autoplay interval="3000"
       duration="500" bindchange="cardSwiper">
       <swiper-item wx:for="{{posterImg}}" wx:key="id" class="{{cardCur==index?'cur':''}}">
         <view class="swiper-item">

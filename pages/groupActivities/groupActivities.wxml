@@ -118,8 +118,7 @@
       </view>
       <view class="cu-description column">
         <view style="position:relative;bottom:20rpx;">原价：<text
-            style="color:red;font-size:30rpx;">{{checkbox[ind].original_price==''?'暂无报价':'￥'}}
-            {{checkbox[ind].original_price}}</text></view>
+            style="color:red;font-size:30rpx;">{{checkbox[ind].original_price==''?'暂无报价':'￥'}}{{checkbox[ind].original_price}}</text></view>
         <view>产品介绍：{{checkbox[ind].introduce}}</view>
       </view>
     </view>
