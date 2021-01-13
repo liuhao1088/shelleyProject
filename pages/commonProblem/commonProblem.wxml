@@ -60,13 +60,17 @@
     </view>
   </view>
 
-  <view class="cu-item self">
+  <view class="cu-item self" style="position: relative;">
     <view class="main" bindtap="toHelpAndFeedback">
       <view class="content bg-green shadow">
         <text class="bg">我还有更多问题要反馈</text>
       </view>
     </view>
     <view class="cu-avatar radius" style="background-image:url({{userUrl}});"></view>
+
+    <view class="icon-item" bindtap="toHelpAndFeedback">
+      <image src="https://img12.360buyimg.com/ddimg/jfs/t1/167582/2/2213/69928/5ffe8ec7E9089ae3c/4f5dce977ae46798.png"></image>
+    </view>
   </view>
 
 </view>

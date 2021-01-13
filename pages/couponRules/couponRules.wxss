@@ -5,7 +5,7 @@
   white-space: pre-wrap;
   background: white;
   padding: 0 40rpx ;
-  padding-bottom: 60rpx;
+  padding-bottom: 100rpx;
   margin-bottom: 50rpx;
 }
 
