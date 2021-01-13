@@ -41,12 +41,12 @@ Component({
    */
   methods: {
     BackPage() {
-      wx.reLaunch({
+      wx.switchTab({
         url: '/pages/index/index',
       })
     },
     toHome(){
-      wx.reLaunch({
+      wx.switchTab({
         url: 'pages/index/index',
       })
     }
