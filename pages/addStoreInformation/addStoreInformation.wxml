@@ -5,7 +5,7 @@
     </image>
   </view>
   <view class="wrapper">
-    <view class="titleItem">{{transmit==''?'请输入以下信息，之后会有我们的工作人员联系您。':'请输入信息完成修改。'}}</view>
+    <view class="titleItem">{{transmit==''?'请输入以下信息，之后会有我们的工作人员联系您。':'请输入修改信息，审核通过后才能完成修改。'}}</view>
     <!-- 门店名称 -->
     <view class="box-wrapper">
       <view class="tag-wrapper">门店名称：</view>
@@ -76,7 +76,7 @@
 
 
     <view class="submit-wrapper">
-      <button hover-class="but-hover" bindtap="submit">{{transmit==''?'提交':'保存'}}</button>
+      <button hover-class="but-hover" bindtap="submit">{{transmit==''?'提交':'提交修改'}}</button>
       <view class="process" bindtap="showModal" data-target="Modal">认证流程</view>
     </view>
     <view class="codeItem">

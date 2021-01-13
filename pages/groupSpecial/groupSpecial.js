@@ -98,6 +98,11 @@ Page({
     action: 'going',
     prize: false
   },
+  tab:function(){
+    wx.switchTab({
+      url: '../index/index',
+    })
+  },
   toActivityRule(event) {
     wx.navigateTo({
       url: '/pages/activityRule/activityRule',
@@ -711,20 +716,21 @@ Page({
     switch (wx.getStorageSync('userInfo') == '') {
       case false:
         let userInfo = wx.getStorageSync('userInfo')
+        
+        wx.cloud.database().collection('coupon').where({
+          _openid: userInfo._openid,
+          shop_code: 'all'
+        }).get().then(res => {
+          let data = res.data;
+          if (data.length == 0) {
+            that.setData({
+              prize: true
+            })
+          } else {
+            wx.setStorageSync('prize', data)
+          }
+        })  
         if (!wx.getStorageSync('prize')) {
-          wx.cloud.database().collection('coupon').where({
-            _openid: userInfo._openid,
-            shop_code: 'all'
-          }).get().then(res => {
-            let data = res.data;
-            if (data.length == 0) {
-              that.setData({
-                prize: true
-              })
-            } else {
-              wx.setStorageSync('prize', data)
-            }
-          })
         }
         break;
     }

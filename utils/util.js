@@ -73,6 +73,7 @@ function uploadimg(i, parse, content, arr) {
       success(res) {
         arr.push(res.fileID)
         resolve(arr);
+        //that.uploadimg(i+1,parse,content,arr)
       }
     })
   })
