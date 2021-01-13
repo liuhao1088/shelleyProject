@@ -1,8 +1,9 @@
 // pages/manage/examine/examine.js
 var ind;
-var skip;
-var skip2;
-var skip3;
+var skip=0;
+var skip2=0;
+var skip3=0;
+var skip4=0;
 Page({
 
   /**
@@ -16,10 +17,14 @@ Page({
     search: '',
     alreadylist: [],
     faillist:[],
+    modifylist:[],
     searchlist:'',
     tabs: [{
       title: "待认证",
       color: "orangered"
+    }, {
+      title: "待修改",
+      color: ""
     }, {
       title: "已认证",
       color: ""
@@ -44,7 +49,7 @@ Page({
     });
 
     var tabs = this.data.tabs;
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
       tabs[i].color = "black";
     }
     tabs[e.currentTarget.id].color = "orangered";
@@ -84,36 +89,28 @@ Page({
   toLookup: function (e) {
     var that = this;
     ind = parseInt(e.currentTarget.dataset.index)
-    wx.setStorageSync("editData", that.data.list[ind])
+    let mold=e.currentTarget.dataset.mold;
+    switch(mold){
+      case 'waiting':
+        wx.setStorageSync("editData", that.data.list[ind])
+        break;
+      case 'success':
+        wx.setStorageSync("editData", that.data.alreadylist[ind])
+        break;
+      case 'fail':
+        wx.setStorageSync("editData", that.data.faillist[ind])
+        break;
+      case 'modify':
+        wx.setStorageSync("editData", that.data.modifylist[ind])
+        break;
+      default:
+        wx.setStorageSync("editData", that.data.searchlist[ind])
+    }
     wx.navigateTo({
       url: './lookup',
     })
   },
-  toAlreadyLookup: function (e) {
-    var that = this;
-    console.log(e)
-    ind = parseInt(e.currentTarget.dataset.index)
-    wx.setStorageSync("editData", that.data.alreadylist[ind])
-    wx.navigateTo({
-      url: './lookup',
-    })
-  },
-  toFailLookup: function (e) {
-    var that = this;
-    ind = parseInt(e.currentTarget.dataset.index)
-    wx.setStorageSync("editData", that.data.faillist[ind])
-    wx.navigateTo({
-      url: './lookup',
-    })
-  },
-  toSearchLookup: function (e) {
-    var that = this;
-    ind = parseInt(e.currentTarget.dataset.index)
-    wx.setStorageSync("editData", that.data.searchlist[ind])
-    wx.navigateTo({
-      url: './lookup',
-    })
-  },
+  
   /**
    * 生命周期函数--监听页面加载
    */
@@ -128,22 +125,19 @@ Page({
         });
       }
     });
-    this.setData({
-      list: [],
-      alreadylist: [],
-      faillist:[]
-    })
-    let list = []; skip=0;
-    let alreadylist = []; skip2=0;
-    let faillist=[]; skip3=0;
+    
+    let list = [];
+    let alreadylist = [];
+    let faillist=[];
     await this.loadData(this.data.list, 'waiting',list,0).then(res=>list=res)
     await this.loadData(this.data.alreadylist, 'success',alreadylist,0).then(res=>alreadylist=res)
     await this.loadData(this.data.faillist, 'fail',faillist,0).then(res=>faillist=res)
+    this.modifyLoad()
     this.setData({
       list: list,
-      alreadylist:alreadylist,faillist:faillist
+      alreadylist:alreadylist,
+      faillist:faillist
     })
-    console.log(list, alreadylist,faillist)
   },
 
   /**
@@ -168,6 +162,13 @@ Page({
       if(data.shop_code) list[ind].shop_code=data.shop_code;
       that.setData({list:list})
       wx.removeStorageSync('refreshData')
+    }
+    if (wx.getStorageSync('refresh')) {
+      let data = wx.getStorageSync('refresh');
+      let list=that.data.modifylist;
+      list[ind]=data;
+      that.setData({modifylist:list})
+      wx.removeStorageSync('refresh')
     }
   },
   loadData: function (parse, proveValue,arr,skip) {
@@ -212,7 +213,6 @@ Page({
       }).skip(skip).limit(20).orderBy("creation_date", "desc").get().then(res => {
         let data = res.data;
         arr = parse.concat(data)
-        console.log(arr)
         resolve(arr)
         wx.hideLoading()
         if(data.length==0){
@@ -230,6 +230,18 @@ Page({
           title: '服务器繁忙，请稍后重试',
         })
       })
+    })
+  },
+  modifyLoad:function(){
+    var that=this;
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.cloud.database().collection('shop').where({prove:'success',modify:true}).orderBy('creation_timestamp','desc').skip(skip4).limit(20).get().then(res=>{
+      let arr = that.data.modifylist.concat(res.data)
+      that.setData({modifylist:arr})
+      wx.hideLoading()
+      wx.hideNavigationBarLoading()
     })
   },
   deleteFail: function (e) {
@@ -290,36 +302,40 @@ Page({
       }
     })
   },
-  async bindDownLoad() {
-    console.log('--下拉刷新--')
+  async bindDownLoad(e) {
     wx.showNavigationBarLoading() //在标题栏中显示加载
-    skip = skip + 20;
+    let mold=e.currentTarget.dataset.mold;
     let list = [];
-    await this.loadData(this.data.list, 'waiting',list,skip).then(res=>list=res)
-    this.setData({
-      list: list
-    })
+    switch(mold){
+      case 'waiting':
+        skip = skip + 20;
+        await this.loadData(this.data.list, 'waiting',list,skip).then(res=>list=res)
+        this.setData({
+          list: list
+        })
+        break;
+      case 'success':
+        skip2 = skip2 + 20;
+        await this.loadData(this.data.alreadylist, 'success',list,skip2).then(res=>list=res)
+        this.setData({
+          alreadylist: list
+        })
+        break;
+      case 'fail':
+        skip3 = skip3 + 20;
+        await this.loadData(this.data.faillist, 'fail',list,skip3).then(res=>list=res)
+        this.setData({
+          faillist: list
+        })
+        break;
+      default:
+        skip4 = skip4 + 20;
+        this.modifyLoad();
+    }
+    
+    
   },
-  async bindDownLoad2() {
-    console.log('--下拉刷新--')
-    wx.showNavigationBarLoading() //在标题栏中显示加载
-    skip2 = skip2 + 20;
-    let alreadylist = [];
-    await this.loadData(this.data.alreadylist, 'success',alreadylist,skip2).then(res=>alreadylist=res)
-    this.setData({
-      alreadylist: alreadylist
-    })
-  },
-  async bindDownLoad2() {
-    console.log('--下拉刷新--')
-    wx.showNavigationBarLoading() //在标题栏中显示加载
-    skip3 = skip3 + 20;
-    let data = [];
-    await this.loadData(this.data.faillist, 'success',data,skip3).then(res=>data=res)
-    this.setData({
-      faillist: data
-    })
-  },
+  
   /**
    * 生命周期函数--监听页面隐藏
    */

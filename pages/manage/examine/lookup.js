@@ -22,16 +22,33 @@ Page({
       data:editData
     })
   },
-  openLocation:function(){
-    wx.openLocation({
-      latitude: editData.lat,
-      longitude: editData.lon,
-    })
+  openLocation:function(e){
+    switch(e.target.dataset.category){
+      case 'original':
+        wx.openLocation({
+          latitude: editData.lat,
+          longitude: editData.lon,
+        })
+        break;
+      default:
+        wx.openLocation({
+          latitude: editData.modify_lat,
+          longitude: editData.modify_lon,
+        })
+    }
   },
-  callPhone:function(){
-    wx.makePhoneCall({
-      phoneNumber: editData.phone,
-    })
+  callPhone:function(e){
+    switch(e.target.dataset.category){
+      case 'original':
+        wx.makePhoneCall({
+          phoneNumber: editData.phone,
+        })
+        break;
+      default:
+        wx.makePhoneCall({
+          phoneNumber: editData.modify_phone,
+        })
+    }
   },
   previewImg:function(e){
     var ind=e.currentTarget.dataset.index;
@@ -43,84 +60,244 @@ Page({
   },
   confirm:function(){
     var that=this;
-    wx.showModal({
-      title:'通过该门店认证',
-      success:function(res){
-        if(res.confirm){
-          wx.showLoading({
-            title: '认证中',
-          })
-          wx.cloud.database().collection('shop').where({prove:'success'}).orderBy('creation_date','desc').skip(0).limit(1).get().then(
-            (res)=> {
-              console.log(res)
-              let num=res.data[0].shop_code+1;
+    if(editData.modify){
+      wx.showModal({
+        title:'通过该门店修改',
+        success:function(res){
+          if(res.confirm){
+            wx.showLoading({
+              title: '修改中',
+            })
+            let data={};
+            if(editData.modify_address){
+              data.address=editData.modify_address
+              data.address_name = editData.modify_address_name
+              data.detail = editData.modify_detail
+              data.lon = editData.modify_lon
+              data.lat = editData.modify_lat
+            }
+            if(editData.modify_shop_name){
+              data.shop_name=editData.modify_shop_name
+            }
+            if(editData.modify_person){
+              data.person=editData.modify_person
+            }
+            if(editData.modify_phone){
+              data.phone=editData.modify_phone
+            }
+            if(editData.modify_start_hour){
+              data.start_hour=editData.modify_start_hour
+            }
+            if(editData.modify_end_hour){
+              data.end_hour=editData.modify_end_hour
+            }
+            if(editData.modify_shop_img){
+              data.shop_img=editData.modify_shop_img
+              wx.cloud.deleteFile({
+                fileList: editData.shop_img,
+                success: res => {
+                  // handle success
+                  console.log(res.fileList)
+                },
+                fail: err => {
+                  // handle error
+                },
+                complete: res => {
+                  // ...
+                }
+              })
+            }
+            wx.cloud.callFunction({
+              name:'recordUpdate',
+              data:{
+                collection:'shop',
+                where:{_id:editData._id},
+                updateData:data
+              }
+            }).then(res=>{
+              let name;
+              if(data.shop_name){
+                name=data.shop_name
+              }else{
+                name=editData.shop_name
+              }
+              that.sendMessage("您的门店修改已经通过",name);
               wx.cloud.callFunction({
-                name:'recordUpdate',
+                name:'recordAdd',
                 data:{
-                  collection:'shop',
-                  where:{_id:editData._id},
-                  updateData:{
-                    prove:'success',
-                    shop_code:num,
-                    checker:userInfo.nickName,
-                    checker_openid:userInfo._openid,
-                    check_date:nowDate,
-                    check_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000
+                  collection:'message',
+                  addData:{
+                    creation_date:nowDate,
+                    creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
+                    _openid:editData._openid,
+                    shop_code:editData.shop_code,
+                    title:"您的门店修改已经通过",
+                    content:name,
+                    type:'check',
+                    res:'success',
+                    read:'unread'
                   }
                 }
-              }).then(res=>{
+              })
+              if(editData.modify_address){
+                editData.address=editData.modify_address
+                editData.address_name = editData.modify_address_name
+                editData.detail = editData.modify_detail
+                editData.lon = editData.modify_lon
+                editData.lat = editData.modify_lat
+                delete editData.modify_address,editData.modify_address_name, editData.modify_detail,editData.modify_lon,editData.modify_lat
+              }
+              if(editData.modify_shop_name){
+                editData.shop_name=editData.modify_shop_name
+                delete editData.modify_shop_name
+              }
+              if(editData.modify_person){
+                editData.person=editData.modify_person
+                delete editData.modify_person
+              }
+              if(editData.modify_phone){
+                editData.phone=editData.modify_phone
+                delete editData.modify_phone
+              }
+              if(editData.modify_start_hour){
+                editData.start_hour=editData.modify_start_hour
+                delete editData.modify_start_hour
+              }
+              if(editData.modify_end_hour){
+                editData.end_hour=editData.modify_end_hour
+                delete editData.modify_end_hour
+              }
+              if(editData.modify_shop_img){
+                wx.cloud.deleteFile({
+                  fileList: editData.shop_img,
+                  success: res => {
+                    // handle success
+                    console.log(res.fileList)
+                  },
+                  fail: err => {
+                    // handle error
+                  },
+                  complete: res => {
+                    // ...
+                  }
+                })
+                editData.shop_img=editData.modify_shop_img
+                delete editData.modify_shop_img
+              }
+              delete editData.modify
+              const db=wx.cloud.database();
+              const _ = db.command
+              db.collection('shop').where({_id:editData._id}).update({
+                data: {
+                  modify: _.remove(),
+                  modify_address: _.remove(),
+                  modify_address_name: _.remove(),
+                  modify_detail: _.remove(),
+                  modify_lon: _.remove(),
+                  modify_lat: _.remove(),
+                  modify_shop_name:_.remove(),
+                  modify_shop_img:_.remove(),
+                  modify_start_hour:_.remove(),
+                  modify_end_hour:_.remove(),
+                  modify_phone:_.remove(),
+                  modify_person:_.remove(),
+                }
+              }).then(res=>{console.log(res)})
+              that.setData({data:editData})
+              wx.hideLoading({
+                success: (res) => {},
+              })
+              wx.showToast({
+                title: '通过成功',
+                icon:'success',
+                duration:2000
+              })
+              wx.setStorageSync('refresh', editData)
+            })
+          }
+        }
+      })
+    }else{
+      wx.showModal({
+        title:'通过该门店认证',
+        success:function(res){
+          if(res.confirm){
+            wx.showLoading({
+              title: '认证中',
+            })
+            wx.cloud.database().collection('shop').where({prove:'success'}).orderBy('creation_date','desc').skip(0).limit(1).get().then(
+              (res)=> {
                 console.log(res)
+                let num=res.data[0].shop_code+1;
                 wx.cloud.callFunction({
                   name:'recordUpdate',
                   data:{
-                    collection:'user',
-                    where:{_openid:editData._openid},
+                    collection:'shop',
+                    where:{_id:editData._id},
                     updateData:{
-                      type:'shopkeeper',
-                    }
-                  }
-                }).then(res=>{console.log(res)})
-                that.sendMessage("您的门店认证已经通过",editData.shop_name);
-                wx.cloud.callFunction({
-                  name:'recordAdd',
-                  data:{
-                    collection:'message',
-                    addData:{
-                      creation_date:nowDate,
-                      creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
-                      _openid:editData._openid,
+                      prove:'success',
                       shop_code:num,
-                      title:"您的门店认证已经通过",
-                      content:editData.shop_name,
-                      type:'check',
-                      res:'success',
-                      read:'unread'
+                      checker:userInfo.nickName,
+                      checker_openid:userInfo._openid,
+                      check_date:nowDate,
+                      check_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000
                     }
                   }
+                }).then(res=>{
+                  console.log(res)
+                  wx.cloud.callFunction({
+                    name:'recordUpdate',
+                    data:{
+                      collection:'user',
+                      where:{_openid:editData._openid},
+                      updateData:{
+                        type:'shopkeeper',
+                      }
+                    }
+                  }).then(res=>{console.log(res)})
+                  that.sendMessage("您的门店认证已经通过",editData.shop_name);
+                  wx.cloud.callFunction({
+                    name:'recordAdd',
+                    data:{
+                      collection:'message',
+                      addData:{
+                        creation_date:nowDate,
+                        creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
+                        _openid:editData._openid,
+                        shop_code:num,
+                        title:"您的门店认证已经通过",
+                        content:editData.shop_name,
+                        type:'check',
+                        res:'success',
+                        read:'unread'
+                      }
+                    }
+                  })
+                  editData.prove='success';
+                  editData.shop_code=num;
+                  editData.checker=userInfo.nickName;
+                  editData.checker_openid=userInfo._openid;
+                  editData.check_date=nowDate;
+                  editData.check_stamp=Date.parse(nowDate.replace(/-/g, '/')) / 1000;
+                  that.setData({data:editData})
+                  wx.hideLoading({
+                    success: (res) => {},
+                  })
+                  wx.showToast({
+                    title: '认证成功',
+                    icon:'success',
+                    duration:2000
+                  })
+                  wx.setStorageSync('refreshData', editData)
                 })
-                editData.prove='success';
-                editData.shop_code=num;
-                editData.checker=userInfo.nickName;
-                editData.checker_openid=userInfo._openid;
-                editData.check_date=nowDate;
-                editData.check_stamp=Date.parse(nowDate.replace(/-/g, '/')) / 1000;
-                that.setData({data:editData})
-                wx.hideLoading({
-                  success: (res) => {},
-                })
-                wx.showToast({
-                  title: '认证成功',
-                  icon:'success',
-                  duration:2000
-                })
-                wx.setStorageSync('refreshData', editData)
-              })
-            }
-          )
-          /**/
+              }
+            )
+            /**/
+          }
         }
-      }
-    })
+      })
+    }
+    
   },
   cancel:function(){
     this.setData({modalName:'fail'})
@@ -134,57 +311,128 @@ Page({
   submit:function(){
     var that=this;
     if(this.data.reason!==""){
-      wx.cloud.callFunction({
-        name:'recordUpdate',
-        data:{
-          collection:'shop',
-          where:{_id:editData._id},
-          updateData:{
-            prove:'fail',
-            reason:that.data.reason,
-            checker:userInfo.nickName,
-            checker_openid:userInfo._openid,
-            check_date:nowDate,
-            check_stamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000
+      if(editData.modify){
+        const db=wx.cloud.database();
+        const _ = db.command
+        db.collection('shop').where({_id:editData._id}).update({
+          data: {
+            modify: _.remove(),
+            modify_address: _.remove(),
+            modify_address_name: _.remove(),
+            modify_detail: _.remove(),
+            modify_lon: _.remove(),
+            modify_lat: _.remove(),
+            modify_shop_name:_.remove(),
+            modify_shop_img:_.remove(),
+            modify_start_hour:_.remove(),
+            modify_end_hour:_.remove(),
+            modify_phone:_.remove(),
+            modify_person:_.remove(),
           }
-        },
-      }).then(res=>{
-        that.hideModal()
-        that.sendMessage("您的门店信息已被驳回",that.data.reason);
-        wx.cloud.callFunction({
-          name:'recordAdd',
-          data:{
-            collection:'message',
-            addData:{
-              creation_date:nowDate,
-              creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
-              _openid:editData._openid,
-              shop_code:'none',
-              title:"您的门店信息已被驳回",
-              content:that.data.reason,
-              type:'check',
-              res:'fail',
-              read:'unread'
+        }).then(res=>{
+          console.log(res)
+          delete editData.modify_address,editData.modify_address_name, editData.modify_detail,editData.modify_lon,editData.modify_lat,editData.modify_shop_name,editData.modify_person,editData.modify_phone,editData.modify_start_hour,editData.modify_end_hour
+          if(editData.modify_shop_img){
+            wx.cloud.deleteFile({
+              fileList: editData.modify_shop_img,
+              success: res => {
+                // handle success
+                console.log(res.fileList)
+              },
+              fail: err => {
+                // handle error
+              },
+              complete: res => {
+                // ...
+              }
+            })
+            delete editData.modify_shop_img
+          }
+          delete editData.modify
+          that.hideModal()
+          that.sendMessage("您的门店修改已被驳回",that.data.reason);
+          wx.cloud.callFunction({
+            name:'recordAdd',
+            data:{
+              collection:'message',
+              addData:{
+                creation_date:nowDate,
+                creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
+                _openid:editData._openid,
+                shop_code:'none',
+                title:"您的门店修改已被驳回",
+                content:that.data.reason,
+                type:'check',
+                res:'fail',
+                read:'unread'
+              }
             }
-          }
-        })
-        setTimeout(() => {
-          wx.showToast({
-            title: '已驳回',
-            icon:'none',
-            duration:1500
           })
-        }, 1000);
-        editData.prove='fail'
-        editData.reason=that.data.reason;
-        editData.checker=userInfo.nickName;
-        editData.checker_openid=userInfo._openid;
-        editData.check_date=nowDate;
-        editData.check_stamp=Date.parse(nowDate.replace(/-/g, '/')) / 1000;
-        that.setData({data:editData})
-        wx.hideLoading()
-        wx.setStorageSync('refreshData', editData)
-      })
+          setTimeout(() => {
+            wx.showToast({
+              title: '已驳回',
+              icon:'none',
+              duration:1500
+            })
+          }, 1000);
+         
+          that.setData({data:editData})
+          wx.hideLoading()
+          wx.setStorageSync('refresh', editData)
+        })      
+      }else{
+        wx.cloud.callFunction({
+          name:'recordUpdate',
+          data:{
+            collection:'shop',
+            where:{_id:editData._id},
+            updateData:{
+              prove:'fail',
+              reason:that.data.reason,
+              checker:userInfo.nickName,
+              checker_openid:userInfo._openid,
+              check_date:nowDate,
+              check_stamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000
+            }
+          },
+        }).then(res=>{
+          that.hideModal()
+          that.sendMessage("您的门店信息已被驳回",that.data.reason);
+          wx.cloud.callFunction({
+            name:'recordAdd',
+            data:{
+              collection:'message',
+              addData:{
+                creation_date:nowDate,
+                creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
+                _openid:editData._openid,
+                shop_code:'none',
+                title:"您的门店信息已被驳回",
+                content:that.data.reason,
+                type:'check',
+                res:'fail',
+                read:'unread'
+              }
+            }
+          })
+          setTimeout(() => {
+            wx.showToast({
+              title: '已驳回',
+              icon:'none',
+              duration:1500
+            })
+          }, 1000);
+          editData.prove='fail'
+          editData.reason=that.data.reason;
+          editData.checker=userInfo.nickName;
+          editData.checker_openid=userInfo._openid;
+          editData.check_date=nowDate;
+          editData.check_stamp=Date.parse(nowDate.replace(/-/g, '/')) / 1000;
+          that.setData({data:editData})
+          wx.hideLoading()
+          wx.setStorageSync('refreshData', editData)
+        })
+      }
       
     }else{
       wx.showToast({

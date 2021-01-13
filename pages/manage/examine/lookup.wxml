@@ -6,40 +6,71 @@
     <view class='field align-center'>门店名称</view>
     <view class='input align-center'>{{data.shop_name}}</view>
   </view>
+  <view class='box row align-center' wx:if="{{data.modify_shop_name}}">
+    <view class='field align-center'>更改名称</view>
+    <view class='input align-center' style="color:red;">{{data.modify_shop_name}}</view>
+  </view>
   <view class='box row align-center'>
     <view class='field align-center'>门店地址</view>
     <view class='input align-center'>{{data.address}}</view>
-    <image style="height:25px;width:25px;position:absolute;right:5%;" bindtap="openLocation"
+    <image style="height:25px;width:25px;position:absolute;right:5%;" data-category="original" bindtap="openLocation"
+      src="../../../images/position.png" />
+  </view>
+  <view class='box row align-center' wx:if="{{data.modify_address}}">
+    <view class='field align-center'>更改地址</view>
+    <view class='input align-center' style="color:red;">{{data.modify_address}}</view>
+    <image style="height:25px;width:25px;position:absolute;right:5%;" data-category="modify" bindtap="openLocation"
       src="../../../images/position.png" />
   </view>
   <view class='box row align-center'>
     <view class='field align-center'>门店地点</view>
     <view class='input align-center'>{{data.address_name}}</view>
   </view>
+  <view class='box row align-center' wx:if="{{data.modify_address}}">
+    <view class='field align-center'>更改地点</view>
+    <view class='input align-center' style="color:red;">{{data.modify_address_name}}</view>
+  </view>
   <view class='box row align-center'>
     <view class='field align-center'>地址补充</view>
     <view class='input align-center'>{{data.detail||'无'}}</view>
+  </view>
+  <view class='box row align-center' wx:if="{{data.modify_detail}}">
+    <view class='field align-center'>更改补充</view>
+    <view class='input align-center' style="color:red;">{{data.modify_detail||'无'}}</view>
   </view>
   <view class='box row align-center'>
     <view class='field align-center'>营业时间</view>
     <view class='input align-center'>{{data.start_hour}} - {{data.end_hour}}</view>
   </view>
+  <view class='box row align-center' wx:if="{{data.modify_start_hour||data.modify_end_hour}}">
+    <view class='field align-center'>更改时间</view>
+    <view class='input align-center' style="color:red;">{{data.modify_start_hour||data.start_hour}} - {{data.modify_end_hour||data.end_hour}}</view>
+  </view>
   <view class='box row align-center'>
     <view class='field align-center'>联系人</view>
     <view class='input align-center'>{{data.person}}</view>
   </view>
-
+  <view class='box row align-center' wx:if="{{data.modify_person}}">
+    <view class='field align-center'>更改姓名</view>
+    <view class='input align-center' style="color:red;">{{data.modify_person}}</view>
+  </view>
   <view class='box row align-center' style="">
     <view class='field align-center'>联系电话</view>
     <view class='input align-center'>{{data.phone}}</view>
-    <image style="height:25px;width:25px;position:absolute;right:5%;" bindtap="callPhone"
+    <image style="height:25px;width:25px;position:absolute;right:5%;" data-category="original" bindtap="callPhone"
       src="../../../images/phone.png" />
   </view>
-  <view class='box row align-center' bindtap="tosubLookup">
+  <view class='box row align-center' style="" wx:if="{{data.modify_phone}}">
+    <view class='field align-center'>更改电话</view>
+    <view class='input align-center' style="color:red;">{{data.modify_phone}}</view>
+    <image style="height:25px;width:25px;position:absolute;right:5%;" data-category="modify" bindtap="callPhone"
+      src="../../../images/phone.png" />
+  </view>
+  <view class='box row align-center' bindtap="tosubLookup" wx:if="{{!data.modify}}">
     <view class='field align-center'>提交人员</view>
     <view class='input align-center'>{{data.user||'无'}}</view>
   </view>
-  <view class='box row align-center'>
+  <view class='box row align-center' wx:if="{{!data.modify}}">
     <view class='field align-center'>提交时间</view>
     <view class='input align-center'>{{data.creation_date||'无'}}</view>
   </view>
@@ -47,7 +78,7 @@
     <view class='field align-center'>认证状态</view>
     <view class='input align-center' style="color:#5B62D9;">待认证</view>
   </view>
-  <view class='box row align-center' wx:if="{{data.prove=='success'}}">
+  <view class='box row align-center' wx:if="{{data.prove=='success'&&!data.modify}}">
     <view class='field align-center'>认证状态</view>
     <view class='input align-center' style="color:green;">已认证</view>
   </view>
@@ -55,11 +86,11 @@
     <view class='field align-center'>认证编号</view>
     <view class='input align-center' style="color:green;">{{data.shop_code}}</view>
   </view>
-  <view class='box row align-center' wx:if="{{data.prove=='success'}}" bindtap="tocheckLookup">
+  <view class='box row align-center' wx:if="{{data.prove=='success'&&!data.modify}}" bindtap="tocheckLookup">
     <view class='field align-center'>认证人员</view>
     <view class='input align-center' style="color:green;">{{data.checker}}</view>
   </view>
-  <view class='box row align-center' wx:if="{{data.prove=='success'}}">
+  <view class='box row align-center' wx:if="{{data.prove=='success'&&!data.modify}}">
     <view class='field align-center'>认证时间</view>
     <view class='input align-center' style="color:green;">{{data.check_date}}</view>
   </view>
@@ -79,8 +110,8 @@
     <view class='field align-center'>驳回时间</view>
     <view class='input align-center' style="color:red;">{{data.check_date}}</view>
   </view>
-  <view style='border-bottom:1px #d9d9d9 solid;width:100%;'>
-    <view class='box row align-center' style="border-bottom:0px">
+  <view style="{{!data.modify_shop_img?'border-bottom:1px #d9d9d9 solid;width:100%;':''}}">
+    <view class='box row align-center' style="{{!data.modify_shop_img?'border-bottom:0px':''}}">
       <view class='field align-center'>门店图</view>
       <view class="iconlist row" style="margin-top:5px;margin-bottom:5px;">
         <view bindtap="previewImg" style="" id="{{item}}" data-index="{{index}}" wx:for="{{data.shop_img}}"
@@ -90,10 +121,22 @@
       </view>
     </view>
   </view>
+  
+  <view style="{{data.modify_shop_img?'border-bottom:1px #d9d9d9 solid;width:100%;':''}}" wx:if="{{data.modify_shop_img}}">
+    <view class='box row align-center' style="{{data.modify_shop_img?'border-bottom:0px':''}}">
+      <view class='field align-center'>更改图</view>
+      <view class="iconlist row" style="margin-top:5px;margin-bottom:5px;">
+        <view bindtap="previewImg" style="" id="{{item}}" data-index="{{index}}" wx:for="{{data.modify_shop_img}}"
+          wx:key="*this">
+          <image class="addIcon" src="{{item}}" />
+        </view>
+      </view>
+    </view>
+  </view>
 </view>
-<view class='form-btn' style="background:#5B62D9;margin-top:15px;" wx:if="{{data.prove=='waiting'}}" bindtap='confirm'>认证</view>
-<view class='form-btn bg-grey' style="margin-top:15px;" wx:if="{{data.prove=='waiting'}}" bindtap='cancel'>驳回</view>
-<view class='form-btn' style="background:#5B62D9;margin-top:15px;" wx:if="{{data.prove=='success'}}" bindtap=''>已认证门店</view>
+<view class='form-btn' style="background:#5B62D9;margin-top:15px;" wx:if="{{data.prove=='waiting'||data.modify==true}}" bindtap='confirm'>{{data.modify==true?'通过':'认证'}}</view>
+<view class='form-btn bg-grey' style="margin-top:15px;" wx:if="{{data.prove=='waiting'||data.modify==true}}" bindtap='cancel'>驳回</view>
+<view class='form-btn' style="background:#5B62D9;margin-top:15px;" wx:if="{{data.prove=='success'&&data.modify!==true}}" bindtap=''>已认证门店</view>
 <view class='form-btn bg-grey' style="margin-top:15px;" wx:if="{{data.prove=='fail'}}" bindtap=''>已驳回</view>
 
 <view class="cu-modal {{modalName=='fail'?'show':''}}" style="z-index:{{z}}">

@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "直播",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
   "enableReachBottom": true,
   "usingComponents": {}
 }

@@ -7,7 +7,7 @@
   margin-top:0px;width:100%;
 }
 .weui-navbar__slider{
-  z-index: 7;display: flex;background: orangered;width:33.33%;
+  z-index: 7;display: flex;background: orangered;width:25%;
 }
 .weui-navbar__title{
   font-size:14px;z-index: 11;
