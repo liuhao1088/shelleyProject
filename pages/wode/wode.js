@@ -286,20 +286,22 @@ Page({
             })
           }
         })
+        wx.cloud.database().collection('coupon').where({
+          _openid: app.globalData.openid,
+          shop_code: 'all',
+          act_id:'-1'
+        }).get().then(res => {
+          let data = res.data;
+          if (data.length == 0) {
+            _t.setData({
+              prize: true
+            })
+          } else {
+            wx.setStorageSync('prize', data)
+          }
+        })
+          
         if (!wx.getStorageSync('prize')) {
-          wx.cloud.database().collection('coupon').where({
-            _openid: app.globalData.openid,
-            shop_code: 'all'
-          }).get().then(res => {
-            let data = res.data;
-            if (data.length == 0) {
-              _t.setData({
-                prize: true
-              })
-            } else {
-              wx.setStorageSync('prize', data)
-            }
-          })
         }
         break;
     }

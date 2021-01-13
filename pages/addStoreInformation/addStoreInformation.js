@@ -313,7 +313,7 @@ Page({
                     if (timer) clearTimeout(timer);
                     timer = setTimeout(async res => {
                       let arr = [];
-                      if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop', arr)
+                      if (that.data.shop_img !== []) await util.uploadimg(0, that.data.shop_img, 'shop', arr)
                       that.add(arr);
                     }, 500)
                   }
@@ -340,7 +340,7 @@ Page({
                   if (timer) clearTimeout(timer);
                   timer = setTimeout(async res => {
                     let arr = [];
-                    if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop', arr)
+                    if (that.data.shop_img !== []) await util.uploadimg(0, that.data.shop_img, 'shop', arr)
                     that.add(arr);
                   }, 500)
                 }
@@ -357,33 +357,47 @@ Page({
 
       } else {
         //修改
-        wx.showLoading({
-          title: '保存中，请稍等',
-        })
-        if (timer) clearTimeout(timer);
-        timer = setTimeout(async res => {
-          if (that.data.transmit.shop_img == that.data.shop_img) {
-            that.update(that.data.shop_img);
-          } else {
-            let arr = [];
-            wx.cloud.deleteFile({
-              fileList: userInfo.shop[userInfo.shop.length - 1].shop_img,
-              success: res => {
-                // handle success
-                console.log(res.fileList)
-              },
-              fail: err => {
-                // handle error
-              },
-              complete: res => {
-                // ...
-              }
-            })
-            if (that.data.shop_img !== []) await that.uploadimg(0, that.data.shop_img, 'shop', arr)
-            that.update(arr);
-          }
+        wx.requestSubscribeMessage({
+          tmplIds: ['pvZ2jnDjUwfpT2bpby2SxP5P1tcl3LXcn9RfOc8ibuI', 'SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM', 'Ggdc3CQ1c6V0ss6ZvsMnExScZjPHZ0-8_OFdCJRTubA'],
+          success(res) {
+            console.log(res)
+            if (JSON.stringify(res).indexOf('accept') !== -1) {
+              wx.showLoading({
+                title: '提交中，请稍等',
+              })
+              if (timer) clearTimeout(timer);
+              timer = setTimeout(async res => {
+                if (that.data.transmit.shop_img == that.data.shop_img) {
+                  that.update(that.data.shop_img,false);
+                } else {
+                  let arr = [];
+                  if(that.data.transmit.modify_shop_img){
+                    wx.cloud.deleteFile({
+                      fileList: userInfo.shop[userInfo.shop.length - 1].modify_shop_img,
+                      success: res => {
+                        // handle success
+                        console.log(res.fileList)
+                      },
+                      fail: err => {
+                        // handle error
+                      },
+                      complete: res => {
+                        // ...
+                      }
+                    })
 
-        }, 500)
+                  }
+                  
+                  if (that.data.shop_img !== []) await util.uploadimg(0, that.data.shop_img, 'shop', arr)
+                  that.update(arr,true);
+                }
+      
+              }, 500)
+            
+            }
+          }
+        })
+        
       }
 
 
@@ -437,7 +451,6 @@ Page({
         title: '信息已经提交，之后会有工作人员联系您，请耐心等待',
         showCancel: false,
         confirmText: '确认',
-        confirmColor: '#5B62D9',
       })
       setTimeout(function () {
         that.setData({
@@ -460,26 +473,121 @@ Page({
       })
     })
   },
-  update: function (imgArr) {
+  update: function (imgArr,ialter) {
     var that = this;
     let addressJson = wx.getStorageSync('addressJson');
-    let userInfo = wx.getStorageSync('userInfo');
     let transmit = that.data.transmit;
+    let data={};
+    switch(transmit.address == that.data.address){
+      case false:
+        console.log('1')
+        data.modify_address=that.data.address
+        data.modify_address_name = that.data.address_name
+        data.modify_detail = that.data.detail
+        data.modify_lon = addressJson.longitude
+        data.modify_lat = addressJson.latitude
+    }
+    switch(transmit.shop_name==that.data.shop_name){
+      case false:
+        data.modify_shop_name=that.data.shop_name
+    }
+    switch(transmit.person==that.data.person){
+      case false:
+        data.modify_person=that.data.person
+    }
+    switch(transmit.phone==that.data.phone){
+      case false:
+        data.modify_phone=that.data.phone
+    }
+    switch(transmit.start_hour==hourArr[that.data.multiIndex[0]]){
+      case false:
+        data.modify_start_hour=hourArr[that.data.multiIndex[0]]
+    }
+    switch(transmit.end_hour==hourArr[that.data.multiIndex[1]]){
+      case false: 
+        data.modify_end_hour=hourArr[that.data.multiIndex[1]]
+    }
+    switch(transmit.shop_img==imgArr){
+      case false:
+        data.modify_shop_img=imgArr
+    }
+    if(Object.keys(data).length == 0){
+      wx.showToast({
+        title: '您没有修改内容，不能提交!',
+        icon:'none'
+      })
+    }else{
+      data.modify=true;
+      wx.cloud.callFunction({
+        name: "recordUpdate", //
+        data: {
+          collection: 'shop',
+          where: {
+            _id: that.data.transmit._id
+          },
+          updateData: data,
+        }
+      }).then(res => {
+        wx.hideLoading({
+          success: (res) => {},
+        })
+        wx.showToast({
+          title: '提交成功',
+          icon: 'success',
+          duration: 500
+        })
+        wx.showModal({
+          title: '信息已经提交，之后会有工作人员审查，请耐心等待',
+          showCancel: false,
+          confirmText: '确认',
+        })
+        let userInfo=wx.getStorageSync('userInfo')
+        userInfo.shop[userInfo.shop.length - 1].modify_shop_img=imgArr
+        //transmit.shop_name = that.data.shop_name;
+        //transmit.person = that.data.person;
+        //transmit.phone = that.data.phone;
+        //transmit.start_hour = hourArr[that.data.multiIndex[0]];
+        //transmit.end_hour = hourArr[that.data.multiIndex[1]];
+        //transmit.shop_img=imgArr
+        //userInfo.shop[userInfo.shop.length - 1] = transmit;
+        wx.setStorageSync('userInfo', userInfo)
+        
+      }).catch(error => {
+        wx.hideLoading({
+          success: (res) => {},
+        })
+        wx.showModal({
+          showCancel: false,
+          title: '提交失败，请稍后重试'
+        })
+      })
+    }
     if (transmit.address !== that.data.address) {
-      transmit.address = that.data.address
+      //transmit.address = that.data.address
       transmit.address_name = that.data.address_name
       transmit.detail = that.data.detail
       transmit.lon = addressJson.longitude
       transmit.lat = addressJson.latitude
     }
-    wx.cloud.callFunction({
-      name: "recordUpdate", //
-      data: {
-        collection: 'shop',
-        where: {
-          _id: that.data.transmit._id
-        },
-        updateData: {
+    switch(ialter){
+      case true:
+        data={
+          modify_shop_name: that.data.shop_name,
+          modify_address: transmit.address,
+          modify_lat: transmit.lat,
+          modify_lon: transmit.lon,
+          modify_address_name: transmit.address_name,
+          modify_detail: transmit.detail,
+          modify_person: that.data.person,
+          modify_phone: that.data.phone,
+          modify_start_hour: hourArr[that.data.multiIndex[0]],
+          modify_end_hour: hourArr[that.data.multiIndex[1]],
+          modify:true,
+          modify_img:imgArr
+        }
+        break;
+      default:
+        data={
           shop_name: that.data.shop_name,
           address: transmit.address,
           lat: transmit.lat,
@@ -491,40 +599,9 @@ Page({
           start_hour: hourArr[that.data.multiIndex[0]],
           end_hour: hourArr[that.data.multiIndex[1]],
           shop_img: imgArr,
-        },
-
-      }
-    }).then(res => {
-      wx.hideLoading({
-        success: (res) => {},
-      })
-      wx.showToast({
-        title: '保存成功',
-        icon: 'success',
-        duration: 2000
-      })
-      transmit.shop_name = that.data.shop_name;
-      transmit.person = that.data.person;
-      transmit.phone = that.data.phone;
-      transmit.start_hour = hourArr[that.data.multiIndex[0]];
-      transmit.end_hour = hourArr[that.data.multiIndex[1]];
-      transmit.shop_img = imgArr;
-      userInfo.shop[userInfo.shop.length - 1] = transmit;
-      wx.setStorageSync('userInfo', userInfo)
-      setTimeout(function () {
-        wx.navigateBack({
-          delta: 1,
-        })
-      }, 2000)
-    }).catch(error => {
-      wx.hideLoading({
-        success: (res) => {},
-      })
-      wx.showModal({
-        showCancel: false,
-        title: '提交失败，请稍后重试'
-      })
-    })
+        }
+    }
+    
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -618,48 +695,7 @@ Page({
       phone: e.detail.value
     })
   },
-  //上传图片到云存储
-  uploadimg: function (i, parse, content, arr) {
-    if (parse.length == 0) return;
-    return new Promise((resolve, reject) => {
-      var that = this;
-      let code = that.getRandomCode();
-      let numberCode = "";
-      for (let e = 0; e < 6; e++) {
-        numberCode += Math.floor(Math.random() * 10)
-      }
-      let path = parse[i]
-      let indx = path.lastIndexOf('.')
-      let postfix = path.substring(indx)
-      wx.cloud.uploadFile({
-        cloudPath: content + '/' + content + '-' + code + "-" + numberCode + postfix,
-        filePath: parse[i],
-        success(res) {
-          //上传成功后会返回永久地址
-          console.log(res.fileID)
-          arr.push(res.fileID)
-          resolve(arr);
-          //that.uploadimg(i+1,parse,content,arr)
-        }
-      })
 
-    })
-  },
-  //生成随机6位数
-  getRandomCode: function () {
-    let code = "";
-    const array = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
-      'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
-      'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
-      'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-    ];
-
-    for (let i = 0; i < 6; i++) {
-      let id = Math.round(Math.random() * 61);
-      code += array[id];
-    }
-    return code;
-  },
   /**
    * 生命周期函数--监听页面卸载
    */
