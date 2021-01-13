@@ -1,8 +1,8 @@
 <authorize id="authorize" />
-<view class="activityPosterContainer">
+<view class="activityPosterContainer" bindtap="togroupSpecial">
   <image  src="https://img13.360buyimg.com/ddimg/jfs/t1/167054/26/2308/280759/5ffe5384E4947e41d/c6b1f2726a984798.jpg"></image>
   <view class="poster-but">
-  <button bindtap="togroupSpecial">立即领取</button>
+  <button>立即领取</button>
 </view>
 </view>
 
