@@ -93,7 +93,8 @@ Page({
     posterImg: [
       'https://img10.360buyimg.com/ddimg/jfs/t1/152563/16/14632/154080/5ffe5234Ef203ada0/78ad42bb28dba617.jpg',
       'https://img14.360buyimg.com/ddimg/jfs/t1/166688/37/1598/104678/5ff7cf5bEb402e7cf/f01242efb00089f2.png',
-      'https://img10.360buyimg.com/ddimg/jfs/t1/152563/16/14632/154080/5ffe5234Ef203ada0/78ad42bb28dba617.jpg'
+      'https://img10.360buyimg.com/ddimg/jfs/t1/152563/16/14632/154080/5ffe5234Ef203ada0/78ad42bb28dba617.jpg',
+      'https://img14.360buyimg.com/ddimg/jfs/t1/166688/37/1598/104678/5ff7cf5bEb402e7cf/f01242efb00089f2.png',
     ],
     cardCur: 0,
     scrollNum: false,
