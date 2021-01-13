@@ -7,35 +7,78 @@ Page({
    * 页面的初始数据
    */
   data: {
+    carLight: [{
+        id: 0,
+        name: '是',
+        checked: true,
+      },
+      {
+        id: 1,
+        name: '否',
+        checked: false,
+      },
+    ],
+    claim: [{
+        id: 0,
+        name: '产品设计',
+        checked: true,
+      },
+      {
+        id: 1,
+        name: '功率射程',
+        checked: false,
+      },
+      {
+        id: 2,
+        name: '温控散热',
+        checked: false,
+      },
+      {
+        id: 3,
+        name: '性价比',
+        checked: false,
+      },
+      {
+        id: 4,
+        name: '专车兼容',
+        checked: false,
+      },
+      {
+        id: 5,
+        name: '售后服务',
+        checked: false,
+      },
+    ],
     checkbox: [{
-      id: 0,
-      name: '行车记录仪',
-      checked: false,
-    }, {
-      id: 1,
-      name: '隐形车衣',
-      checked: false,
-    }, {
-      id: 2,
-      name: '360全景',
-      checked: false,
-    },
-    {
-      id: 3,
-      name: '导航车机',
-      checked: false,
-    },
-    {
-      id: 4,
-      name: '汽车音响',
-      checked: false,
-    },
-    {
-      id: 5,
-      name: '汽车美容',
-      checked: false,
-    }
-  ],
+        id: 0,
+        name: '行车记录仪',
+        checked: true,
+      }, {
+        id: 1,
+        name: '隐形车衣',
+        checked: false,
+      }, {
+        id: 2,
+        name: '360全景',
+        checked: false,
+      },
+      {
+        id: 3,
+        name: '导航车机',
+        checked: false,
+      },
+      {
+        id: 4,
+        name: '汽车音响',
+        checked: false,
+      },
+      {
+        id: 5,
+        name: '汽车美容',
+        checked: false,
+      }
+    ],
+    scrollNum: false,
     nowDate: '2020-12-22 18:00:00', //结束时间
     countdown: '', //倒计时
     days: '00', //天
@@ -53,7 +96,7 @@ Page({
     surplustime: '',
     surplusperson: '',
     action: 'going',
-    prize:false
+    prize: false
   },
   toActivityRule(event) {
     wx.navigateTo({
@@ -103,11 +146,11 @@ Page({
         })
       }, 1000)
 
-    } else if(target=='goGroup'){
-      if(!wx.getStorageSync('userInfo')){
+    } else if (target == 'goGroup') {
+      if (!wx.getStorageSync('userInfo')) {
         that.selectComponent("#authorize").showModal();
         that.retrieval();
-      }else{
+      } else {
         that.setData({
           modalName: target
         })
@@ -125,9 +168,35 @@ Page({
     })
   },
 
-  // 多选
+  //车灯单选
+  carLightsCheckbox(e) {
+    let carLight = this.data.carLight;
+    let ind = e.currentTarget.id;
+    for (let i in carLight) carLight[i].checked = false
+    carLight[ind].checked = true;
+    this.setData({
+      carLight
+    })
+  },
+  // 要求多选
+  claimCheckbox(e) {
+    let claim = this.data.claim;
+    let id = e.currentTarget.id;
+    console.log(id)
+    for (let i = 0; i < claim.length; ++i) {
+      if (claim[i].id == id) {
+        console.log(claim[i].id)
+        claim[i].checked = !claim[i].checked;
+        break
+      }
+    }
+    this.setData({
+      claim
+    })
+  },
+
+  // 服务多选
   ChooseCheckbox(e) {
-    console.log(e)
     let items = this.data.checkbox;
     let id = e.currentTarget.id;
     console.log(id)
@@ -141,6 +210,14 @@ Page({
     this.setData({
       checkbox: items
     })
+  },
+
+  // 滚动
+  questionScroll(e) {
+    this.setData({
+      scrollNum: true
+    })
+
   },
 
   //倒计时
@@ -302,12 +379,12 @@ Page({
       }
     }
     let id;
-    switch(that.data.data.shop.length){
+    switch (that.data.data.shop.length) {
       case 0:
-        id=0
+        id = 0
         break;
       default:
-        id=that.data.data.shop[0]._id
+        id = that.data.data.shop[0]._id
     }
     let info = {
       creation_date: util.formatTimes(new Date()),
@@ -492,16 +569,16 @@ Page({
           }
           await that.increase(status, 'goGroupSuccess', share_coupon.shopping_ind, share_coupon.cou_code, team);
           let name;
-          switch(that.data.data.shop.length){
+          switch (that.data.data.shop.length) {
             case 0:
-              name='全门店通用'
+              name = '全门店通用'
               break;
             default:
-              name=that.data.data.shop[0].shop_name;
+              name = that.data.data.shop[0].shop_name;
           }
           if (status == 'success') {
             for (let i in team) {
-              that.sendMessage(team[i]._openid, share_coupon.shopping.name, '拼团成功',name);
+              that.sendMessage(team[i]._openid, share_coupon.shopping.name, '拼团成功', name);
             }
           }
           wx.cloud.callFunction({
@@ -561,7 +638,7 @@ Page({
       that.selectComponent("#authorize").showModal();
       that.retrieval();
     }
-          
+
   },
   getIndex: function (e) {
     let ind = e.detail.current;
@@ -597,14 +674,19 @@ Page({
     var that = this;
     let timing = setInterval(() => {
       if (wx.getStorageSync('userInfo')) {
-        let data=that.data.data;
+        let data = that.data.data;
         that.mine(data)
-        let userInfo=wx.getStorageSync('userInfo')
-        wx.cloud.database().collection('coupon').where({_openid:userInfo._openid,shop_code:'all'}).get().then(res=>{
-          let data=res.data;
-          if(data.length==0){
-            that.setData({prize:true})
-          }else{
+        let userInfo = wx.getStorageSync('userInfo')
+        wx.cloud.database().collection('coupon').where({
+          _openid: userInfo._openid,
+          shop_code: 'all'
+        }).get().then(res => {
+          let data = res.data;
+          if (data.length == 0) {
+            that.setData({
+              prize: true
+            })
+          } else {
             wx.setStorageSync('prize', data)
           }
         })
@@ -625,16 +707,21 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that=this;
-    switch(wx.getStorageSync('userInfo')==''){
+    var that = this;
+    switch (wx.getStorageSync('userInfo') == '') {
       case false:
-        let userInfo=wx.getStorageSync('userInfo')
-        if(!wx.getStorageSync('prize')){
-          wx.cloud.database().collection('coupon').where({_openid:userInfo._openid,shop_code:'all'}).get().then(res=>{
-            let data=res.data;
-            if(data.length==0){
-              that.setData({prize:true})
-            }else{
+        let userInfo = wx.getStorageSync('userInfo')
+        if (!wx.getStorageSync('prize')) {
+          wx.cloud.database().collection('coupon').where({
+            _openid: userInfo._openid,
+            shop_code: 'all'
+          }).get().then(res => {
+            let data = res.data;
+            if (data.length == 0) {
+              that.setData({
+                prize: true
+              })
+            } else {
               wx.setStorageSync('prize', data)
             }
           })
@@ -642,14 +729,14 @@ Page({
         break;
     }
   },
-  
-  getCoupon:function(){
-    var that=this;
-    let userInfo=wx.getStorageSync('userInfo')
+
+  getCoupon: function () {
+    var that = this;
+    let userInfo = wx.getStorageSync('userInfo')
     wx.showLoading({
       title: '领取中'
     })
-    let code='';
+    let code = '';
     for (let e = 0; e < 6; e++) {
       code += Math.floor(Math.random() * 10)
     }
@@ -660,14 +747,18 @@ Page({
         addData: {
           creation_date: util.formatTimes(new Date()),
           creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
-          end_date:util.nextYear(new Date()),
+          end_date: util.nextYear(new Date()),
           end_timestamp: Date.parse(util.nextYear(new Date()).replace(/-/g, '/')) / 1000,
           _openid: userInfo._openid,
-          cou_code:code,
-          act_id:'-1',
+          cou_code: code,
+          act_id: '-1',
           user: userInfo.nickName,
-          shop_code:'all',
-          shopping: {name:'全品类商品',price:'0',original_price:'100'},
+          shop_code: 'all',
+          shopping: {
+            name: '全品类商品',
+            price: '0',
+            original_price: '100'
+          },
           status: 'success'
         }
       }
@@ -675,16 +766,18 @@ Page({
       wx.hideLoading()
       wx.showToast({
         title: '领取成功',
-        icon:'success',
-        duration:1500
+        icon: 'success',
+        duration: 1500
       })
-      that.setData({modalName:null})
-      let device=[]
-      for(let i=0;i<that.data.checkbox.length;i++){
-        if(that.data.checkbox[i].checked==true){
+      that.setData({
+        modalName: null
+      })
+      let device = []
+      for (let i = 0; i < that.data.checkbox.length; i++) {
+        if (that.data.checkbox[i].checked == true) {
           device.push(that.data.checkbox[i].name)
         }
-        if(i+1==that.data.checkbox.length){
+        if (i + 1 == that.data.checkbox.length) {
           wx.cloud.callFunction({
             name: 'recordAdd',
             data: {
@@ -694,14 +787,20 @@ Page({
                 creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
                 _openid: userInfo._openid,
                 user: userInfo.nickName,
-                device:device
+                device: device
               }
             }
           }).then(res => {})
         }
       }
-      that.setData({prize:false})
-      wx.setStorageSync('prize', [{status:'success',cou_code:code,act_id:'-1'}])
+      that.setData({
+        prize: false
+      })
+      wx.setStorageSync('prize', [{
+        status: 'success',
+        cou_code: code,
+        act_id: '-1'
+      }])
     }).catch(error => {
       wx.hideLoading({
         success: (res) => {},
@@ -713,29 +812,29 @@ Page({
     })
   },
 
-  mine:function(data){
-    var that=this;
+  mine: function (data) {
+    var that = this;
     let userInfo = wx.getStorageSync('userInfo')
     let nowstamp = Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000
     that.setData({
       userInfo: userInfo
-    })  
-    let cou = userInfo.coupon.filter(item =>item.act_id.indexOf(data._id) !== -1 && ((item.creation_timestamp + parseInt(item.shopping.time) * 60 > nowstamp && item.status == 'waiting') || item.status == 'success' || item.status == 'complete') )
+    })
+    let cou = userInfo.coupon.filter(item => item.act_id.indexOf(data._id) !== -1 && ((item.creation_timestamp + parseInt(item.shopping.time) * 60 > nowstamp && item.status == 'waiting') || item.status == 'success' || item.status == 'complete'))
     for (let i in data.shopping) {
       for (let u in cou) {
         if (i == cou[u].shopping_ind) {
           data.shopping[i].status = true
-          if(cou[u].status=='waiting'){
-            data.shopping[i].parse=cou[u].cou_code
+          if (cou[u].status == 'waiting') {
+            data.shopping[i].parse = cou[u].cou_code
           }
           that.setData({
             data: data
           })
         }
       }
-    } 
+    }
   },
-  
+
   /**
    * 生命周期函数--监听页面隐藏
    */

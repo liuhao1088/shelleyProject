@@ -22,9 +22,9 @@
   border-top: 2rpx solid #f2f2f3;
 }
 
-.middle-wrapper.iphoneX-height {
+/* .middle-wrapper.iphoneX-height {
   bottom: 66rpx;
-}
+} */
 
 .tabbar_nav {
   flex: 1;
