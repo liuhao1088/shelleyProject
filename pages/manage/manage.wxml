@@ -1,6 +1,6 @@
 <!--pages/manage/manage.wxml-->
 <view class="container">
-  <view style="height:10px;"></view>
+  <view style="height:10px;width:100%;"></view>
   <view class='form-btn bg-grey' bindtap='toUser'>用户管理</view>
   <view class='form-btn bg-grey' bindtap='toExamine'>门店认证</view>
   <view class='form-btn bg-grey' bindtap='toLive'>发布直播</view>

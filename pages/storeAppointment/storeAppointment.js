@@ -119,7 +119,6 @@ Page({
         checkbox: wares
       })
     }
-    console.log(this.data.data.act[0].end_date)
   },
   callphone: function () {
     wx.makePhoneCall({

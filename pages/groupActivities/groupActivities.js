@@ -146,11 +146,12 @@ Page({
       })
     }else{
       items[ind].checked = true;
+      this.setData({
+        checkbox: items,
+        ind: ind
+      })
     }
-    this.setData({
-      checkbox: items,
-      ind: ind
-    })
+    
   },
 
   /**

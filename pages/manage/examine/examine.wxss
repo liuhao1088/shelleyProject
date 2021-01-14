@@ -26,5 +26,5 @@
 }
 
 .viewbox-labal{
-  padding:10rpx 20rpx;border-radius:10rpx;color:white;font-size:20rpx;position:absolute;right:15px;top:15px;
+  padding:10rpx 20rpx;border-radius:10rpx;color:white;font-size:20rpx;position:absolute;right:15px;top:10px;
 }
