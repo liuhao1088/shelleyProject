@@ -8,6 +8,10 @@ image {
   vertical-align: middle;
 }
 
+button::after{
+  border: 0;
+}
+
 .wrap {
   height: 826rpx;
   width: 100%;
