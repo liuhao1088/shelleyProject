@@ -1,5 +1,6 @@
 <!--pages/manage/live/live.wxml-->
 <view class="container">
+  <view style="width:100%;border-bottom:1px #d9d9d9 solid;"></view>
   <view class='viewbox' bindlongtap='deleteAddr' wx:for="{{list}}" wx:key="*" data-index="{{index}}">
     <image class='viewbox-icon' src='/images/bianji.png' data-index="{{index}}" bindtap='toEdit'></image>
     <view class='row' data-index="{{index}}" bindtap="toLookup">
