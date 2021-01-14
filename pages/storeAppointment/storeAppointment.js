@@ -16,7 +16,7 @@ Page({
     isShow: false,
     reservation: '',
     ind: 0,
-    startTime: "2021-01-01 12:00",
+    startTime: "2021-01-20 12:30",
     multiArray: [
       [],
       [],
