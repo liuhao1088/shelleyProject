@@ -83,7 +83,8 @@
         <image class="cu-img" src="{{checkbox[ind].link}}"></image>
       </view>
       <view class="cu-description column">
-        <view>产品介绍：{{checkbox[ind].introduce}}</view>
+        <view style="white-space:pre;">产品介绍：
+ {{checkbox[ind].introduce}}</view>
       </view>
     </view>
     <view class="grid col-3 padding-sm">

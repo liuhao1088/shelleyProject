@@ -107,6 +107,7 @@ page {
   font-size: 24rpx;
   float: right;
   margin-right: 40rpx;
+  
 }
 
 .form-item {
