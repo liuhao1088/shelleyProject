@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/commonProblem/commonProblem",
     "pages/text/text",
@@ -84,7 +84,7 @@
   },
   "permission": {
     "scope.userLocation": {
-      "desc": "你的位置信息将用于小程序位置定位" 
+      "desc": "你的位置信息将用于小程序位置定位"
     }
   },
   "sitemapLocation": "sitemap.json"

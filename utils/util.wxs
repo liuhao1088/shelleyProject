@@ -38,8 +38,21 @@ function substr(data){
   }
 }
 
+function cn(data){
+  var mon=data.substring(5,7)
+  var day=data.substring(8,10)
+  return mon+"月"+day+"日"
+}
+
+function hor(data){
+  var res=data.substring(11)
+  return res
+}
+
 module.exports = {
   getDates: getDates,
   sub:sub,
-  substr:substr
+  substr:substr,
+  cn:cn,
+  hor:hor
 }

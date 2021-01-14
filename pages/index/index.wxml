@@ -11,7 +11,7 @@
 <tabbar tabbar="{{tabbar}}"></tabbar>
 
 <!-- 问答 -->
-<view class="cu-modal {{modalName=='question'?'':'show'}}" catchtouchmove="ture">
+<view class="cu-modal {{modalName=='question'?'show':''}}" catchtouchmove="ture">
   <view class="cu-dialog">
     <view class="bg-img">
       <image mode="widthFix"

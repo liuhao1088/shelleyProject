@@ -7,12 +7,17 @@
 </view>
 <view class='box row align-center'>
   <view class='field align-center'>日期</view>
-  <rui-picker class="input align-center" slot="flexchild" fields="minute" value="{{date}}" start="{{nowDate}}" end="2021-11-11 11:00" 
+  <rui-picker class="input align-center" slot="flexchild" fields="minute" value="{{date}}" start="{{nowDate}}" end="2099-12-12 00:00" 
    bindchangedatepicker="changeDate"></rui-picker> 
 </view> 
+
 <view class='box row align-center'> 
   <view class='field align-center'>内容</view> 
   <textarea class='input' style="height:80px;" value="{{content}}" bindinput='inputContent' placeholder='请输入直播内容'></textarea> 
+</view>
+<view class='box row align-center'>
+  <view class='field align-center'>直播号</view>
+  <input class='input align-center' value="{{number}}" bindinput='inputNumber' placeholder='请输入直播号'></input>
 </view>
 <view style='border-bottom:1px #d9d9d9 solid;width:100%;'>
   <view class='box row align-center' style="border-bottom:0px">

@@ -116,20 +116,22 @@ Page({
     wx.showModal({
       title: '删除该消息',
       success: function (res) {
+        //console.log(res)
         if (res.confirm) {
-          wx.setStorageSync('del', ind)
           let list = that.data.list;
+          wx.setStorageSync('del', list[ind]._id)
           list.splice(ind, 1)
           that.setData({
             list: list
           })
           let i = wx.getStorageSync('del')
+          console.log(i)
           wx.cloud.callFunction({
             name: 'recordDelete',
             data: {
               collection: 'message',
               where: {
-                _id: list[i]._id
+                _id: i
               }
             }
           }).then(res => {

@@ -92,6 +92,7 @@ App({
   globalData: {
     userInfo: null,
     openid:'',
+    prize:'',
     wares:'',
     tabBar: {
       "backgroundColor": "#ffffff",

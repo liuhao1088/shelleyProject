@@ -170,7 +170,6 @@ Page({
     that.setData({
       waresInd: ind
     })
-    console.log(that.data.waresInd)
     if (target === 'goGroupSuccess') {
       wx.showLoading({
         title: '加载中...',
@@ -193,7 +192,6 @@ Page({
   hideModal(e) {
     this.setData({
       modalName: null,
-      transfer: false
     })
   },
 
@@ -264,7 +262,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  async onShow() {
     if (wx.getStorageSync('userInfo')) {
       let userInfo = wx.getStorageSync('userInfo');
       this.setData({
@@ -272,7 +270,6 @@ Page({
       })
       console.log(userInfo)
     }
-    wx.removeStorageSync('prize')
     var _t = this
     switch (wx.getStorageSync('userInfo') !== '') {
       case true:
@@ -286,22 +283,14 @@ Page({
             })
           }
         })
-        wx.cloud.database().collection('coupon').where({
-          _openid: app.globalData.openid,
-          shop_code: 'all',
-          act_id:'-1'
-        }).get().then(res => {
-          let data = res.data;
-          if (data.length == 0) {
-            _t.setData({
-              prize: true
-            })
-          } else {
-            wx.setStorageSync('prize', data)
-          }
+        let bln;
+        await util.inspect().then(res=>{
+          bln=res
         })
-          
-        if (!wx.getStorageSync('prize')) {
+        switch(bln){
+          case true:
+            _t.setData({prize:bln})
+            break;
         }
         break;
     }
@@ -312,97 +301,10 @@ Page({
       this.selectComponent("#authorize").showModal();
     }
   },
-  getCoupon: function () {
-    var that = this;
-    let userInfo = wx.getStorageSync('userInfo')
-    wx.showLoading({
-      title: '领取中'
-    })
-    let code = '';
-    for (let e = 0; e < 6; e++) {
-      code += Math.floor(Math.random() * 10)
-    }
-    wx.cloud.callFunction({
-      name: 'recordAdd',
-      data: {
-        collection: 'coupon',
-        addData: {
-          creation_date: util.formatTimes(new Date()),
-          creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
-          end_date: util.nextYear(new Date()),
-          end_timestamp: Date.parse(util.nextYear(new Date()).replace(/-/g, '/')) / 1000,
-          _openid: userInfo._openid,
-          cou_code: code,
-          act_id: '-1',
-          user: userInfo.nickName,
-          shop_code: 'all',
-          shopping: {
-            name: '全品类商品',
-            price: '0',
-            original_price: '100'
-          },
-          status: 'success'
-        }
-      }
-    }).then(res => {
-      wx.hideLoading()
-      wx.showToast({
-        title: '领取成功',
-        icon: 'success',
-        duration: 500
-      })
-      that.setData({
-        modalName: null
-      })
-      let device = []
-      for (let i = 0; i < that.data.checkbox.length; i++) {
-        if (that.data.checkbox[i].checked == true) {
-          device.push(that.data.checkbox[i].name)
-        }
-        if (i + 1 == that.data.checkbox.length) {
-          wx.cloud.callFunction({
-            name: 'recordAdd',
-            data: {
-              collection: 'device',
-              addData: {
-                creation_date: util.formatTimes(new Date()),
-                creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
-                _openid: userInfo._openid,
-                user: userInfo.nickName,
-                device: device
-              }
-            }
-          }).then(res => {})
-        }
-      }
-      that.setData({
-        prize: false
-      })
-      wx.setStorageSync('prize', [{
-        status: 'success',
-        cou_code: code,
-        act_id: '-1'
-      }])
-      wx.showModal({
-        title: '成功领取100现金抵扣红包',
-        content: '红包已经放进我的卡券里，是否前往查看',
-        success: function (res) {
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '../myCoupon/myCoupon',
-            })
-          }
-        }
-      })
-    }).catch(error => {
-      wx.hideLoading({
-        success: (res) => {},
-      })
-      wx.showModal({
-        showCancel: false,
-        title: '系统繁忙，请稍后重试'
-      })
-    })
+  async getCoupon(){
+    var that=this;
+    await util.getCoupon(this.data.checkbox,this.data.claim,this.data.carLight)
+    that.setData({modalName:null,prize:false})
   },
   /**
    * 生命周期函数--监听页面隐藏
