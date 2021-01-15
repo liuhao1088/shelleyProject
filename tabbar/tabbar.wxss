@@ -54,7 +54,7 @@
   padding: 6rpx;
 }
 .tabbar_box.iphoneX-height{
-  padding-bottom: 26rpx;
+  padding-bottom: 66rpx;
 }
 
 .special-wrapper .tabbar_icon {
