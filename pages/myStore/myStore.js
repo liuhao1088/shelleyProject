@@ -6,8 +6,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    storeImg: ''
+    storeImg: '',
+    list:[],
+    animation:false
   },
+
   toStoreInformation(event) {
     let data = JSON.stringify(wx.getStorageSync('userInfo'))
     wx.navigateTo({
@@ -43,16 +46,26 @@ Page({
     wx.setNavigationBarTitle({
       title: "我的门店码：" + code
     })
-
+    this.load()
+    setTimeout(()=>{
+      this.setData({animation:true})
+    },500)
   },
-
+ 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
 
   },
-
+   
+  load:function(){
+    var that=this;
+    wx.cloud.database().collection('live').orderBy('creation_date','desc').skip(0).limit(5).get().then(res=>{
+      let data=res.data;
+      that.setData({list:data})
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */
