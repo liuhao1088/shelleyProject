@@ -60,7 +60,7 @@
         <view class="input-item">
           <view class="text-item">满</view>
           <view class="input" style="width: 100rpx;">
-            <input style="padding-left: 20rpx;" type="number" placeholder-class="placeholder" placeholder="多少"
+            <input style="padding-left: 20rpx;" type="number" placeholder-class="placeholder" placeholder="多少" bindblur="blur"
               data-idx='{{index}}' value='{{productList[index].people}}' id="people" bindinput='bindChanguser' />
           </view>
           <view class="text-item">人成团</view>

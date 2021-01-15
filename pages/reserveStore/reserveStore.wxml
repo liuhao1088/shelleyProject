@@ -21,7 +21,6 @@
     <text class="iconfont icondingwei"></text>
     <view class="title-tagItem">附近门店</view>
   </view>
-
   <view class="store-mainItem">
     <view class="store-boxItem"  wx:for="{{list}}" wx:key="id"  data-index="{{index}}"  bindtap="toStoreAppointment" style="background: url({{item.bg}}) no-repeat;background-size: 100% 100%;">
       <view class="store-wrapItem">

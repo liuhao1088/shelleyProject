@@ -113,6 +113,44 @@ Page({
       })
       return;
     }
+    switch(productList[index].name){
+      case '请选择想要体验的商品':
+        break;
+      default:
+        console.log(productList[index].price,productList[index].original_price)
+        if(type=='price'){
+          if(parseInt(productList[index].price)>=parseInt(productList[index].original_price)){
+            productList[index].price=''
+            this.setData({
+              productList:productList
+            })
+            wx.showToast({
+              title: '活动价格不能高于原价',
+              icon:'none',
+              duration:2000
+            })
+          }
+        }
+    }
+  },
+   
+  blur:function(e){
+    let productList = this.data.productList;
+    var index = e.currentTarget.dataset.idx;
+    var type = e.currentTarget.id;
+    if(type=='people'){
+      if(productList[index].people<=1){
+        productList[index].people=''
+            this.setData({
+              productList:productList
+            })
+            wx.showToast({
+              title: '拼团人数不能少于2人',
+              icon:'none',
+              duration:2000
+            })
+      }
+    }
   },
 
   showModal(e) {
@@ -125,9 +163,9 @@ Page({
     let index = this.data.index;
     let productList = this.data.productList;
     let items = this.data.checkbox;
-    console.log(productList[index])
-    productList[index] = Object.assign(productList[index], items[this.data.ind]);
-    console.log(productList[index])
+    if(!items[this.data.ind].not_joining){
+      productList[index] = Object.assign(productList[index], items[this.data.ind]);
+    }
     this.setData({
       modalName: null,
       productList: productList
@@ -146,12 +184,11 @@ Page({
       })
     }else{
       items[ind].checked = true;
-      this.setData({
-        checkbox: items,
-        ind: ind
-      })
     }
-    
+    this.setData({
+      checkbox: items,
+      ind: ind
+    })
   },
 
   /**

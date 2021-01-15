@@ -242,7 +242,7 @@ function update(tb,where,data){
   })
 }
 
-function getCoupon(deviceArr,requireArr,lightingArr) {
+function getCoupon(deviceArr) {
   var that = this;
   let userInfo = wx.getStorageSync('userInfo')
   wx.showLoading({
@@ -283,43 +283,25 @@ function getCoupon(deviceArr,requireArr,lightingArr) {
       duration: 500
     })
     let device = []
-    let require=[]
-    let bln;
-    for(let i of lightingArr){
-      switch(i.checked){
-        case true:
-          bln=i.name
-      }
-    }
     for (let i = 0; i < deviceArr.length; i++) {
       if (deviceArr[i].checked == true) {
         device.push(deviceArr[i].name)
       }
       if (i + 1 == deviceArr.length) {
-        requireArr.forEach((item,ind,arr)=>{
-          switch(item.checked){
-            case true:
-             require.push(item.name)
+        wx.cloud.callFunction({
+          name: 'recordAdd',
+          data: {
+            collection: 'device',
+            addData: {
+              creation_date: formatTimes(new Date()),
+              creation_timestamp: Date.parse(formatTimes(new Date()).replace(/-/g, '/')) / 1000,
+              _openid: userInfo._openid,
+              user: userInfo.nickName,
+              cou_code:code,
+              device: device,
+            }
           }
-          if(ind+1==arr.length){
-            wx.cloud.callFunction({
-              name: 'recordAdd',
-              data: {
-                collection: 'device',
-                addData: {
-                  creation_date: formatTimes(new Date()),
-                  creation_timestamp: Date.parse(formatTimes(new Date()).replace(/-/g, '/')) / 1000,
-                  _openid: userInfo._openid,
-                  user: userInfo.nickName,
-                  device: device,
-                  require:require,
-                  lighting:bln
-                }
-              }
-            }).then(res => {})
-          } 
-        })
-        
+        }).then(res => {})
       }
     }
     wx.setStorageSync('prize', [{

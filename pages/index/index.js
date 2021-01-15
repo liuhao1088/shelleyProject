@@ -148,7 +148,7 @@ Page({
   
   async getCoupon(){
     var that=this;
-    await util.getCoupon(this.data.checkbox,this.data.claim,this.data.carLight)
+    await util.getCoupon(this.data.checkbox)
     that.setData({modalName:null,prize:false})
   },
   /**

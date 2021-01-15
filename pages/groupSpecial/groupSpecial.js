@@ -181,6 +181,16 @@ Page({
       })
     }
   },
+
+  toShopping:function(e){
+    var that=this;
+    console.log(e)
+    var ind=e.currentTarget.dataset.index;
+    let data=that.data.data.shopping[ind];
+    wx.navigateTo({
+      url: '../'+data.page+'/'+data.page,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -648,7 +658,7 @@ Page({
 
   async getCoupon() {
     var that = this;
-    await util.getCoupon(this.data.checkbox,this.data.claim,this.data.carLight)
+    await util.getCoupon(this.data.checkbox)
     that.setData({modalName:null,prize:false})
   },
 

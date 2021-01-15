@@ -526,3 +526,43 @@ button::after {
   color: rgb(221, 186, 51);
   font-size: 24rpx;
 }
+
+.tag-item {
+  width: 60%;
+  height: 28rpx;
+  border: 0rpx solid red;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.tag {
+  height: 100%;
+  line-height: 28rpx;
+  color: rgb(200, 200, 200);
+  font-size: 20rpx;
+}
+
+.tag::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 0px;
+  width: calc(60% - 120rpx);
+  border-bottom: 1px solid #ccc;
+  left: 0;
+  top: 50%;
+  z-index: 0;
+}
+
+.tag::before {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 0px;
+  width: calc(60% - 120rpx);
+  border-bottom: 1px solid #ccc;
+  right: 0;
+  top: 50%;
+  z-index: 0;
+}

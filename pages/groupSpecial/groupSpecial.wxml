@@ -10,7 +10,7 @@
     </view>
     <view class="group-countdownItem">
       <view class="group-titleItem">特惠拼团</view>
-      <view class="countdown-item">
+      <view class="countdown-item" wx:if="{{action!=='finish'}}">
         <view class="wrap-title"><text wx:if="{{action=='finish'}}">活动已结束</text>
           <text wx:else>{{action=='going'?'活动结束倒计时':'活动开始倒计时'}}</text>：
           <text class='tui-conutdown-box'>{{days}}</text>天
@@ -23,8 +23,8 @@
     <view class="group-mainItem"></view>
   </view>
   <view class="group-main">
-    <view class="coupon-item" wx:for="{{data.shopping}}" data-index="{{index}}" wx:for-item="shopping" wx:key="id">
-      <view class="coupon-imgItem">
+    <view class="coupon-item" wx:for="{{data.shopping}}" data-index="{{index}}" wx:if="{{action!=='finish'}}" wx:for-item="shopping" wx:key="id">
+      <view class="coupon-imgItem" data-index="{{index}}" bindtap="toShopping">
         <image src="{{shopping.link}}" style="border-radius: 10rpx;"></image>
       </view>
       <view class="coupon-mainItem">
@@ -107,6 +107,10 @@
         </view>
       </view>
     </view>
+  </view>
+
+  <view class="tag-item justify-center" style="width:60%;margin:50px 20%;display:{{action=='finish'?'':'none'}}">
+    <view class="tag">附近暂无活动</view>
   </view>
 </view>
 
