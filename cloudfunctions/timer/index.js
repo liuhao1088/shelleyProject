@@ -58,7 +58,7 @@ exports.main = async (event, context) => {
                 }, 
               }, 
               templateId: '-m92htbt5V0SlqRwZaMZAy9l3mv3CNseLM-yDKlRG5g', 
-              miniprogramState: 'developer' 
+              miniprogramState: 'developer' //formal
             }).then(res=>{ 
               console.log(res)
             })
