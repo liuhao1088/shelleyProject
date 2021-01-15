@@ -132,7 +132,7 @@ Page({
                     _openid:editData._openid,
                     shop_code:editData.shop_code,
                     title:"您的门店修改已经通过",
-                    content:name,
+                    content:name+"（门店）",
                     type:'check',
                     res:'success',
                     read:'unread'
@@ -266,7 +266,7 @@ Page({
                         _openid:editData._openid,
                         shop_code:num,
                         title:"您的门店认证已经通过",
-                        content:editData.shop_name,
+                        content:editData.shop_name+'（门店）',
                         type:'check',
                         res:'success',
                         read:'unread'

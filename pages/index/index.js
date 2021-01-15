@@ -80,6 +80,7 @@ Page({
       }
     ],
     scrollNum: false,
+    modalName:null
   },
   togroupSpecial() {
     wx.navigateTo({
@@ -87,11 +88,15 @@ Page({
     })
   },
 
-  //弹窗
-  hideModal(e) {
-    let target = e.currentTarget.dataset.target;
+  showModal:function(){
     this.setData({
-      modalName: target
+      modalName: 'question'
+    })
+  },
+  
+  hideModal(e) {
+    this.setData({
+      modalName: null
     })
   },
 
@@ -150,7 +155,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  async onLoad(options) {
     app.editTabbar();
     // 获取用户信息
     wx.getSetting({
@@ -166,6 +171,16 @@ Page({
       }
     })
     util.nearby();
+    let bln;
+    await util.inspect().then(res=>{
+      bln=res
+    })
+    switch(bln){
+      case true:
+        this.setData({modalName:'question',prize:bln})
+        break;
+    }
+   
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -215,7 +230,12 @@ Page({
       })
     }
   },
-
+  
+  async getCoupon(){
+    var that=this;
+    await util.getCoupon(this.data.checkbox,this.data.claim,this.data.carLight)
+    that.setData({modalName:null,prize:false})
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

@@ -7,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    date:'2021-11-11 11:00',nowDate:'2021-11-11 11:00',tempFilePaths:[],title:'',content:'',transmit:'' 
+    date:util.formatTime(new Date()),nowDate:util.formatTime(new Date()),tempFilePaths:[],title:'',content:'',transmit:'',
+    number:'' 
   },
 
   /**
@@ -15,14 +16,13 @@ Page({
    */
   onLoad: function (options) {
     var that=this; 
-    that.setData({nowDate:util.formatTime(new Date()),date:util.formatTime(new Date())}) 
     if (options.data) { 
       let data = JSON.parse(options.data) 
       wx.setNavigationBarTitle({ 
         title: '编辑直播' 
       }) 
       that.setData({ 
-        date:data.date,tempFilePaths:data.live_img,title:data.title,content:data.content,transmit:data 
+        date:data.date,tempFilePaths:data.live_img,title:data.title,content:data.content,number:data.number,transmit:data 
       }) 
     }else{ 
       wx.setNavigationBarTitle({ 
@@ -41,6 +41,11 @@ Page({
   inputContent:function(e){ 
     this.setData({ 
       content:e.detail.value 
+    }) 
+  }, 
+  inputNumber:function(e){ 
+    this.setData({ 
+      number:e.detail.value 
     }) 
   }, 
   addImage: function () { 
@@ -136,7 +141,8 @@ Page({
           creation_date: creation_date, 
           creation_timestamp: Date.parse(creation_date.replace(/-/g, '/')) / 1000, 
           title: that.data.title, 
-          date:that.data.date, 
+          number: that.data.number,
+          date: that.data.date, 
           timestamp: Date.parse(that.data.date.replace(/-/g, '/')) / 1000, 
           content:that.data.content, 
           live_img:ig, 

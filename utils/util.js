@@ -242,6 +242,134 @@ function update(tb,where,data){
   })
 }
 
+function getCoupon(deviceArr,requireArr,lightingArr) {
+  var that = this;
+  let userInfo = wx.getStorageSync('userInfo')
+  wx.showLoading({
+    title: '领取中'
+  })
+  let code = '';
+  for (let e = 0; e < 6; e++) {
+    code += Math.floor(Math.random() * 10)
+  }
+  wx.cloud.callFunction({
+    name: 'recordAdd',
+    data: {
+      collection: 'coupon',
+      addData: {
+        creation_date: formatTimes(new Date()),
+        creation_timestamp: Date.parse(formatTimes(new Date()).replace(/-/g, '/')) / 1000,
+        end_date: nextYear(new Date()),
+        end_timestamp: Date.parse(nextYear(new Date()).replace(/-/g, '/')) / 1000,
+        _openid: userInfo._openid,
+        cou_code: code,
+        act_id: '-1',
+        user: userInfo.nickName,
+        shop_code: 'all',
+        shopping: {
+          name: '全品类商品',
+          price: '0',
+          original_price: '100'
+        },
+        status: 'success',
+        sort:'Q&A'
+      }
+    }
+  }).then(res => {
+    wx.hideLoading()
+    wx.showToast({
+      title: '领取成功',
+      icon: 'success',
+      duration: 500
+    })
+    let device = []
+    let require=[]
+    let bln;
+    for(let i of lightingArr){
+      switch(i.checked){
+        case true:
+          bln=i.name
+      }
+    }
+    for (let i = 0; i < deviceArr.length; i++) {
+      if (deviceArr[i].checked == true) {
+        device.push(deviceArr[i].name)
+      }
+      if (i + 1 == deviceArr.length) {
+        requireArr.forEach((item,ind,arr)=>{
+          switch(item.checked){
+            case true:
+             require.push(item.name)
+          }
+          if(ind+1==arr.length){
+            wx.cloud.callFunction({
+              name: 'recordAdd',
+              data: {
+                collection: 'device',
+                addData: {
+                  creation_date: formatTimes(new Date()),
+                  creation_timestamp: Date.parse(formatTimes(new Date()).replace(/-/g, '/')) / 1000,
+                  _openid: userInfo._openid,
+                  user: userInfo.nickName,
+                  device: device,
+                  require:require,
+                  lighting:bln
+                }
+              }
+            }).then(res => {})
+          } 
+        })
+        
+      }
+    }
+    wx.setStorageSync('prize', [{
+      status: 'success',
+      cou_code: code,
+      act_id: '-1'
+    }])
+    wx.showModal({
+      title: '成功领取100现金抵扣红包',
+      content: '红包已经放进我的卡券里，是否前往查看',
+      success: function (res) {
+        if (res.confirm) {
+          wx.navigateTo({
+            url: '../myCoupon/myCoupon',
+          })
+        }
+      }
+    })
+  }).catch(error => {
+    console.log(error)
+    wx.hideLoading({
+      success: (res) => {},
+    })
+    wx.showModal({
+      showCancel: false,
+      title: '系统繁忙，请稍后重试'
+    })
+  })
+}
+
+function inspect(){
+  let userInfo = wx.getStorageSync('userInfo')
+  return new Promise((resolve, reject) => {
+    wx.cloud.database().collection('coupon').where({
+      _openid: userInfo._openid,
+      sort:'Q&A'
+    }).get().then(res => {
+      let data = res.data;
+      if (data.length == 0) {
+        resolve(true)
+      } else {
+        wx.setStorageSync('prize', data)
+        resolve(false)
+      }
+    })  
+    if (!wx.getStorageSync('prize')) {
+    }
+  })      
+}
+
 module.exports = {
   formatTime: formatTime,
   formatTimes: formatTimes,
@@ -256,5 +384,7 @@ module.exports = {
   bgimg: bgimg,
   add: add,
   update:update,
-  sendMessage: sendMessage
+  sendMessage: sendMessage,
+  getCoupon:getCoupon,
+  inspect:inspect
 }

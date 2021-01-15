@@ -105,24 +105,24 @@ Page({
     if (wx.getStorageSync('userInfo') && wx.getStorageSync('prize')) {
       let userInfo = wx.getStorageSync('userInfo')
       let data = wx.getStorageSync('prize');
-      if (data[0].status) {
-        if (data[0].status == 'complete') {
-          that.setData({
-            cou_checked: false
-          })
-        } else {
-          that.setData({
-            cou_checked: true,
-            cou_id: data[0].cou_code
-          })
-        }
-      }
       if (data.length == 0) {
         that.setData({
           cou_checked: false
         })
+      }else{
+        if (data[0].status) {
+          if (data[0].status == 'complete') {
+            that.setData({
+              cou_checked: false
+            })
+          } else {
+            that.setData({
+              cou_checked: true,
+              cou_id: data[0].cou_code
+            })
+          }
+        }
       }
-
     }
 
   },
@@ -132,39 +132,11 @@ Page({
     if (that.data.code == shop_code|| that.data.code == '0'+JSON.stringify(shop_code)|| that.data.code == '00'+JSON.stringify(shop_code) || shop_code == 'all') {
       that.apply(that.data.cou_ind, that.data.usable_list[that.data.cou_ind]._id)
       if (that.data.cou_checked == true) {
-        wx.cloud.callFunction({
-          name: 'recordUpdate',
-          data: {
-            collection: 'coupon',
-            where: {
-              cou_code: that.data.cou_id
-            },
-            updateData: {
-              status: 'complete'
-            }
-          }
-        }).then(res => {
-          console.log(res)
-          wx.hideLoading({
-            success: (res) => {},
-          })
-          if (res.result.stats.updated == 1) {
-            let list = that.data.usable_list;
-            var index = list.findIndex(function (item) {
-              return item.shop_code == "all" && item.act_id == '-1';
-            });
-            let prize = wx.getStorageSync('prize');
-            prize.status = 'complete';
-            wx.setStorageSync('prize', prize)
-            list[index].status = 'complete'
-            list[index].usable = false;
-            that.setData({
-              usable_list: list,
-              cou_checked: false
-            })
-          } else {}
-
-        }).catch(error => {})
+        let list = that.data.usable_list;
+        var index = list.findIndex(function (item) {
+          return item.shop_code == "all" && item.act_id == '-1';
+        });
+        that.apply(index,list[index]._id)   
       }
     } else {
       wx.showToast({
@@ -199,9 +171,10 @@ Page({
         let list = that.data.usable_list;
         list[indx].status = 'complete'
         list[indx].usable = false;
-        if (list[that.data.cou_ind].shop_code == 'all') {
+        if (list[indx].sort == 'Q&A') {
           that.setData({
-            cou_checked: false
+            cou_checked: false,
+            cou_id:''
           })
           let prize = wx.getStorageSync('prize');
           prize.status = 'complete';

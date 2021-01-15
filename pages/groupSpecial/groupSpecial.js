@@ -404,7 +404,8 @@ Page({
       shopping_ind: indx,
       team: team,
       status: shape,
-      cou_code: code
+      cou_code: code,
+      sort:'team'
     };
     wx.cloud.callFunction({
       name: 'recordAdd',
@@ -675,26 +676,21 @@ Page({
     }).then(res => {})
   },
   //检索是否登陆
-  retrieval: function () {
+  async retrieval() {
     var that = this;
-    let timing = setInterval(() => {
+    let timing = setInterval(async () => {
       if (wx.getStorageSync('userInfo')) {
         let data = that.data.data;
         that.mine(data)
-        let userInfo = wx.getStorageSync('userInfo')
-        wx.cloud.database().collection('coupon').where({
-          _openid: userInfo._openid,
-          shop_code: 'all'
-        }).get().then(res => {
-          let data = res.data;
-          if (data.length == 0) {
-            that.setData({
-              prize: true
-            })
-          } else {
-            wx.setStorageSync('prize', data)
-          }
+        let bln;
+        await util.inspect().then(res=>{
+          bln=res
         })
+        switch(bln){
+          case true:
+            this.setData({prize:bln})
+            break;
+        }
         setTimeout(() => {
           clearInterval(timing);
         }, 900);
@@ -711,111 +707,27 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  async onShow() {
     var that = this;
     switch (wx.getStorageSync('userInfo') == '') {
       case false:
-        let userInfo = wx.getStorageSync('userInfo')
-        
-        wx.cloud.database().collection('coupon').where({
-          _openid: userInfo._openid,
-          shop_code: 'all'
-        }).get().then(res => {
-          let data = res.data;
-          if (data.length == 0) {
-            that.setData({
-              prize: true
-            })
-          } else {
-            wx.setStorageSync('prize', data)
-          }
-        })  
-        if (!wx.getStorageSync('prize')) {
+        let bln;
+        await util.inspect().then(res=>{
+          bln=res
+        })
+        switch(bln){
+          case true:
+            this.setData({prize:bln})
+            break;
         }
         break;
     }
   },
 
-  getCoupon: function () {
+  async getCoupon() {
     var that = this;
-    let userInfo = wx.getStorageSync('userInfo')
-    wx.showLoading({
-      title: '领取中'
-    })
-    let code = '';
-    for (let e = 0; e < 6; e++) {
-      code += Math.floor(Math.random() * 10)
-    }
-    wx.cloud.callFunction({
-      name: 'recordAdd',
-      data: {
-        collection: 'coupon',
-        addData: {
-          creation_date: util.formatTimes(new Date()),
-          creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
-          end_date: util.nextYear(new Date()),
-          end_timestamp: Date.parse(util.nextYear(new Date()).replace(/-/g, '/')) / 1000,
-          _openid: userInfo._openid,
-          cou_code: code,
-          act_id: '-1',
-          user: userInfo.nickName,
-          shop_code: 'all',
-          shopping: {
-            name: '全品类商品',
-            price: '0',
-            original_price: '100'
-          },
-          status: 'success'
-        }
-      }
-    }).then(res => {
-      wx.hideLoading()
-      wx.showToast({
-        title: '领取成功',
-        icon: 'success',
-        duration: 1500
-      })
-      that.setData({
-        modalName: null
-      })
-      let device = []
-      for (let i = 0; i < that.data.checkbox.length; i++) {
-        if (that.data.checkbox[i].checked == true) {
-          device.push(that.data.checkbox[i].name)
-        }
-        if (i + 1 == that.data.checkbox.length) {
-          wx.cloud.callFunction({
-            name: 'recordAdd',
-            data: {
-              collection: 'device',
-              addData: {
-                creation_date: util.formatTimes(new Date()),
-                creation_timestamp: Date.parse(util.formatTimes(new Date()).replace(/-/g, '/')) / 1000,
-                _openid: userInfo._openid,
-                user: userInfo.nickName,
-                device: device
-              }
-            }
-          }).then(res => {})
-        }
-      }
-      that.setData({
-        prize: false
-      })
-      wx.setStorageSync('prize', [{
-        status: 'success',
-        cou_code: code,
-        act_id: '-1'
-      }])
-    }).catch(error => {
-      wx.hideLoading({
-        success: (res) => {},
-      })
-      wx.showModal({
-        showCancel: false,
-        title: '系统繁忙，请稍后重试'
-      })
-    })
+    await util.getCoupon(this.data.checkbox,this.data.claim,this.data.carLight)
+    that.setData({modalName:null,prize:false})
   },
 
   mine: function (data) {
