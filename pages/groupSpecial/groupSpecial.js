@@ -286,11 +286,7 @@ Page({
     } else {
       let data = wx.getStorageSync('nearby');
       if (data == undefined || data == '') {
-        wx.showToast({
-          title: '附近暂无拼团活动',
-          icon: 'none',
-          duration: 100000000
-        })
+        that.setData({action:'finish'})
       }
       that.arrange(data);
     }

@@ -41,9 +41,14 @@ Page({
     isIphoneX: false
   },
   togroupSpecial() {
-    wx.navigateTo({
-      url: '/pages/groupSpecial/groupSpecial',
-    })
+    if(wx.getStorageSync('userInfo')){
+      wx.navigateTo({
+        url: '/pages/groupSpecial/groupSpecial',
+      })
+    }else{
+      this.selectComponent("#authorize").showModal();
+      this.retrieval()
+    }
   },
 
   hideModal(e) {
@@ -95,17 +100,18 @@ Page({
       })
     }
 
-
     // 获取用户信息
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
           if (!wx.getStorageSync('userInfo')) {
             this.selectComponent("#authorize").showModal();
+            this.retrieval()
           }
         } else {
           //打开授权登录页
           this.selectComponent("#authorize").showModal();
+          this.retrieval()
         }
       }
     })
@@ -180,6 +186,27 @@ Page({
       modalName: null,
       prize: false
     })
+  },
+
+  //检索是否登陆
+  async retrieval() {
+    var that = this;
+    let timing = setInterval(async () => {
+      if (wx.getStorageSync('userInfo')) {
+        let bln;
+        await util.inspect().then(res=>{
+          bln=res
+        })
+        switch(bln){
+          case true:
+            this.setData({prize:bln,modalName:'question'})
+            break;
+        }
+        setTimeout(() => {
+          clearInterval(timing);
+        }, 900);
+      }
+    }, 1000);
   },
   /**
    * 生命周期函数--监听页面隐藏
