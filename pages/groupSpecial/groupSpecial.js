@@ -55,7 +55,7 @@ Page({
     action: 'going',
     prize: false
   },
-  tab:function(){
+  tab: function () {
     wx.switchTab({
       url: '../index/index',
     })
@@ -182,13 +182,13 @@ Page({
     }
   },
 
-  toShopping:function(e){
-    var that=this;
+  toShopping: function (e) {
+    var that = this;
     console.log(e)
-    var ind=e.currentTarget.dataset.index;
-    let data=that.data.data.shopping[ind];
+    var ind = e.currentTarget.dataset.index;
+    let data = that.data.data.shopping[ind];
     wx.navigateTo({
-      url: '../'+data.page+'/'+data.page,
+      url: '../' + data.page + '/' + data.page,
     })
   },
   /**
@@ -286,7 +286,9 @@ Page({
     } else {
       let data = wx.getStorageSync('nearby');
       if (data == undefined || data == '') {
-        that.setData({action:'finish'})
+        that.setData({
+          action: 'finish'
+        })
       }
       that.arrange(data);
     }
@@ -333,7 +335,7 @@ Page({
       team: team,
       status: shape,
       cou_code: code,
-      sort:'team'
+      sort: 'team'
     };
     wx.cloud.callFunction({
       name: 'recordAdd',
@@ -611,12 +613,14 @@ Page({
         let data = that.data.data;
         that.mine(data)
         let bln;
-        await util.inspect().then(res=>{
-          bln=res
+        await util.inspect().then(res => {
+          bln = res
         })
-        switch(bln){
+        switch (bln) {
           case true:
-            this.setData({prize:bln})
+            this.setData({
+              prize: bln
+            })
             break;
         }
         setTimeout(() => {
@@ -640,12 +644,14 @@ Page({
     switch (wx.getStorageSync('userInfo') == '') {
       case false:
         let bln;
-        await util.inspect().then(res=>{
-          bln=res
+        await util.inspect().then(res => {
+          bln = res
         })
-        switch(bln){
+        switch (bln) {
           case true:
-            this.setData({prize:bln})
+            this.setData({
+              prize: bln
+            })
             break;
         }
         break;
@@ -655,7 +661,10 @@ Page({
   async getCoupon() {
     var that = this;
     await util.getCoupon(this.data.checkbox)
-    that.setData({modalName:null,prize:false})
+    that.setData({
+      modalName: null,
+      prize: false
+    })
   },
 
   mine: function (data) {

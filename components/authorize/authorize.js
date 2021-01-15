@@ -47,7 +47,7 @@ Component({
         //用户按了允许授权按钮            
         var that = this;
         wx.showLoading({
-          title: '登录中，请稍等',
+          title: '登录中...',
         })
         //插入登录的用户的相关信息到数据库            
         this.hideModal();
