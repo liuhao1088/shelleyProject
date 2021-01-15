@@ -92,6 +92,7 @@ image {
 .question-item {
   width: 100%;
   border: 0rpx solid rgb(246, 43, 62);
+  /* margin-bottom: 20rpx; */
 }
 
 .scroll-item {

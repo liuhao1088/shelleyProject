@@ -226,7 +226,7 @@
       </image>
       <view class="modal-wrap column justify-center align-center">
         <view class="question-item">
-            <view class="title-item">请问您是否完成过以下升级改造或服务？</view>
+            <view class="title-item">请问您是否有完成过以下升级改造或服务？</view>
             <view class="car-lightsItem">
               <view class="car-lightsBut" style="margin-bottom: 20rpx;" wx:for="{{checkbox}}" wx:key="id">
                 <button class="{{item.checked?'carLightsRed':'red'}}" bindtap="ChooseCheckbox"
