@@ -37,14 +37,15 @@ Page({
         checked: false,
       }
     ],
-    bottom:''
+    bottom: '',
+    isIphoneX: false
   },
   togroupSpecial() {
     wx.navigateTo({
       url: '/pages/groupSpecial/groupSpecial',
     })
   },
-  
+
   hideModal(e) {
     this.setData({
       modalName: null
@@ -74,14 +75,23 @@ Page({
   async onLoad(options) {
     app.editTabbar();
 
-    let isIphoneX =  app.globalData.systemInfo.model.search('iPhone X') != -1 ? true : false
-    if(isIphoneX === true){
+    let model = app.globalData.systemInfo.model;
+    console.log(model);
+    if (model === 'iPhone 12') {
       this.setData({
-        bottom:'250rpx'
+        isIphoneX: true
       })
-    }else{
+    }
+    console.log(this.data.isIphoneX);
+
+    let isIphoneX = app.globalData.systemInfo.model.search('iPhone X') != -1 ? true : false
+    if (isIphoneX === true) {
       this.setData({
-        bottom:'180rpx'
+        bottom: '250rpx'
+      })
+    } else {
+      this.setData({
+        bottom: '180rpx'
       })
     }
 
@@ -101,15 +111,18 @@ Page({
     })
     util.nearby();
     let bln;
-    await util.inspect().then(res=>{
-      bln=res
+    await util.inspect().then(res => {
+      bln = res
     })
-    switch(bln){
+    switch (bln) {
       case true:
-        this.setData({modalName:'question',prize:bln})
+        this.setData({
+          modalName: 'question',
+          prize: bln
+        })
         break;
     }
-   
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -159,11 +172,14 @@ Page({
       })
     }
   },
-  
-  async getCoupon(){
-    var that=this;
+
+  async getCoupon() {
+    var that = this;
     await util.getCoupon(this.data.checkbox)
-    that.setData({modalName:null,prize:false})
+    that.setData({
+      modalName: null,
+      prize: false
+    })
   },
   /**
    * 生命周期函数--监听页面隐藏
