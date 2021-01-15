@@ -136,8 +136,7 @@ page{
 
 .date-tag {
   width: 2rpx;
-  /*height:210rpx;*/
-  border: 2rpx solid rgba(225, 0, 31, 0.3);
+  background-color: rgba(225, 0, 31, 0.3);
 }
 
 .live-img {
