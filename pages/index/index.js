@@ -84,7 +84,7 @@ Page({
     }
     console.log(this.data.isIphoneX);
 
-    let isIphoneX = app.globalData.systemInfo.model.search('iPhone X') != -1 ? true : false
+    let isIphoneX = model.search('iPhone X') != -1 ? true : false
     if (isIphoneX === true) {
       this.setData({
         bottom: '250rpx'

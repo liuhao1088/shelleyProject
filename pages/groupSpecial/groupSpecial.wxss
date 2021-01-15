@@ -26,7 +26,7 @@ button::after{
   height: 152rpx;
   width: 100%;
   border-radius: 56rpx 56rpx 0px 0px;
-  background-color: rgb(250, 181, 54);
+  background-image: linear-gradient(90deg,#fd212e, #ffa70c);
   padding: 24rpx 44rpx;
   display: flex;
   position: relative;
