@@ -52,15 +52,13 @@ Component({
    */
   data: {
     isIphoneX: app.globalData.systemInfo.model.search('iPhone X') != -1 ? true : false
+    
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-    hanldeItemTap(){
-      let isIphoneX = this.data.isIphoneX;
-      console.log(isIphoneX,app.globalData.systemInfo.model);
-    }
+    
   }
 })
