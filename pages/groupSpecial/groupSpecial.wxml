@@ -263,29 +263,3 @@
     </view>
   </view>
 </view>
-
-
-<!-- <view class="cu-modal {{modalName=='question'?'show':''}}" catchtouchmove="ture">
-  <view class="cu-dialog">
-    <view class="cu-bar bg-white justify-end">
-      <view class="content"></view>
-      <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close" style="color: #f92643;"></text>
-      </view>
-    </view>
-    <view class="padding-xl">
-      <view class="modal-img">
-        <view class="title-item">点击即领百元抵扣红包</view>
-        <view class="tag-item">您是否有安装以下汽车配件？</view>
-      </view>
-      <view class="modal-wrap">
-        <view class="modal-selectBut" wx:for="{{checkbox}}" wx:key="id">
-          <button class="{{item.checked?'red':''}}" bindtap="ChooseCheckbox" id="{{item.id}}">{{item.name}}</button>
-        </view>
-      </view>
-      <view class="modal-questionBut">
-        <button bindtap="getCoupon">立即领取</button>
-      </view>
-    </view>
-  </view>
-</view> -->

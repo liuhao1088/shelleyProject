@@ -28,7 +28,11 @@ Page({
     nowDate:'2020-12-22 18:00:00',
     countdown:'',   
     modalName:0,
-    nowclientX: ""
+    nowclientX: "",
+    result: '',
+    scanType: '',
+    charSet: '',
+    path: ''
     
   },
   onAddPhone: function () {
@@ -142,6 +146,25 @@ Page({
   toIndex(){
     wx.redirectTo({
       url: '/pages/index/index',
+    })
+  },
+
+  getScancode: function () {
+    var _this = this;
+    // 允许从相机和相册扫码
+    wx.scanCode({
+      success: (res) => {
+        var result = res.result;
+        var scanType = res.scanType;
+        var charSet = res.charSet;
+        var path = res.path;
+        _this.setData({
+          result: result,
+          scanType: scanType,
+          charSet: charSet,
+          path: path
+        })
+      }
     })
   },
 

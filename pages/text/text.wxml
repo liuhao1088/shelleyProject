@@ -40,3 +40,9 @@
     <!-- <view></view> -->
     
 </view>
+
+<button bindtap="getScancode">扫码</button>
+<text>内容：{{result}}</text>
+<text>类型：{{scanType}}</text>
+<text>字符集：{{charSet}}</text>
+<text>二维码携带：{{path}}</text>
