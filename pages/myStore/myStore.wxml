@@ -36,15 +36,15 @@
             <view class="date-item">{{utils.getDates(item.date)}}</view>
             <view class="date-item">{{utils.hor(item.date)}}</view>
           </view>
-          <view class="date-tag"></view>
+          <view class="date-tag" style="height:{{item.line >1 ? '236':'196'}}rpx"></view>
 
         </view>
 
         <view class="live-main">
           <image class="live-img" src="{{item.live_img}}" />
           <view class="live-title row" style="display:{{animation?'':'none'}}">
-            <view class="marquee" style=""><view class="content">　　{{item.title}}　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-          </view></view>
+            <view class="marquee" style=""><view class="content">　　{{item.title}}　　　　　　　　　　　　　　　　　　　　　　　　
+            </view></view>
             <view class="live-but">
               <button>点击预约</button>
             </view>

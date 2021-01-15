@@ -99,7 +99,7 @@ page{
 }
 
 .live-content {
-  height: 330rpx;
+  /*height: 330rpx;*/
   border: 0rpx solid red;
   padding-bottom: 20rpx;
   display: flex;
@@ -136,7 +136,7 @@ page{
 
 .date-tag {
   width: 2rpx;
-  height: 210rpx;
+  /*height:210rpx;*/
   border: 2rpx solid rgba(225, 0, 31, 0.3);
 }
 
@@ -182,7 +182,16 @@ page{
 .live-msg {
   line-height: 40rpx;
   opacity: 0.8;
+  word-break:break-all;
   font-size: 23rpx;
+  width:100%;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: normal !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 

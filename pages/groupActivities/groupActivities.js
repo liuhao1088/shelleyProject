@@ -115,9 +115,19 @@ Page({
     }
     switch(productList[index].name){
       case '请选择想要体验的商品':
+        if(type=='price'){
+          productList[index].price=''
+          this.setData({
+            productList:productList
+          })
+          wx.showToast({
+            title: '请先选择商品',
+            icon:'none',
+            duration:2000
+          })
+        }
         break;
       default:
-        console.log(productList[index].price,productList[index].original_price)
         if(type=='price'){
           if(parseInt(productList[index].price)>=parseInt(productList[index].original_price)){
             productList[index].price=''
@@ -125,7 +135,7 @@ Page({
               productList:productList
             })
             wx.showToast({
-              title: '活动价格不能高于原价',
+              title: '拼团价不能高于原价',
               icon:'none',
               duration:2000
             })

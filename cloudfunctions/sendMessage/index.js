@@ -8,7 +8,7 @@ exports.main = async (event, context) => {
         lang: 'zh_CN',
         data: event.data,
         templateId: event.templateId,
-        miniprogramState: 'developer'
+        miniprogramState: 'developer'//formal
       })
     return result
   } catch (err) {

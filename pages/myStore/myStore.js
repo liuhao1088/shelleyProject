@@ -50,6 +50,7 @@ Page({
     setTimeout(()=>{
       this.setData({animation:true})
     },500)
+
   },
  
   /**
@@ -63,8 +64,28 @@ Page({
     var that=this;
     wx.cloud.database().collection('live').orderBy('creation_date','desc').skip(0).limit(5).get().then(res=>{
       let data=res.data;
+      wx.getSystemInfo({
+        success: function (res) {
+          let width=res.windowWidth*0.9*0.8;//内容宽度
+          let cnlen=(res.windowWidth/750)*23//每个中文的长度,单位px
+          for(let i of data){ 
+            let contlen=that.gblen(i.content)//内容总长度，1个中文2长度
+            let line=((contlen/2)*cnlen)/width//内容行数
+            i.line=Math.ceil(line);
+            console.log(i.line)
+            that.setData({list:data})
+          }
+        }
+      });
       that.setData({list:data})
     })
+  },
+  gblen(str) {
+    if (str == null) return 0;
+    if (typeof str != "string"){
+      str += "";
+    }
+    return str.replace(/[^\x00-\xff]/g,"01").length;
   },
   /**
    * 生命周期函数--监听页面显示
