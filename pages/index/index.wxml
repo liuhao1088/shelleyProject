@@ -1,9 +1,10 @@
 <authorize id="authorize" />
 <view class="activityPosterContainer" bindtap="togroupSpecial">
-  <image  src="https://img13.360buyimg.com/ddimg/jfs/t1/167054/26/2308/280759/5ffe5384E4947e41d/c6b1f2726a984798.jpg"></image>
-  <view class="poster-but">
-  <button>立即领取</button>
-</view>
+  <image src="https://img13.360buyimg.com/ddimg/jfs/t1/167054/26/2308/280759/5ffe5384E4947e41d/c6b1f2726a984798.jpg">
+  </image>
+  <view class="poster-but" style="bottom: {{bottom}};">
+    <button>立即领取</button>
+  </view>
 </view>
 
 
@@ -17,17 +18,17 @@
       <image mode="widthFix"
         src="https://img13.360buyimg.com/ddimg/jfs/t1/141246/32/15107/350253/60010b16E4684b541/e038b037e2507a9d.png">
       </image>
-      <view class="modal-wrap column justify-center align-center" >
+      <view class="modal-wrap column justify-center align-center">
         <view class="question-item">
-            <view class="title-item">请问您是否有完成过以下升级改造或服务？</view>
-            <view class="car-lightsItem">
-              <view class="car-lightsBut" style="margin-bottom: 20rpx;" wx:for="{{checkbox}}" wx:key="id">
-                <button class="{{item.checked?'carLightsRed':'red'}}" bindtap="ChooseCheckbox"
-                  id="{{item.id}}">{{item.name}}</button>
-              </view>
+          <view class="title-item">请问您是否有完成过以下升级改造或服务？</view>
+          <view class="car-lightsItem">
+            <view class="car-lightsBut" style="margin-bottom: 20rpx;" wx:for="{{checkbox}}" wx:key="id">
+              <button class="{{item.checked?'carLightsRed':'red'}}" bindtap="ChooseCheckbox"
+                id="{{item.id}}">{{item.name}}</button>
             </view>
+          </view>
         </view>
-      
+
         <view class="but-item">
           <button bindtap="getCoupon">立即领取</button>
         </view>
@@ -37,5 +38,3 @@
     </view>
   </view>
 </view>
-
-

@@ -58,6 +58,9 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    hanldeItemTap(){
+      let isIphoneX = this.data.isIphoneX;
+      console.log(isIphoneX,app.globalData.systemInfo.model);
+    }
   }
 })

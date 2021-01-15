@@ -37,6 +37,7 @@ Page({
         checked: false,
       }
     ],
+    bottom:''
   },
   togroupSpecial() {
     wx.navigateTo({
@@ -72,6 +73,19 @@ Page({
    */
   async onLoad(options) {
     app.editTabbar();
+
+    let isIphoneX =  app.globalData.systemInfo.model.search('iPhone X') != -1 ? true : false
+    if(isIphoneX === true){
+      this.setData({
+        bottom:'250rpx'
+      })
+    }else{
+      this.setData({
+        bottom:'180rpx'
+      })
+    }
+
+
     // 获取用户信息
     wx.getSetting({
       success: res => {
