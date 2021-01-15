@@ -15,39 +15,20 @@
   <view class="cu-dialog">
     <view class="bg-img">
       <image mode="widthFix"
-        src="https://img12.360buyimg.com/ddimg/jfs/t1/170634/13/2348/38275/5ffd6464E00870d97/6e91693256806f23.png">
+        src="https://img13.360buyimg.com/ddimg/jfs/t1/141246/32/15107/350253/60010b16E4684b541/e038b037e2507a9d.png">
       </image>
-      <view class="modal-wrap">
+      <view class="modal-wrap column justify-center align-center" >
         <view class="question-item">
-          <scroll-view scroll-y class="scroll-item" bindscroll="questionScroll">
-            <view class="title-item">请问您是否有安装车灯？</view>
-            <view class="car-lightsItem">
-              <view class="car-lightsBut" wx:for="{{carLight}}" wx:key="id">
-                <button class="{{item.checked?'carLightsRed':'red'}}" bindtap="carLightsCheckbox"
-                  id="{{item.id}}">{{item.name}}</button>
-              </view>
-            </view>
-            <view class="title-item">请问您对车灯的选购有什么要求？</view>
-            <view class="car-lightsItem">
-              <view class="car-lightsBut" style="margin-bottom: 20rpx;" wx:for="{{claim}}" wx:key="id">
-                <button class="{{item.checked?'carLightsRed':'red'}}" bindtap="claimCheckbox"
-                  id="{{item.id}}">{{item.name}}</button>
-              </view>
-            </view>
-            <view class="title-item">请问您还安装了以下哪些配件服务？</view>
+            <view class="title-item">请问您是否完成过以下升级改造或服务？</view>
             <view class="car-lightsItem">
               <view class="car-lightsBut" style="margin-bottom: 20rpx;" wx:for="{{checkbox}}" wx:key="id">
                 <button class="{{item.checked?'carLightsRed':'red'}}" bindtap="ChooseCheckbox"
                   id="{{item.id}}">{{item.name}}</button>
               </view>
             </view>
-
-          </scroll-view>
         </view>
-        <view class="but-item" wx:if="{{scrollNum === false}}">
-          <button style=" background-color: rgb(120, 120, 120);background-image: unset;">立即领取</button>
-        </view>
-        <view class="but-item" wx:else>
+      
+        <view class="but-item">
           <button bindtap="getCoupon">立即领取</button>
         </view>
         <view class="close-item" bindtap="hideModal" data-target="question">已阅，暂不领取</view>

@@ -27,7 +27,7 @@
           </image>
           <!-- 斜条 -->
           <view class="t-right-new">
-            <view class="item">{{item.shop_code=='all'?'全门店通用':utils.sub(item.shop[0].shop_name)+'店专用'}}</view>
+            <view class="item">{{item.shop_code=='all'?'品牌官方券':utils.sub(item.shop[0].shop_name)+'店专用'}}</view>
           </view>
 
           <!-- 券 -->
@@ -69,7 +69,7 @@
         <view class="product-couponMain">
           <!-- 斜条 -->
           <view class="t-right-new">
-            <view class="item">{{item.shop_code=='all'?'全门店通用':utils.sub(item.shop[0].shop_name)+'店专用'}}</view>
+            <view class="item">{{item.shop_code=='all'?'品牌官方券':utils.sub(item.shop[0].shop_name)+'店专用'}}</view>
           </view>
 
           <!-- 券 -->
@@ -103,7 +103,7 @@
         <view class="t-right-new"
           style="background-image: linear-gradient(#999999,#b7b7b7);box-shadow: 0px 0px 6px 0px rgba(37, 37, 37, 0.43)">
           <view class="item" style="color:rgba(56, 56, 56);">
-            {{item.shop_code=='all'?'全门店通用':utils.sub(item.shop[0].shop_name)+'店专用'}}</view>
+            {{item.shop_code=='all'?'品牌官方券':utils.sub(item.shop[0].shop_name)+'店专用'}}</view>
         </view>
         <!-- 状态 -->
         <view class="product-tagOne column justify-center align-center ">
@@ -150,7 +150,7 @@
         <view class="t-right-new"
           style="background-image: linear-gradient(#999999,#b7b7b7);box-shadow: 0px 0px 6px 0px rgba(37, 37, 37, 0.43)">
           <view class="item" style="color:rgb(123, 123, 123);">
-            {{item.shop_code=='all'?'全门店通用':utils.sub(item.shop[0].shop_name)+'店专用'}}</view>
+            {{item.shop_code=='all'?'品牌官方券':utils.sub(item.shop[0].shop_name)+'店专用'}}</view>
         </view>
         <!-- 状态 -->
         <view class="product-tagOne column justify-center align-center ">

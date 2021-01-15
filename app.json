@@ -2,7 +2,6 @@
   "pages":[
     "pages/index/index",
     "pages/text/text",
-    
     "pages/commonProblem/commonProblem",
     "pages/wode/wode",
     "pages/storeAppointment/storeAppointment",

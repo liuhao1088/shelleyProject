@@ -12,52 +12,10 @@ Page({
       nickName: '用户名',
       avatarUrl: ''
     },
-    carLight: [{
-        id: 0,
-        name: '是',
-        checked: true,
-      },
-      {
-        id: 1,
-        name: '否',
-        checked: false,
-      },
-    ],
-    claim: [{
-        id: 0,
-        name: '产品设计',
-        checked: true,
-      },
-      {
-        id: 1,
-        name: '功率射程',
-        checked: false,
-      },
-      {
-        id: 2,
-        name: '温控散热',
-        checked: false,
-      },
-      {
-        id: 3,
-        name: '性价比',
-        checked: false,
-      },
-      {
-        id: 4,
-        name: '专车兼容',
-        checked: false,
-      },
-      {
-        id: 5,
-        name: '售后服务',
-        checked: false,
-      },
-    ],
     checkbox: [{
         id: 0,
         name: '行车记录仪',
-        checked: true,
+        checked: false,
       }, {
         id: 1,
         name: '隐形车衣',
@@ -97,7 +55,6 @@ Page({
       'https://img14.360buyimg.com/ddimg/jfs/t1/166688/37/1598/104678/5ff7cf5bEb402e7cf/f01242efb00089f2.png',
     ],
     cardCur: 0,
-    scrollNum: false,
   },
   toMyCoupon() {
     wx.navigateTo({
@@ -194,34 +151,6 @@ Page({
       modalName: null,
     })
   },
-
-  //车灯单选
-  carLightsCheckbox(e) {
-    let carLight = this.data.carLight;
-    let ind = e.currentTarget.id;
-    for (let i in carLight) carLight[i].checked = false
-    carLight[ind].checked = true;
-    this.setData({
-      carLight
-    })
-  },
-
-  claimCheckbox(e) {
-    let claim = this.data.claim;
-    let id = e.currentTarget.id;
-    console.log(id)
-    for (let i = 0; i < claim.length; ++i) {
-      if (claim[i].id == id) {
-        console.log(claim[i].id)
-        claim[i].checked = !claim[i].checked;
-        break
-      }
-    }
-    this.setData({
-      claim
-    })
-  },
-
   // 多选
   ChooseCheckbox(e) {
     let items = this.data.checkbox;
@@ -239,12 +168,6 @@ Page({
     })
   },
 
-  questionScroll(e) {
-    this.setData({
-      scrollNum: true
-    })
-
-  },
   /**
    * 生命周期函数--监听页面加载
    */

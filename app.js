@@ -90,6 +90,7 @@ App({
     });
   },
   globalData: {
+    systemInfo:null,
     userInfo: null,
     openid:'',
     prize:'',
