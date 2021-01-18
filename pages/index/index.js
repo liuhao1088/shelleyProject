@@ -86,7 +86,7 @@ Page({
     let isIphone12 = model.search('iPhone 12') != -1 ? true : false;
     console.log(model);
     this.selectComponent("#getJudgment").getJudgment(isIphoneX,isIphone11,isIphone12);
-    if (isIphoneX === true) {
+    if (isIphoneX === true || isIphone11 === true || isIphone12 === true) {
       this.setData({
         bottom: '250rpx'
       })
