@@ -183,6 +183,10 @@ Page({
       this.setData({
         bottom:'220rpx'
       })
+    }else{
+      this.setData({
+        bottom:'140rpx'
+      })
     }
   },
 

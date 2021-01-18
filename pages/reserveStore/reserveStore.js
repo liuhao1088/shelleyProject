@@ -52,6 +52,10 @@ Page({
       this.setData({
         bottom:'220rpx'
       })
+    }else{
+      this.setData({
+        bottom:'160rpx'
+      })
     }
     var that = this;
     // 获取系统信息
