@@ -14,9 +14,9 @@ Page({
       url: '/pages/helpAndFeedback/helpAndFeedback',
     })
   },
-  toCouponRules(){
+  toActivityRules(){
     wx.navigateTo({
-      url: '/pages/couponRules/couponRules',
+      url: '/pages/activityRule/activityRule',
     })
   },
 

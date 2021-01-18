@@ -31,7 +31,7 @@
   <view class="cu-item">
     <view class="cu-avatar radius" style="background-image:url({{shelleyUrl}});"></view>
     <view class="main">
-      <view class="content shadow" bindtap="toCouponRules">
+      <view class="content shadow" bindtap="toActivityRules">
         <text>拼团优惠券是【雪莱特智能LED车灯】小程序特有的优惠券，通过参与拼团活动获取，拼团成功后即可激活使用。
           使用方法：
           进入雪莱特小程序-底部导航栏的【我的】-【我的卡券】-【立即使用】-核验对应门店码-线下支付优惠后价格。
