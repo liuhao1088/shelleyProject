@@ -460,7 +460,8 @@ Page({
           shop_name: '',
           address_name: '',
           detail: '',
-          shop_img: []
+          shop_img: [],
+          address_label:''
         })
       }, 2000)
     }).catch(error => {

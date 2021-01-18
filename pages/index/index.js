@@ -112,19 +112,21 @@ Page({
       }
     })
     util.nearby();
-    let bln;
-    await util.inspect().then(res => {
-      bln = res
-    })
-    switch (bln) {
-      case true:
-        this.setData({
-          modalName: 'question',
-          prize: bln
-        })
-        break;
+    if(wx.getStorageSync('userInfo')){
+      let bln;
+      await util.inspect().then(res => {
+        bln = res
+      })
+      switch (bln) {
+        case true:
+          this.setData({
+            modalName: 'question',
+            prize: bln
+          })
+          break;
+      }
     }
-
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -295,7 +295,9 @@ Page({
             let faillist=[]
             _this.setData({faillist:[]})
             _this.loadData(_this.data.faillist, 'fail',faillist,0).then(res=>faillist=res)
-            _this.setData({faillist:faillist})
+            setTimeout(()=>{
+              _this.setData({faillist:faillist})
+            },500)
           })
 
         }

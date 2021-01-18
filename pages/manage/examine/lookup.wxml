@@ -148,7 +148,7 @@
       </view>
     </view>
     <view class="justify-center">
-      <textarea bindinput="inputReason" style="width:80%;height:70px;margin-top:10px;" placeholder="请填写驳回理由" maxlength='20'></textarea>
+      <textarea bindinput="inputReason" style="width:80%;height:70px;margin-top:10px;" placeholder="请填写驳回理由" style="z-index:{{z}};margin-top:12px;" maxlength='20'></textarea>
     </view>
     <view class="cu-bar bg-white justify-end">
       <view class="action">

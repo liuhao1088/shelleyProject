@@ -2,14 +2,13 @@
 var editData;
 var userInfo=wx.getStorageSync('userInfo')
 var util=require('../../../utils/util.js')
-var nowDate=util.formatTime(new Date());
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    data:{},reason:''
+    data:{},reason:'',z:-1
   },
 
   /**
@@ -60,6 +59,7 @@ Page({
   },
   confirm:function(){
     var that=this;
+    var nowDate=util.formatTime(new Date());
     if(editData.modify){
       wx.showModal({
         title:'通过该门店修改',
@@ -300,17 +300,21 @@ Page({
     
   },
   cancel:function(){
-    this.setData({modalName:'fail'})
+    this.setData({modalName:'fail',z:200})
   },
   hideModal:function(){
-    this.setData({modalName:null})
+    this.setData({modalName:null,z:-1})
   },
   inputReason:function(e){
     this.setData({reason:e.detail.value})
   },
   submit:function(){
     var that=this;
+    var nowDate=util.formatTime(new Date());
     if(this.data.reason!==""){
+      wx.showLoading({
+        title: '驳回中',
+      })
       if(editData.modify){
         const db=wx.cloud.database();
         const _ = db.command
@@ -368,14 +372,11 @@ Page({
               }
             }
           })
-          setTimeout(() => {
-            wx.showToast({
-              title: '已驳回',
-              icon:'none',
-              duration:1500
-            })
-          }, 1000);
-         
+          wx.showToast({
+            title: '已驳回',
+            icon:'none',
+            duration:1500
+          })  
           that.setData({data:editData})
           wx.hideLoading()
           wx.setStorageSync('refresh', editData)
