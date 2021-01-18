@@ -72,7 +72,7 @@ Page({
     this.hideModal();
   },
   toReserveStore(e) {
-    wx.navigateTo({
+    wx.switchTab({
       url: '/pages/reserveStore/reserveStore',
     })
     this.setData({
