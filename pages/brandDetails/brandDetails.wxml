@@ -1,6 +1,6 @@
-<view class="brandDetailsContainer">
+<view class="brandDetailsContainer" style=" padding-bottom: {{bottom}};">
   <image mode="widthFix" src="https://img11.360buyimg.com/ddimg/jfs/t1/160356/31/1890/582410/5ff52dadE9288462b/48852f6aac5249ee.png"></image>
 </view>
 
 <!-- 导航栏 -->
-<tabbar tabbar="{{tabbar}}"></tabbar>
+<tabbar id="getJudgment" tabbar="{{tabbar}}"></tabbar>

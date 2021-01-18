@@ -76,6 +76,7 @@ App({
       }
     });
   },
+
   editTabbar: function () {
     let tabbar = this.globalData.tabBar;
     let currentPages = getCurrentPages();
@@ -91,6 +92,7 @@ App({
     });
   },
   globalData: {
+    isIphoneX:false,
     systemInfo:null,
     userInfo: null,
     openid:'',

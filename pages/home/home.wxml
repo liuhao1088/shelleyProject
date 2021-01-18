@@ -1,4 +1,4 @@
-<view class="container" bindlongpress="toManage" style="padding-bottom: 120rpx;">
+<view class="container" bindlongpress="toManage" style="padding-bottom: {{bottom}};">
   <view class="swiper-wrapper">
     <view class="header">
       <view class="header-img">
@@ -25,4 +25,4 @@
 </view>
 
 <!-- 导航栏 -->
-<tabbar tabbar="{{tabbar}}"></tabbar>
+<tabbar  id="getJudgment" tabbar="{{tabbar}}"></tabbar>

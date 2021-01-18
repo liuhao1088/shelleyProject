@@ -9,7 +9,7 @@
 
 
 <!-- 导航栏 -->
-<tabbar tabbar="{{tabbar}}"></tabbar>
+<tabbar id="getJudgment" tabbar="{{tabbar}}"></tabbar>
 
 <!-- 问答 -->
 <view class="cu-modal {{modalName=='question'?'show':''}}" catchtouchmove="ture">

@@ -81,15 +81,11 @@ Page({
     app.editTabbar();
 
     let model = app.globalData.systemInfo.model;
+    let isIphoneX = model.search('iPhone X') != -1 ? true : false;
+    let isIphone11 = model.search('iPhone 11') != -1 ? true : false;
+    let isIphone12 = model.search('iPhone 12') != -1 ? true : false;
     console.log(model);
-    if (model === 'iPhone 12') {
-      this.setData({
-        isIphoneX: true
-      })
-    }
-    console.log(this.data.isIphoneX);
-
-    let isIphoneX = model.search('iPhone X') != -1 ? true : false
+    this.selectComponent("#getJudgment").getJudgment(isIphoneX,isIphone11,isIphone12);
     if (isIphoneX === true) {
       this.setData({
         bottom: '250rpx'

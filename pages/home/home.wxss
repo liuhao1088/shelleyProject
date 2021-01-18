@@ -158,21 +158,10 @@ image {
 
 .img-item {
   width: 90%;
-  padding-bottom: 40rpx;
   margin: auto;
 }
 
 /* 弹窗 */
-/* @font-face {
-  font-family: 'Inclusive body';
-  src: url('https://636e-cnlight-1gn7d20g2cef1b76-1304521683.tcb.qcloud.la/font/ALIBABA-PUHUITI-MEDIUM.TTF?sign=92081a392bae8b994dde81751e525b81&t=1609123627');
-}
-
-@font-face {
-  font-family: 'Ligth';
-  src: url('https://636e-cnlight-1gn7d20g2cef1b76-1304521683.tcb.qcloud.la/font/ALIBABA-PUHUITI-MEDIUM.TTF?sign=92081a392bae8b994dde81751e525b81&t=1609123627');
-} */
-
 .cu-dialog {
   width: 100%;
   height: 800rpx;

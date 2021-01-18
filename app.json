@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/home/home",
     "pages/index/index",
     "pages/text/text",
     "pages/commonProblem/commonProblem",
@@ -8,7 +9,7 @@
     "pages/helpAndFeedback/helpAndFeedback",
     "pages/reserveStore/reserveStore",
     "pages/groupSpecial/groupSpecial",
-    "pages/home/home",
+    
     "pages/messageCenter/messageCenter",
     "pages/addStoreInformation/addStoreInformation",
     "pages/activitySelect/activitySelect",

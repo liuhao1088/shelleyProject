@@ -2,10 +2,6 @@ page{
   background-color: #f2f2f2;
 }
 
-.brandDetailsContainer{
-  padding-bottom: 120rpx;
-}
-
 .brandDetailsContainer image{
   height: 100%;
   width: 100%;

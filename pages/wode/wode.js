@@ -173,6 +173,17 @@ Page({
    */
   onLoad: function (options) {
     app.editTabbar();
+    let model = app.globalData.systemInfo.model;
+    let isIphoneX = model.search('iPhone X') != -1 ? true : false;
+    let isIphone11 = model.search('iPhone 11') != -1 ? true : false;
+    let isIphone12 = model.search('iPhone 12') != -1 ? true : false;
+    console.log(model);
+    this.selectComponent("#getJudgment").getJudgment(isIphoneX,isIphone11,isIphone12);
+    if(isIphoneX === true || isIphone11 === true || isIphone12 === true){
+      this.setData({
+        bottom:'220rpx'
+      })
+    }
   },
 
   /**

@@ -51,14 +51,29 @@ Component({
    * 组件的初始数据
    */
   data: {
-    isIphoneX: app.globalData.systemInfo.model.search('iPhone X') != -1 ? true : false
-    
+    isIphoneX: false
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-    
+    getJudgment(isIphoneX,isIphone11,isIphone12){
+      let that = this;
+      if (isIphoneX === true) {
+        that.setData({
+          isIphoneX: true
+        })
+      }else if(isIphone11 === true){
+        that.setData({
+          isIphoneX: true
+        })
+      }else if(isIphone12 === true){
+        that.setData({
+          isIphoneX: true
+        })
+      }
+      console.log("x:"+this.data.isIphoneX+"11:"+this.data.isIphone11+"12:"+this.data.isIphone12);
+    },
   }
 })

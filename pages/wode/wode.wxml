@@ -1,5 +1,5 @@
 <authorize id="authorize" />
-<view class="wodeContainer">
+<view class="wodeContainer" style="padding-bottom: {{bottom}};">
   <!-- 头部 -->
   <view class="header" bindtap="toSign">
     <view class="header-wrap">
@@ -223,4 +223,4 @@
 </view>
 
 <!-- 导航栏 -->
-<tabbar tabbar="{{tabbar}}"></tabbar>
+<tabbar id="getJudgment" tabbar="{{tabbar}}"></tabbar>
