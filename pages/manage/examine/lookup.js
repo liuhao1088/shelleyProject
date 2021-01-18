@@ -121,7 +121,7 @@ Page({
               }else{
                 name=editData.shop_name
               }
-              that.sendMessage("您的门店修改已经通过",name);
+              that.sendMessage("修改门店成功",name);
               wx.cloud.callFunction({
                 name:'recordAdd',
                 data:{
@@ -131,8 +131,8 @@ Page({
                     creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
                     _openid:editData._openid,
                     shop_code:editData.shop_code,
-                    title:"您的门店修改已经通过",
-                    content:name+"（门店）",
+                    title:"修改门店成功",
+                    content:'您修改认证门店 '+name+' 已审核通过，门店信息已更新，更多赋能等待您的体验~。',
                     type:'check',
                     res:'success',
                     read:'unread'
@@ -255,7 +255,7 @@ Page({
                       }
                     }
                   }).then(res=>{console.log(res)})
-                  that.sendMessage("您的门店认证已经通过",editData.shop_name);
+                  that.sendMessage("门店认证成功",editData.shop_name);
                   wx.cloud.callFunction({
                     name:'recordAdd',
                     data:{
@@ -265,8 +265,8 @@ Page({
                         creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
                         _openid:editData._openid,
                         shop_code:num,
-                        title:"您的门店认证已经通过",
-                        content:editData.shop_name+'（门店）',
+                        title:"认证门店成功",
+                        content:'您的认证门店 '+editData.shop_name+' 已审核通过，门店信息已更新，更多赋能等待您的体验~。',
                         type:'check',
                         res:'success',
                         read:'unread'
@@ -354,7 +354,7 @@ Page({
           }
           delete editData.modify
           that.hideModal()
-          that.sendMessage("您的门店修改已被驳回",that.data.reason);
+          that.sendMessage("门店修改未通过",that.data.reason);
           wx.cloud.callFunction({
             name:'recordAdd',
             data:{
@@ -364,8 +364,8 @@ Page({
                 creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
                 _openid:editData._openid,
                 shop_code:'none',
-                title:"您的门店修改已被驳回",
-                content:that.data.reason,
+                title:"门店修改未通过",
+                content:'您修改门店 ' +editData.shop_name+' 经审核未通过，原因： '+ that.data.reason+'，请您确认好资料后重新提交。',
                 type:'check',
                 res:'fail',
                 read:'unread'
@@ -398,7 +398,7 @@ Page({
           },
         }).then(res=>{
           that.hideModal()
-          that.sendMessage("您的门店信息已被驳回",that.data.reason);
+          that.sendMessage("认证门店未通过",that.data.reason);
           wx.cloud.callFunction({
             name:'recordAdd',
             data:{
@@ -408,8 +408,8 @@ Page({
                 creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
                 _openid:editData._openid,
                 shop_code:'none',
-                title:"您的门店信息已被驳回",
-                content:that.data.reason,
+                title:"认证门店未通过",
+                content:'您的认证门店 ' +editData.shop_name+' 经审核未通过，原因： '+ that.data.reason+'，请您确认好资料后重新提交。',
                 type:'check',
                 res:'fail',
                 read:'unread'
