@@ -1,15 +1,14 @@
 {
   "pages":[
-    "pages/home/home",
     "pages/index/index",
+    "pages/wode/wode",
+    "pages/home/home",
     "pages/text/text",
     "pages/commonProblem/commonProblem",
-    "pages/wode/wode",
     "pages/storeAppointment/storeAppointment",
     "pages/helpAndFeedback/helpAndFeedback",
     "pages/reserveStore/reserveStore",
     "pages/groupSpecial/groupSpecial",
-    
     "pages/messageCenter/messageCenter",
     "pages/addStoreInformation/addStoreInformation",
     "pages/activitySelect/activitySelect",

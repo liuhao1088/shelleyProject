@@ -118,6 +118,21 @@ Page({
     this.setData({
       cardCur: e.detail.current
     })
+    console.log(this.data.cardCur)
+  },
+
+  getSwiper(e){
+    let id = e.currentTarget.id;
+    console.log(id)
+    if (id === '0' || id === '2') {
+      wx.navigateTo({
+        url: '/pages/groupSpecial/groupSpecial',
+      })
+    }else{
+      wx.navigateTo({
+        url: '/pages/rOne/rOne',
+      })
+    }
   },
 
   //弹窗
