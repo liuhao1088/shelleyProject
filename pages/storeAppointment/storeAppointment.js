@@ -198,7 +198,15 @@ Page({
   },
   async submit() {
     var that = this;
-  
+    let userInfo =  wx.getStorageSync('userInfo');
+    if(userInfo.type === "shopkeeper"){
+      wx.showToast({
+        title: '您是门店商家，不可预约',
+        icon: 'none'
+      })
+      return;
+     }
+
     if (that.data.nameList[0] == "请选择想要体验的商品，可多选") {
       wx.showToast({
         title: '请选择商品',
@@ -222,7 +230,7 @@ Page({
       })
       return;
     }
-
+    
     wx.requestSubscribeMessage({
       tmplIds: ['-m92htbt5V0SlqRwZaMZAy9l3mv3CNseLM-yDKlRG5g', 'SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0', 'GN7JfS1q9N7eqdmvOxcFY6kjBBrUsnyRc6UGr58LAwg'],
       success(res) {

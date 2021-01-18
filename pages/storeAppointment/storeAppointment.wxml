@@ -70,6 +70,7 @@
     bindgetphonenumber="getPhoneNumber">预 约</button>
   <button wx:if="{{!isShow}}" style="display:{{reservation==''?'':'none'}}" bindtap="submit">预 约</button>
   <button style="display:{{reservation==''?'none':''}}">已 预 约</button>
+ 
 </view>
 
 <!-- 选择商品 -->
