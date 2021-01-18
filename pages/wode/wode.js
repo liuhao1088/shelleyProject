@@ -9,7 +9,7 @@ Page({
     tabbar: {},
     userInfo: {
       type: 'driver',
-      nickName: '用户名',
+      nickName: '用户',
       avatarUrl: ''
     },
     checkbox: [{
@@ -41,11 +41,6 @@ Page({
         checked: false,
       }
     ],
-    userInfo: {
-      type: 'driver',
-      nickName: '用户名',
-      avatarUrl: ''
-    },
     newMsg: 0,
     prize: false,
     posterImg: [
@@ -57,9 +52,14 @@ Page({
     cardCur: 0,
   },
   toMyCoupon() {
-    wx.navigateTo({
-      url: '/pages/myCoupon/myCoupon',
-    })
+    if (!wx.getStorageSync('userInfo')) {
+      this.selectComponent("#authorize").showModal();
+      this.retrieval()
+    } else {
+      wx.navigateTo({
+        url: '/pages/myCoupon/myCoupon',
+      })
+    }
   },
   toAddStoreInformation() {
     wx.navigateTo({
@@ -100,6 +100,7 @@ Page({
   toMessageCenter() {
     if (!wx.getStorageSync('userInfo')) {
       this.selectComponent("#authorize").showModal();
+      this.retrieval()
     } else {
       wx.navigateTo({
         url: '/pages/messageCenter/messageCenter',
@@ -237,12 +238,34 @@ Page({
   toSign: function () {
     if (!wx.getStorageSync('userInfo')) {
       this.selectComponent("#authorize").showModal();
+      this.retrieval()
     }
   },
   async getCoupon(){
     var that=this;
     await util.getCoupon(this.data.checkbox)
     that.setData({modalName:null,prize:false})
+  },
+  async retrieval() {
+    var that = this;
+    let timing = setInterval(async () => {
+      if (wx.getStorageSync('userInfo')) {
+        let userInfo=wx.getStorageSync('userInfo')
+        this.setData({userInfo:userInfo})
+        let bln;
+        await util.inspect().then(res=>{
+          bln=res
+        })
+        switch(bln){
+          case true:
+            this.setData({prize:bln,modalName:'question'})
+            break;
+        }
+        setTimeout(() => {
+          clearInterval(timing);
+        }, 900);
+      }
+    }, 1000);
   },
   /**
    * 生命周期函数--监听页面隐藏

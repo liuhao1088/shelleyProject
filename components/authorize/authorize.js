@@ -139,7 +139,7 @@ Component({
                           })
                       } else{
                         console.log(userInfo,openid)
-                        if(userInfo.nickName!==res.result.list[0].nickName){
+                        if(userInfo.nickName!==res.result.list[0].nickName||userInfo.avatarUrl!==res.result.list[0].avatarUrl){
                           wx.cloud.callFunction({
                             name: 'recordUpdate',
                             data: {

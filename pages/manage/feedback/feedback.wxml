@@ -11,8 +11,8 @@
       <view class="flex-sub">{{item.fb_type}}</view>
     </view>
     <view class="flex" wx:if="{{item.fb_contact!==''}}">
-      <view bindtap="callphone" data-index="{{index}}" wx:if="{{item.checkup}}">联系方式：{{item.fb_contact}} <text class="cuIcon-phone text-white"></text></view>
-      <view bindtap="copy" data-index="{{index}}" wx:else>联系方式：{{item.fb_contact}} <text class="cuIcon-copy text-white"></text></view>
+      <view bindtap="callphone" data-index="{{index}}" wx:if="{{item.checkup}}">联系方式：{{item.fb_contact}} <text class="cuIcon-phone text-black"></text></view>
+      <view bindtap="copy" data-index="{{index}}" wx:else>联系方式：{{item.fb_contact}} <text class="cuIcon-copy text-black"></text></view>
     </view>
     <view class="flex" data-index="{{index}}" style="display:{{item.fb_img==''?'none':'flex'}}">
       <view>反馈图片： </view>
