@@ -118,7 +118,7 @@ Page({
     this.setData({
       cardCur: e.detail.current
     })
-    console.log(this.data.cardCur)
+    //console.log(this.data.cardCur)
   },
 
   getSwiper(e){

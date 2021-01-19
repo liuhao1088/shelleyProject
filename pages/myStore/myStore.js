@@ -28,6 +28,10 @@ Page({
    */
   onLoad: function (options) {
     let userInfo = wx.getStorageSync('userInfo');
+    this.load()
+    setTimeout(()=>{
+      this.setData({animation:true})
+    },500)
     console.log(userInfo)
     let code = userInfo.shop[userInfo.shop.length - 1].shop_code;
     let storeImg = userInfo.shop[userInfo.shop.length - 1].shop_img;
@@ -46,10 +50,7 @@ Page({
     wx.setNavigationBarTitle({
       title: "我的门店码：" + code
     })
-    this.load()
-    setTimeout(()=>{
-      this.setData({animation:true})
-    },500)
+    
 
   },
  
