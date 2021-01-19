@@ -114,7 +114,7 @@
     <view class='box row align-center' style="{{!data.modify_shop_img?'border-bottom:0px':''}}">
       <view class='field align-center'>门店图</view>
       <view class="iconlist row" style="margin-top:5px;margin-bottom:5px;">
-        <view bindtap="previewImg" style="" id="{{item}}" data-index="{{index}}" wx:for="{{data.shop_img}}"
+        <view bindtap="previewImg" style="" id="{{item}}" data-index="{{index}}" data-sort="original" wx:for="{{data.shop_img}}"
           wx:key="*this">
           <image class="addIcon" src="{{item}}" />
         </view>
@@ -126,7 +126,7 @@
     <view class='box row align-center' style="{{data.modify_shop_img?'border-bottom:0px':''}}">
       <view class='field align-center'>更改图</view>
       <view class="iconlist row" style="margin-top:5px;margin-bottom:5px;">
-        <view bindtap="previewImg" style="" id="{{item}}" data-index="{{index}}" wx:for="{{data.modify_shop_img}}"
+        <view bindtap="previewImg" style="" id="{{item}}" data-index="{{index}}" data-sort="modify" wx:for="{{data.modify_shop_img}}"
           wx:key="*this">
           <image class="addIcon" src="{{item}}" />
         </view>

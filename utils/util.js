@@ -334,9 +334,10 @@ function getCoupon(deviceArr) {
 
 function inspect(){
   var app=getApp();
+  let userInfo=wx.getStorageSync('userInfo')
   return new Promise((resolve, reject) => {
     wx.cloud.database().collection('coupon').where({
-      _openid: app.globalData.openid,
+      _openid: userInfo._openid,
       sort:'Q&A'
     }).get().then(res => {
       let data = res.data;

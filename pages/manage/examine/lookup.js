@@ -51,10 +51,17 @@ Page({
   },
   previewImg:function(e){
     var ind=e.currentTarget.dataset.index;
-    console.log(this.data.data.shop_img[ind])
+    var sort=e.currentTarget.dataset.sort;
+    let img=[]
+    if(sort=='original'){
+      img=this.data.data.shop_img
+    }else{
+      img=this.data.data.modify_shop_img
+    }
+    console.log(img[ind])
     wx.previewImage({
-      current: this.data.data.shop_img[ind], // 当前显示图片的http链接
-      urls:this.data.data.shop_img
+      current: img[ind], // 当前显示图片的http链接
+      urls:img
     })
   },
   confirm:function(){
@@ -225,10 +232,10 @@ Page({
             wx.showLoading({
               title: '认证中',
             })
-            wx.cloud.database().collection('shop').where({prove:'success'}).orderBy('creation_date','desc').skip(0).limit(1).get().then(
-              (res)=> {
+            wx.cloud.database().collection('shop').where({prove:'success'}).count({
+              success:function(res){
                 console.log(res)
-                let num=res.data[0].shop_code+1;
+                let num=res.total+1;
                 wx.cloud.callFunction({
                   name:'recordUpdate',
                   data:{
@@ -291,7 +298,7 @@ Page({
                   wx.setStorageSync('refreshData', editData)
                 })
               }
-            )
+            })
             /**/
           }
         }
@@ -514,7 +521,7 @@ Page({
         name: 'multQuery',
         data: {
           collection: 'user',
-          match: {_openid:editData._openid},
+          match: {_openid:editData.checker_openid},
           or: [{}],
           and: [{}],
           lookup: {

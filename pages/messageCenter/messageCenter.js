@@ -151,12 +151,13 @@ Page({
       wx.showLoading({
         title: '加载中',
       })
+      var userInfo=wx.getStorageSync('userInfo')
       wx.cloud.callFunction({
         name: 'multQuery',
         data: {
           collection: 'message',
           match: {
-            _openid: app.globalData.openid
+            _openid: userInfo._openid
           },
           or: [{}],
           and: [{}],
