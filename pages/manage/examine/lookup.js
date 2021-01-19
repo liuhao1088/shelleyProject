@@ -139,7 +139,7 @@ Page({
                     _openid:editData._openid,
                     shop_code:editData.shop_code,
                     title:"修改门店成功",
-                    content:'您修改认证门店 '+name+' 已审核通过，门店信息已更新，更多赋能等待您的体验~。',
+                    content:'您修改门店 '+name+' 已审核通过，门店信息已更新，更多赋能等待您的体验~。',
                     type:'check',
                     res:'success',
                     read:'unread'
