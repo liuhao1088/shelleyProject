@@ -5,7 +5,7 @@
     <text class="iconfont iconziyuan searchIcon" bindtap="toSearch"></text>
   </view>
 
-  <view class="wrapper" wx:for="{{list}}" wx:if="{{!search_whether}}">
+  <view class="wrapper" wx:for="{{list}}" wx:key="id" wx:if="{{!search_whether}}">
     <view class="wrap">
       <view class="wrap-title">预约体验：{{item.label}}</view>
       <view class="wrap-tag" wx:if="{{item.status=='waiting'}}">待接受</view>
