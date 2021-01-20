@@ -1,0 +1,91 @@
+<view class="brandGroupActivityContainer">
+  <view class="title">活动创建</view>
+  <!--活动标题  -->
+  <view class="wrap">
+    <view class="wrap-titleItem">
+      <view class="wrap-title">活动标题</view>
+      <view class="wrap-input">测试标题</view>
+    </view>
+
+    <view class="wrap-date">
+      <view class="wrap-dateItem">
+        <view class="wrap-title">
+          开始时间
+        </view>
+        <view class="wrap-input">
+            测试开始时间
+        </view>
+      </view>
+
+      <view class="wrap-dateItem">
+        <view class="wrap-title">
+          截止时间
+        </view>
+        <view class="wrap-input">
+          测试截止时间
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 活动商品 -->
+  <view class="wrap">
+    <view class="wrap-titleItem border">
+      <view class="wrap-title">活动商品</view>
+      <view class="wrap-input" >
+        测试商品
+      </view>
+    </view>
+    <view class="wrap-titleItem border">
+      <view class="wrap-title">拼团价</view>
+      <view class="wrap-input">
+        <view class="input-item">
+          <view class="text-item">￥</view>
+          <view class="input" style="flex: 1;padding-left: 20rpx;">
+            1
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="wrap-titleItem border">
+      <view class="wrap-title">拼团人数</view>
+      <view class="wrap-input">
+        <view class="input-item">
+          <view class="text-item">满</view>
+          <view class="input" style="width: 100rpx;text-align: center;">
+           1
+          </view>
+          <view class="text-item">人成团</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="wrap-titleItem">
+      <view class="wrap-title">时间限制</view>
+      <view class="wrap-input">
+        <view class="input-item" style="width:100%;">
+          <view class="input" style="width: 70rpx;">
+           1
+          </view>
+          <view class="text-item">分钟后未成团则该拼团失效</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="wrap-iconItem">
+      
+    </view>
+  </view>
+
+  <!-- 活动预览 -->
+  <view class="title">活动预览</view>
+  <view class="wrap">
+    <view class="preview-item">
+      <image mode="widthFix"
+        src="https://img14.360buyimg.com/ddimg/jfs/t1/170936/16/1770/244406/5ff908deEdcbf84fa/8ea171c72c03297a.png">
+      </image>
+    </view>
+  </view>
+</view>
+

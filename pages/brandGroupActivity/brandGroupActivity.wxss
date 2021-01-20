@@ -6,7 +6,7 @@ button::after {
   border: 0;
 }
 
-.groupActivitiesContainer {
+.brandGroupActivityContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,34 +93,8 @@ button::after {
   float: left;
 }
 
-/* 发布but */
-.but-item {
-  width: 100%;
-  border-top: 2rpx solid #e8e8e8;
-  background-color: #fff;
-  padding: 30rpx 0;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-content: center;
-  position: fixed;
-  bottom: 0;
-}
-
-.but-item button {
-  height: 80rpx;
-  width: 90%;
-  line-height: 80rpx;
-  border-radius: 10rpx;
-  text-align: center;
-  background-image: linear-gradient(133deg, #f92643, #e1001f, #ee0049);
-  color: rgba(255, 255, 255, 100);
-  font-size: 28rpx;
-}
-
 .wrap-iconItem {
   width: 100%;
-  line-height: 50rpx;
   font-size: 28rpx;
   text-align: center;
   color: rgba(16, 16, 16, 100);
@@ -139,43 +113,6 @@ button::after {
 .border {
   border-bottom: 2rpx solid #b5b5b5;
 }
-
-.cu-dialog {
-  background-color: #fff;
-}
-
-.cu-btn.lg {
-  font-size: 24rpx;
-}
-
-.cu-img {
-  height: 100%;
-  width: 200rpx;
-  background-color: white;
-  float: left;
-  border-radius: 10rpx;
-}
-
-.cu-img image {
-  height: 100%;
-  width: 100%;
-  vertical-align: middle;
-  text-align: center;
-  border-radius: 10rpx;
-}
-
-.cu-description {
-  flex: 1;
-  text-align: left;
-  padding-left: 20rpx;
-  padding-bottom: 10rpx;
-  font-size: 24rpx;
-}
-
-.line-red{
-  color: #f92643;
-}
-
 /* 活动预览 */
 .preview-item {
   width: 100%;
