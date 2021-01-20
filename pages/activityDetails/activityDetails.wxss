@@ -1,4 +1,4 @@
-page{
+page {
   background-color: #f0f0f0;
 }
 
@@ -13,7 +13,7 @@ page{
   width: 90%;
   height: 60rpx;
   margin-top: 20rpx;
-  margin-bottom:20rpx;
+  margin-bottom: 20rpx;
   display: flex;
   border: 0rpx solid orange;
 }
@@ -83,6 +83,15 @@ page{
   display: flex;
 }
 
+.wrap-item {
+  width: 100%;
+  height: 50rpx;
+  line-height: 50rpx;
+  border: 0rpx solid red;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .wrap-title {
   flex: 1;
   border: 0rpx solid blue;
@@ -97,21 +106,31 @@ page{
   border: 0rpx solid black;
 }
 
-.wrap-but{
+.wrap-but {
   height: 100%;
   width: 50%;
   border: 0rpx solid red;
-  margin-left: 50%;
+  display: flex;
+    justify-content: flex-end;
 }
 
-.but{
+.but {
   width: calc(80%/2);
   height: 100%;
   border: 0rpx solid red;
   float: right;
 }
 
-.cu-btn{
+.but button {
+  height: 100%;
+  width: 100%;
+  line-height: 50rpx;
+  font-size: 22rpx;
+  padding: 0;
+  border-radius: 30rpx;
+}
+
+.cu-btn {
   height: 100%;
   width: 100%;
   font-size: 16rpx
@@ -126,4 +145,82 @@ page{
 .accept {
   background-image: linear-gradient(133deg, #f92643, #e1001f, #ee0049);
   color: rgb(255, 255, 255);
+}
+
+/* 开关 */
+.switch-but {
+  width: 140rpx;
+  height: 50rpx;
+  margin-right: 30rpx;
+}
+
+.switch {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+}
+
+.switch::before {
+  content: "";
+  position: absolute;
+  background-color: #D1D3D7;
+
+}
+
+.switch::after {
+  position: absolute;
+  display: inline-block;
+  content: "";
+  margin-top: 6rpx;
+  height: 36rpx;
+  width: 36rpx;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.toggle-off {
+  background-color: #e5e5e5;
+}
+
+.toggle-off::before {
+  width: 140rpx;
+  height: 50rpx;
+}
+
+.toggle-off::after {
+  left: 3px;
+  box-shadow: 1px 2px 4px #aaa;
+}
+
+.toggle-on::before {
+  width: 0px;
+  height: 0px;
+  left: 40px;
+  top: 15px;
+}
+
+.toggle-on:after {
+  left: 50px;
+}
+
+.switch-enable {
+  height: 100%;
+  line-height: 50rpx;
+  font-size: 28rpx;
+  position: absolute;
+  left: 26rpx;
+  color: #fff;
+  font-weight: bold;
+}
+
+.switch-disable {
+  height: 100%;
+  line-height: 50rpx;
+  font-size: 28rpx;
+  position: absolute;
+  right: 26rpx;
+  font-weight: bold;
+  color: #fff;
 }

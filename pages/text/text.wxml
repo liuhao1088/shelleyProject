@@ -36,13 +36,13 @@
 
 <!-- <view class="div2" bindtouchstart="touchstart" bindtouchend="touchend">向左向左向左，向右滑动啦啦啦</view> -->
 
-<view class="wrap">
-    <!-- <view></view> -->
-    
-</view>
-
-<button bindtap="getScancode">扫码</button>
+<!-- <button bindtap="getScancode">扫码</button>
 <text>内容：{{result}}</text>
 <text>类型：{{scanType}}</text>
 <text>字符集：{{charSet}}</text>
-<text>二维码携带：{{path}}</text>
+<text>二维码携带：{{path}}</text> -->
+<view class="switch {{isOpen? 'toggle-on' : 'toggle-off'}}"
+  style="background-color:{{anonymousSwitch ?'#8799a3' : 'red'}}" bindtap="selSwitch">
+  <view class="switch-enable" wx:if="{{isOpen}}">启用</view>
+  <view class="switch-disable" wx:else>禁用</view>
+</view>

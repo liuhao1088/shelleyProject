@@ -32,7 +32,8 @@ Page({
     result: '',
     scanType: '',
     charSet: '',
-    path: ''
+    path: '',
+    isOpen:false,
     
   },
   onAddPhone: function () {
@@ -167,7 +168,14 @@ Page({
       }
     })
   },
-
+  // 开关
+  selSwitch(){
+    let isOpen =  this.data.isOpen;
+    isOpen	=!isOpen;
+		this.setData({
+			isOpen
+		})
+	},
 
   /**
    * 生命周期函数--监听页面加载

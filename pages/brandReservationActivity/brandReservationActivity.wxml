@@ -1,11 +1,11 @@
-<view class="reservationActivityContainer">
+<view class="brandReservationActivityContainer">
   <view class="title">活动创建</view>
   <view class="wrap">
     <view class="wrap-titleItem">
       <view class="wrap-title">活动标题</view>
       <view class="wrap-input">
-        <input type="text" placeholder-class="placeholder" bindinput="inputTitle" value="{{title}}"
-          placeholder="请输入活动标题" /></view>
+        测试标题
+      </view>
     </view>
 
     <view class="wrap-date">
@@ -14,8 +14,7 @@
           活动开始时间
         </view>
         <view class="wrap-input">
-          <rui-picker slot="flexchild" start="{{startTime}}" end="2999-12-31 00:00" value="{{startTime}}"
-            fields="minute" bindchangedatepicker="changeStartTime"></rui-picker>
+         测试活动开始时间
         </view>
       </view>
 
@@ -24,8 +23,7 @@
           活动截止时间
         </view>
         <view class="wrap-input">
-          <rui-picker slot="flexchild" start="{{endTime}}" end="2999-12-31 00:00" value="{{endTime}}" fields="minute"
-            bindchangedatepicker="changeEndTime"></rui-picker>
+          测试活动截止时间
         </view>
       </view>
     </view>
@@ -35,14 +33,7 @@
         预约好礼
       </view>
       <view class="wrap-textarea">
-        <textarea maxlength="-1" disabled="{{modalName!=null}}" bindinput="inputContent" value="{{content}}"
-          ></textarea>
-      </view>
-    </view>
-
-    <view class="wrap-textareaItem" bindtap="submit">
-      <view class="but-item">
-        <button class="cu-btn round bg-blue button-hover" bindtap="submit">{{transmit==''?'发布活动':'保存活动'}}</button>
+       测试预约好礼
       </view>
     </view>
 
@@ -60,4 +51,6 @@
       </image>
     </view>
   </view>
+
+
 </view>
