@@ -4,7 +4,7 @@ page {
 
 .storeAppointmentContainer {
   color: #000;
-  padding-bottom: 160rpx;
+  padding-bottom: 180rpx;
 }
 
 .banner {
@@ -154,7 +154,7 @@ page {
 /* 预约 */
 .btn-item {
   width: 100%;
-  height: 140rpx;
+  padding: 30rpx 0;
   border-top: 2rpx solid #e8e8e8;
   background-color: #fff;
   display: flex;

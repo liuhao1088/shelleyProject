@@ -87,6 +87,15 @@ Page({
     this.setData({
       startTime: '请选择到店时间'
     })
+
+    let flag = app.globalData.flag;
+    console.log(flag)
+    this.setData({
+      flag
+    })
+
+
+
     if (options.data) {
       let data = JSON.parse(options.data)
       let list = data.re;

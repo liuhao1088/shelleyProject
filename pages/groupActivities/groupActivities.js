@@ -209,6 +209,13 @@ Page({
       startTime: '请选择开始时间',
       endTime: '请选择截止时间'
     })
+
+    let flag = app.globalData.flag;
+    console.log(flag)
+    this.setData({
+      flag
+    })
+    
     var that = this;
     let wares = app.globalData.wares;
     for (let i = 0; i < wares.length; i++) {

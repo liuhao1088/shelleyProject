@@ -65,7 +65,7 @@
 
 </view>
 
-<view class="btn-item">
+<view class="btn-item" style="padding-bottom: {{flag?'66rpx': '30rpx'}};">
   <button wx:if="{{isShow}}" style="display:{{reservation==''?'':'none'}}" open-type="getPhoneNumber"
     bindgetphonenumber="getPhoneNumber">预 约</button>
   <button wx:if="{{!isShow}}" style="display:{{reservation==''?'':'none'}}" bindtap="submit">预 约</button>

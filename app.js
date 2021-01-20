@@ -62,6 +62,17 @@ App({
         }
       }
     })
+
+    wx.getSystemInfo({
+      success: function (res) {
+        let modelmes = res.model;
+        if (modelmes.search('iPhone X') != -1 || modelmes.search('iPhone 11') != -1 || modelmes.search('iPhone 12') != -1) {
+          that.globalData.flag = true
+        }
+      }
+    });
+
+
   },
   onShow: function () {
     //隐藏系统tabbar
@@ -92,6 +103,7 @@ App({
     });
   },
   globalData: {
+    flag:false,
     isIphoneX:false,
     systemInfo:null,
     userInfo: null,
