@@ -35,25 +35,61 @@
     </view>
     <view class="wrap-item">
       <view class="wrap-but">
-         <!-- <view class="but" style="margin-right: 30rpx;" data-index="{{index}}" bindtap="delete">
+        <view class="but" style="margin-right: 30rpx;" data-index="{{index}}" bindtap="delete">
           <button class="cancel">删除活动</button>
-        </view> -->
-        <view class="switch-but">
-          <view class="switch {{isOpen? 'toggle-on' : 'toggle-off'}}"
-            style="background-color:{{anonymousSwitch ?'#8799a3' : '#e1001f'}}" bindtap="selSwitch">
-            <view class="switch-enable" wx:if="{{isOpen}}">启用</view>
-            <view class="switch-disable" wx:else>禁用</view>
-          </view>
-        </view>
+        </view> 
         <view class="but" data-index="{{index}}" bindtap="toEdit">
           <button class="accept">编辑活动</button>
         </view>
-       
        
       </view>
     </view>
 
   </view>
+
+  <view class="wrapper" wx:if="{{!transmit}}" wx:for="{{blist}}" wx:key="id" data-index="{{index}}">
+    <view class="wrap">
+      <view class="wrap-title">活动标题：{{item.title}}</view>
+      <view class="wrap-tag" wx:if="{{stamp<=item.start_timestamp}}" style="opacity: 0.5;">未开始</view>
+      <view class="wrap-tag" wx:elif="{{stamp>=item.end_timestamp}}" style="opacity: 0.5;">已过期</view>
+      <view class="wrap-tag" wx:else><text class="iconfont iconflag"></text> 活动中</view>
+    </view>
+    <view class="wrap">
+      <view class="wrap-title">活动类型：{{item.type=='reservation'?'预约好礼':'拼团优惠'}}</view>
+    </view>
+    <view class="wrap">
+      <view class="wrap-title">活动时间：{{item.start_date}} 至 {{item.end_date}}</view>
+    </view>
+    <view class="wrap">
+      <view class="wrap-title">活动码：{{item.act_code}}</view>
+    </view>
+    <view class="wrap">
+      <view class="wrap-title" style="opacity: 0.5;">创建时间：{{item.creation_date}}</view>
+    </view>
+    <view class="wrap-item">
+      <view class="wrap-but">
+        <view class="switch-but" wx:if="{{item.type=='team'}}">
+          <view class="switch {{item.team_using? 'toggle-on' : 'toggle-off'}}"
+            style="background-color:{{anonymousSwitch ?'#8799a3' : '#e1001f'}}" data-index="{{index}}" bindtap="selSwitch">
+            <view class="switch-enable" wx:if="{{item.team_using}}">启用</view>
+            <view class="switch-disable" wx:else>禁用</view>
+          </view>
+        </view>
+        <view class="switch-but" wx:if="{{item.type=='reservation'}}">
+          <view class="switch {{item.re_using? 'toggle-on' : 'toggle-off'}}"
+            style="background-color:{{anonymousSwitch ?'#8799a3' : '#e1001f'}}" data-index="{{index}}" bindtap="selSwitch">
+            <view class="switch-enable" wx:if="{{item.re_using}}">启用</view>
+            <view class="switch-disable" wx:else>禁用</view>
+          </view>
+        </view>
+        <view class="but" data-index="{{index}}" bindtap="toLookup">
+          <button class="accept">查看活动</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
   <view style="height:20rpx;"></view>
 </scroll-view>
 <view class="wrapper" wx:for="{{searchlist}}" wx:key="id" data-index="{{index}}" wx:if="{{search_whether}}">

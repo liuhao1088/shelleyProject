@@ -3,6 +3,7 @@ var app = getApp();
 var util = require('../../utils/util.js')
 let timer;
 var scode;
+var id;
 Page({
 
   /**
@@ -226,8 +227,10 @@ Page({
     }
     let userInfo=wx.getStorageSync('userInfo')
     scode=userInfo.shop[userInfo.shop.length - 1].shop_code;
+    id=userInfo.shop[userInfo.shop.length - 1]._id;
     if(options.parse){
       scode='all'
+      id='all'
     }
     if (options.data) {
       let data = JSON.parse(options.data)
@@ -367,6 +370,7 @@ Page({
           shopping: list,
           act_code: code + numberCode,
           shop_code: scode,
+          shop_id: id,
           lat: userInfo.shop[userInfo.shop.length - 1].lat,
           lon: userInfo.shop[userInfo.shop.length - 1].lon,
           _openid: userInfo._openid,

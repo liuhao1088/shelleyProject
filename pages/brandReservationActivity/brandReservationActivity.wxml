@@ -4,7 +4,7 @@
     <view class="wrap-titleItem">
       <view class="wrap-title">活动标题</view>
       <view class="wrap-input">
-        测试标题
+        {{data.title}}
       </view>
     </view>
 
@@ -14,7 +14,7 @@
           活动开始时间
         </view>
         <view class="wrap-input">
-         测试活动开始时间
+         {{data.start_date}}
         </view>
       </view>
 
@@ -23,7 +23,7 @@
           活动截止时间
         </view>
         <view class="wrap-input">
-          测试活动截止时间
+          {{data.end_date}}
         </view>
       </view>
     </view>
@@ -33,7 +33,7 @@
         预约好礼
       </view>
       <view class="wrap-textarea">
-       测试预约好礼
+       {{data.content}}
       </view>
     </view>
 

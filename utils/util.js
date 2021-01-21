@@ -128,14 +128,53 @@ function nearby() {
       wx.cloud.callFunction({
         name: 'nearby',
         data: {
+          collection: 'shop',
+          match: {},
+          minlat: lat - 1,
+          minlon: lon - 1,
+          maxlat: lat + 1,
+          maxlon: lon + 1,
+          or: [{}],
+          and: [{}],
+          lookup: {
+            from: 'activity',
+            localField: 'shop_code',
+            foreignField: 'shop_code',
+            as: 'act',
+          },
+          lookup2: {
+            from: 'user',
+            localField: '_openid',
+            foreignField: '_openid',
+            as: 'user',
+          },
+          sort: {
+            creation_date: -1
+          },
+          skip: 0,
+          limit: 100
+        }
+      }).then(res => {
+        let list=res.result.list;
+        for (let i in list) {
+          list[i].distance = getDistance(lat, lon, list[i].lat, list[i].lon)
+          if (i == list.length - 1) {
+            list.sort(compare("distance"));
+            wx.setStorageSync('nearby_shop', list[0])
+          }
+        }
+      })
+      wx.cloud.callFunction({
+        name: 'nearby',
+        data: {
           collection: 'activity',
           match: {
             type: 'team'
           },
-          minlat: lat - 3,
-          minlon: lon - 3,
-          maxlat: lat + 3,
-          maxlon: lon + 3,
+          minlat: lat - 1,
+          minlon: lon - 1,
+          maxlat: lat + 1,
+          maxlon: lon + 1,
           or: [{}],
           and: [{}],
           lookup: {
