@@ -242,7 +242,7 @@ Page({
         console.log(res)
         if (JSON.stringify(res).indexOf('accept') !== -1) {
           wx.showToast({
-            title: '您已经订阅了消息通知',
+            title: '订阅了消息通知',
             icon: 'success',
             duration: 2000
           })
