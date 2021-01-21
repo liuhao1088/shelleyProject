@@ -5,19 +5,28 @@ Page({
    * 页面的初始数据
    */
   data: {
-    shelleyUrl:'https://img11.360buyimg.com/ddimg/jfs/t1/158874/9/2534/303570/5ff948c8E7cfd438d/0ea0437e538abc3b.jpg',
-    userUrl:'https://img14.360buyimg.com/ddimg/jfs/t1/159966/22/2435/167692/5ff94b2dE74de1dd6/ed58a587a59eed21.png'
+    shelleyUrl: 'https://img11.360buyimg.com/ddimg/jfs/t1/158874/9/2534/303570/5ff948c8E7cfd438d/0ea0437e538abc3b.jpg',
+    userUrl: 'https://img14.360buyimg.com/ddimg/jfs/t1/159966/22/2435/167692/5ff94b2dE74de1dd6/ed58a587a59eed21.png',
+    flag: true,
+    hidden:false
 
   },
-  toHelpAndFeedback(){
+  toHelpAndFeedback() {
     wx.navigateTo({
       url: '/pages/helpAndFeedback/helpAndFeedback',
     })
   },
-  toActivityRules(){
+  toActivityRules() {
     wx.navigateTo({
       url: '/pages/activityRule/activityRule',
     })
+  },
+  showtype(e) {
+    this.setData({
+      flag: false,
+      hidden:true
+    })
+    
   },
 
   /**

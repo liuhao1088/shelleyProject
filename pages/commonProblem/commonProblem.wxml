@@ -1,4 +1,4 @@
-<view class="cu-chat">
+<view class="cu-chat" style="padding-top: 100rpx;padding-bottom: 66rpx;">
   <view class="cu-item self">
     <view class="main">
       <view class="content bg-green shadow">
@@ -73,4 +73,24 @@
     </view>
   </view>
 
+</view>
+
+<view class="customer-wrapper">
+  <view class="customer-wrap">
+    <view class="img-item">
+    <text class="iconfont iconkefu" style="font-size: 56rpx;color: rgb(46, 113, 196);"></text>
+  </view>
+  <view class="customer-item" wx:if="{{flag}}">以下问题是否能帮到您？</view>
+  <view class="customer-item" wx:else>谢谢您的肯定，我们会努力给您带来更好的体验~</view>
+  <view class="customer-but column justify-center align-center" hidden="{{hidden}}">
+    <view class="but-wrap">
+      <view class="but">
+        <button bindtap="showtype">能</button>
+      </view>
+      <view class="but-customer">
+        <button open-type="contact">不能，转人工</button>
+      </view>
+    </view>
+  </view>
+  </view>
 </view>
