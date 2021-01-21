@@ -138,6 +138,7 @@ Page({
                     creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
                     _openid:editData._openid,
                     shop_code:editData.shop_code,
+                    shop_id:editData._id,
                     title:"修改门店成功",
                     content:'您修改门店 '+name+' 已审核通过，门店信息已更新，更多赋能等待您的体验~。',
                     type:'check',
@@ -243,6 +244,7 @@ Page({
                     where:{_id:editData._id},
                     updateData:{
                       prove:'success',
+                      team_using:true,
                       shop_code:num,
                       checker:userInfo.nickName,
                       checker_openid:userInfo._openid,

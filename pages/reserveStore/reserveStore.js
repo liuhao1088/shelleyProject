@@ -67,6 +67,10 @@ Page({
         });
       }
     });
+    wx.cloud.database().collection('activity').where({shop_code:'all',type:'reservation'}).orderBy('creation_date','desc').skip(0).limit(1).get().then(res=>{
+      let data=res.data;
+      wx.setStorageSync('brand_re', data)
+    })
     do {
       that.loadProgress(pro)
       pro++;

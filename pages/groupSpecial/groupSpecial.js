@@ -285,7 +285,8 @@ Page({
       })
     } else {
       let data = wx.getStorageSync('nearby');
-      if (data == undefined || data == '') {
+      let shop=wx.getStorageSync('nearby_shop')
+      if (shop.team_using==false && (data == undefined || data == '')) {
         that.setData({
           action: 'finish'
         })

@@ -3,6 +3,7 @@ var app = getApp();
 var util = require('../../utils/util.js')
 var skip = 0;
 var code;
+var id;
 Page({
 
   /**
@@ -14,6 +15,7 @@ Page({
     search_whether: false,
     search: '',
     transmit: false,
+    blist:[],
     isOpen: false,
   },
   toActivitySelect(event) {
@@ -32,11 +34,40 @@ Page({
   },
 
    // 开关
-   selSwitch(){
-    let isOpen =  this.data.isOpen;
-    isOpen	=!isOpen;
+  selSwitch(e){
+    var ind = e.currentTarget.dataset.index;
+    let data =  this.data.blist;
+    if(data[ind].type=='team'){
+      data[ind].team_using=!data[ind].team_using
+      wx.cloud.callFunction({
+        name:'recordUpdate',
+        data:{
+          collection:'shop',
+          where:{
+            _id:id
+          },
+          updateData:{
+            team_using:data[ind].team_using
+          }
+        }
+      })
+    }else{
+      data[ind].re_using=!data[ind].re_using
+      wx.cloud.callFunction({
+        name:'recordUpdate',
+        data:{
+          collection:'shop',
+          where:{
+            _id:id
+          },
+          updateData:{
+            re_using:data[ind].re_using
+          }
+        }
+      })
+    }
 		this.setData({
-			isOpen
+		  blist:data
 		})
 	},
   /**
@@ -58,6 +89,29 @@ Page({
     code = userInfo.shop[userInfo.shop.length - 1].shop_code;
     if (options.data) {
       code = 'all'
+      that.setData({transmit:true})
+    }else{
+      let team_using=false;
+      let re_using=false;
+      wx.cloud.database().collection('shop').where({_openid:app.globalData.openid}).orderBy('creation_date','desc').skip(0).limit(1).get().then(res=>{
+        let shop=res.data[0]
+        id=shop._id;
+        if(shop.team_using){
+          team_using=shop.team_using
+        }
+        if(shop.re_using){
+          re_using=shop.re_using
+        }
+        wx.cloud.database().collection('activity').where({shop_code:'all',type:'team'}).orderBy('creation_date','desc').skip(0).limit(1).get().then(res=>{
+          let blist=res.data;
+          blist[0].team_using=team_using;
+          wx.cloud.database().collection('activity').where({shop_code:'all',type:'reservation'}).orderBy('creation_date','desc').skip(0).limit(1).get().then(res=>{
+            res.data[0].re_using=re_using;
+            blist=blist.concat(res.data)
+            that.setData({blist:blist})
+          })
+        })
+      })
     }
     that.loadData();
     switch (app.globalData.wares) {
@@ -173,18 +227,14 @@ Page({
         wx.showToast({
           title: '暂无更多数据',
           icon: 'none',
-          duration: 2000
+          duration: 1000
         })
       }
       that.setData({
         list: data
       })
       if (that.data.list.length == 0) {
-        wx.showToast({
-          title: '暂无活动',
-          icon: 'none',
-          duration: 10000000
-        })
+        
       }
       wx.hideLoading()
       wx.hideNavigationBarLoading()
@@ -204,6 +254,18 @@ Page({
     } else {
       wx.navigateTo({
         url: '../reservationActivity/reservationActivity?data=' + JSON.stringify(this.data.list[ind]),
+      })
+    }
+  },
+  toLookup: function (e) {
+    var ind = e.currentTarget.dataset.index;
+    if (this.data.blist[ind].type == 'team') {
+      wx.navigateTo({
+        url: '../brandGroupActivity/brandGroupActivity?data=' + JSON.stringify(this.data.blist[ind]),
+      })
+    } else {
+      wx.navigateTo({
+        url: '../brandReservationActivity/brandReservationActivity?data=' + JSON.stringify(this.data.blist[ind]),
       })
     }
   },

@@ -34,7 +34,7 @@
         </view>
         <view class="store-imgItem">
           <image src="{{item.shop_img}}"></image>
-          <view class="msg-item" wx:if="{{item.gift}}">预约好礼</view>
+          <view class="msg-item" wx:if="{{item.gift||item.re_using}}">预约好礼</view>
         </view>
       </view>
     </view>

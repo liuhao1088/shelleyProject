@@ -4,7 +4,7 @@
   <view class="wrap">
     <view class="wrap-titleItem">
       <view class="wrap-title">活动标题</view>
-      <view class="wrap-input">测试标题</view>
+      <view class="wrap-input">{{data.title}}</view>
     </view>
 
     <view class="wrap-date">
@@ -13,7 +13,7 @@
           开始时间
         </view>
         <view class="wrap-input">
-            测试开始时间
+            {{data.start_date}}
         </view>
       </view>
 
@@ -22,18 +22,18 @@
           截止时间
         </view>
         <view class="wrap-input">
-          测试截止时间
+          {{data.end_date}}
         </view>
       </view>
     </view>
   </view>
 
   <!-- 活动商品 -->
-  <view class="wrap">
+  <view class="wrap" wx:for="{{data.shopping}}">
     <view class="wrap-titleItem border">
       <view class="wrap-title">活动商品</view>
       <view class="wrap-input" >
-        测试商品
+        {{item.name}}
       </view>
     </view>
     <view class="wrap-titleItem border">
@@ -42,7 +42,7 @@
         <view class="input-item">
           <view class="text-item">￥</view>
           <view class="input" style="flex: 1;padding-left: 20rpx;">
-            1
+            {{item.price}}
           </view>
         </view>
       </view>
@@ -54,7 +54,7 @@
         <view class="input-item">
           <view class="text-item">满</view>
           <view class="input" style="width: 100rpx;text-align: center;">
-           1
+           {{item.people}}
           </view>
           <view class="text-item">人成团</view>
         </view>
@@ -66,7 +66,7 @@
       <view class="wrap-input">
         <view class="input-item" style="width:100%;">
           <view class="input" style="width: 70rpx;">
-           1
+           {{item.time}}
           </view>
           <view class="text-item">分钟后未成团则该拼团失效</view>
         </view>

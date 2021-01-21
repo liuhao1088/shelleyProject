@@ -100,7 +100,12 @@ Page({
       let data = JSON.parse(options.data)
       let list = data.re;
       let stamp = Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
-      
+      if(!data.gift&&data.re_using){
+        data.gift=true;
+        let brand_re=wx.getStorageSync('brand_re')
+        data.act[0].content=brand_re[0].content;
+        data.act[0].end_date=brand_re[0].end_date;
+      }
       if (list.length >= 1) {
         console.log(list[0].status, stamp, list[0].timestamp)
         if ((list[0].status == 'success' && stamp <= list[0].timestamp) || (list[0].status == 'waiting' && stamp <= list[0].timestamp)) {
@@ -284,6 +289,7 @@ Page({
           //phone: phone,
           re_code: code + numberCode,
           shop_code: that.data.data.shop_code,
+          shop_id: that.data.data._id,
           act_id: id,
           act_code: act_code,
           shopping: that.data.nameList,
@@ -315,6 +321,7 @@ Page({
             creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
             _openid: app.globalData.openid,
             shop_code: that.data.data.shop_code,
+            shop_id: that.data.data._id,
             re_code: code + numberCode,
             title: "门店预约成功",
             content: '您在' + that.data.data.shop_name + '预约了' + that.data.startTime + '到店体验' + cont,
