@@ -84,13 +84,14 @@
         <view class="modal-menuWrap">
           <view class="menu-item {{item.flag?'menuWrap-class' : ''}}" wx:for="{{reasonList}}" wx:key="id" data-index="{{index}}" bindtap="select">{{item.name}}</view>
         </view>
-
+        
         <view class="modal-menuWrap" style="margin-top: 26rpx;">
           <view class="menu-tag">其他</view>
           <view class="menu-input">
             <input type="text" placeholder="请输入其他原因"/>
           </view>
         </view>
+       
       </view> 
 
       <view class="modal-butItem">

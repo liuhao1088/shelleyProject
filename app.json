@@ -1,7 +1,7 @@
 {
   "pages":[
-    "pages/home/home",
     "pages/wode/wode",
+    "pages/home/home",
     "pages/commonProblem/commonProblem",
     "pages/index/index",
     "pages/brandReservationActivity/brandReservationActivity",

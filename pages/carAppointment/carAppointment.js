@@ -14,7 +14,7 @@ Page({
     reasonList: [
       {
         "name":"预约商品无货",
-        "flag":true
+        "flag":false
       },
       {
         "name":"预约时间不营业",
