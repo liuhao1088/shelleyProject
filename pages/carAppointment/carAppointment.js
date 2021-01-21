@@ -1,7 +1,7 @@
 // pages/carAppointment/carAppointment.js\
 var util=require('../../utils/util')
 var skip = 0;
-var reason='预约商品无货';
+var reason='';
 var ind;
 Page({
 
@@ -299,7 +299,7 @@ Page({
                }
              }
              util.sendMessage(id, pr, 'SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0')
-             that.setData({modalName:null})
+             that.setData({modalName:null,reason:''})
              wx.hideLoading({
               success: (res) => {},
             })
