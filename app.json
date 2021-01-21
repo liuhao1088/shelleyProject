@@ -1,12 +1,12 @@
 {
   "pages":[
     "pages/home/home",
+    "pages/wode/wode",
     "pages/commonProblem/commonProblem",
     "pages/index/index",
     "pages/brandReservationActivity/brandReservationActivity",
     "pages/brandGroupActivity/brandGroupActivity",
     "pages/text/text",
-    "pages/wode/wode",
     "pages/storeAppointment/storeAppointment",
     "pages/helpAndFeedback/helpAndFeedback",
     "pages/reserveStore/reserveStore",

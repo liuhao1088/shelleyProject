@@ -10,7 +10,17 @@ Page({
     list: [],
     search: '',
     searchlist: [],
-    search_whether: false
+    search_whether: false,
+    reasonList: [
+      {
+        "name":"预约商品无货",
+        "flag":true
+      },
+      {
+        "name":"预约时间不营业",
+        "flag":false
+      }
+    ],
   },
 
   /**
@@ -199,75 +209,101 @@ Page({
     })
 
   },
-  cancel: function (e) {
-    var that = this;
-    var ind = e.currentTarget.dataset.index;
-    wx.requestSubscribeMessage({
-      tmplIds: ['SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM'],
-      success(res) {
-        if (JSON.stringify(res).indexOf('accept') !== -1) {
-          wx.showLoading({
-            title: '取消中',
-          })
-          wx.cloud.callFunction({
-            name: 'recordDelete',
-            data: {
-              collection: 'reservation',
-              where: {
-                _id: that.data.list[ind]._id
-              }
-            }
-          }).then(res => {
-            skip = skip - 1;
-            let list = that.data.list;
-            wx.setStorageSync('_quit', list[ind]._openid)
-            list.splice(ind, 1)
-            that.setData({
-              list: list
-            })
-            let userInfo = wx.getStorageSync('userInfo')
-            let id=wx.getStorageSync('_quit')
-            let nowDate=util.formatTime(new Date());
-            let name=userInfo.shop[userInfo.shop.length - 1].shop_name.substring(0,19);
-            let pr={
-              "thing1": {
-                "value": name
-              },
-              "thing5": {
-                "value": '店主取消了您的预约'
-              }
-            }
-            util.sendMessage(id, pr, 'SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0')
-            wx.cloud.callFunction({
-              name:'recordAdd',
-              data:{
-                collection:'message',
-                addData:{
-                  creation_date:nowDate,
-                  creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
-                  shop_code:userInfo.shop[userInfo.shop.length - 1].shop_code,
-                  _openid:list[ind]._openid,
-                  re_code:list[ind].re_code,
-                  title:'门店取消预约',
-                  content:userInfo.shop[userInfo.shop.length - 1].shop_name+'取消了您'+list[ind].time+'的到店预约',
-                  type:'re',
-                  res:'fail',
-                  read:'unread'
-                }
-              }
-            })
-            wx.hideLoading({
-              success: (res) => {},
-            })
-            wx.showToast({
-              title: '取消成功',
-            })
-            wx.removeStorageSync('_quit')
-          })
-        }
-      }
+  //弹窗
+  cancel(e) {
+    let that = this;
+    let target = e.currentTarget.dataset.target;
+      that.setData({
+        modalName: target
+      })
+  },
+  hideModal(e) {
+    this.setData({
+      modalName: null
     })
   },
+
+  select(e){
+    let reasonList = this.data.reasonList;
+    let index = e.currentTarget.dataset.index;
+    console.log(index);
+    for (let i in reasonList) reasonList[i].flag = false
+    reasonList[index].flag = true;
+    this.setData({
+      reasonList
+    })
+   
+    console.log(this.data.reasonList);
+  },
+  // cancel: function (e) {
+  //   var that = this;
+  //   var ind = e.currentTarget.dataset.index;
+  //   wx.requestSubscribeMessage({
+  //     tmplIds: ['SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM'],
+  //     success(res) {
+  //       if (JSON.stringify(res).indexOf('accept') !== -1) {
+  //         wx.showLoading({
+  //           title: '取消中',
+  //         })
+  //         wx.cloud.callFunction({
+  //           name: 'recordDelete',
+  //           data: {
+  //             collection: 'reservation',
+  //             where: {
+  //               _id: that.data.list[ind]._id
+  //             }
+  //           }
+  //         }).then(res => {
+  //           skip = skip - 1;
+  //           let list = that.data.list;
+  //           wx.setStorageSync('_quit', list[ind]._openid)
+  //           list.splice(ind, 1)
+  //           that.setData({
+  //             list: list
+  //           })
+  //           let userInfo = wx.getStorageSync('userInfo')
+  //           let id=wx.getStorageSync('_quit')
+  //           let nowDate=util.formatTime(new Date());
+  //           let name=userInfo.shop[userInfo.shop.length - 1].shop_name.substring(0,19);
+  //           let pr={
+  //             "thing1": {
+  //               "value": name
+  //             },
+  //             "thing5": {
+  //               "value": '店主取消了您的预约'
+  //             }
+  //           }
+  //           util.sendMessage(id, pr, 'SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0')
+  //           wx.cloud.callFunction({
+  //             name:'recordAdd',
+  //             data:{
+  //               collection:'message',
+  //               addData:{
+  //                 creation_date:nowDate,
+  //                 creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
+  //                 shop_code:userInfo.shop[userInfo.shop.length - 1].shop_code,
+  //                 _openid:list[ind]._openid,
+  //                 re_code:list[ind].re_code,
+  //                 title:'门店取消预约',
+  //                 content:userInfo.shop[userInfo.shop.length - 1].shop_name+'取消了您'+list[ind].time+'的到店预约',
+  //                 type:'re',
+  //                 res:'fail',
+  //                 read:'unread'
+  //               }
+  //             }
+  //           })
+  //           wx.hideLoading({
+  //             success: (res) => {},
+  //           })
+  //           wx.showToast({
+  //             title: '取消成功',
+  //           })
+  //           wx.removeStorageSync('_quit')
+  //         })
+  //       }
+  //     }
+  //   })
+  // },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
