@@ -9,7 +9,7 @@
     <view class="wrap">
       <view class="wrap-title">预约体验：{{item.label}}</view>
       <view class="wrap-tag" wx:if="{{item.status=='waiting'}}">待接受</view>
-      <view class="wrap-tag" style="opacity: 0.5;" wx:if="{{item.status=='success'}}">已接受</view> 
+      <view class="wrap-tag" style="opacity: 0.5;" wx:if="{{item.status=='success'}}">已接受</view>
 
     </view>
     <view class="wrap">
@@ -30,18 +30,18 @@
         <view class="but" style="margin-right: 30rpx;" data-index="{{index}}" bindtap="cancel" data-target="cancel">
           <button class="cu-btn round sm bg-white cancel">取消预约</button>
         </view>
-      
+
       </view>
     </view>
 
   </view>
 
-  
+
   <view class="wrapper" wx:for="{{searchlist}}" wx:if="{{search_whether}}">
     <view class="wrap">
       <view class="wrap-title">预约体验：{{item.label}}</view>
       <view class="wrap-tag" wx:if="{{item.status=='waiting'}}">待接受</view>
-      <view class="wrap-tag" style="opacity: 0.5;" wx:if="{{item.status=='success'}}">已接受</view> 
+      <view class="wrap-tag" style="opacity: 0.5;" wx:if="{{item.status=='success'}}">已接受</view>
 
     </view>
     <view class="wrap">
@@ -69,37 +69,37 @@
 
 <!-- 取消预约弹窗 -->
 <view class="cu-modal {{modalName=='cancel'?'show':''}}" catchtouchmove="ture">
-    <view class="cu-dialog">
-      <view class="modal-titleItem column justify-center align-center">
-        <view class="modal-titleWrap">
-          <view>请选择取消原因</view>
-          <view class="modal-iconWrap">
-            <text class="iconfont iconwenti" style="margin-left: 10rpx;" bindtap="toExplainRules"></text>
-          </view>
-        </view>
-      </view>
-
-      <view class="modal-main">
-        <view class="modal-menuWrap">
-          <view class="menu-item {{item.flag?'menuWrap-class' : ''}}" wx:for="{{reasonList}}" wx:key="id" data-index="{{index}}" bindtap="select">{{item.name}}</view>
-        </view>
-        <view class="modal-menuWrap" style="margin-top: 26rpx;" bindtap="click_flag">
-          <view class="menu-tag" style="{{flag?'background:#f92643;color:white;':''}}">其他</view>
-          <view class="menu-input" style="{{flag?'border:1px solid red':''}}">
-            <input type="text" bindinput="inputReason" placeholder="请输入其他原因"/>
-          </view>
-        </view>
-       
-      </view> 
-
-      <view class="modal-butItem">
-        <view class="modal-but">
-          <button style="width: 100%;" bindtap="hideModal">取消</button>
-        </view>
-        <view class="modal-but" style="border-left: 2rpx solid #ECECED;">
-          <button style="width: 100%;color: rgb(225, 0, 31);" bindtap="isCancel">确认</button>
+  <view class="cu-dialog">
+    <view class="modal-titleItem column justify-center align-center">
+      <view class="modal-titleWrap">
+        <view>请选择取消原因</view>
+        <view class="modal-iconWrap">
+          <text class="iconfont iconwenti" style="margin-left: 10rpx;" bindtap="toExplainRules"></text>
         </view>
       </view>
     </view>
-  </view>
 
+    <view class="modal-main">
+      <view class="modal-menuWrap">
+        <view class="menu-item {{item.flag?'menuWrap-class' : ''}}" wx:for="{{reasonList}}" wx:key="id"
+          data-index="{{index}}" bindtap="select">{{item.name}}</view>
+      </view>
+      <view class="modal-menuWrap" style="margin-top: 26rpx;" bindtap="click_flag">
+        <view class="menu-tag" style="{{flag?'background:#f92643;color:white;':''}}">其他</view>
+        <view class="menu-input" style="{{flag?'border:1px solid red':''}}">
+          <input type="text" bindinput="inputReason" placeholder="请输入其他原因" />
+        </view>
+      </view>
+
+    </view>
+
+    <view class="modal-butItem">
+      <view class="modal-but">
+        <button style="width: 100%;" bindtap="hideModal">取消</button>
+      </view>
+      <view class="modal-but" style="border-left: 2rpx solid #ECECED;">
+        <button style="width: 100%;color: rgb(225, 0, 31);" bindtap="isCancel">确认</button>
+      </view>
+    </view>
+  </view>
+</view>
