@@ -1,6 +1,8 @@
 // pages/carAppointment/carAppointment.js\
 var util=require('../../utils/util')
 var skip = 0;
+var reason='预约商品无货';
+var ind;
 Page({
 
   /**
@@ -21,6 +23,8 @@ Page({
         "flag":false
       }
     ],
+    flag:false,
+    reason:''
   },
 
   /**
@@ -30,6 +34,18 @@ Page({
     var that = this;
     skip = 0;
     that.loadData()
+  },
+  click_flag:function(){
+    let rea=this.data.reasonList;
+    reason=this.data.reason;
+    for(let i of rea){
+      i.flag=false;
+    }
+    this.setData({flag:true,reasonList:rea})
+  },
+  inputReason:function(e){
+    reason=e.detail.value;
+    this.setData({reason:e.detail.value})
   },
   inputSearch: function (e) {
     this.setData({
@@ -212,6 +228,7 @@ Page({
   //弹窗
   cancel(e) {
     let that = this;
+    ind = e.currentTarget.dataset.index;
     let target = e.currentTarget.dataset.target;
       that.setData({
         modalName: target
@@ -226,84 +243,93 @@ Page({
   select(e){
     let reasonList = this.data.reasonList;
     let index = e.currentTarget.dataset.index;
+    this.setData({flag:false})
     console.log(index);
     for (let i in reasonList) reasonList[i].flag = false
     reasonList[index].flag = true;
+    reason=reasonList[index].name
     this.setData({
       reasonList
     })
-   
     console.log(this.data.reasonList);
   },
-  // cancel: function (e) {
-  //   var that = this;
-  //   var ind = e.currentTarget.dataset.index;
-  //   wx.requestSubscribeMessage({
-  //     tmplIds: ['SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM'],
-  //     success(res) {
-  //       if (JSON.stringify(res).indexOf('accept') !== -1) {
-  //         wx.showLoading({
-  //           title: '取消中',
-  //         })
-  //         wx.cloud.callFunction({
-  //           name: 'recordDelete',
-  //           data: {
-  //             collection: 'reservation',
-  //             where: {
-  //               _id: that.data.list[ind]._id
-  //             }
-  //           }
-  //         }).then(res => {
-  //           skip = skip - 1;
-  //           let list = that.data.list;
-  //           wx.setStorageSync('_quit', list[ind]._openid)
-  //           list.splice(ind, 1)
-  //           that.setData({
-  //             list: list
-  //           })
-  //           let userInfo = wx.getStorageSync('userInfo')
-  //           let id=wx.getStorageSync('_quit')
-  //           let nowDate=util.formatTime(new Date());
-  //           let name=userInfo.shop[userInfo.shop.length - 1].shop_name.substring(0,19);
-  //           let pr={
-  //             "thing1": {
-  //               "value": name
-  //             },
-  //             "thing5": {
-  //               "value": '店主取消了您的预约'
-  //             }
-  //           }
-  //           util.sendMessage(id, pr, 'SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0')
-  //           wx.cloud.callFunction({
-  //             name:'recordAdd',
-  //             data:{
-  //               collection:'message',
-  //               addData:{
-  //                 creation_date:nowDate,
-  //                 creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
-  //                 shop_code:userInfo.shop[userInfo.shop.length - 1].shop_code,
-  //                 _openid:list[ind]._openid,
-  //                 re_code:list[ind].re_code,
-  //                 title:'门店取消预约',
-  //                 content:userInfo.shop[userInfo.shop.length - 1].shop_name+'取消了您'+list[ind].time+'的到店预约',
-  //                 type:'re',
-  //                 res:'fail',
-  //                 read:'unread'
-  //               }
-  //             }
-  //           })
-  //           wx.hideLoading({
-  //             success: (res) => {},
-  //           })
-  //           wx.showToast({
-  //             title: '取消成功',
-  //           })
-  //           wx.removeStorageSync('_quit')
-  //         })
-  //       }
-  //     }
-  //   })
-  // },
+   isCancel: function (e) {
+     var that = this;
+     if(reason==''){
+       wx.showToast({
+         title: '请输入原因',
+         icon:'none',
+         duration:1000
+       })
+       return
+     }
+     wx.requestSubscribeMessage({
+       tmplIds: ['SKiAQj0y7dfeW194AbS_uHnRfoqxuE_kz8Y-9uKeJwM'],
+       success(res) {
+         if (JSON.stringify(res).indexOf('accept') !== -1) {
+           wx.showLoading({
+             title: '取消中',
+           })
+           wx.cloud.callFunction({
+             name: 'recordDelete',
+             data: {
+               collection: 'reservation',
+               where: {
+                 _id: that.data.list[ind]._id
+               }
+             }
+           }).then(res => {
+             skip = skip - 1;
+             let list = that.data.list;
+             wx.setStorageSync('_quit', list[ind]._openid)
+             list.splice(ind, 1)
+             that.setData({
+               list: list
+             })
+             let userInfo = wx.getStorageSync('userInfo')
+             let id=wx.getStorageSync('_quit')
+             let nowDate=util.formatTime(new Date());
+             let name=userInfo.shop[userInfo.shop.length - 1].shop_name.substring(0,19);
+             let pr={
+               "thing1": {
+                 "value": name
+               },
+               "thing5": {
+                 "value": reason
+               }
+             }
+             util.sendMessage(id, pr, 'SVnl7juS4DJeu57ZvCHsFtWrp3y1bfTT7_rbv36mXY0')
+             that.setData({modalName:null})
+             wx.hideLoading({
+              success: (res) => {},
+            })
+            wx.showToast({
+              title: '取消成功',
+            })
+             wx.cloud.callFunction({
+               name:'recordAdd',
+               data:{
+                 collection:'message',
+                 addData:{
+                   creation_date:nowDate,
+                   creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
+                   shop_code:userInfo.shop[userInfo.shop.length - 1].shop_code,
+                   _openid:id,
+                   re_code:list[ind].re_code,
+                   title:'门店取消预约',
+                   content:userInfo.shop[userInfo.shop.length - 1].shop_name+"："+reason,
+                   type:'re',
+                   res:'fail',
+                   read:'unread'
+                 }
+               }
+             })
+             wx.removeStorageSync('_quit')
+           })
+         }
+       }
+     })
+   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

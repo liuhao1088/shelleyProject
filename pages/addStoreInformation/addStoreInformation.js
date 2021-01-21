@@ -451,6 +451,13 @@ Page({
         title: '信息已经提交，之后会有工作人员联系您，请耐心等待',
         showCancel: false,
         confirmText: '确认',
+        success:function(res){
+          if(res.confirm){
+            wx.navigateBack({
+              delta: 0,
+            })
+          }
+        }
       })
       setTimeout(function () {
         that.setData({
@@ -541,6 +548,13 @@ Page({
           title: '信息已经提交，之后会有工作人员审查，请耐心等待',
           showCancel: false,
           confirmText: '确认',
+          success:function(res){
+            if(res.confirm){
+              wx.navigateBack({
+                delta: 0,
+              })
+            }
+          }
         })
         let userInfo=wx.getStorageSync('userInfo')
         userInfo.shop[userInfo.shop.length - 1].modify_shop_img=imgArr

@@ -323,7 +323,7 @@ Page({
             shop_code: that.data.data.shop_code,
             shop_id: that.data.data._id,
             re_code: code + numberCode,
-            title: "门店预约成功",
+            title: "门店预约已提交",
             content: '您在' + that.data.data.shop_name + '预约了' + that.data.startTime + '到店体验' + cont,
             type: 'myre',
             read: 'unread'

@@ -27,8 +27,7 @@
         <view class="but" data-index="{{index}}" bindtap="confirm">
           <button class="cu-btn round sm bg-blue accept">接受预约</button>
         </view>
-        <view class="but" style="margin-right: 30rpx;" data-index="{{index}}" bindtap="cancel"
-        bindtap="cancel"  data-target="cancel">
+        <view class="but" style="margin-right: 30rpx;" data-index="{{index}}" bindtap="cancel" data-target="cancel">
           <button class="cu-btn round sm bg-white cancel">取消预约</button>
         </view>
       
@@ -60,7 +59,7 @@
         <view class="but" data-index="{{index}}" bindtap="confirm">
           <button class="cu-btn round sm accept">接受预约</button>
         </view>
-        <view class="but" style="margin-right: 30rpx;" data-index="{{index}}" bindtap="cancel"  data-target="cancel">
+        <view class="but" style="margin-right: 30rpx;" data-index="{{index}}" bindtap="cancel" data-target="cancel">
           <button class="cu-btn round sm bg-white cancel">取消预约</button>
         </view>
       </view>
@@ -84,11 +83,10 @@
         <view class="modal-menuWrap">
           <view class="menu-item {{item.flag?'menuWrap-class' : ''}}" wx:for="{{reasonList}}" wx:key="id" data-index="{{index}}" bindtap="select">{{item.name}}</view>
         </view>
-        
-        <view class="modal-menuWrap" style="margin-top: 26rpx;">
-          <view class="menu-tag">其他</view>
-          <view class="menu-input">
-            <input type="text" placeholder="请输入其他原因"/>
+        <view class="modal-menuWrap" style="margin-top: 26rpx;" bindtap="click_flag">
+          <view class="menu-tag" style="{{flag?'background:#f92643;color:white;':''}}">其他</view>
+          <view class="menu-input" style="{{flag?'border:1px solid red':''}}">
+            <input type="text" bindinput="inputReason" placeholder="请输入其他原因"/>
           </view>
         </view>
        
@@ -99,7 +97,7 @@
           <button style="width: 100%;" bindtap="hideModal">取消</button>
         </view>
         <view class="modal-but" style="border-left: 2rpx solid #ECECED;">
-          <button style="width: 100%;color: rgb(225, 0, 31);">确认</button>
+          <button style="width: 100%;color: rgb(225, 0, 31);" bindtap="isCancel">确认</button>
         </view>
       </view>
     </view>
