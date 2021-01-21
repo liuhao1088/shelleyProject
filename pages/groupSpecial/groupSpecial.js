@@ -286,12 +286,17 @@ Page({
     } else {
       let data = wx.getStorageSync('nearby');
       let shop=wx.getStorageSync('nearby_shop')
-      if (shop.team_using==false && (data == undefined || data == '')) {
+      that.arrange(data);
+      if(data == undefined || data == ''){
         that.setData({
           action: 'finish'
         })
       }
-      that.arrange(data);
+      if (shop.team_using==false&&data.shop_code=='all') {
+        that.setData({
+          action: 'finish'
+        })
+      }
     }
   },
   //生成拼团券
