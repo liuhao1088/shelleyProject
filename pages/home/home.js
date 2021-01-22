@@ -79,6 +79,40 @@ Page({
         bottom:'150rpx'
       })
     }
+    if (wx.getStorageSync('userInfo')) {
+      let userInfo = wx.getStorageSync('userInfo')
+      wx.cloud.callFunction({
+        name: 'multQuery',
+        data: {
+          collection: 'user',
+          match: {
+            _openid: userInfo._openid
+          },
+          or: [{}],
+          and: [{}],
+          lookup: {
+            from: 'shop',
+            localField: '_openid',
+            foreignField: '_openid',
+            as: 'shop',
+          },
+          lookup2: {
+            from: 'coupon',
+            localField: '_openid',
+            foreignField: '_openid',
+            as: 'coupon',
+          },
+          sort: {
+            creation_date: -1
+          },
+          skip: 0,
+          limit: 1
+        }
+      }).then(res => {
+        let user = res.result.list[0];
+        wx.setStorageSync('userInfo', user)
+      })
+    }
   },
 
   /**
