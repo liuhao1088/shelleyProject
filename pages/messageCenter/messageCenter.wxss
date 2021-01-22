@@ -1,6 +1,19 @@
 page {
   background-color: #f0f0f0;
 }
+button {
+  background-color: transparent;
+  padding-left: 0rpx;
+  font-size:28rpx;
+  width:130rpx;
+  justify-content: left;
+  padding-right: 0;
+  border-radius:0;
+  line-height:inherit;
+}
+button::after {
+  border: none;
+}
 
 .clear-item {
   width: 90%;

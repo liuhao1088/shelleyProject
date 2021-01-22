@@ -447,8 +447,26 @@ Page({
         prove: 'waiting'
       }]
       wx.setStorageSync('userInfo', userInfo)
+      wx.cloud.callFunction({
+        name:'recordAdd',
+        data:{
+          collection:'message',
+          addData:{
+            creation_date:creation_date,
+            creation_timestamp:Date.parse(creation_date.replace(/-/g, '/')) / 1000,
+            _openid:userInfo._openid,
+            shop_code:'none',
+            title:"提交成功",
+            content:'您的门店认证申请已提交审核，预计3个工作日内会有工作人员与您联系，请保持手机畅通。',
+            type:'check',
+            res:'waiting',
+            read:'unread'
+          }
+        }
+      })
       wx.showModal({
-        title: '信息已经提交，之后会有工作人员联系您，请耐心等待',
+        title: '提交成功',
+        content: '您的门店认证申请已提交审核，预计3个工作日内会有工作人员与您联系，请保持手机畅通。',
         showCancel: false,
         confirmText: '确认',
         success:function(res){
@@ -485,6 +503,8 @@ Page({
     var that = this;
     let addressJson = wx.getStorageSync('addressJson');
     let transmit = that.data.transmit;
+    const creation_date = util.formatTime(new Date())
+    let userInfo = wx.getStorageSync('userInfo');
     let data={};
     switch(transmit.address == that.data.address){
       case false:
@@ -544,8 +564,26 @@ Page({
           icon: 'success',
           duration: 500
         })
+        wx.cloud.callFunction({
+          name:'recordAdd',
+          data:{
+            collection:'message',
+            addData:{
+              creation_date:creation_date,
+              creation_timestamp:Date.parse(creation_date.replace(/-/g, '/')) / 1000,
+              _openid:userInfo._openid,
+              shop_code:'none',
+              title:"提交成功",
+              content:'您的门店修改申请已提交审核，预计3个工作日内会有工作人员与您联系，请保持手机畅通。',
+              type:'check',
+              res:'waiting',
+              read:'unread'
+            }
+          }
+        })
         wx.showModal({
-          title: '信息已经提交，之后会有工作人员审查，请耐心等待',
+          title: '提交成功',
+          content: '您的门店修改申请已提交审核，预计3个工作日内会有工作人员与您联系，请保持手机畅通。',
           showCancel: false,
           confirmText: '确认',
           success:function(res){

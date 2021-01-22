@@ -41,7 +41,10 @@
       <view class="wrap-process" wx:if="{{list[ind].shop.length==1}}"> {{list[ind].shop[0].address}}{{list[ind].shop[0].detail}}<text class="iconfont icondaohang" bindtap="openLocation"></text></view>
       <view class="wrap-process" wx:if="{{list[ind].shop.length==1}}">电话：{{list[ind].shop[0].phone}}<text class="iconfont icondianhua" bindtap="callPhone"></text>
       </view>
-
+      <view class="wrap-process row" wx:if="{{list[ind].type=='check'}}">在线客服：<button class='' style="color:rgb(46, 113, 196);margin-left:0px;" open-type="contact" bindcontact="handleContact">点击这里</button>
+      </view>
+      <view class="wrap-process" wx:if="{{list[ind].type=='check'}}">咨询时间：周一至周五（工作日）10:00-18:00
+      </view>
     </view>
      <!-- 直播预约成功 -->
     <!-- <view class="wrapper-process">
