@@ -685,6 +685,7 @@ Page({
       for (let u in cou) {
         if (i == cou[u].shopping_ind) {
           data.shopping[i].status = true
+          data.shopping[i].state= cou[u].status
           if (cou[u].status == 'waiting') {
             data.shopping[i].parse = cou[u].cou_code
           }

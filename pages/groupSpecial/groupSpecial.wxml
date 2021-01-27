@@ -61,7 +61,7 @@
                 </view>
                 <view class="swiper-name">{{userInfo.nickName}}</view>
               </view>
-              <view class="coupon-time">您已经领取过该优惠券</view>
+              <view class="coupon-time">{{shopping.state=='complete'?'您已经参与过该拼团':'您已经领取过该优惠券'}}</view>
             </view>
           </view>
         </view>
