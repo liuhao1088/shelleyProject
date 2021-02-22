@@ -145,7 +145,7 @@ Page({
         as: 'act',
         from2: 'reservation',
         let2: {
-          shop_id: '_id',
+          shop_id: '$_id',
         },
         match2: ['$shop_id', '$$shop_id'],
         matchs2: ['$_openid', app.globalData.openid],
@@ -160,6 +160,7 @@ Page({
         limit: 100
       }
     }).then(res => {
+      console.log(res)
       let data = that.data.list.concat(res.result.list);
       if (res.result.list.length == 0) {
         that.loadProgress(100)
