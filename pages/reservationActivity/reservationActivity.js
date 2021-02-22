@@ -48,7 +48,7 @@ Page({
     var that = this;
     let userInfo=wx.getStorageSync('userInfo')
     scode=userInfo.shop[userInfo.shop.length - 1].shop_code;
-    id=userInfo.shop[userInfo.shop.length - 1].shop_id;
+    id=userInfo.shop[userInfo.shop.length - 1]._id;
     if(options.parse){
       scode='all'
       id='all'

@@ -61,7 +61,7 @@ Page({
       var that = this;
       let userInfo = wx.getStorageSync('userInfo')
       wx.cloud.database().collection('reservation').where({
-        shop_code: userInfo.shop[userInfo.shop.length - 1].shop_code
+        shop_id: userInfo.shop[userInfo.shop.length - 1]._id
       }).where({
         re_code: {
           $regex: '.*' + that.data.search,
@@ -112,7 +112,7 @@ Page({
     })
     let userInfo = wx.getStorageSync('userInfo')
     wx.cloud.database().collection('reservation').where({
-      shop_code: userInfo.shop[userInfo.shop.length - 1].shop_code
+      shop_id: userInfo.shop[userInfo.shop.length - 1]._id
     }).orderBy('creation_date', 'desc').skip(skip).limit(5).get().then(res => {
       let data = res.data;
       for (let i = 0; i < data.length; i++) {
@@ -198,6 +198,7 @@ Page({
                     creation_date: nowDate,
                     creation_timestamp: Date.parse(nowDate.replace(/-/g, '/')) / 1000,
                     shop_code: userInfo.shop[userInfo.shop.length - 1].shop_code,
+                    shop_id: userInfo.shop[userInfo.shop.length - 1]._id,
                     _openid: list[ind]._openid,
                     re_code: list[ind].re_code,
                     title: '门店接受预约',
@@ -323,6 +324,7 @@ Page({
                   creation_date: nowDate,
                   creation_timestamp: Date.parse(nowDate.replace(/-/g, '/')) / 1000,
                   shop_code: userInfo.shop[userInfo.shop.length - 1].shop_code,
+                  shop_id: userInfo.shop[userInfo.shop.length - 1]._id,
                   _openid: id,
                   re_code: list[ind].re_code,
                   title: '门店取消预约',

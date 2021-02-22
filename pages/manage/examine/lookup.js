@@ -274,6 +274,7 @@ Page({
                         creation_timestamp:Date.parse(nowDate.replace(/-/g, '/')) / 1000,
                         _openid:editData._openid,
                         shop_code:num,
+                        shop_id:editData._id,
                         title:"认证门店成功",
                         content:'您的认证门店 '+editData.shop_name+' 已审核通过，门店信息已更新，更多赋能等待您的体验~。',
                         type:'check',

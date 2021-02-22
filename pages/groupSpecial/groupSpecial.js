@@ -263,8 +263,8 @@ Page({
           and: [{}],
           lookup: {
             from: 'shop',
-            localField: 'shop_code',
-            foreignField: 'shop_code',
+            localField: 'shop_id',
+            foreignField: '_id',
             as: 'shop',
           },
           lookup2: {

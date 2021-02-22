@@ -86,7 +86,7 @@ Page({
     });
     skip = 0;
     let userInfo = wx.getStorageSync('userInfo')
-    code = userInfo.shop[userInfo.shop.length - 1].shop_code;
+    code = userInfo.shop[userInfo.shop.length - 1]._id;
     if (options.data) {
       code = 'all'
       that.setData({transmit:true})
@@ -149,7 +149,7 @@ Page({
         search = 'team'
       }
       wx.cloud.database().collection('activity').where({
-        shop_code: code
+        shop_id: code
       }).where(_.or([{
         act_code: {
           $regex: '.*' + that.data.search,
@@ -220,7 +220,7 @@ Page({
     })
     var _ = wx.cloud.database().command;
     wx.cloud.database().collection('activity').where({
-      shop_code: code
+      shop_id: code
     }).orderBy('creation_date', 'desc').skip(skip).limit(10).get().then(res => {
       let data = that.data.list.concat(res.data)
       if (res.data.length == 0) {

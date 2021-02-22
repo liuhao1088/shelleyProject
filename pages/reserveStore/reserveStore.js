@@ -135,9 +135,9 @@ Page({
         },
         from: 'activity',
         let: {
-          shop_code: '$shop_code',
+          shop_id: '$_id',
         },
-        match: ['$shop_code', '$$shop_code'],
+        match: ['$shop_id', '$$shop_id'],
         matchs: ['$type', 'reservation'],
         project: {
           shop_code: 0
@@ -145,9 +145,9 @@ Page({
         as: 'act',
         from2: 'reservation',
         let2: {
-          shop_code: '$shop_code',
+          shop_id: '_id',
         },
-        match2: ['$shop_code', '$$shop_code'],
+        match2: ['$shop_id', '$$shop_id'],
         matchs2: ['$_openid', app.globalData.openid],
         project2: {
           shop_code: 0
