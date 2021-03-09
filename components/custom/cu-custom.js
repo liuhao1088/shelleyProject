@@ -42,12 +42,12 @@ Component({
   methods: {
     BackPage() {
       wx.switchTab({
-        url: '/pages/index/index',
+        url: '../index/index',
       })
     },
     toHome(){
       wx.switchTab({
-        url: 'pages/index/index',
+        url: '../index/index',
       })
     }
   }
