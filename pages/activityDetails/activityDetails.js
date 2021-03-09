@@ -104,9 +104,13 @@ Page({
         }
         wx.cloud.database().collection('activity').where({shop_code:'all',type:'team'}).orderBy('creation_date','desc').skip(0).limit(1).get().then(res=>{
           let blist=res.data;
-          blist[0].team_using=team_using;
+          if(res.data.length>0){
+            blist[0].team_using=team_using;
+          }
           wx.cloud.database().collection('activity').where({shop_code:'all',type:'reservation'}).orderBy('creation_date','desc').skip(0).limit(1).get().then(res=>{
-            res.data[0].re_using=re_using;
+            if(res.data.length>0){
+              res.data[0].re_using=re_using;
+            }
             blist=blist.concat(res.data)
             that.setData({blist:blist})
           })
@@ -345,7 +349,7 @@ Page({
     return {
       title: "雪莱特智能LED车灯", //标题
       imageUrl: 'https://img10.360buyimg.com/ddimg/jfs/t1/148055/20/20623/109199/5fe94a22E2aeac6fb/f5ba90fc9d52fc06.png', //图片路径
-      path: '/page/home/home'
+      path: '/pages/home/home'
     }
    }
 })

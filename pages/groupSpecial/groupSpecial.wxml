@@ -30,7 +30,7 @@
       <view class="coupon-mainItem">
         <view class="coupon-titleItem">
           <view class="coupon-title">{{shopping.name}}</view>
-          <view class="coupon-address">{{data.shop[0].shop_name+'专用'||'全店通用'}}</view>
+          <view class="coupon-address">{{data.shop_code=='all'?'全店通用':data.shop[0].shop_name+'专用'}}</view>
         </view>
 
         <view class="coupon-swiper" wx:if="{{shopping.status!==true&&action=='going'}}">

@@ -329,7 +329,7 @@ Page({
       return {
         title: "大品牌，好未来！", //标题
         imageUrl: 'https://img10.360buyimg.com/ddimg/jfs/t1/148055/20/20623/109199/5fe94a22E2aeac6fb/f5ba90fc9d52fc06.png', //图片路径
-        path: '/page/index/index'
+        path: '/pages/index/index'
       }
     }
   }
