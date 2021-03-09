@@ -42,7 +42,7 @@
   "compileType": "miniprogram",
   "libVersion": "2.14.0",
   "appid": "wxf63dcaf8f95ea541",
-  "projectname": "project",
+  "projectname": "shelleyProject",
   "debugOptions": {
     "hidedInDevtools": []
   },
